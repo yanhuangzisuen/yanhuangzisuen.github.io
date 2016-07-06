@@ -193,7 +193,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Accueil
+            Startseite
           </a>
         </li>
       
@@ -203,7 +203,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -256,105 +256,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/03/oc/nsstringinterceptionandreplacement/" itemprop="url">
-                  Non titré
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posté le</span>
-            <time itemprop="dateCreated" datetime="2016-07-03T18:35:57+08:00" content="2016-07-03">
-              2016-07-03
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="字符串的截取和替换"><a href="#字符串的截取和替换" class="headerlink" title="字符串的截取和替换"></a>字符串的截取和替换</h1><h2 id="字符串的截取"><a href="#字符串的截取" class="headerlink" title="字符串的截取"></a>字符串的截取</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1.从指定位置from(包含指定位置的字符)开始到结尾</span></div><div class="line">- (<span class="built_in">NSString</span> *)substringFromIndex:(<span class="built_in">NSUInteger</span>)from;</div><div class="line"></div><div class="line"><span class="comment">//2.从字符串的开头一直截取到指定的位置to(不包含该位置的字符)</span></div><div class="line">- (<span class="built_in">NSString</span> *)substringToIndex:(<span class="built_in">NSUInteger</span>)to;</div><div class="line"></div><div class="line"><span class="comment">//3.按照所给的NSRange从字符串中截取子串</span></div><div class="line">- (<span class="built_in">NSString</span> *)substringWithRange:(<span class="built_in">NSRange</span>)range;</div></pre></td></tr></table></figure>
-<h2 id="字符串的替换"><a href="#字符串的替换" class="headerlink" title="字符串的替换"></a>字符串的替换</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用 replacement 替换 target</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByReplacingOccurrencesOfString:(<span class="built_in">NSString</span> *)target withString:(<span class="built_in">NSString</span> *)replacement;</div></pre></td></tr></table></figure>
-<h2 id="字符串与路径"><a href="#字符串与路径" class="headerlink" title="字符串与路径"></a>字符串与路径</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//是否是绝对路径</span></div><div class="line">- (<span class="built_in">BOOL</span>)isAbsolutePath;</div><div class="line"></div><div class="line"><span class="comment">//获得最后一个目录</span></div><div class="line">- (<span class="built_in">NSString</span> *)lastPathComponent;</div><div class="line"></div><div class="line"><span class="comment">//删除最后一个目录</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByDeletingLastPathComponent;</div><div class="line"></div><div class="line"><span class="comment">//在路径的后面拼接一个目录</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByAppendingPathComponent:(<span class="built_in">NSString</span> *)str;</div><div class="line"><span class="comment">//or 使用stringByAppendingString:或者stringByAppendingFormat:拼接字符串内容</span></div></pre></td></tr></table></figure>
-<h2 id="字符串与文件扩展名"><a href="#字符串与文件扩展名" class="headerlink" title="字符串与文件扩展名"></a>字符串与文件扩展名</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取扩展名</span></div><div class="line">- (<span class="built_in">NSString</span> *)pathExtension;</div><div class="line"></div><div class="line"><span class="comment">//删除尾部扩展名</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByDeletingPathExtension;</div><div class="line"></div><div class="line"><span class="comment">//在尾部添加扩展名</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByAppendingPathExtension:(<span class="built_in">NSString</span> *)str;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/07/03/oc/nsstringsearch/" itemprop="url">
-                  Non titré
+                  Unbenannt
                 </a>
               
             
@@ -366,7 +269,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posté le</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-07-03T17:57:18+08:00" content="2016-07-03">
               2016-07-03
             </time>
@@ -466,7 +369,7 @@
               
                 
                 <a class="post-title-link" href="/2016/07/03/oc/nsstringcompare/" itemprop="url">
-                  Non titré
+                  Unbenannt
                 </a>
               
             
@@ -478,7 +381,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posté le</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-07-03T17:31:45+08:00" content="2016-07-03">
               2016-07-03
             </time>
@@ -576,7 +479,7 @@
               
                 
                 <a class="post-title-link" href="/2016/07/03/oc/nsstringandnsurl/" itemprop="url">
-                  Non titré
+                  Unbenannt
                 </a>
               
             
@@ -588,7 +491,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posté le</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-07-03T17:05:28+08:00" content="2016-07-03">
               2016-07-03
             </time>
@@ -693,7 +596,7 @@
               
                 
                 <a class="post-title-link" href="/2016/07/03/oc/nsstring/" itemprop="url">
-                  Non titré
+                  Unbenannt
                 </a>
               
             
@@ -705,7 +608,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posté le</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-07-03T16:38:17+08:00" content="2016-07-03">
               2016-07-03
             </time>
@@ -814,7 +717,7 @@
               
                 
                 <a class="post-title-link" href="/2016/07/03/oc/classandobject/" itemprop="url">
-                  Non titré
+                  Unbenannt
                 </a>
               
             
@@ -826,7 +729,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posté le</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-07-03T16:14:15+08:00" content="2016-07-03">
               2016-07-03
             </time>
@@ -1030,7 +933,7 @@
               
                 
                 <a class="post-title-link" href="/2016/07/03/ui/README/" itemprop="url">
-                  Non titré
+                  Unbenannt
                 </a>
               
             
@@ -1042,7 +945,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posté le</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-07-03T14:55:44+08:00" content="2016-07-03">
               2016-07-03
             </time>
@@ -1182,7 +1085,7 @@
               
                 
                 <a class="post-title-link" href="/2016/07/03/oc/README/" itemprop="url">
-                  Non titré
+                  Unbenannt
                 </a>
               
             
@@ -1194,7 +1097,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posté le</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-07-03T14:55:43+08:00" content="2016-07-03">
               2016-07-03
             </time>
@@ -1375,7 +1278,7 @@
               
                 
                 <a class="post-title-link" href="/2016/07/03/c/README/" itemprop="url">
-                  Non titré
+                  Unbenannt
                 </a>
               
             
@@ -1387,7 +1290,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posté le</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-07-03T14:55:37+08:00" content="2016-07-03">
               2016-07-03
             </time>
@@ -1468,7 +1371,7 @@
               
                 
                 <a class="post-title-link" href="/2016/07/03/README/" itemprop="url">
-                  Non titré
+                  Unbenannt
                 </a>
               
             
@@ -1480,7 +1383,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posté le</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-07-03T14:54:28+08:00" content="2016-07-03">
               2016-07-03
             </time>
@@ -1540,11 +1443,208 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/03/SUMMARY/" itemprop="url">
+                  Unbenannt
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-07-03T14:54:28+08:00" content="2016-07-03">
+              2016-07-03
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul>
+<li><a href="README.md">Introduction</a></li>
+<li><a href="c/README.md">C语言</a></li>
+<li><a href="oc/README.md">Objective-C</a><ul>
+<li><a href="oc/classandobject.md">类与对象</a></li>
+<li><a href="oc/nsstring.md">NSString</a><ul>
+<li><a href="oc/nsstringandnsurl.md">使用NSURL读写字符串</a></li>
+<li><a href="oc/nsstringcompare.md">字符串的比较</a></li>
+<li><a href="oc/nsstringsearch.md">字符串搜索与NSRange</a></li>
+<li><a href="oc/nsstringinterceptionandreplacement.md">字符串的截取和替换</a></li>
+<li><a href="oc/nsstringother.md">NSString的其他用法</a></li>
+<li><a href="oc/nsmutablestring.md">NSMutableString</a></li>
+</ul>
+</li>
+<li><a href="oc/nsarray.md">NSArray</a><ul>
+<li><a href="oc/nsarrayaction.md">NSArray常见用法</a></li>
+<li><a href="oc/nsarraytraverse.md">NSArray的遍历</a></li>
+<li><a href="oc/nsarrayandfile.md">NSArray读写文件</a></li>
+<li><a href="oc/nsarrayandnsstring.md">NSArray与NSString</a></li>
+<li><a href="oc/nsmutablearray.md">NSMutableArray</a></li>
+</ul>
+</li>
+<li><a href="oc/nsdictionary.md">NSDictionary</a><ul>
+<li><a href="oc/nsdictionaryaction.md">NSDictionary常见用法</a></li>
+<li><a href="oc/nsdictionaryandfile.md">NSDictionary简写与文件操作</a></li>
+<li><a href="oc/nsmutabledictionary.md">NSMutableDictionary</a></li>
+</ul>
+</li>
+<li><a href="oc/nsfilemanager.md">NSFileManager</a><ul>
+<li><a href="oc/nsfilemanagerandfile.md">NSFileManager的文件访问</a></li>
+<li><a href="oc/nsfilemanagerfileoperation.md">NSFileManager的文件或文件夹操作</a></li>
+<li><a href="oc/iossanbox.md">iOS沙盒(sanbox)机制</a></li>
+</ul>
+</li>
+<li><a href="oc/struct.md">Struct结构体</a></li>
+<li><a href="oc/nsnumber.md">NSNumber</a></li>
+<li><a href="oc/nsvalue.md">NSValue</a></li>
+<li><a href="oc/nsdate.md">NSDate</a></li>
+<li><a href="oc/gathermemorymanagement.md">集合对象的内存管理</a></li>
+<li><a href="oc/copy.md">Copy</a><ul>
+<li><a href="oc/copyandmemorymanagement.md">Copy与内存管理</a></li>
+<li><a href="oc/copyaction.md">为自定义的类实现copy操作</a></li>
+</ul>
+</li>
+<li><a href="oc/singletonpattern.md">单例模式</a></li>
+<li><a href="oc/memorymanagement.md">内存管理</a><ul>
+<li><a href="oc/principle.md">内存管理的原理及分类</a></li>
+<li><a href="oc/mrc.md">MRC</a></li>
+<li><a href="oc/mrcprinciple.md">手动管理内存的原则</a></li>
+<li><a href="oc/moreobject.md">多个对象的内存管理</a></li>
+<li><a href="oc/setmemorymanagement.md">set方法的内存管理</a></li>
+<li><a href="oc/property.md">@property</a></li>
+<li><a href="oc/class.md">@class</a></li>
+<li><a href="oc/loopretain.md">循环retain</a></li>
+<li><a href="oc/nsstringandmrc.md">NSString类的内存管理</a></li>
+<li><a href="oc/autorelease.md">Autorelease</a><ul>
+<li><a href="oc/autoreleaseattention.md">Autorelease注意事项</a></li>
+</ul>
+</li>
+<li><a href="oc/arc.md">ARC</a><ul>
+<li><a href="oc/arcloop.md">ARC循环引用</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="oc/category.md">Category</a><ul>
+<li><a href="oc/extension.md">Extension</a></li>
+</ul>
+</li>
+<li><a href="oc/block.md">Block</a></li>
+<li><a href="oc/protocol.md">Protocol</a><ul>
+<li><a href="oc/idandinstancetype.md">protocol类型限制</a></li>
+<li><a href="oc/delegate.md">delegate</a></li>
+</ul>
+</li>
+<li><a href="oc/foundation.md">Foundation</a></li>
+</ul>
+</li>
+<li><a href="ui/README.md">UI</a><ul>
+<li><a href="ui/uiview.md">UIView</a></li>
+<li><a href="ui/uiimageview.md">UIImageView</a></li>
+<li><a href="ui/launch.md">Launch启动图片</a></li>
+<li><a href="ui/uiscrollview.md">UIScrollView</a></li>
+<li><a href="ui/uitableview.md">UITableView</a></li>
+<li><a href="ui/uitableviewcell.md">UITableViewCell</a></li>
+<li><a href="ui/uicollectionview.md">UICollectionView</a></li>
+<li><a href="ui/cellidentifier.md">CellIdentifier</a></li>
+<li><a href="ui/nsnotificationcenter_and_delegate.md">NSNotificationCenter And Delegate</a></li>
+<li><a href="ui/autoresizing.md">Autoresizing</a></li>
+<li><a href="ui/autolayout.md">Autolayout</a></li>
+<li><a href="ui/uipickerview.md">UIPickerView</a></li>
+<li><a href="ui/uiapplication.md">UIApplication</a></li>
+<li><a href="ui/uitextfield.md">UITextField</a></li>
+<li><a href="ui/persistence_data.md">Persistence Data</a></li>
+<li><a href="ui/layoutsubviews.md">LayoutSubViews</a></li>
+<li><a href="ui/transform.md">Transform</a></li>
+<li><a href="ui/uibutton.md">UIButton</a></li>
+<li><a href="ui/storyboardandxib.md">StoryboardAndXib</a></li>
+<li><a href="ui/uilabel.md">UILabel</a></li>
+<li><a href="ui/other.md">Other</a></li>
+<li><a href="ui/uimenucontroller.md">UIMenuController</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
   </nav>
 
 
@@ -1585,8 +1685,8 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">81</span>
-              <span class="site-state-item-name">articles</span>
+              <span class="site-state-item-count">80</span>
+              <span class="site-state-item-name">Artikel</span>
             </a>
           </div>
 
@@ -1653,11 +1753,11 @@
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
-  Thème -
+  Theme -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Pisces
   </a>
