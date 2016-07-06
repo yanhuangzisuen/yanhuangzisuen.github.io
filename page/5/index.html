@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-oc/moreobject" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/moreobject/" class="article-date">
+  <time datetime="2016-07-04T06:21:21.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="多个对象的内存管理"><a href="#多个对象的内存管理" class="headerlink" title="多个对象的内存管理"></a>多个对象的内存管理</h1><ul>
+<li>单个对象的内存管理，看起来非常简单。</li>
+<li>如果对多个对象进行内存管理，并且对象之间是有联系的，那么管理就会变得比较复杂。</li>
+</ul>
+<ul>
+<li>其实，多个对象的内存管理思路，跟管理游戏房间类似：</li>
+<li><p>如：劲舞团，LOL</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1、创建玩家对象</span></div><div class="line">Gamer *game = [[Gamer alloc] init];</div><div class="line"></div><div class="line"><span class="comment">// 2、创建房间对象</span></div><div class="line">Room *room = [[Room alloc] init];</div><div class="line"></div><div class="line"><span class="comment">// 3、让玩家进入房间</span></div><div class="line">game.room = room;</div><div class="line"></div><div class="line"><span class="comment">// 4、释放房间对象</span></div><div class="line">[room release];</div><div class="line"></div><div class="line"><span class="comment">// 5、输出玩家的房间</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"玩家的房间是：%@"</span>,game.room);</div></pre></td></tr></table></figure>
+</li>
+<li><p>此时，会报野指针错误。</p>
+</li>
+</ul>
+<h3 id="多个对象内存管理原则"><a href="#多个对象内存管理原则" class="headerlink" title="多个对象内存管理原则"></a>多个对象内存管理原则</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 声明类</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Gamer</span> : <span class="title">NSObject</span></span></div><div class="line">&#123;</div><div class="line">    Room *_room;</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room;</div><div class="line">- (Room *)room;</div><div class="line"></div><div class="line"><span class="comment">// 实现类</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Gamer</span></span></div><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line"></div><div class="line">    [room <span class="keyword">retain</span>];</div><div class="line">    _room = room;</div><div class="line">&#125;</div><div class="line">- (Room *)room&#123;</div><div class="line">    <span class="keyword">return</span> _room;</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"玩家被释放"</span>);</div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">// main函数实现</span></div><div class="line">  <span class="comment">// 1、创建玩家对象</span></div><div class="line">    Gamer *game = [[Gamer alloc] init];</div><div class="line"></div><div class="line">    <span class="comment">// 2、创建房间对象</span></div><div class="line">    Room *room = [[Room alloc] init];</div><div class="line"></div><div class="line">    <span class="comment">// 3、让玩家进入房间</span></div><div class="line">    game.room = room;</div><div class="line"></div><div class="line">    <span class="comment">// 4、释放房间对象</span></div><div class="line">    [room release];</div><div class="line"></div><div class="line">    <span class="comment">// 5、输出玩家的房间</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"玩家的房间是：%@"</span>,game.room);</div></pre></td></tr></table></figure>
+<ul>
+<li><p>问题：房间无法被释放了怎么办？</p>
+</li>
+<li><p>解决方法：</p>
+<ul>
+<li>在对象被释放时，要把该对象的所有对象类型的成员变量在dealloc当中进行释放:</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Gamer</span></span></div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    [_room release];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"玩家被释放"</span>);</div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<ul>
+<li>需求：让玩家反复进入这个房间。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        Gamer *g = [Gamer new];</div><div class="line"></div><div class="line">        Room *r = [Room new];</div><div class="line"></div><div class="line">        g.room = r;</div><div class="line">        g.room = r;</div><div class="line">        g.room = r;</div><div class="line"></div><div class="line">        [g release];</div><div class="line">        [r release];</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>问题：房间对象无法被释放，怎么办？</p>
+</li>
+<li><p>解决方案：判断新进房间与之前是否是同一个房间。</p>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_room != room) &#123;</div><div class="line">        [room <span class="keyword">retain</span>];</div><div class="line">        _room = room;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>总的来说，有以下几点规律：<ul>
+<li>1）只要还有人使用某对象，那么这个对象就不会被回收。</li>
+<li>2）只要想要使用1个对象，那么就让对象的引用计数器+1。</li>
+<li>3）当不再使用这个对象时，就让对象的引用计数器-1。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/moreobject/" data-id="ciqardt1j000oqwnx24o9gcbd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/mrcprinciple" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/mrcprinciple/" class="article-date">
+  <time datetime="2016-07-04T06:11:46.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="手动管理内存的原则"><a href="#手动管理内存的原则" class="headerlink" title="手动管理内存的原则"></a>手动管理内存的原则</h1><h4 id="1、内存管理的原则"><a href="#1、内存管理的原则" class="headerlink" title="1、内存管理的原则"></a>1、内存管理的原则</h4><ul>
+<li><p>1.原则</p>
+<ul>
+<li>只要还有人在使用某个对象,那么这个对象就不会被回收;</li>
+<li>只要你想使用这个对象,那么就应该让这个对象的引用计数器+1;</li>
+<li>当你不想使用这个对象时,应该让对象的引用计数器-1;</li>
+</ul>
+</li>
+<li><p>2.谁创建,谁release</p>
+<ul>
+<li>1)如果你通过alloc,new,copy来创建了一个对象,那么你就必须调用release或者 autorelease方法.</li>
+<li>2)不是你创建的就不用你去负责</li>
+</ul>
+</li>
+<li><p>3.谁retain,谁release</p>
+<ul>
+<li>只要你调用了retain,无论这个对象时如何生成的,你都要调用release</li>
+</ul>
+</li>
+<li><p>4.总结</p>
+<ul>
+<li>有始有终,有加就应该有减。曾经让某个对象计数器加1,就应该让其在最后-1.</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、内存管理研究内容"><a href="#2、内存管理研究内容" class="headerlink" title="2、内存管理研究内容"></a>2、内存管理研究内容</h4><ul>
+<li>1.野指针(僵尸对象)<ul>
+<li>僵尸对象: 已经被销毁的对象(不能再使用的对象).</li>
+<li>野指针:指向僵尸对象(不可用内存)的指针.</li>
+<li>空指针: 没有指向存储空间的指针(里面存的是nil, 也就是0)</li>
+</ul>
+</li>
+<li>2.内存泄露<ul>
+<li>如果在程序结束后，对象没有被释放，此时称为内存泄露。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Student *s = [[Student alloc] init];</div><div class="line">Student *s1 = [s retain];</div></pre></td></tr></table></figure>
+<ul>
+<li>那么，问题来了，最后由谁释放？</li>
+<li><p>1&gt; 由s释放</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Student *s = [[Student alloc] init];</div><div class="line">Student *s1 = [s retain];</div><div class="line"></div><div class="line">[s release];</div><div class="line">[s release];</div></pre></td></tr></table></figure>
+</li>
+<li><p>2&gt; 由s1释放</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Student *s = [[Student alloc] init];</div><div class="line">Student *s1 = [s <span class="keyword">retain</span>];</div><div class="line"></div><div class="line">[s1 release];</div><div class="line">[s1 release];</div></pre></td></tr></table></figure>
+<ul>
+<li>两种方式都可以释放内存。</li>
+<li>但是，如果没有一种统一的释放原则，那么就会造成代码的混乱，舍都可以释放, 好比一个公司所有的领导没有分工一样, 任何事儿, 任何一个领导都可以插一嘴，很显然这样就没法干了， 因此需要有一个规范去约束使用。</li>
+</ul>
+</li>
+</ul>
+<h4 id="单个对象的野指针问题"><a href="#单个对象的野指针问题" class="headerlink" title="单个对象的野指针问题"></a>单个对象的野指针问题</h4><ul>
+<li><p>思考：对象在堆区的空间已经释放了,还能再使用p吗?</p>
+ <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Person *p = [[Person alloc] init];</div><div class="line">[p release];</div><div class="line"></div><div class="line"><span class="comment">// 因为P已经被释放，此时调用p的run方法，此时会报错。</span></div><div class="line"><span class="comment">// 我们把p叫做野指针，把p指向的对象叫做僵尸对象。</span></div><div class="line">[p run];</div></pre></td></tr></table></figure>
+</li>
+<li><p>野指针错误:访问了一块坏的内存(已经被回收的,不可用的内存)。</p>
+</li>
+<li><p>僵尸对象:所占内存已经被回收的对象,僵尸对象不能再被使用。</p>
+</li>
+<li><p>注意:</p>
+<ul>
+<li><p><strong>1&gt; 空指针:没有指向任何东西的指针,给空指针发送消息不会报错.</strong></p>
+</li>
+<li><p>关于nil和Nil及NULL的区别:</p>
+<ul>
+<li><p>1.nil: A null pointer to an Objective-C object. ( #define nil ((id)0) )</p>
+<ul>
+<li>nil 是一个对象值。</li>
+<li>Person *p = [Person new];</li>
+<li>p = nil;</li>
+</ul>
+</li>
+<li><p>2.Nil: A null pointer to an Objective-C class.</p>
+<ul>
+<li>如:Class someClass = Nil;给类对象赋值</li>
+</ul>
+</li>
+<li><p>3.NULL: A null pointer to anything else. ( #define NULL ((void *)0) )</p>
+<ul>
+<li>NULL是一个通用指针(泛型指针)。</li>
+</ul>
+</li>
+<li><p>4.NSNull: A class defines a singleton object used to represent null values in collection objects (which don’t allow nil values).</p>
+<ul>
+<li>[NSNull null]: The singleton instance of NSNull。</li>
+<li>[NSNull null]是一个对象,他用在不能使用nil的场合。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>2&gt; 不能使用[p retain]让僵尸对象起死复生。</strong></p>
+</li>
+<li><strong>3&gt; 不能对野指针进行操作</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="避免使用僵尸对象的方法"><a href="#避免使用僵尸对象的方法" class="headerlink" title="避免使用僵尸对象的方法"></a>避免使用僵尸对象的方法</h4><ul>
+<li>为了防止不小心调用了僵尸对象,可以将对象赋值nil(对象的空值)<ul>
+<li>给空指针发消息是没有任何反应的。<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">  Student *s = [[Student alloc] init];</div><div class="line"></div><div class="line">  [s release];</div><div class="line"></div><div class="line">  s = <span class="literal">nil</span>;</div><div class="line"></div><div class="line">  <span class="comment">// 打印对象的引用计数器值</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%lu"</span>,[s retainCount]);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="对象的内存泄露"><a href="#对象的内存泄露" class="headerlink" title="对象的内存泄露"></a>对象的内存泄露</h4><ul>
+<li><p>1.retain和release的个数不匹配，导致内存泄露。</p>
+</li>
+<li><p>2.对象使用的过程中被赋值了nil,导致内存泄露<br><img src="image/5.7.png" alt=""></p>
+</li>
+<li><p>3.在函数或者方法中不当的使用retain 或者 release 造成的问题<br><img src="image/5.8.png" alt=""></p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/mrcprinciple/" data-id="ciqardt1q000rqwnxzt8q52h0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/mrc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/mrc/" class="article-date">
+  <time datetime="2016-07-04T06:06:18.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MRC"><a href="#MRC" class="headerlink" title="MRC"></a>MRC</h1><h4 id="1、关闭ARC的方法"><a href="#1、关闭ARC的方法" class="headerlink" title="1、关闭ARC的方法"></a>1、关闭ARC的方法</h4><ul>
+<li>1.设置项目信息<br><img src="image/3.1.png" alt=""></li>
+</ul>
+<h4 id="2、手动管理（MRC）快速入门"><a href="#2、手动管理（MRC）快速入门" class="headerlink" title="2、手动管理（MRC）快速入门"></a>2、手动管理（MRC）快速入门</h4><ul>
+<li><p>内存管理的关键：如何判断对象被回收？</p>
+</li>
+<li><p>重写dealloc方法,代码规范</p>
+<ul>
+<li>一定要[super dealloc],而且要放到最后,意义是:你所创建的每个类都是从父类, 基类继承来的,有很多实例变量也会继承过来,这部分变量有时候会在你的程序内使用,它们不会自动释放内存,你需要调用父类的dealloc方法来释放,然而在此之前你需要先把自己所写类中的变量内存先释放掉,否则就会造成你本类中的内存积压,造成泄漏。</li>
+</ul>
+</li>
+<li><p>注意</p>
+<ul>
+<li>永远不要直接通过对象调用dealloc方法(实际上调用并不会出错)</li>
+<li>一旦对象被回收了,它占用的内存就不再可用,坚持使用会导致程序崩溃(野指针错误)为了防止调用出错,可以将“野指针”指向nil(0)。<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1.创建学生</span></div><div class="line"> Student *s = [[Student alloc] init];</div><div class="line"></div><div class="line"> <span class="comment">// 2.查看学生引用计数器</span></div><div class="line"> <span class="built_in">NSUInteger</span> count = [s retainCount];</div><div class="line"></div><div class="line"> <span class="comment">// 3、输出学生的引用计数器值</span></div><div class="line"> <span class="built_in">NSLog</span>(<span class="string">@"%lu"</span>,count);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>重写dealloc</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"Student.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span></span></div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">  <span class="built_in">NSLog</span>(<span class="string">@"对象即将被释放---"</span>);</div><div class="line">  [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>dealloc是NSObject提供的对象方法，只能由系统自动调用。</p>
+</li>
+<li><p>当对象的引用计数器值为 0 时，系统会自动调用dealloc方法。</p>
+</li>
+<li><p>总结：程序人员可以通过操纵引用计数器的值来控制对象是否被回收。这是MRC内存管理的核心内容。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/mrc/" data-id="ciqardt2z001oqwnx0kc0e1vz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/principle" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/principle/" class="article-date">
+  <time datetime="2016-07-04T04:29:06.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="内存管理的原理及分类"><a href="#内存管理的原理及分类" class="headerlink" title="内存管理的原理及分类"></a>内存管理的原理及分类</h1><p>####1、内存管理的原理</p>
+<ul>
+<li>理解内存管理的原理，要清楚两个概念：<ul>
+<li>1）对象的所有权</li>
+<li>2）引用计数器</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>1）对象的所有权</p>
+<ul>
+<li>任何对象都可能拥有一个或多个所有者。只要一个对象至少还拥有一个所有者,它就会继续存在。</li>
+</ul>
+<ul>
+<li>同时, 一个对象允许有多个所有者, 就好比:</li>
+</ul>
+</li>
+<li><p>Cocoa所有权策略</p>
+<ul>
+<li>任何自己创建的对象都归自己所有,可以使用名字以“alloc”或“new”开头或名字中包含“copy”的方法创建对象,可以使用retain来获得一个对象的所有权。</li>
+</ul>
+</li>
+<li><p>2）对象的引用计数器</p>
+</li>
+<li>每个OC对象都有自己的引用计数器,是一个整数表示对象被引用的次数(有多少个所有者),即现在有多少东西在使用这个对象。对象刚被创建时,默认计数器值为1,当计数器的值变为0时,则对象销毁。</li>
+<li>对象的结构:</li>
+</ul>
+<ul>
+<li><p>在每个OC对象内部,都专门有8个字节的存储空间来存储引用计数器。</p>
+</li>
+<li><p>3）引用计数器的作用</p>
+<ul>
+<li>引用计数器是判断对象要不要回收的依据(存在一种例外:对象值为nil时,引用计数为0,但不回收空间)就是计数器是否为0,若不为0则存在。</li>
+</ul>
+</li>
+<li><p>4）对引用计数器的操作</p>
+<ul>
+<li><p>想要管理对象占用的内存，就要学会操作引用计数器。</p>
+</li>
+<li><p>引用计数器的常见操作</p>
+<ul>
+<li>retain消息：使计数器 +1（该方法返回对象本身）</li>
+<li>release消息：使计数器 -1（不代表释放对象）</li>
+<li>retainCount：获得对象当前的应用计数器值，输出：%ld %lu</li>
+<li><code>注意：release不代表销毁对象，仅仅是引用计数器-1</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>5）对象的销毁</p>
+<ul>
+<li>当1个对象的应用计数器为0时，那么它将被销毁，其占用的内存被系统回收。</li>
+<li>当对象被销毁时，系统会自动向对象发送一条dealloc消息。一般会重写dealloc方法，在这里释放相关的资源，dealloc就像是对象的“临终遗言”。</li>
+<li>一旦重写了dealloc方法，就必须调用[super dealloc]，并且放在代码块的最后调用。</li>
+<li><code>注意：不能直接调用dealloc方法</code>。</li>
+<li>一旦对象被回收了，那么他所占用的存储空间就不再可用，坚持使用会导致程序崩溃（野指针错误）</li>
+</ul>
+</li>
+<li><p>注意;</p>
+<ul>
+<li>1) 如果对象的计数器不为0,那么在整个程序运行过程,它占用的内存就不可能被回收(除 非整个程序已经退出 )</li>
+<li>2)任何一个对象,刚生下来的时候,引用计数器都为1。(对象一旦创建好,默认引用计数器就是1)当使用alloc、new或者copy创建一个对象时,对象的引用计数器默认就是1.</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、内存管理的分类"><a href="#2、内存管理的分类" class="headerlink" title="2、内存管理的分类"></a>2、内存管理的分类</h4><ul>
+<li><p>Objective-C提供了三种内存管理方式:</p>
+<ul>
+<li>1.MannulReference-Counting(MRC,手动管理,在开发iOS4.1之前的版本的项目时我们要自己负责使用引用计数来管理内存,比如要手动 retain、release、autorelease 等,而在其后 的版本可以使用 ARC,让系统自己管理内存。)</li>
+<li>2.Automatic Reference-Counting(ARC,自动引用计数,iOS4.1之后推出的)</li>
+<li><p>3.garbage collection(垃圾回收)。iOS不支持垃圾回收;</p>
+</li>
+<li><p>ARC作为苹果新提供的技术,苹果推荐开发者使用ARC技术来管理内存;</p>
+</li>
+<li><p>开发中如何使用:需要理解MRC,但实际使用时尽量用ARC。</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/principle/" data-id="ciqardt2k001dqwnxjrrskus4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/memorymanagement" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/memorymanagement/" class="article-date">
+  <time datetime="2016-07-04T04:23:00.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h4 id="1、为什么要进行内存管理？"><a href="#1、为什么要进行内存管理？" class="headerlink" title="1、为什么要进行内存管理？"></a>1、为什么要进行内存管理？</h4><ul>
+<li>在程序开发中，应该及时将不用的数据回收，合理分配和管理内存 ，以提高程序的运行效率。</li>
+<li>哪些行为会增加内存占用？<ul>
+<li>创建1个OC对象</li>
+<li>定义1个变量</li>
+<li>调用1个函数或者方法</li>
+</ul>
+</li>
+</ul>
+<p>####2、OC内存管理的范围</p>
+<ul>
+<li>管理范围：</li>
+<li><code>管理任何继承NSObject的对象，对其他的基本数据类型无效。</code></li>
+<li>本质原因：是因为对象和其他数据类型在系统中的存储空间不一样，其他局部变量主要存放于栈中，而对象存储于堆中。当代码块结束时，这个代码块中涉及的所有局部变量会被回收，指向对象的指针也被回收，此时，对象已经没有指针指向，但依然存在于内存中，造成内存泄露。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/memorymanagement/" data-id="ciqardt1m000pqwnx5t2snatf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/singletonpattern" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/singletonpattern/" class="article-date">
+  <time datetime="2016-07-04T04:11:43.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><h4 id="1、单例模式概念"><a href="#1、单例模式概念" class="headerlink" title="1、单例模式概念"></a>1、单例模式概念</h4><ul>
+<li><p>1、 什么是单例模式:(Singleton)</p>
+<ul>
+<li>单例模式的意图是的类的对象成为系统中唯一的实例,提供一个访问点,供客户类共享资源。</li>
+</ul>
+</li>
+<li><p>2、 什么情况下使用单例?</p>
+<ul>
+<li>1）类只能有一个实例,而且必须从一个为人熟知的访问点对其进行访问,比如工厂方法。</li>
+<li>2）这个唯一的实例只能通过子类化进行扩展,而且扩展的对象不会破坏客户端代码。</li>
+</ul>
+</li>
+<li><p>3、 单例设计模式的要点:</p>
+<ul>
+<li>1）某个类只能有一个实例。</li>
+<li>2）他必须自行创建这个对象</li>
+<li>3）必须自行向整个系统提供这个实例;</li>
+<li><p>4）为了保证实例的唯一性,我们必须将如下方法实现进行覆盖</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone +(<span class="keyword">id</span>)allocWithZone:(<span class="built_in">NSZone</span> *)zone -(<span class="keyword">id</span>)<span class="keyword">retain</span> -(<span class="built_in">NSUInteger</span>)retainCount</div><div class="line">-(<span class="keyword">oneway</span> <span class="keyword">void</span>)release</div><div class="line">-(<span class="keyword">id</span>)autorelease 。</div></pre></td></tr></table></figure>
+</li>
+<li><p>5）这个方法必须是一个静态类。</p>
+</li>
+</ul>
+</li>
+<li>4、 在OC中实现单例模式:<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">先创建一个单例类,即:</div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Bee</span> : <span class="title">NSObject</span>&lt;<span class="title">NSCopying</span>&gt;//注意此处调用了<span class="title">NScoping</span>协议</span></div><div class="line">+ (Bee *)shareIsrance;<span class="comment">//此处定义了一个工厂方法,用工厂方法来限制实例化过程</span></div><div class="line"><span class="keyword">@end</span> <span class="comment">//调用NScoping协议,从而在实现文件中覆盖</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="简单的单例模式实现"><a href="#简单的单例模式实现" class="headerlink" title="简单的单例模式实现"></a>简单的单例模式实现</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Tools.h文件</span></div><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Tools</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>, <span class="title">NSMutableCopying</span>&gt;</span></div><div class="line"><span class="comment">//一般情况下,创建一个单例对象都会提供一个类工厂方法</span></div><div class="line"><span class="comment">//一般情况下,用于创建单例对象的方法名都以 share 开头或 default 开头</span></div><div class="line"><span class="comment">// share + 当前的类名</span></div><div class="line">+ (<span class="keyword">instancetype</span>)shareTools;<span class="comment">//仅仅是提供一个 share 的类方法,无其他意义</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Tools.m文件</span></div><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">"Tools.h"</span></span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Tools</span></span></div><div class="line"></div><div class="line">+ (<span class="keyword">instancetype</span>)shareTools</div><div class="line">&#123;</div><div class="line">    Tools *instance = [[<span class="keyword">self</span> alloc] init];</div><div class="line">    <span class="keyword">return</span> instance;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">static</span> Tools *_instance = <span class="literal">nil</span>;<span class="comment">//1.定义一个全局变量</span></div><div class="line"></div><div class="line">+ (<span class="keyword">instancetype</span>)allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone</div><div class="line">&#123;</div><div class="line"><span class="comment">//    多线程可能有问题</span></div><div class="line"><span class="comment">//    2.由于所有的创建方法都会调用该方法,所以只需要在该方法中控制当前对象只创建一次</span></div><div class="line">    <span class="comment">/*</span></div><div class="line">    if (_instance == nil) &#123;</div><div class="line">        _instance = [[super allocWithZone:zone] init];</div><div class="line">    &#125;</div><div class="line">    return _instance;</div><div class="line">     */</div><div class="line"><span class="comment">//    以下在多线程也没有问题 保证在多线程也执行一次  GCD</span></div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        _instance = [[<span class="keyword">super</span> allocWithZone:zone] init];</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> _instance;</div><div class="line">&#125;</div><div class="line"><span class="comment">//  3.重写 copy</span></div><div class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> _instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="built_in">NSZone</span> *)zone</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> _instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// MRC 中的单例要重写以下方法</span></div><div class="line">- (<span class="keyword">oneway</span> <span class="keyword">void</span>)release</div><div class="line">&#123;</div><div class="line"><span class="comment">//    为了保证整个程序过程中只有一份实例,在这个方法中什么都不做</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span>)<span class="keyword">retain</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> _instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">NSUInteger</span>)retainCount</div><div class="line">&#123;</div><div class="line"><span class="comment">//    return 1;</span></div><div class="line"><span class="comment">//    注意:为了方便沟通,一般情况下,单例中不会返回 retainCount = 1;</span></div><div class="line"><span class="comment">//    一般返回比较大的值</span></div><div class="line">    <span class="keyword">return</span> <span class="built_in">NSUIntegerMax</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/singletonpattern/" data-id="ciqardt2t001kqwnxceckli6n" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/copyaction" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/copyaction/" class="article-date">
+  <time datetime="2016-07-04T04:05:09.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="为自定义的类实现copy操作"><a href="#为自定义的类实现copy操作" class="headerlink" title="为自定义的类实现copy操作"></a>为自定义的类实现copy操作</h1><p>#####自定义对象copy步骤</p>
+<ul>
+<li>新建Person类</li>
+<li><p>为Person类实现copy操作</p>
+<ul>
+<li>1.让Person类遵守NSCopying协议</li>
+<li>2.实现 copyWithZone:方法,在该方法中返回一个对象的副本即可。</li>
+<li><ol>
+<li>在copyWithZone方法中,创建一个新的对象,并设置该对象的数据与现有对象一致, 并返回该对象.</li>
+</ol>
+</li>
+<li><p>创建Person对象, 调用copy方法, 查看地址。</p>
+</li>
+</ul>
+</li>
+<li><p>细节介绍:</p>
+<ul>
+<li>1、 调用copy其实就是调用copyWithZone方法,所以要实现copyWithZone方法。(查看NSObject协议中的copy方法的介绍)</li>
+<li>2、 copyWithZone方法返回值类型是id类型,需要返回一个对象的副本。</li>
+<li><p>3、 关于copyWithZone的参数zone问题:</p>
+<ul>
+<li><p>zone: 表示空间,分配对象是需要内存空间的,如果指定了zone,就可以指定新建对象对应的内存空间。但是:zone是一个非常古老的技术,为了避免在堆中出现内存碎片而使用的。在今天的开发中,zone几乎可以忽略</p>
+</li>
+<li><p>查看NSCopying协议中的allocWithZone:方法介绍(zone参数可以被忽略,是历史 原因)</p>
+</li>
+</ul>
+</li>
+<li><p>4、如果对象没有 可变/不可变 的版本区别,只要实现 copyWithZone 方法即可.</p>
+</li>
+<li><p>5、copyWithZone:方法的具体实现:</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone&#123;</div><div class="line"><span class="comment">//创建对象</span></div><div class="line">Person *p1 = [[Person alloc] init]; <span class="comment">//用当前对象值给新对象的实例变量赋值 p1.age = self.age;</span></div><div class="line"><span class="comment">//返回新对象</span></div><div class="line"><span class="keyword">return</span> p1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>为Person类实现mutableCopy操作<ul>
+<li>1.遵守NSMutableCopying协议</li>
+<li>2.实现协议对你的方法</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="built_in">NSZone</span> *)zone&#123;</div><div class="line"><span class="comment">//创建对象</span></div><div class="line">Person *p1 = [[Person alloc] init]; <span class="comment">//用当前对象值给新对象的实例变量赋值 p1.age = self.age;</span></div><div class="line"><span class="comment">//返回新对象</span></div><div class="line"><span class="keyword">return</span> p1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/copyaction/" data-id="ciqardt15000eqwnxg6i91ero" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/copyandmemorymanagement" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/copyandmemorymanagement/" class="article-date">
+  <time datetime="2016-07-04T03:58:57.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Copy与内存管理"><a href="#Copy与内存管理" class="headerlink" title="Copy与内存管理"></a>Copy与内存管理</h1><h4 id="1、copy与内存管理"><a href="#1、copy与内存管理" class="headerlink" title="1、copy与内存管理"></a>1、copy与内存管理</h4><ul>
+<li>copy一次，retainCount +1</li>
+</ul>
+<h4 id="2、深浅拷贝总结"><a href="#2、深浅拷贝总结" class="headerlink" title="2、深浅拷贝总结"></a>2、深浅拷贝总结</h4><ul>
+<li><p>深复制（深拷贝，内容拷贝，deep copy）</p>
+<ul>
+<li>源对象和副本对象是不同的两个对象,源对象引用计数器不变, 副本对象计数器为1（因为是新产生的）</li>
+<li><strong>本质是：产生了新的对象</strong></li>
+</ul>
+</li>
+<li><p>浅复制（浅拷贝，指针拷贝，shallow copy）</p>
+<ul>
+<li>源对象和副本对象是同一个对象，源对象（副本对象）引用计数器 + 1, 相当于做一次retain操作</li>
+<li><strong>本质是：没有产生新的对象</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="3、-property中的copy作用"><a href="#3、-property中的copy作用" class="headerlink" title="3、@property中的copy作用"></a>3、@property中的copy作用</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//创建可变字符串</span></div><div class="line"><span class="built_in">NSMutableString</span> *str = [<span class="built_in">NSMutableString</span> string]; <span class="comment">//设定字符串的内容</span></div><div class="line">str.string = <span class="string">@"zhangsan"</span>;</div><div class="line"><span class="comment">//创建对象</span></div><div class="line">Person *person = [Person new]; <span class="comment">//给person的实例变量赋值 person.name = str;</span></div><div class="line"><span class="comment">//修改字符串内容</span></div><div class="line">[str appendString:<span class="string">@"xxxx"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"name = %@"</span>,person.name); <span class="built_in">NSLog</span>(<span class="string">@"str = %@"</span>,str);</div><div class="line"><span class="comment">// 输出结果：</span></div><div class="line"><span class="comment">//name = zhangsanxxxx</span></div><div class="line"><span class="comment">//str = zhangsanxxxx</span></div><div class="line"></div><div class="line"><span class="comment">//这显然不符合我们的要求,因为str修改后,会影响person.name 的值 解决方法:</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</div><div class="line">set方法展开形式为:</div><div class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name</div><div class="line">&#123;</div><div class="line">  <span class="keyword">if</span> (_name != name) &#123;</div><div class="line">    [_name release];</div><div class="line">    [_name release];</div><div class="line">    _name = [name mutableCopy];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2、【理解】-property内存管理策略选择"><a href="#2、【理解】-property内存管理策略选择" class="headerlink" title="2、【理解】@property内存管理策略选择"></a>2、【理解】@property内存管理策略选择</h4><ul>
+<li>@property内存管理策略的选择<ul>
+<li>1.非ARC<ul>
+<li>1&gt; copy : 只用于NSString\block</li>
+<li>2&gt; retain : 除NSString\block以外的OC对象</li>
+<li>3&gt; assign:基本数据类型、枚举、结构体(非OC对象),当2个对象相互引用,一端用retain,一端用assign</li>
+</ul>
+</li>
+<li>2.ARC<ul>
+<li>1&gt; copy : 只用于NSString\block</li>
+<li>2&gt; strong : 除NSString\block以外的OC对象</li>
+<li>3&gt; weak : 当2个对象相互引用,一端用strong,一端用weak</li>
+<li>4&gt; assgin : 基本数据类型、枚举、结构体(非OC对象)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/copyandmemorymanagement/" data-id="ciqardt19000hqwnxoibjkc4b" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/copy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/copy/" class="article-date">
+  <time datetime="2016-07-04T03:54:49.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Copy"><a href="#Copy" class="headerlink" title="Copy"></a>Copy</h1><h4 id="1、copy的概念"><a href="#1、copy的概念" class="headerlink" title="1、copy的概念"></a>1、copy的概念</h4><ul>
+<li>Copy的字面意思是“复制”、“拷贝”，是一个产生副本的过程。</li>
+<li><p><strong>常见的复制有：文件复制</strong></p>
+</li>
+<li><p>作用：利用一个源文件产生一个副本文件</p>
+</li>
+<li>特点：<ul>
+<li>修改源文件的内容，不会影响副本文件</li>
+<li>修改副本文件的内容，不会影响源文件</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong> OC中的copy</strong><ul>
+<li>作用：利用一个源对象产生一个副本对象</li>
+<li>特点：<ul>
+<li>修改源对象的属性和行为，不会影响副本对象</li>
+<li>修改副本对象的属性和行为，不会影响源对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、copy快速入门"><a href="#2、copy快速入门" class="headerlink" title="2、copy快速入门"></a>2、copy快速入门</h4><ul>
+<li>如何使用copy功能<ul>
+<li>一个对象可以调用copy或mutableCopy方法来创建一个副本对象</li>
+<li>copy : 创建的是不可变副本(如NSString、NSArray、NSDictionary)</li>
+<li>mutableCopy :创建的是可变副本(如NSMutableString、NSMutableArray、NSMutableDictionary)</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>使用copy功能的前提</p>
+<ul>
+<li>copy : 需要遵守NSCopying协议，实现copyWithZone:方法</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> <span class="class"><span class="keyword">@protocol</span> <span class="title">NSCopying</span></span></div><div class="line"> - (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<ul>
+<li>mutableCopy :需要遵守NSMutableCopying协议，实现mutableCopyWithZone:方法</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">NSMutableCopying</span></span></div><div class="line">- (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="built_in">NSZone</span> *)zone;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/copy/" data-id="ciqardt14000dqwnx4ugn5n4o" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/gathermemorymanagement" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/gathermemorymanagement/" class="article-date">
+  <time datetime="2016-07-04T03:52:11.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="集合对象的内存管理"><a href="#集合对象的内存管理" class="headerlink" title="集合对象的内存管理"></a>集合对象的内存管理</h1><h4 id="1、集合对象的内存管理"><a href="#1、集合对象的内存管理" class="headerlink" title="1、集合对象的内存管理"></a>1、集合对象的内存管理</h4><ul>
+<li>集合，就是能用来容纳OC对象的容器</li>
+<li>NSArray、NSDictionary等都是.</li>
+</ul>
+<h4 id="2、集合对象内存管理总结"><a href="#2、集合对象内存管理总结" class="headerlink" title="2、集合对象内存管理总结"></a>2、集合对象内存管理总结</h4><ul>
+<li>集合有一些内存管理细节</li>
+<li><strong>只要将一个对象添加到集合中，这个对象计数器就会 + 1(做一次retain操作)</strong></li>
+<li><strong>只要将一个对象从集合中移除，这个对象计数器就会 - 1(做一次release操作)</strong></li>
+<li><strong>如果集合被销毁了，集合里面的所有对象计数器都会 - 1(做一次release操作）</strong></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/gathermemorymanagement/" data-id="ciqardt1b000iqwnxxs06n25m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/06/啦啦/">啦啦</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/06/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uimenucontroller/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/other/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uilabel/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Autorelease####1.自动释放池及autorelease介绍
+
+1.自动释放池
+
+(1)在iOS程序运行过程中,会创建无数个池子,这些池子都是以栈结构(先进后出)存在的。
+(2)当一个对象调用autorelease时,会将这个对象放到位于栈顶的释放池中
+
+
+2.自动释放池的创建方式
+
+
+12345678910(1)iOS 5.0以前的创建方式    NSAutoreleasePool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2016/07/04/oc/autorelease/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Autorelease####1.自动释放池及autorelease介绍
+
+1.自动释放池
+
+(1)在iOS程序运行过程中,会创建无数个池子,这些池子都是以栈结构(先进后出)存在的。
+(2)当一个对象调用autorelease时,会将这个对象放到位于栈顶的释放池中
+
+
+2.自动释放池的创建方式
+
+
+12345678910(1)iOS 5.0以前的创建方式    NSAutoreleasePool">
+<meta property="og:updated_time" content="2016-07-04T06:55:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="Autorelease####1.自动释放池及autorelease介绍
+
+1.自动释放池
+
+(1)在iOS程序运行过程中,会创建无数个池子,这些池子都是以栈结构(先进后出)存在的。
+(2)当一个对象调用autorelease时,会将这个对象放到位于栈顶的释放池中
+
+
+2.自动释放池的创建方式
+
+
+12345678910(1)iOS 5.0以前的创建方式    NSAutoreleasePool">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-oc/autorelease" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/autorelease/" class="article-date">
+  <time datetime="2016-07-04T06:52:04.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Autorelease"><a href="#Autorelease" class="headerlink" title="Autorelease"></a>Autorelease</h1><p>####1.自动释放池及autorelease介绍</p>
+<ul>
+<li><p>1.自动释放池</p>
+<ul>
+<li>(1)在iOS程序运行过程中,会创建无数个池子,这些池子都是以栈结构(先进后出)存在的。</li>
+<li>(2)当一个对象调用autorelease时,会将这个对象放到位于栈顶的释放池中</li>
+</ul>
+</li>
+<li><p>2.自动释放池的创建方式</p>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">(<span class="number">1</span>)iOS <span class="number">5.0</span>以前的创建方式</div><div class="line">    <span class="built_in">NSAutoreleasePool</span> *pool=[[<span class="built_in">NSAutoreleasePool</span> alloc] init];</div><div class="line">    <span class="comment">// 代码</span></div><div class="line">    [pool release];  <span class="comment">//[pool drain];用于mac</span></div><div class="line"></div><div class="line">(<span class="number">2</span>)iOS5<span class="number">.0</span>以后</div><div class="line"><span class="keyword">@autoreleasepool</span></div><div class="line">&#123;</div><div class="line">  <span class="comment">//开始代表创建自动释放池</span></div><div class="line">&#125; <span class="comment">//结束代表销毁自动释放池</span></div></pre></td></tr></table></figure>
+<ul>
+<li>3.autorelease<ul>
+<li>是一种支持引用计数的内存管理方式</li>
+<li>它可以暂时的保存某个对象(object),然后在内存池自己的排干(drain)的时候对其中的每个对象发送release消息。</li>
+<li>注意,这里只是发送release消息,如果当时的引用计数(reference-counted)依然不为0,则该对象依然不会被释放。可以用该方法来保存某个对象,也要注意保存之后要释放该对象。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、【理解】为什么会有autorelease？"><a href="#2、【理解】为什么会有autorelease？" class="headerlink" title="2、【理解】为什么会有autorelease？"></a>2、【理解】为什么会有autorelease？</h4><ul>
+<li><p>OC的内存管理机制中比较重要的一条规律是:谁申请,谁释放</p>
+<ul>
+<li>考虑这种情况,如果一个方法需要返回一个新建的对象,该对象何时释放?</li>
+<li><p>方法内部是不会写release来释放对象的,因为这样做会将对象立即释放而返回一个空对象;</p>
+</li>
+<li><p>调用者也不会主动释放该对象的,因为调用者遵循“谁申请,谁释放”的原则。那么这个时候,就发生了内存泄露。</p>
+</li>
+</ul>
+</li>
+<li><p>不使用autorelease存在的问题</p>
+<ul>
+<li>针对这种情况,Objective-C的设计了autorelease,既能确保对象能正确释放,又能返回有效的 对象。</li>
+</ul>
+</li>
+<li><p>使用autorelease的好处</p>
+<ul>
+<li>(1)不需要再关心对象释放的时间</li>
+<li>(2)不需要再关心什么时候调用release</li>
+</ul>
+</li>
+</ul>
+<p>####3.autorelease基本用法</p>
+<ul>
+<li><p>基本用法</p>
+<ul>
+<li>(1)会将对象放到一个自动释放池中</li>
+<li>(2)当自动释放池被销毁时,会对池子里的所有对象做一次release</li>
+<li>(3)会返回对象本身</li>
+<li><p>(4)调用完autorelease方法后,对象的计数器不受影响(销毁时影响)</p>
+</li>
+<li><p>在autorelease的模式下,下述方法是合理的,即可以正确返回结果,也不会造成内存泄露。</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ClassA *Func1()</div><div class="line">&#123;</div><div class="line">  ClassA *obj = [[[ClassA alloc]init]autorelease];</div><div class="line">  <span class="keyword">return</span> obj;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="4、autorelease的原理？"><a href="#4、autorelease的原理？" class="headerlink" title="4、autorelease的原理？"></a>4、autorelease的原理？</h4><ul>
+<li>autorelease实际上只是把对release的调用延迟了,对于每一个Autorelease,系统只是把该Object放入了当前的Autorelease pool中,当该pool被释放时,该pool中的所有Object会被调用Release。</li>
+</ul>
+<h4 id="5、autorelease什么时候被释放？"><a href="#5、autorelease什么时候被释放？" class="headerlink" title="5、autorelease什么时候被释放？"></a>5、autorelease什么时候被释放？</h4><ul>
+<li><p>对于autorelease pool本身,会在如下两个条件发生时候被释放</p>
+<ul>
+<li>1)手动释放Autorelease pool</li>
+<li><p>2)Runloop结束后自动释放</p>
+</li>
+<li><p>对于autorelease pool内部的对象</p>
+</li>
+<li>在引用计数的retainCount ==0的时候释放。release和autorelease pool的 drain都会触发retain–事件。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/autorelease/" data-id="ciqardt0u0008qwnxm56qjz7p" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/04/oc/autoreleaseattention/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/04/oc/nsstringandmrc/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/06/啦啦/">啦啦</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/06/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uimenucontroller/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/other/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uilabel/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

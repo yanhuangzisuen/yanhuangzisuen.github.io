@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-oc/nsstringinterceptionandreplacement" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/03/oc/nsstringinterceptionandreplacement/" class="article-date">
+  <time datetime="2016-07-03T10:35:57.000Z" itemprop="datePublished">2016-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="字符串的截取和替换"><a href="#字符串的截取和替换" class="headerlink" title="字符串的截取和替换"></a>字符串的截取和替换</h1><h2 id="字符串的截取"><a href="#字符串的截取" class="headerlink" title="字符串的截取"></a>字符串的截取</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1.从指定位置from(包含指定位置的字符)开始到结尾</span></div><div class="line">- (<span class="built_in">NSString</span> *)substringFromIndex:(<span class="built_in">NSUInteger</span>)from;</div><div class="line"></div><div class="line"><span class="comment">//2.从字符串的开头一直截取到指定的位置to(不包含该位置的字符)</span></div><div class="line">- (<span class="built_in">NSString</span> *)substringToIndex:(<span class="built_in">NSUInteger</span>)to;</div><div class="line"></div><div class="line"><span class="comment">//3.按照所给的NSRange从字符串中截取子串</span></div><div class="line">- (<span class="built_in">NSString</span> *)substringWithRange:(<span class="built_in">NSRange</span>)range;</div></pre></td></tr></table></figure>
+<h2 id="字符串的替换"><a href="#字符串的替换" class="headerlink" title="字符串的替换"></a>字符串的替换</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用 replacement 替换 target</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByReplacingOccurrencesOfString:(<span class="built_in">NSString</span> *)target withString:(<span class="built_in">NSString</span> *)replacement;</div></pre></td></tr></table></figure>
+<h2 id="字符串与路径"><a href="#字符串与路径" class="headerlink" title="字符串与路径"></a>字符串与路径</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//是否是绝对路径</span></div><div class="line">- (<span class="built_in">BOOL</span>)isAbsolutePath;</div><div class="line"></div><div class="line"><span class="comment">//获得最后一个目录</span></div><div class="line">- (<span class="built_in">NSString</span> *)lastPathComponent;</div><div class="line"></div><div class="line"><span class="comment">//删除最后一个目录</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByDeletingLastPathComponent;</div><div class="line"></div><div class="line"><span class="comment">//在路径的后面拼接一个目录</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByAppendingPathComponent:(<span class="built_in">NSString</span> *)str;</div><div class="line"><span class="comment">//or 使用stringByAppendingString:或者stringByAppendingFormat:拼接字符串内容</span></div></pre></td></tr></table></figure>
+<h2 id="字符串与文件扩展名"><a href="#字符串与文件扩展名" class="headerlink" title="字符串与文件扩展名"></a>字符串与文件扩展名</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取扩展名</span></div><div class="line">- (<span class="built_in">NSString</span> *)pathExtension;</div><div class="line"></div><div class="line"><span class="comment">//删除尾部扩展名</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByDeletingPathExtension;</div><div class="line"></div><div class="line"><span class="comment">//在尾部添加扩展名</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByAppendingPathExtension:(<span class="built_in">NSString</span> *)str;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringinterceptionandreplacement/" data-id="ciqardt2n001fqwnxg51nf80t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/nsstringsearch" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/03/oc/nsstringsearch/" class="article-date">
+  <time datetime="2016-07-03T09:57:18.000Z" itemprop="datePublished">2016-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="字符串搜索"><a href="#字符串搜索" class="headerlink" title="字符串搜索"></a>字符串搜索</h1><h2 id="前后缀检查"><a href="#前后缀检查" class="headerlink" title="前后缀检查"></a>前后缀检查</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1.是否以 aString 开头</span></div><div class="line">- (<span class="built_in">BOOL</span>)hasPrefix:(<span class="built_in">NSString</span> *)aString;</div><div class="line"></div><div class="line"><span class="comment">//2.是否以 aString 结尾</span></div><div class="line">- (<span class="built_in">BOOL</span>)hasSuffix:(<span class="built_in">NSString</span> *)aString;</div></pre></td></tr></table></figure>
+<h2 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用于检查字符串内容是否包含 aString</span></div><div class="line"><span class="comment">//如果包含, 返回 aString 的范围</span></div><div class="line"><span class="comment">//如果不包含, NSRange 的 location 为 NSNotFound, length为0</span></div><div class="line">- (<span class="built_in">NSRange</span>)rangeOfString:(<span class="built_in">NSString</span> *)aString;</div></pre></td></tr></table></figure>
+<h2 id="NSRange"><a href="#NSRange" class="headerlink" title="NSRange"></a>NSRange</h2><ul>
+<li>常见结构体, 定义:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _NSRange &#123;</div><div class="line">    <span class="built_in">NSUInteger</span> location;</div><div class="line">    <span class="built_in">NSUInteger</span> length;</div><div class="line">&#125;</div><div class="line"><span class="comment">//NSUInteger 的定义:无符号的整型</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="built_in">NSUInteger</span>;</div><div class="line"><span class="built_in">NSUInteger</span> location : 表示该范围的起始位置</div><div class="line"><span class="built_in">NSUInteger</span> length : 表示该范围内的长度</div></pre></td></tr></table></figure>
+<ul>
+<li><p>NSRange创建的几种方式</p>
+</li>
+<li><p>方式1:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSRange</span> range;</div><div class="line">range.location = <span class="number">7</span>;</div><div class="line">range.length = <span class="number">3</span>;</div></pre></td></tr></table></figure>
+</li>
+<li><p>方式2:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSRange</span> range = &#123;<span class="number">7</span>, <span class="number">3</span>&#125;;</div><div class="line"><span class="comment">// or</span></div><div class="line"><span class="built_in">NSRange</span> range = &#123;.locatin = <span class="number">7</span>, .length = <span class="number">3</span>&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>方式3:使用 NSMake 函数 OC中的结构体一般都有对应的 NSMake 函数</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSRange</span> range = <span class="built_in">NSMakeRange</span>(<span class="number">7</span>, <span class="number">3</span>);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringsearch/" data-id="ciqardt2h001cqwnxezeqs2c7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/nsstringcompare" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/03/oc/nsstringcompare/" class="article-date">
+  <time datetime="2016-07-03T09:31:45.000Z" itemprop="datePublished">2016-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="字符串的比较"><a href="#字符串的比较" class="headerlink" title="字符串的比较"></a>字符串的比较</h1><h2 id="NSString的大小写处理"><a href="#NSString的大小写处理" class="headerlink" title="NSString的大小写处理"></a>NSString的大小写处理</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//全部转大写</span></div><div class="line">- (<span class="built_in">NSString</span> *)uppercaseString;</div><div class="line"><span class="comment">//全部转小写</span></div><div class="line">- (<span class="built_in">NSString</span> *)lowercaseString;</div><div class="line"><span class="comment">//首字母大写, 其它变小写</span></div><div class="line">- (<span class="built_in">NSString</span> *)capitalizedString;</div></pre></td></tr></table></figure>
+<h2 id="字符串的比较-1"><a href="#字符串的比较-1" class="headerlink" title="字符串的比较"></a>字符串的比较</h2><ul>
+<li>1.两个字符串的内容相同就返回YES, 否则返回NO</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)isEqualToString:(<span class="built_in">NSString</span> *)aString;</div></pre></td></tr></table></figure>
+<ul>
+<li>2.比较两个字符串内容的大小</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//比较方法:逐个字符进行比较ASCII值, 只要有有一个值能够比较出大小, 就返回NSComparisonResult作为比较结果</span></div><div class="line"><span class="comment">/**</span></div><div class="line">NSComparisonResult是一个枚举，有3个值:</div><div class="line">如果左侧  &lt;  右侧,返回NSOrderedAscending,-1L</div><div class="line">如果左侧  &gt;  右侧,返回NSOrderedDescending,</div><div class="line">如果左侧  == 右侧,返回NSOrderedSame</div><div class="line">*/</div><div class="line"></div><div class="line"><span class="comment">//区分大小写比较</span></div><div class="line">- (<span class="built_in">NSComparisonResult</span>)compare:(<span class="built_in">NSString</span> *)string;</div><div class="line"><span class="comment">//忽略大小写比较</span></div><div class="line">- (<span class="built_in">NSComparisonResult</span>) caseInsensitiveCompare:(<span class="built_in">NSString</span> *)string;</div></pre></td></tr></table></figure>
+<ul>
+<li>eg:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str = <span class="string">@"adc"</span>;</div><div class="line"><span class="built_in">NSString</span> *str2 = <span class="string">@"ADc"</span>;</div><div class="line"><span class="built_in">NSComparisonResult</span> result = [str compare:str2];</div><div class="line"><span class="keyword">switch</span> (result) &#123;</div><div class="line">  <span class="keyword">case</span> <span class="built_in">NSOrderedDescending</span>:</div><div class="line">       <span class="built_in">NSLog</span>(<span class="string">@"str &gt; str2"</span>);</div><div class="line">       <span class="keyword">break</span>;</div><div class="line">  <span class="keyword">case</span> <span class="built_in">NSOrderedAscending</span>:</div><div class="line">       <span class="built_in">NSLog</span>(<span class="string">@"str &lt; str2"</span>);</div><div class="line">       <span class="keyword">break</span>;</div><div class="line">  <span class="keyword">case</span> <span class="built_in">NSOrderedSame</span>:</div><div class="line">       <span class="built_in">NSLog</span>(<span class="string">@"str == str2"</span>);</div><div class="line">       <span class="keyword">break</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>eg:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> <span class="built_in">NSString</span> *str = <span class="string">@"aBc"</span>;</div><div class="line"> <span class="built_in">NSString</span> *str1 = <span class="string">@"abc"</span>;</div><div class="line"></div><div class="line"> <span class="comment">// 忽略大小写字符串比较</span></div><div class="line"> <span class="built_in">NSComparisonResult</span> result = [str caseInsensitiveCompare:str1];</div><div class="line"></div><div class="line"><span class="comment">// 因为忽略B和b,所以str = str1</span></div><div class="line">  <span class="built_in">NSLog</span>(<span class="string">@"%ld"</span>,result);</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringcompare/" data-id="ciqardt2g001aqwnx7qhd1l21" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/nsstringandnsurl" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/03/oc/nsstringandnsurl/" class="article-date">
+  <time datetime="2016-07-03T09:05:28.000Z" itemprop="datePublished">2016-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="使用NSURL读写字符串"><a href="#使用NSURL读写字符串" class="headerlink" title="使用NSURL读写字符串"></a>使用NSURL读写字符串</h1><h2 id="NSURL简介"><a href="#NSURL简介" class="headerlink" title="NSURL简介"></a>NSURL简介</h2><ul>
+<li><strong>什么是URL?</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">URL:Uniform Resource Locator(统一资源定位符).</div><div class="line">URL是互联网上标准资源的地址</div><div class="line">互联网上的每个资源都有一个唯一的URL, 它包含的信息指出资源的位置, 根据一个URL就能找到唯一的一个资源.</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>URL的格式?</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">基本URL包含协议、主机域名(服务器名称\IP地址)、路径</div><div class="line">举例: http://ios.itcast.cn/ios/images/content_25.jpg</div><div class="line">可以简单认为: URL == 协议头://主机域名/路径</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>常见的URL协议头(URL类型)</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">http\https:超文本传输协议资源, 网络资源</div><div class="line">在URL前加https://前缀表明是用SSL加密的。你的电脑与服务器之间收发的信息传输将更加安全。</div><div class="line"></div><div class="line">Web服务器启用SSL需要获得一个服务器证书并将该证书与要使用SSL的服务器绑定。</div><div class="line">http和https使用的是完全不同的连接方式,用的端口也不一样,前者是80,后者是443。http的连接很简单,是无状态的。</div><div class="line"></div><div class="line">https协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议要比http协议安全。</div><div class="line">ftp:文件传输协议。</div><div class="line">file:本地电脑的文件。</div></pre></td></tr></table></figure>
+<h2 id="URL创建"><a href="#URL创建" class="headerlink" title="URL创建"></a>URL创建</h2><ul>
+<li><p>通过URL读取字符串</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">//获取URL</span></div><div class="line">    <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@"file:///Users/yan/Desktop/writeFile.txt"</span>];</div><div class="line"><span class="comment">//    NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];</span></div><div class="line">    <span class="comment">//保存错误信息</span></div><div class="line">    <span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</div><div class="line">    <span class="comment">//读取URL中的内容</span></div><div class="line">    <span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithContentsOfURL:url encoding:<span class="built_in">NSUTF8StringEncoding</span> error:&amp;error];</div><div class="line">    <span class="keyword">if</span> (error != <span class="literal">nil</span>) &#123;</div><div class="line">        <span class="comment">// 如果读取失败，打印失败信息</span></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"错误信息：%@"</span>,error.localizedDescription);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="comment">// 否则，输出URL内容</span></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,str);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>通过文件路径创建URL(默认就是file协议)</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">    <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> fileURLWithPath:<span class="string">@"/Users/yan/Desktop/writeFile.txt"</span>];</div><div class="line">    <span class="comment">// 读取URL中的内容</span></div><div class="line">    <span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithContentsOfURL:url encoding:<span class="built_in">NSUTF8StringEncoding</span> error:<span class="literal">nil</span>];</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"成功：%@"</span>,str);</div><div class="line"><span class="comment">// 注意：默认是file协议，不能手动写。否则解析不出来。</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="NSString的存储"><a href="#NSString的存储" class="headerlink" title="NSString的存储"></a>NSString的存储</h2><ul>
+<li>可以将NSString存储到一个文件中</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str = <span class="string">@"sayHi~"</span>;</div><div class="line"><span class="comment">//存储到文件中</span></div><div class="line">[str writeToFild:<span class="string">@"/Users/yan/Desktop/str.txt"</span> atomically:<span class="literal">YES</span> encoding:<span class="built_in">NSUTF8StringEncoding</span> error:<span class="literal">nil</span>];</div><div class="line"><span class="comment">//存储到URL中</span></div><div class="line">[str writeToURL:[<span class="built_in">NSURL</span> URLWithString:<span class="string">@"file:///Users/yan/Desktop/str.txt"</span>] atomically:<span class="literal">YES</span> encoding:<span class="built_in">NSUTF8StringEncoding</span> error:<span class="literal">nil</span>];</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringandnsurl/" data-id="ciqardt2f0019qwnxydle35v1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/nsstring" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/03/oc/nsstring/" class="article-date">
+  <time datetime="2016-07-03T08:38:17.000Z" itemprop="datePublished">2016-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="NSString"><a href="#NSString" class="headerlink" title="NSString"></a>NSString</h1><h2 id="NSString创建方法"><a href="#NSString创建方法" class="headerlink" title="NSString创建方法"></a>NSString创建方法</h2><ul>
+<li>1.直接创建字符串:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str1 = <span class="string">@"ZXX"</span>;</div><div class="line"><span class="built_in">NSString</span> *str2 = <span class="string">@"ZXX"</span>;</div><div class="line"><span class="comment">//输出地址相同</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str1-%p"</span>, str1);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str2-%p"</span>, str2);</div></pre></td></tr></table></figure>
+<ul>
+<li>2.格式化(凭借)字符串(堆区):</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str1 = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"ZXX"</span>];</div><div class="line"><span class="built_in">NSString</span> *str2 = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"ZXX"</span>];</div><div class="line"><span class="comment">//输出地址不同</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str1-%p"</span>, str1);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str2-%p"</span>, str2);</div></pre></td></tr></table></figure>
+<ul>
+<li>3.转换C语言字符串</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> *str1 = <span class="string">"ZXX"</span>;</div><div class="line"><span class="built_in">NSString</span> *str2 = [<span class="built_in">NSString</span> stringWithUTF8String:str1];</div><div class="line"><span class="comment">//输出地址不同</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str1--%p--%s"</span>,str1,str1);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str2--%p--%@"</span>,str2,str2);</div></pre></td></tr></table></figure>
+<ul>
+<li><p>4.从文件在读取:</p>
+<ul>
+<li><p>4.1编码:</p>
+<p>英文:iso-8859-1</p>
+<p>中文:GB2312 &lt; GBK &lt; GB18030  汉字多少</p>
+</li>
+<li><p>4.2将字符串写入文件</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *content = <span class="string">@"ZXX"</span>;</div><div class="line"><span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</div><div class="line"><span class="comment">// 注意：此时的one文件夹必须存在，否则写入失败。</span></div><div class="line"><span class="comment">// 如果one文件夹存在，write.txt会自动被创建。</span></div><div class="line">[content writeToFile:<span class="string">@"/Users/yan/Desktop/one/write.txt"</span> atomically:<span class="literal">YES</span> encoding:<span class="built_in">NSUTF8StringEncoding</span> error:&amp;error];</div><div class="line"><span class="keyword">if</span> (error != <span class="literal">nil</span>) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"错误信息：%@"</span>,error.localizedDescription);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"恭喜！写入成功！"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>4.2从文件中读取字符串</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</div><div class="line"><span class="built_in">NSString</span> *readFile = [<span class="built_in">NSString</span> stringWithContentsOfFile:<span class="string">@"/Users/yan/Desktop/readFile.txt"</span> encoding:<span class="built_in">NSUTF8StringEncoding</span> error:&amp;error];</div><div class="line"></div><div class="line"><span class="keyword">if</span> (error == <span class="literal">nil</span>) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,readFile);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,error.localizedDescription);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/03/oc/nsstring/" data-id="ciqardt2c0016qwnxtmfo4lvq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/classandobject" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/03/oc/classandobject/" class="article-date">
+  <time datetime="2016-07-03T08:14:15.000Z" itemprop="datePublished">2016-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h1><p><strong>对象:</strong>某一个具体的存在</p>
+<p><strong>类:</strong>具有相似内部状态和运动规律的实体的集合. 具有相同属性和行为事物的统称</p>
+<p>##类的构成</p>
+<ol>
+<li>类的名称:类名</li>
+<li>类的属性:一组包含数据的属性</li>
+<li>类的方法:允许对属性包含的数据进行操作的方法</li>
+</ol>
+<p>##创建一个对象<br>[NSObject new] 在内存的干的三件事</p>
+<ol>
+<li>在堆中开辟一段存储空间</li>
+<li>初始化成员变量(类声明大括号中的属性叫成员变量, 也叫实例变量)</li>
+<li>返回开辟空间的首地址</li>
+</ol>
+<h2 id="pragma-mark的使用"><a href="#pragma-mark的使用" class="headerlink" title="#pragma mark的使用"></a>#pragma mark的使用</h2><ol>
+<li><h6 id="pragma-mark"><a href="#pragma-mark" class="headerlink" title="#pragma mark -"></a>#pragma mark -</h6></li>
+<li><h6 id="pragma-mark-名称"><a href="#pragma-mark-名称" class="headerlink" title="#pragma mark 名称"></a>#pragma mark 名称</h6></li>
+<li><h6 id="如果你的标志没有出现在弹出菜单中-比如没有分割线出现-请再Xcode菜-单”Preferences…”中的-“Code-Sense”-选项取消选中“Sort-list-alphabetically”即可"><a href="#如果你的标志没有出现在弹出菜单中-比如没有分割线出现-请再Xcode菜-单”Preferences…”中的-“Code-Sense”-选项取消选中“Sort-list-alphabetically”即可" class="headerlink" title="如果你的标志没有出现在弹出菜单中,比如没有分割线出现,请再Xcode菜 单”Preferences…”中的 “Code Sense” 选项取消选中“Sort list alphabetically”即可"></a>如果你的标志没有出现在弹出菜单中,比如没有分割线出现,请再Xcode菜 单”Preferences…”中的 “Code Sense” 选项取消选中“Sort list alphabetically”即可</h6></li>
+</ol>
+<h3 id="类方法"><a href="#类方法" class="headerlink" title="类方法"></a>类方法</h3><pre><code>类方法中可以直接调用类方法
+类方法中不可以直接调用对象方法
+类方法中不能访问成员变量
+</code></pre><h3 id="self"><a href="#self" class="headerlink" title="self"></a>self</h3><p><code>不能在对象方法或类方法中利用self调用当前self所在的方法</code></p>
+<pre><code>如果self在对象方法中,那么self就代表调用当前对象方法的那个对象
+如果self在类方法中,那么self就代表调用当前类方法的那个类;
+总结:
+我们只有关注self在类方法中,还是在对象方法中,在类方法中,代表当前类,在对象方法中代表&quot;当前调用该方法的对象&quot;
+</code></pre><h3 id="super"><a href="#super" class="headerlink" title="super"></a>super</h3><ul>
+<li><p>概念:</p>
+<p>  super是编译器的指令符号,只是告诉编译器在执行的时候,去调用谁的方法</p>
+</li>
+<li><p>作用:</p>
+<p>  1.直接调用父类的某个方法</p>
+<p>  2.super在对象方法中,那么会调用父类的对象方法</p>
+<p>  3.super在类方法中,那么会调用父类的类方法</p>
+</li>
+</ul>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><ul>
+<li><p>继承:</p>
+<p>  A类继承B类,那么A累就用于B类所有的属性及方法</p>
+</li>
+<li><p>优点:</p>
+<p>  1.提高代码的复用性</p>
+<p>  2.可以让类与类产生关系,正是因为继承让我们的类与类之间产生关系,所有才有了多态</p>
+</li>
+<li><p>注意:</p>
+<p>  千万不要以为继承可以提高代码的复用性,但凡发现多个类当中有复用的代码就抽取一个父类</p>
+<p>  只有满足一定的条件我们才能够使用继承</p>
+<p>  条件: XXX 是 XXX 或者 某某 is a 某某</p>
+<pre><code>Iphone 继承 Phone  Iphone is a Phone
+</code></pre></li>
+</ul>
+<p>缺点:</p>
+<pre><code>耦合性太强(依赖性太强)
+</code></pre><h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><ul>
+<li><p>多态:</p>
+<p>  事物多种表现形态</p>
+</li>
+<li><p>表现:</p>
+<p>  父类的指针指向子类的对象</p>
+</li>
+<li><p>优点:</p>
+<p>  提高代码的扩展性</p>
+</li>
+<li><p>注意点:</p>
+<p>  如果父类指针指向子类对象,如果需要调用子类特有的方法,必须强制类型转换才能调用</p>
+</li>
+</ul>
+<h3 id="实例变量修饰符"><a href="#实例变量修饰符" class="headerlink" title="实例变量修饰符"></a>实例变量修饰符</h3><p> @public</p>
+<blockquote>
+<p>可以在其他类中访问被 @public 修饰的成员变量</p>
+<p>也可以在本类中访问被 @public 修饰的成员变量</p>
+<p>可以在子类类中访问父类中被 @public 修饰的成员变量</p>
+</blockquote>
+<p> @private</p>
+<blockquote>
+<p>不可以在其他类中访问被 @private 修饰的成员变量</p>
+<p>可以在本类中访问被 @private 修饰的成员变量</p>
+<p>不可以在子类中访问父类中被 @private 修饰的成员变量</p>
+</blockquote>
+<p> @protected</p>
+<blockquote>
+<p>不可以在其他类中访问被 @protected 修饰的成员变量</p>
+<p>可以在本类中访问被 @protected 修饰的成员变量</p>
+<p>可以在子类中访问父类中被 @protected 修饰的成员变量</p>
+</blockquote>
+<p> 注意:默认情况下所有实例变量都是 @protected</p>
+<p> @package</p>
+<blockquote>
+<p>介于 @public 和 @private 之间</p>
+<p>如果在其他包中访问,那么是 @private</p>
+<p>如果是在当前代码所在的包中访问就是 @public</p>
+</blockquote>
+<p> 实例变量修饰符的作用域:从出现的位置开始,一直到下一个修饰符出现</p>
+<h3 id="id-instancetype"><a href="#id-instancetype" class="headerlink" title="id - instancetype"></a>id - instancetype</h3><ol>
+<li>instancetype == id == 万能指针 == 指向一个对象</li>
+<li>instancetype在编译的时候可以判断对象的真实类型</li>
+<li>id在编译的时候不能判断对象的真实类型</li>
+<li>id 可以用来定义变量,可以作为返回值,可以作为形参</li>
+<li>instancetype 只能用来作为返回值</li>
+</ol>
+<p><code>注意:自定义构造方法,返回值尽量使用instancetype,不要使用id</code></p>
+<h3 id="load-initialize"><a href="#load-initialize" class="headerlink" title="load - initialize"></a>load - initialize</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//load 一启动就调用,仅一次</span></div><div class="line"><span class="comment">//1.只有程序启动,就会将所有类的代码加载到内存中,放到代码区</span></div><div class="line"><span class="comment">//load方法会在当前类被加载到内存的时候调用,有且仅会调用一次</span></div><div class="line"><span class="comment">//如果有继承关系,先调用父类的load方法,在调用子类的load方法</span></div><div class="line">+ (<span class="keyword">void</span>)load</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Person类被加载到内存了"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//initialize 一使用就调用,仅一次</span></div><div class="line"><span class="comment">//2.当当前类第一次被使用的时候就会被调用(创建类对象的时候)</span></div><div class="line"><span class="comment">//initialize 方法在整个程序的运行过程中只会被被调用一次  因为类对象只有一个</span></div><div class="line"><span class="comment">//initialize 用于对某个类进行 一次性 的初始化化</span></div><div class="line"><span class="comment">//如果有继承关系,先调用父类的initialize方法,在调用子类的initialize 方法</span></div><div class="line">+ (<span class="keyword">void</span>)initialize</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Person类的initialize 方法"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="SEL-类型"><a href="#SEL-类型" class="headerlink" title="SEL 类型"></a>SEL 类型</h3><ul>
+<li>是否响应该方法</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)respondsToSelector:(SEL)aSelector;</div></pre></td></tr></table></figure>
+<ul>
+<li>调用该方法</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//performSelector 最多只能传递两个参数</span></div><div class="line">- (<span class="keyword">id</span>)performSelector:(SEL)aSelector;</div><div class="line">- (<span class="keyword">id</span>)performSelector:(SEL)aSelector withObject:(<span class="keyword">id</span>)object;</div><div class="line">- (<span class="keyword">id</span>)performSelector:(SEL)aSelector withObject:(<span class="keyword">id</span>)object1 withObject:(<span class="keyword">id</span>)object2;</div></pre></td></tr></table></figure>
+<h3 id="野指针-空指针"><a href="#野指针-空指针" class="headerlink" title="野指针 - 空指针"></a>野指针 - 空指针</h3><ul>
+<li><p>野指针:</p>
+<p>  当一个指针指向了一个”僵尸对象”我们就称这个指针为 野指针</p>
+<p>  只有给一个野指针发送消息,就会报错</p>
+<p>  <em>*</em> -[Person release]: message sent to deallocated instance 0x100305ef0</p>
+<p>  发送了一个消息给了一个已经释放的实例对象</p>
+</li>
+<li><p>空指针: nil 0 NULL</p>
+<p>  为了避免给野指针发送消息会报错,一般情况下,当一个对象被释放后我们会将这个对象的指针设置为空指针</p>
+<p>  在OC中给空指针发送消息不会报错</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/03/oc/classandobject/" data-id="ciqardt16000fqwnxnl0u61o6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ui/README" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/03/ui/README/" class="article-date">
+  <time datetime="2016-07-03T06:55:44.000Z" itemprop="datePublished">2016-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h1><p><code>导航控制器的push的控制器的右滑弹出功能, 清空代理, 让导航控制器将功能找回</code><br><code>self.interactivePopGestureRecognizer.delegate = nil;</code></p>
+<h2 id="stroryboard-的认识"><a href="#stroryboard-的认识" class="headerlink" title="stroryboard 的认识"></a>stroryboard 的认识</h2><ul>
+<li>用于描述软件界面</li>
+<li>默认情况下, 程序一启动就会加载 Main.storyboard</li>
+<li>加载 storyboard 时, 会首先创建和显示箭头所指的控制器界面</li>
+</ul>
+<h2 id="IBAction-和-IBOutlet"><a href="#IBAction-和-IBOutlet" class="headerlink" title="IBAction 和 IBOutlet"></a>IBAction 和 IBOutlet</h2><ul>
+<li>IBAction<ul>
+<li>本质就是 void</li>
+<li>能让方法具备连线的功能</li>
+</ul>
+</li>
+<li>IBOutlet<ul>
+<li>能让属性具备连线的功能</li>
+</ul>
+</li>
+</ul>
+<h2 id="storyboard-连线容易出现的问题"><a href="#storyboard-连线容易出现的问题" class="headerlink" title="storyboard 连线容易出现的问题"></a>storyboard 连线容易出现的问题</h2><ul>
+<li>被连接的方法被删除, 但是连线没有去掉<ul>
+<li>可能出现方法找不到的错误</li>
+<li>unrecongnized selecotor sent to instance</li>
+</ul>
+</li>
+<li>连接的属性被删掉, 但是连线没有去掉<ul>
+<li>setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key</li>
+</ul>
+</li>
+</ul>
+<h2 id="UIViewController-控制器-的认识"><a href="#UIViewController-控制器-的认识" class="headerlink" title="UIViewController (控制器) 的认识"></a>UIViewController (控制器) 的认识</h2><ul>
+<li>一个控制器负责管理一个界面</li>
+<li>控制器负责界面的创建, 事件的处理等</li>
+</ul>
+<h2 id="类扩展"><a href="#类扩展" class="headerlink" title="类扩展"></a>类扩展</h2><ul>
+<li><p>格式<br>-</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">className</span>()</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> *   属性, 方法的声明</div><div class="line"> */</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>作用</p>
+<ul>
+<li>为某个类添加额外的属性和方法的声明</li>
+<li>可以写在 .h 和 .m 文件中</li>
+</ul>
+</li>
+</ul>
+<h2 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h2><ul>
+<li>Product Name<ul>
+<li>软件名称、产品名称、项目名称</li>
+</ul>
+</li>
+<li>Drganization Identifier<ul>
+<li>公司的唯一标识</li>
+<li>一般是公司域名的反写, 比如 com.baidu</li>
+</ul>
+</li>
+<li>Bundle Identifier<ul>
+<li>软件的唯一标识</li>
+<li>一般是 Drganization Identifier + Product Name</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/03/ui/README/" data-id="ciqardt2x001mqwnxe9yafxlj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/README" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/03/oc/README/" class="article-date">
+  <time datetime="2016-07-03T06:55:43.000Z" itemprop="datePublished">2016-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Objective-C"><a href="#Objective-C" class="headerlink" title="Objective-C"></a>Objective-C</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>OC是在C语言的基础上加了一些新的面向对象的语法, 将C语言的复杂的, 比较繁琐的语法封装的更为简单.完全兼容C语言, 也就是说在OC语言中可以写任意的C代码.</p>
+</blockquote>
+<p>##发展史</p>
+<ul>
+<li><p>20世纪80年代初期, <code>Brad Cox</code>结合了C语言和SmallTalk的优势, 设计出了Objective-C语言.</p>
+</li>
+<li><p>1985年, <code>乔布斯</code>创建了NeXT公司, 使用Objective-C开发用户界面包.</p>
+</li>
+<li><p>1995年, NeXT得到Objective-C的全部版权.</p>
+</li>
+<li><p>1996年, 苹果收购NeXT, NextStep更名<code>Cocoa</code>, OC成为开发运行在Mac平台上的软件的主力语言.</p>
+</li>
+</ul>
+<p>在苹果发布iOS系统之后, OC又成为了开发iOS程序的语言</p>
+<p>##OC与C差异</p>
+<ul>
+<li>源文件</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">扩张名</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">.h</td>
+<td style="text-align:center">头文件</td>
+</tr>
+<tr>
+<td style="text-align:center">.c</td>
+<td style="text-align:center">C语言源文件</td>
+</tr>
+<tr>
+<td style="text-align:center">.cpp .cc</td>
+<td style="text-align:center">C++语言的源文件</td>
+</tr>
+<tr>
+<td style="text-align:center">.m</td>
+<td style="text-align:center">Objective-C语言源文件</td>
+</tr>
+<tr>
+<td style="text-align:center">.mm</td>
+<td style="text-align:center">Objective-C++语言源文件</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>数据类型</li>
+</ul>
+<p>C中的数据类型:<br><img src="image/C语言数据类型.jpg" alt="C数据类型"></p>
+<p>OC中的新增的数据类型:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">BOOL</td>
+<td style="text-align:center">字面常量值, <code>YES</code>or<code>NO</code></td>
+</tr>
+<tr>
+<td style="text-align:center">NSObject *</td>
+<td style="text-align:center">OC中的对象类型</td>
+</tr>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">动态对象类型, 万能指针</td>
+</tr>
+<tr>
+<td style="text-align:center">SEL</td>
+<td style="text-align:center">选择器数据类型</td>
+</tr>
+<tr>
+<td style="text-align:center">block</td>
+<td style="text-align:center">代码块数据类型</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>关键字</p>
+<p>  C语言关键字</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">auto</span> <span class="keyword">double</span> <span class="keyword">int</span> <span class="keyword">struct</span> <span class="keyword">break</span> <span class="keyword">else</span> <span class="keyword">long</span> <span class="keyword">switch</span> <span class="keyword">case</span> <span class="keyword">enum</span></div><div class="line"><span class="keyword">register</span> <span class="keyword">typedef</span> <span class="keyword">char</span> <span class="keyword">extern</span> <span class="keyword">return</span> <span class="keyword">union</span> <span class="keyword">const</span> <span class="keyword">float</span></div><div class="line"><span class="keyword">short</span> <span class="keyword">unsigned</span> <span class="keyword">continue</span> <span class="keyword">for</span> <span class="keyword">signed</span> <span class="keyword">void</span> <span class="keyword">default</span> <span class="keyword">goto</span></div><div class="line"><span class="keyword">sizeof</span> <span class="keyword">volatile</span> <span class="keyword">do</span> <span class="keyword">if</span> <span class="keyword">while</span> <span class="keyword">static</span></div></pre></td></tr></table></figure>
+<p>  OC新增关键字</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> @<span class="title">implementation</span> @<span class="title">end</span> @<span class="title">public</span> @<span class="title">protected</span></span></div><div class="line"><span class="keyword">@private</span> <span class="keyword">@selector</span> <span class="keyword">@try</span> @ catch <span class="keyword">@throw</span> <span class="keyword">@finally</span></div><div class="line"><span class="class"><span class="keyword">@protocol</span> @<span class="title">optional</span> @<span class="title">required</span> @<span class="title">class</span> @<span class="title">property</span> @<span class="title">synthesize</span></span></div><div class="line"><span class="keyword">@dynamic</span> <span class="built_in">BOOL</span> Class SEL <span class="literal">YES</span> <span class="literal">NO</span> <span class="keyword">id</span> <span class="keyword">self</span> <span class="keyword">super</span> <span class="literal">nil</span> atomic</div><div class="line"><span class="keyword">nonatomic</span> <span class="keyword">retain</span> <span class="keyword">assign</span> <span class="keyword">copy</span> block _</div></pre></td></tr></table></figure>
+<p>  OC中新增异常捕捉方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@try</span> &#123;</div><div class="line">    <span class="comment">//可能出错的代码</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">@catch</span> (<span class="built_in">NSException</span> *exception) &#123;</div><div class="line">    <span class="comment">//一旦出错可以补救的代码</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">@finally</span> &#123;</div><div class="line">    <span class="comment">//无论出错与否都会执行的代码</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>##OC面向对象编程的四个主要特征</p>
+<ul>
+<li>抽象性</li>
+<li>封装性</li>
+<li>多态性</li>
+<li>继承性</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/03/oc/README/" data-id="ciqardt0r0007qwnxv2pfbjx3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-c/README" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/03/c/README/" class="article-date">
+  <time datetime="2016-07-03T06:55:37.000Z" itemprop="datePublished">2016-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/03/c/README/" data-id="ciqardt0p0004qwnxzyilxj4p" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-SUMMARY" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/03/SUMMARY/" class="article-date">
+  <time datetime="2016-07-03T06:54:28.000Z" itemprop="datePublished">2016-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul>
+<li><a href="README.md">Introduction</a></li>
+<li><a href="c/README.md">C语言</a></li>
+<li><a href="oc/README.md">Objective-C</a><ul>
+<li><a href="oc/classandobject.md">类与对象</a></li>
+<li><a href="oc/nsstring.md">NSString</a><ul>
+<li><a href="oc/nsstringandnsurl.md">使用NSURL读写字符串</a></li>
+<li><a href="oc/nsstringcompare.md">字符串的比较</a></li>
+<li><a href="oc/nsstringsearch.md">字符串搜索与NSRange</a></li>
+<li><a href="oc/nsstringinterceptionandreplacement.md">字符串的截取和替换</a></li>
+<li><a href="oc/nsstringother.md">NSString的其他用法</a></li>
+<li><a href="oc/nsmutablestring.md">NSMutableString</a></li>
+</ul>
+</li>
+<li><a href="oc/nsarray.md">NSArray</a><ul>
+<li><a href="oc/nsarrayaction.md">NSArray常见用法</a></li>
+<li><a href="oc/nsarraytraverse.md">NSArray的遍历</a></li>
+<li><a href="oc/nsarrayandfile.md">NSArray读写文件</a></li>
+<li><a href="oc/nsarrayandnsstring.md">NSArray与NSString</a></li>
+<li><a href="oc/nsmutablearray.md">NSMutableArray</a></li>
+</ul>
+</li>
+<li><a href="oc/nsdictionary.md">NSDictionary</a><ul>
+<li><a href="oc/nsdictionaryaction.md">NSDictionary常见用法</a></li>
+<li><a href="oc/nsdictionaryandfile.md">NSDictionary简写与文件操作</a></li>
+<li><a href="oc/nsmutabledictionary.md">NSMutableDictionary</a></li>
+</ul>
+</li>
+<li><a href="oc/nsfilemanager.md">NSFileManager</a><ul>
+<li><a href="oc/nsfilemanagerandfile.md">NSFileManager的文件访问</a></li>
+<li><a href="oc/nsfilemanagerfileoperation.md">NSFileManager的文件或文件夹操作</a></li>
+<li><a href="oc/iossanbox.md">iOS沙盒(sanbox)机制</a></li>
+</ul>
+</li>
+<li><a href="oc/struct.md">Struct结构体</a></li>
+<li><a href="oc/nsnumber.md">NSNumber</a></li>
+<li><a href="oc/nsvalue.md">NSValue</a></li>
+<li><a href="oc/nsdate.md">NSDate</a></li>
+<li><a href="oc/gathermemorymanagement.md">集合对象的内存管理</a></li>
+<li><a href="oc/copy.md">Copy</a><ul>
+<li><a href="oc/copyandmemorymanagement.md">Copy与内存管理</a></li>
+<li><a href="oc/copyaction.md">为自定义的类实现copy操作</a></li>
+</ul>
+</li>
+<li><a href="oc/singletonpattern.md">单例模式</a></li>
+<li><a href="oc/memorymanagement.md">内存管理</a><ul>
+<li><a href="oc/principle.md">内存管理的原理及分类</a></li>
+<li><a href="oc/mrc.md">MRC</a></li>
+<li><a href="oc/mrcprinciple.md">手动管理内存的原则</a></li>
+<li><a href="oc/moreobject.md">多个对象的内存管理</a></li>
+<li><a href="oc/setmemorymanagement.md">set方法的内存管理</a></li>
+<li><a href="oc/property.md">@property</a></li>
+<li><a href="oc/class.md">@class</a></li>
+<li><a href="oc/loopretain.md">循环retain</a></li>
+<li><a href="oc/nsstringandmrc.md">NSString类的内存管理</a></li>
+<li><a href="oc/autorelease.md">Autorelease</a><ul>
+<li><a href="oc/autoreleaseattention.md">Autorelease注意事项</a></li>
+</ul>
+</li>
+<li><a href="oc/arc.md">ARC</a><ul>
+<li><a href="oc/arcloop.md">ARC循环引用</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="oc/category.md">Category</a><ul>
+<li><a href="oc/extension.md">Extension</a></li>
+</ul>
+</li>
+<li><a href="oc/block.md">Block</a></li>
+<li><a href="oc/protocol.md">Protocol</a><ul>
+<li><a href="oc/idandinstancetype.md">protocol类型限制</a></li>
+<li><a href="oc/delegate.md">delegate</a></li>
+</ul>
+</li>
+<li><a href="oc/foundation.md">Foundation</a></li>
+</ul>
+</li>
+<li><a href="ui/README.md">UI</a><ul>
+<li><a href="ui/uiview.md">UIView</a></li>
+<li><a href="ui/uiimageview.md">UIImageView</a></li>
+<li><a href="ui/launch.md">Launch启动图片</a></li>
+<li><a href="ui/uiscrollview.md">UIScrollView</a></li>
+<li><a href="ui/uitableview.md">UITableView</a></li>
+<li><a href="ui/uitableviewcell.md">UITableViewCell</a></li>
+<li><a href="ui/uicollectionview.md">UICollectionView</a></li>
+<li><a href="ui/cellidentifier.md">CellIdentifier</a></li>
+<li><a href="ui/nsnotificationcenter_and_delegate.md">NSNotificationCenter And Delegate</a></li>
+<li><a href="ui/autoresizing.md">Autoresizing</a></li>
+<li><a href="ui/autolayout.md">Autolayout</a></li>
+<li><a href="ui/uipickerview.md">UIPickerView</a></li>
+<li><a href="ui/uiapplication.md">UIApplication</a></li>
+<li><a href="ui/uitextfield.md">UITextField</a></li>
+<li><a href="ui/persistence_data.md">Persistence Data</a></li>
+<li><a href="ui/layoutsubviews.md">LayoutSubViews</a></li>
+<li><a href="ui/transform.md">Transform</a></li>
+<li><a href="ui/uibutton.md">UIButton</a></li>
+<li><a href="ui/storyboardandxib.md">StoryboardAndXib</a></li>
+<li><a href="ui/uilabel.md">UILabel</a></li>
+<li><a href="ui/other.md">Other</a></li>
+<li><a href="ui/uimenucontroller.md">UIMenuController</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/03/SUMMARY/" data-id="ciqardsz80001qwnxeaayfat8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/7/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/06/啦啦/">啦啦</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/06/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uimenucontroller/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/other/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uilabel/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

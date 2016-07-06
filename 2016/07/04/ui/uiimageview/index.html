@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="UIImageView###UIImageView 帧动画
+1. 可以展示单张图片
+2. 也可以用来播放动画
+3. 播放动画的方法
+ - (void)startAnimating;//开始播放
+ - (void)stopAnimating;//结束播放
+ - (BOOL)isAnimating;//是否正在播放
+4. 用来存放动画图片的属性
+ @property(nonatomic, copy)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2016/07/04/ui/uiimageview/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="UIImageView###UIImageView 帧动画
+1. 可以展示单张图片
+2. 也可以用来播放动画
+3. 播放动画的方法
+ - (void)startAnimating;//开始播放
+ - (void)stopAnimating;//结束播放
+ - (BOOL)isAnimating;//是否正在播放
+4. 用来存放动画图片的属性
+ @property(nonatomic, copy)">
+<meta property="og:updated_time" content="2016-07-06T08:11:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="UIImageView###UIImageView 帧动画
+1. 可以展示单张图片
+2. 也可以用来播放动画
+3. 播放动画的方法
+ - (void)startAnimating;//开始播放
+ - (void)stopAnimating;//结束播放
+ - (BOOL)isAnimating;//是否正在播放
+4. 用来存放动画图片的属性
+ @property(nonatomic, copy)">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ui/uiimageview" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/ui/uiimageview/" class="article-date">
+  <time datetime="2016-07-04T08:00:29.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="UIImageView"><a href="#UIImageView" class="headerlink" title="UIImageView"></a>UIImageView</h1><p>###UIImageView 帧动画</p>
+<pre><code>1. 可以展示单张图片
+2. 也可以用来播放动画
+3. 播放动画的方法
+ - (void)startAnimating;//开始播放
+ - (void)stopAnimating;//结束播放
+ - (BOOL)isAnimating;//是否正在播放
+4. 用来存放动画图片的属性
+ @property(nonatomic, copy) NSArray *animationImages;
+5. 播放的属性
+ @property (nonatomic) NSTimeInterval animationDuration;//持续时间
+
+ //如果不设置默认会无限循环播放
+ @property (nonatomic) NSInteger      animationRepeatCount;//重复次数
+</code></pre><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//eg:</span></div><div class="line"><span class="keyword">if</span> ([<span class="keyword">self</span>.imageView isAnimating]) <span class="keyword">return</span>;</div><div class="line"></div><div class="line"><span class="comment">//动画数组</span></div><div class="line"><span class="keyword">self</span>.imageView.animationImages = arrM;</div><div class="line"></div><div class="line"><span class="comment">//设置播放动画的属性 ---- 必须在播放之前</span></div><div class="line"><span class="keyword">self</span>.imageView.animationDuration = <span class="number">3</span>;<span class="comment">//时间</span></div><div class="line"><span class="keyword">self</span>.imageView.animationRepeatCount = <span class="number">1</span>;<span class="comment">//次数</span></div><div class="line"></div><div class="line"><span class="comment">//开始动画</span></div><div class="line">[<span class="keyword">self</span>.imageView startAnimating];</div><div class="line"></div><div class="line"><span class="comment">//动画结束, 释放图片内存</span></div><div class="line"></div><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">3.0</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">    <span class="comment">// 3.0s后自动执行这个block里面的代码</span></div><div class="line">    <span class="keyword">self</span>.imageView.animationImages = <span class="literal">nil</span>;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>###读取图片的两种方式:</p>
+<pre><code>imageNamed: 自动对图片做缓存
+    优点: 第一次加载之后,  后面再使用直接读取缓存
+    缺点: 会导致内存飙升
+imageWithContentOfFile: 不会做缓存  路径: NSBundle
+    优点:  不做缓存
+    缺点: 加载比较慢
+</code></pre><h3 id="拉伸图片"><a href="#拉伸图片" class="headerlink" title="拉伸图片"></a>拉伸图片</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//方式一:</span></div><div class="line"><span class="built_in">UIImage</span> *resizeImage = [image resizableImageWithCapInsets:<span class="built_in">UIEdgeInsetsMake</span>(halfHeight, halfWidth, halfHeight, halfWidth) resizingMode:<span class="built_in">UIImageResizingModeStretch</span>];</div><div class="line"><span class="comment">//方式二:</span></div><div class="line">Assets : Show Slicing</div></pre></td></tr></table></figure>
+<h3 id="Xcode-的-UUID"><a href="#Xcode-的-UUID" class="headerlink" title="Xcode 的 UUID"></a>Xcode 的 UUID</h3><p>9AFF134A-08DC-4096-8CEE-62A4BB123046<br>插件的安装路径<br>~/Library/Application Support/Developer/Shared/Xcode/Plug-ins</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/ui/uiimageview/" data-id="ciqardt3h0020qwnxor0ncspt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/04/ui/launch/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/04/ui/uiview/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/06/啦啦/">啦啦</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/06/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uimenucontroller/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/other/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uilabel/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

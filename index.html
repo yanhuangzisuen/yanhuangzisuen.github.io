@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -87,7 +87,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/06/啦啦/" data-id="ciqarabr60000q4nx1dz4x0vu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/06/啦啦/" data-id="ciqardszs0003qwnxism8ksav" class="article-share-link">Share</a>
       
       
     </footer>
@@ -132,7 +132,502 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/06/hello-world/" data-id="ciqarabrc0001q4nxkn3onwe5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/06/hello-world/" data-id="ciqardsz20000qwnx4cco5lck" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ui/uimenucontroller" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/05/ui/uimenucontroller/" class="article-date">
+  <time datetime="2016-07-05T07:47:24.000Z" itemprop="datePublished">2016-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="UIMenuController"><a href="#UIMenuController" class="headerlink" title="UIMenuController"></a>UIMenuController</h1><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark -</span></div><div class="line"><span class="meta">#pragma mark - UIMenuController的处理</span></div><div class="line">- (<span class="keyword">void</span>)didClickCell</div><div class="line">&#123;</div><div class="line">    <span class="built_in">UIMenuController</span> *menu = [<span class="built_in">UIMenuController</span> sharedMenuController];</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (menu.isMenuVisible) &#123;</div><div class="line"></div><div class="line">        [menu setMenuVisible:<span class="literal">NO</span> animated:<span class="literal">YES</span>];</div><div class="line"></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [<span class="keyword">self</span> becomeFirstResponder];</div><div class="line"></div><div class="line">        <span class="built_in">UIMenuItem</span> *dingItem = [[<span class="built_in">UIMenuItem</span> alloc] initWithTitle:<span class="string">@"顶"</span> action:<span class="keyword">@selector</span>(ding:)];</div><div class="line">        <span class="built_in">UIMenuItem</span> *replyItem = [[<span class="built_in">UIMenuItem</span> alloc] initWithTitle:<span class="string">@"回复"</span> action:<span class="keyword">@selector</span>(reply:)];</div><div class="line">        <span class="built_in">UIMenuItem</span> *reportItem = [[<span class="built_in">UIMenuItem</span> alloc] initWithTitle:<span class="string">@"举报"</span> action:<span class="keyword">@selector</span>(report:)];</div><div class="line">        [menu setMenuItems:@[dingItem, replyItem, reportItem]];</div><div class="line"></div><div class="line">        <span class="built_in">CGRect</span> rect = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="keyword">self</span>.height * <span class="number">0.5</span>, <span class="keyword">self</span>.width, <span class="keyword">self</span>.height * <span class="number">0.5</span>);</div><div class="line">        [menu setTargetRect:rect inView:<span class="keyword">self</span>];</div><div class="line">        [menu setMenuVisible:<span class="literal">YES</span> animated:<span class="literal">YES</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  能能成为第一响应者</div><div class="line"> */</div><div class="line">- (<span class="built_in">BOOL</span>)canBecomeFirstResponder</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  能响应对应的事件</div><div class="line"> */</div><div class="line">- (<span class="built_in">BOOL</span>)canPerformAction:(SEL)action withSender:(<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (action == <span class="keyword">@selector</span>(ding:) || action == <span class="keyword">@selector</span>(reply:) || action == <span class="keyword">@selector</span>(report:)) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  顶</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)ding:(<span class="built_in">UIMenuController</span> *)menu</div><div class="line">&#123;</div><div class="line">    ZXX_SHOW_METHOD_INFO</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  评论</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)reply:(<span class="built_in">UIMenuController</span> *)menu</div><div class="line">&#123;</div><div class="line">    ZXX_SHOW_METHOD_INFO</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  举报</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)report:(<span class="built_in">UIMenuController</span> *)menu</div><div class="line">&#123;</div><div class="line">    ZXX_SHOW_METHOD_INFO</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="block-调用时防错处理"><a href="#block-调用时防错处理" class="headerlink" title="block 调用时防错处理"></a>block 调用时防错处理</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)clickButtonWithCompletionBlock:(<span class="keyword">void</span>(^)())completionBlock</div><div class="line">&#123;</div><div class="line">    <span class="comment">//...</span></div><div class="line">    <span class="comment">//当外界调用该方法传block 为 nil 时, 直接调用会出错</span></div><div class="line">    <span class="comment">//要判断</span></div><div class="line">    !completionBlock ? : completionBlock();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/05/ui/uimenucontroller/" data-id="ciqardt3o0024qwnxi5ihq0gm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ui/other" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/05/ui/other/" class="article-date">
+  <time datetime="2016-07-05T07:04:52.000Z" itemprop="datePublished">2016-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><h3 id="保存图片-视频"><a href="#保存图片-视频" class="headerlink" title="保存图片, 视频"></a>保存图片, 视频</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//图片</span></div><div class="line"><span class="built_in">UIImageWriteToSavedPhotosAlbum</span>(<span class="keyword">self</span>.imageView.image, <span class="keyword">self</span>, <span class="keyword">@selector</span>(image:didFinishSavingWithError:contextInfo:), <span class="literal">nil</span>);</div><div class="line"></div><div class="line"><span class="comment">//视频</span></div><div class="line"><span class="built_in">UISaveVideoAtPathToSavedPhotosAlbum</span>(&lt;<span class="meta">#NSString * _Nonnull videoPath#&gt;, <span class="meta-string">&lt;#id  _Nullable completionTarget#&gt;</span>, <span class="meta-string">&lt;#SEL  _Nullable completionSelector#&gt;</span>, <span class="meta-string">&lt;#void * _Nullable contextInfo#&gt;</span>)</span></div><div class="line"></div><div class="line"><span class="comment">//图片保存结果的回调</span></div><div class="line"><span class="comment">//方法要有三个参数</span></div><div class="line"><span class="comment">//方法要有三个参数</span></div><div class="line">- (<span class="keyword">void</span>)image:(<span class="built_in">UIImage</span> *)image didFinishSavingWithError:(<span class="built_in">NSError</span> *)error contextInfo:(<span class="keyword">void</span> *)contextInfo</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (error) &#123;</div><div class="line">        [SVProgressHUD showErrorWithStatus:<span class="string">@"保存失败"</span>];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [SVProgressHUD showSuccessWithStatus:<span class="string">@"保存成功"</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">视频保存结果的回调</div><div class="line">- (<span class="keyword">void</span>)video:(<span class="built_in">NSString</span> *)videoPath didFinishSavingWithError:(<span class="built_in">NSError</span> *)error contextInfo:(<span class="keyword">void</span> *)contextInfo</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (error) &#123;</div><div class="line">        [SVProgressHUD showErrorWithStatus:<span class="string">@"保存失败"</span>];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [SVProgressHUD showSuccessWithStatus:<span class="string">@"保存成功"</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="解决TableView-CollectionView加载数据时多次刷新问题"><a href="#解决TableView-CollectionView加载数据时多次刷新问题" class="headerlink" title="解决TableView\CollectionView加载数据时多次刷新问题"></a>解决TableView\CollectionView加载数据时多次刷新问题</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">解决多次刷新问题</div><div class="line">方法<span class="number">1.</span>定义属性parameters, 判读parameters是否相同</div><div class="line">方法<span class="number">2.</span><span class="built_in">NSURLSessionDataTask</span>的cancel方法</div><div class="line">一个任务被取消,AFNetworking 会调用取消任务的 failure 的 block</div><div class="line"></div><div class="line"><span class="comment">//makeObjectsPerformSelector数组中的所有元素都执行Selector方法</span></div><div class="line">    [<span class="keyword">self</span>.manager.tasks makeObjectsPerformSelector:<span class="keyword">@selector</span>(cancel)];</div><div class="line"></div><div class="line"><span class="comment">//控制器销毁时</span></div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="comment">//取消所有的任务</span></div><div class="line">    [<span class="keyword">self</span>.manager invalidateSessionCancelingTasks:<span class="literal">YES</span>];</div><div class="line">    <span class="comment">//or</span></div><div class="line">    <span class="comment">//停止所有操作</span></div><div class="line">    [<span class="keyword">self</span>.manager.operationQueue cancelAllOperations];</div><div class="line"></div><div class="line">    <span class="comment">//取消任务, 还能开起任务</span></div><div class="line">    <span class="comment">//[self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];</span></div><div class="line">    <span class="comment">//invalidateSessionCancelingTasks=yes --&gt; session 都无效,任务不能开启, cancel只是取消任务</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="拦截frame的修改"><a href="#拦截frame的修改" class="headerlink" title="拦截frame的修改"></a>拦截frame的修改</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *  可以拦截所有对frame的修改</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)setFrame:(<span class="built_in">CGRect</span>)frame</div><div class="line">&#123;</div><div class="line">    frame.origin.x = <span class="number">10</span>;</div><div class="line">    frame.size.width -= <span class="number">2</span> * frame.origin.x;</div><div class="line">    frame.size.height -= <span class="number">1</span>;</div><div class="line"></div><div class="line">    [<span class="keyword">super</span> setFrame:frame];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  可以拦截所有对bounds的修改</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)setBounds:(<span class="built_in">CGRect</span>)bounds</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> setBounds:bounds];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="控件无故拉伸问题"><a href="#控件无故拉伸问题" class="headerlink" title="控件无故拉伸问题"></a>控件无故拉伸问题</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//如果设置了尺寸, 但控件的宽高拉伸, 可能就是UIViewAutoresizingNone</span></div><div class="line"><span class="keyword">self</span>.autoresizingMask = <span class="built_in">UIViewAutoresizingNone</span>;</div></pre></td></tr></table></figure>
+<h3 id="图片过大-只全部显示图片头部"><a href="#图片过大-只全部显示图片头部" class="headerlink" title="图片过大, 只全部显示图片头部"></a>图片过大, 只全部显示图片头部</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//开启图形上下文</span></div><div class="line"><span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(post.pictureFrame.size, <span class="literal">YES</span>, <span class="number">0.0</span>);</div><div class="line"></div><div class="line"><span class="comment">//将下载的图片, 画到图像上下文中</span></div><div class="line"><span class="comment">//等比例缩放至宽或高全部显示后, 的图片frame</span></div><div class="line"><span class="built_in">CGFloat</span> imageW = post.pictureFrame.size.width;</div><div class="line"></div><div class="line"><span class="built_in">CGFloat</span> imageH = image.size.height * imageW / image.size.width;</div><div class="line">[image drawInRect:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, imageW, imageH)];</div><div class="line"></div><div class="line"><span class="comment">//获取图片</span></div><div class="line"><span class="keyword">self</span>.imageView.image  = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</div><div class="line"></div><div class="line"><span class="comment">//结束图形上下文</span></div><div class="line"><span class="built_in">UIGraphicsEndImageContext</span>();</div></pre></td></tr></table></figure>
+<h3 id="UI-APPEARANCE-SELECTOR"><a href="#UI-APPEARANCE-SELECTOR" class="headerlink" title="UI_APPEARANCE_SELECTOR"></a>UI_APPEARANCE_SELECTOR</h3><ul>
+<li>属性带有 UI_APPEARANCE_SELECTOR, 可以通过 appearance 统一设置</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//eg:</span></div><div class="line"><span class="built_in">UINavigationBar</span> *navigationBar = [<span class="built_in">UINavigationBar</span> appearance];</div><div class="line">[navigationBar setBackgroundImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"navigationbarBackgroundWhite"</span>] forBarMetrics:<span class="built_in">UIBarMetricsDefault</span>];</div><div class="line">[navigationBar setTitleTextAttributes:@&#123;<span class="built_in">NSFontAttributeName</span> : [<span class="built_in">UIFont</span> boldSystemFontOfSize:<span class="number">20</span>]&#125;];</div><div class="line"></div><div class="line"><span class="comment">//注意:</span></div><div class="line"><span class="keyword">self</span>.navigationItem.rightBarButtonItem.enabled = <span class="literal">NO</span>;</div><div class="line"><span class="comment">//使用UI_APPEARANCE_SELECTOR--&gt;appearance时,分样式的设置会导致样式不会改变, 需要强制刷新</span></div><div class="line">[<span class="keyword">self</span>.navigationController.navigationBar layoutIfNeeded];</div></pre></td></tr></table></figure>
+<h3 id="设置状态栏的样式"><a href="#设置状态栏的样式" class="headerlink" title="设置状态栏的样式"></a>设置状态栏的样式</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Info.plist 配置 View controller-based status bar appearance : NO</span></div><div class="line">[<span class="built_in">UIApplication</span> sharedApplication].statusBarStyle = <span class="built_in">UIStatusBarStyleDefault</span>;</div></pre></td></tr></table></figure>
+<h3 id="presentViewController"><a href="#presentViewController" class="headerlink" title="presentViewController"></a>presentViewController</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">当一个控制器 model 出另一个控制器</div><div class="line">[A presentViewController:B animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</div><div class="line">A.presentedViewController --&gt; B</div><div class="line">B.presentingViewController --&gt; A</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/05/ui/other/" data-id="ciqardt33001tqwnxc4fso9ki" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ui/uilabel" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/05/ui/uilabel/" class="article-date">
+  <time datetime="2016-07-05T04:10:09.000Z" itemprop="datePublished">2016-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="UILabel"><a href="#UILabel" class="headerlink" title="UILabel"></a>UILabel</h1><h3 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">UIFont</span> boldSystemFontOfSize:&lt;<span class="meta">#(CGFloat)#&gt;]//粗体</span></div><div class="line">    <span class="comment">//italicSystemFontOfSize:  斜体</span></div></pre></td></tr></table></figure>
+<h3 id="富文本"><a href="#富文本" class="headerlink" title="富文本"></a>富文本</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *commentString =[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"回复 %@: %@"</span>, parentsComment.nick, _comment.content];</div><div class="line"></div><div class="line"><span class="built_in">NSRange</span> range = [commentString rangeOfString:parentsComment.nick];</div><div class="line"></div><div class="line"><span class="built_in">NSMutableAttributedString</span> *attString = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:commentString];</div><div class="line"></div><div class="line">[attString addAttribute:<span class="built_in">NSForegroundColorAttributeName</span> value:[<span class="built_in">UIColor</span> orangeColor] range:range];</div><div class="line"></div><div class="line"><span class="keyword">self</span>.label.attributedText = attString;</div></pre></td></tr></table></figure>
+<h3 id="计算文本范围"><a href="#计算文本范围" class="headerlink" title="计算文本范围"></a>计算文本范围</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CGSize</span> textSize = <span class="built_in">CGSizeMake</span>(限定宽度, MAXFLOAT);</div><div class="line"></div><div class="line"><span class="built_in">CGRect</span> textRect = [label.text boundingRectWithSize:textSize options:<span class="built_in">NSStringDrawingUsesLineFragmentOrigin</span> attributes:@&#123;<span class="built_in">NSFontAttributeName</span>: [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">15</span>]&#125; context:<span class="literal">nil</span>];</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">label.autoresizingMask = <span class="built_in">UIViewAutoresizingFlexibleHeight</span>;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/05/ui/uilabel/" data-id="ciqardt3l0022qwnxjavv31u6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ui/storyboardandxib" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/05/ui/storyboardandxib/" class="article-date">
+  <time datetime="2016-07-05T01:56:47.000Z" itemprop="datePublished">2016-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="StoryboardAndXib"><a href="#StoryboardAndXib" class="headerlink" title="StoryboardAndXib"></a>StoryboardAndXib</h1><h3 id="xib-和-storyboard-的异同点"><a href="#xib-和-storyboard-的异同点" class="headerlink" title="xib 和 storyboard 的异同点"></a>xib 和 storyboard 的异同点</h3><pre><code>共同点: 可以设置 UI 界面
+
+不同的: storyboard(描述整个界面) 可以进行界面跳转, 是重量级的
+        xib(描述局部界面) 轻量级
+</code></pre><ul>
+<li>xib</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回一个数组 按 xib 拖放顺序</span></div><div class="line">[[<span class="built_in">NSBundle</span> mainBundle] loadNidNamed:<span class="string">@"xib的文件名"</span> ower:<span class="literal">nil</span> options: <span class="literal">nil</span>];</div><div class="line"></div><div class="line">loadNibNamed:  xib 的名字 返回数组</div><div class="line">使用 loadNibNamed: 的原因</div><div class="line">在项目文件中, xib 文件是以 .xib 结尾</div><div class="line">安装之后, 就自动的以 .nib 结尾</div><div class="line">执行command+R 相当于在模拟器上安装了应用程序</div></pre></td></tr></table></figure>
+<ul>
+<li>storyboard</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIStoryboard</span> *sb = [<span class="built_in">UIStoryboard</span> storyboardWithName:<span class="string">@"ZXXLoteryHallViewController"</span> bundle:<span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//当前 storyboard 箭头所指的控制器</span></div><div class="line"><span class="built_in">UIViewController</span> = sb.instantiateInitialViewController;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/05/ui/storyboardandxib/" data-id="ciqardt3a001vqwnxmlg4eazr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ui/uibutton" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/05/ui/uibutton/" class="article-date">
+  <time datetime="2016-07-05T01:52:56.000Z" itemprop="datePublished">2016-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="UIButton"><a href="#UIButton" class="headerlink" title="UIButton"></a>UIButton</h1><ul>
+<li>解决按钮按下不立即变色问题</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//自定义 button, 重写该方法</span></div><div class="line">- (<span class="keyword">void</span>)setHighlighted:(<span class="built_in">BOOL</span>)highlighted</div><div class="line">&#123;</div><div class="line">    <span class="comment">//如果调用父类的 setHighlighted, 那么点击下去, 不会立即变色</span></div><div class="line"><span class="comment">//    [super setHighlighted:highlighted];</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>button有多种状态, 它提供了一些便捷属性，可以直接获取当前状态下的文字、文字颜色、图片等</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>,<span class="keyword">retain</span>) <span class="built_in">NSString</span> *currentTitle;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>,<span class="keyword">retain</span>) <span class="built_in">UIColor</span>  *currentTitleColor;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>,<span class="keyword">retain</span>) <span class="built_in">UIImage</span>  *currentImage;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>,<span class="keyword">retain</span>) <span class="built_in">UIImage</span>  *currentBackgroundImage;</div></pre></td></tr></table></figure>
+<ul>
+<li>设置button 的水平对齐方式</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIControlContentHorizontalAlignmentCenter</span> = <span class="number">0</span>,</div><div class="line"><span class="built_in">UIControlContentHorizontalAlignmentLeft</span>   = <span class="number">1</span>,</div><div class="line"><span class="built_in">UIControlContentHorizontalAlignmentRight</span>  = <span class="number">2</span>,</div><div class="line"><span class="built_in">UIControlContentHorizontalAlignmentFill</span>   = <span class="number">3</span>,</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//button.contentMode --&gt; 设置image</span></div><div class="line"><span class="comment">//UIControl内容的排布方式 contentHorizontalAlignment -- contentVerticalAlignment</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/05/ui/uibutton/" data-id="ciqardt3f001yqwnxwttf4f0m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ui/transform" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/05/ui/transform/" class="article-date">
+  <time datetime="2016-07-05T01:11:06.000Z" itemprop="datePublished">2016-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Transform"><a href="#Transform" class="headerlink" title="Transform"></a>Transform</h1><ul>
+<li>下面的方法是直接创建一个固定的 transform</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//参数最多, 可定制性最强, 用的不多</span></div><div class="line"><span class="built_in">CGAffineTransformMake</span>(&lt;<span class="meta">#CGFloat a#&gt;, <span class="meta-string">&lt;#CGFloat b#&gt;</span>, <span class="meta-string">&lt;#CGFloat c#&gt;</span>, <span class="meta-string">&lt;#CGFloat d#&gt;</span>, <span class="meta-string">&lt;#CGFloat tx#&gt;</span>, <span class="meta-string">&lt;#CGFloat ty#&gt;</span>);</span></div><div class="line"></div><div class="line"><span class="comment">//平移, 修改位置</span></div><div class="line"><span class="built_in">CGAffineTransformMakeTranslation</span>(&lt;<span class="meta">#CGFloat tx#&gt;, <span class="meta-string">&lt;#CGFloat ty#&gt;</span>);</span></div><div class="line"></div><div class="line"><span class="comment">//缩放</span></div><div class="line"><span class="built_in">CGAffineTransformMakeScale</span>(&lt;<span class="meta">#CGFloat sx#&gt;, <span class="meta-string">&lt;#CGFloat sy#&gt;</span>);</span></div><div class="line"></div><div class="line"><span class="comment">//旋转, 弧度 CGFloat == double</span></div><div class="line">    M_PI == 一个π  M_PI_2 == π/<span class="number">2</span>   M_1_PI = <span class="number">1</span>/π</div><div class="line"><span class="built_in">CGAffineTransformMakeRotation</span>(&lt;<span class="meta">#CGFloat angle#&gt;);</span></div></pre></td></tr></table></figure>
+<ul>
+<li>每次累加当前的 transform, 连续动画</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//持续旋转</span></div><div class="line"><span class="built_in">CGAffineTransformRotate</span>(&lt;<span class="meta">#CGAffineTransform t#&gt;, <span class="meta-string">&lt;#CGFloat angle#&gt;</span>)</span></div><div class="line"></div><div class="line"><span class="comment">//持续缩放</span></div><div class="line"><span class="built_in">CGAffineTransformScale</span>(&lt;<span class="meta">#CGAffineTransform t#&gt;, <span class="meta-string">&lt;#CGFloat sx#&gt;</span>, <span class="meta-string">&lt;#CGFloat sy#&gt;</span>)</span></div><div class="line"></div><div class="line"><span class="comment">//连续移动</span></div><div class="line"><span class="built_in">CGAffineTransformTranslate</span>(&lt;<span class="meta">#CGAffineTransform t#&gt;, <span class="meta-string">&lt;#CGFloat tx#&gt;</span>, <span class="meta-string">&lt;#CGFloat ty#&gt;</span>)</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/05/ui/transform/" data-id="ciqardt3c001wqwnxnvcwxggf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ui/layoutsubviews" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/ui/layoutsubviews/" class="article-date">
+  <time datetime="2016-07-04T09:40:29.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="LayoutSubViews"><a href="#LayoutSubViews" class="headerlink" title="LayoutSubViews"></a>LayoutSubViews</h1><h2 id="layoutSubviews总结"><a href="#layoutSubviews总结" class="headerlink" title="layoutSubviews总结"></a>layoutSubviews总结</h2><ul>
+<li><p>1.iOS layout机制相关方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">CGSize</span>)sizeThatFits:(<span class="built_in">CGSize</span>)size</div><div class="line">- (<span class="keyword">void</span>)sizeToFit</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)layoutSubviews</div><div class="line">- (<span class="keyword">void</span>)layoutIfNeeded</div><div class="line">- (<span class="keyword">void</span>)setNeedsLayout</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setNeedsDisplay</div><div class="line">- (<span class="keyword">void</span>)drawRect</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.layoutSubviews 被调用的情况</p>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span>init 初始化时不会触发 layoutSubview, 但是使用 initWithFrame: 进行初始化时, 当 rect 的值不为 <span class="built_in">CGRectZero</span> 时, 会触发</div><div class="line"><span class="number">2.</span>addSubview 会触发 layoutSubviews</div><div class="line"><span class="number">3.</span>设置 view 的Frame 会触发 layoutSubviews, 前提是 Fraame的值前后发生变化</div><div class="line"><span class="number">4.</span>滚动一个 <span class="built_in">UIScrollView</span> 会触发 layoutSubviews</div><div class="line"><span class="number">5.</span>旋转 Screen 会触发 父View 上的 layoutSubviews 事件</div><div class="line"><span class="number">6.</span>改变一个 <span class="built_in">UIView</span> 大小的时候, 也会触发 父View 上的 layoutSubviews 事件</div><div class="line">在苹果的官方文档中强调:</div><div class="line">   You should override <span class="keyword">this</span> method only <span class="keyword">if</span> the autoresizing and constraint-based behaviors of the subviews <span class="keyword">do</span> not offer the behavior you want.</div><div class="line">   只要调整尺寸和基于约束的行为的子视图不提供你想要的行为时, 你应重写此方法</div></pre></td></tr></table></figure>
+<ul>
+<li>3.刷新子对象布局</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- layoutSubviews: 这个方法默认没有做任何事情, 需要子类进行重写</div><div class="line">- setNeedsLayout: 标记为需要重新布局, 异步调用 layoutIfNeeded 刷新布局, 不立即刷新, 但 layoutSubviews 一定会调用</div><div class="line">- layoutIfNeeded: 如果有需要刷新的标记, 立即调用 layoutSubviews 进行布局, 如果没有标记, 不会调用 layoutSubviews</div><div class="line">对于 layoutSubviews 文档中还指出:</div><div class="line">    You should not call <span class="keyword">this</span> method directly. If you want to force a layout update, call the setNeedsLayout method instead to <span class="keyword">do</span> so prior to the next drawing update. If you want to update the layout of your views immediately, call the layoutIfNeeded method</div><div class="line">    你不应该直接调用该方法, 如果你想更新布局, 在更新布局之前调用 [view setNeedsLayout] 方法. 如果你想立即更新你的视图, 则调用 [view layoutIfNeeded] 方法.</div><div class="line">在视图第一次显示之前, 标记总是 <span class="string">"需要刷新"</span> 的, 可以直接调用 [view layoutIfNeeded]</div></pre></td></tr></table></figure>
+<ul>
+<li>4.重绘</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- drawRect:(<span class="built_in">CGRect</span>)rect: 重写此方法, 执行重绘任务</div><div class="line">- setNeedsDisplay: 标记为需要重绘, 异步调用 drawRect: 方法</div><div class="line">- setNeedsDisolayInRect:(<span class="built_in">CGRect</span>)invalidRect: 标记需要局部重绘</div></pre></td></tr></table></figure>
+<ul>
+<li>5.sizeToFit 与 sizeThatFits:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)sizeToFit</div><div class="line">sizeToFit 可以被手动直接调用</div><div class="line">调用 sizeToFit 会自动调用 sizeThatFits: 方法</div><div class="line">sizeToFit 不应该在子类中被重写, 应该重写 - (<span class="built_in">CGSize</span>)sizeThatFits:(<span class="built_in">CGSize</span>)size</div><div class="line"><span class="comment">/**</span></div><div class="line"> *  调整尺寸</div><div class="line"> *</div><div class="line"> *  @param size receiver当前的尺寸</div><div class="line"> *</div><div class="line"> *  @return 返回一个合适的尺寸</div><div class="line"> */</div><div class="line">- (<span class="built_in">CGSize</span>)sizeThatFits:(<span class="built_in">CGSize</span>)size</div></pre></td></tr></table></figure>
+<ul>
+<li>6.layoutSubviews 与 drawRect</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">layoutSubviews 对 subviews 重新布局</div><div class="line"></div><div class="line">layoutSubviews 方法调用先于 drawRect</div><div class="line"></div><div class="line">setNeedsLayout 在receiver标上一个需要被重新布局的标记，在系统 runloop 的下一个周期自动调用 layoutSubviews</div><div class="line"></div><div class="line">layoutIfNeeded 方法如其名，<span class="built_in">UIKit</span> 会判断该receiver是否需要 layout.根据Apple官方文档, layoutIfNeeded 方法应该是这样的</div><div class="line"></div><div class="line">layoutIfNeeded 遍历的不是 superview 链，应该是 subviews 链</div><div class="line"></div><div class="line">drawRect 是对receiver的重绘，能获得 context</div><div class="line"></div><div class="line">setNeedDisplay 在receiver标上一个需要被重新绘图的标记，在下一个draw周期自动重绘，iphone device的刷新频率是<span class="number">60</span>hz，也就是<span class="number">1</span>/<span class="number">60</span>秒后重绘</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/ui/layoutsubviews/" data-id="ciqardt32001rqwnxqq0scjve" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ui/persistence_data" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/ui/persistence_data/" class="article-date">
+  <time datetime="2016-07-04T09:26:30.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Persistence-Data"><a href="#Persistence-Data" class="headerlink" title="Persistence Data"></a>Persistence Data</h1><p>###数据存储(数据持久化)</p>
+<ul>
+<li>1&gt; 介绍iOS数据存储的5种方式</li>
+<li>2&gt; 介绍应用沙盒(应用程序的文件夹)<ul>
+<li>• 如何找到应用沙盒的路径？首先需要显示隐藏文件。</li>
+<li>• 点击前往-&gt;个人-&gt;资源库-&gt;Application Support-&gt;iPhone Simulator-&gt;7.1-&gt;里面全是应用沙盒</li>
+</ul>
+</li>
+<li>3&gt; 应用沙盒怎么多文件夹保存，在哪个文件夹。介绍沙盒里的每一个文件夹。</li>
+</ul>
+<p>###plist存储</p>
+<ul>
+<li>把一些系统自带的OC对象生成pilst文件存储起来。</li>
+<li>1&gt; 了解数据存储：数据存储一般有两个操作，一个存，一个取。拖两个按钮，一个用来存，一个用来取</li>
+<li>2&gt; plist存储原理：<ul>
+<li>只要有writeToFile的对象，就能进行plist存储，调用writeToFile就能自动生成plist格式的文件。</li>
+<li>一般常用的Foundation对象都有这个方法，数组，字典，字符串等</li>
+</ul>
+</li>
+<li>3&gt; 如何写入到沙盒，需要获取沙盒路径。<ul>
+<li>获取Documents路径</li>
+<li>拼接文件名，因为数据是写入到文件中，不是写入到文件夹中。路径之间通过/分开的，为了避免自己写/，会用stringByAppendingPathCompent，自动在文件夹与文件之间添加/。</li>
+</ul>
+</li>
+<li>4&gt; 如何读取，存储是什么类型存储，读取出来也是什么类型，直接用存储的类型，解析文件就好，用ContentsOfFile解析。</li>
+<li>5&gt; 注意plist存储，不能存储自定义对象，会失败的。</li>
+</ul>
+<h3 id="偏好设置"><a href="#偏好设置" class="headerlink" title="偏好设置"></a>偏好设置</h3><ul>
+<li>1&gt; 什么是偏好设置存储：就是保存一些基本的信息，账号，密码，状态。</li>
+<li>2&gt; 偏好设置原理：不需要关心文件名，直接通过NSUserDefaults操作，默认就存到偏好设置里面了。<ul>
+<li>通过NSUserDefaults就能直接访问软件的偏好设置(Library/Preferences)</li>
+</ul>
+</li>
+<li>3&gt; 怎么利用偏好设置存储?利用NSUserDefaults调用setObject:forKey存储。<ul>
+<li>偏好设置底层实现原理：底层其实就是利用一个字典，存储一些键值对。</li>
+<li>偏好设置好处：能快速存储一些键值对，如果用字典去存储，还需要获取文件名比较麻烦。</li>
+<li>偏好设置坏处：不能及时存储，需要做同步操作，把内存中的数据同步到硬盘上。</li>
+</ul>
+</li>
+<li>4&gt; 怎么利用偏好设置读取?和字典一样，根据刚刚存储的Key读取。</li>
+</ul>
+<h3 id="自定义对象归档-归档：数据存储"><a href="#自定义对象归档-归档：数据存储" class="headerlink" title="自定义对象归档(归档：数据存储)"></a>自定义对象归档(归档：数据存储)</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">- <span class="number">1</span>&gt; 自定义对象如何归档：用<span class="built_in">NSKeyedArchiver</span>,调用archiveRootObject:toFile:方法，需要传一个对象，自定义一个对象，传进去。</div><div class="line"></div><div class="line"> - 会报错,说对象没有encodeWithCoder方法，说明归档的时候默认会调用这个方法，去实现这个方法。</div><div class="line"></div><div class="line"> - 默认打不出encodeWithCoder，必须遵守<span class="built_in">NSCoding</span>协议才能实现这个方法。</div><div class="line"></div><div class="line"> - encodeWithCoder什么时候调用：对象归档时候调用</div><div class="line"></div><div class="line"> - encodeWithCoder作用：告诉系统对象里的哪些属性需要归档，怎么去归档，根据一个key去归档，目的就是以后取的时候，也根据这个key去取数据。</div><div class="line"></div><div class="line">- <span class="number">2</span>&gt; 自定义对象如何解档:用<span class="built_in">NSKeyedUnarchiver</span>,调用unarchiveObjectWithFile方法，需要传一个文件名。</div><div class="line"></div><div class="line"> - 会报错,说对象没有initWithCoder方法，说明解档的时候默认会调用这个方法，去实现这个方法。</div><div class="line"></div><div class="line"> - initWithCoder什么时候调用：对象解档时候调用</div><div class="line"></div><div class="line"> - initWithCoder作用：告诉系统对象里的哪些属性需要解档，怎么去解档，根据之前存储的key去解档</div><div class="line"></div><div class="line"> - initWithCoder是一个初始化方法，需要先初始化父类的，但是不能调用[<span class="keyword">super</span> initWithCoder:],因为父类<span class="built_in">NSObject</span>没有遵守<span class="built_in">NSCoding</span>协议。</div><div class="line"></div><div class="line">- <span class="number">3</span>&gt; initWithCoder什么时候需要调用[<span class="keyword">super</span> initWithCoder:]</div><div class="line"></div><div class="line"> - initWithCoder原理:只要解析文件就会调用，xib,storyboard都是文件，因此只要解析这两个文件，就会调用initWithCoder。</div><div class="line"></div><div class="line"> - 因此如果在storyboard使用自定义view,重写initWithCoder方法，一定要调用[<span class="keyword">super</span> initWithCoder:]，因为只有系统才知道怎么解析storyboard，如果没有调用，就解析不了这个文件。</div></pre></td></tr></table></figure>
+<p>###二、 数据持久化</p>
+<ul>
+<li>/Users/…../Data/… 这个是沙盒路径</li>
+<li><p>/Users/…../Bundle/…. 这个是 Bundle 路径</p>
+<ul>
+<li><p>介绍”沙盒”下的目录结构<br>1&gt; Documents目录: 保存应用程序自己的数据（比如：游戏进度存档、软件的一些个人设置等）。通过 iTunes、iCloud 备份时, 会备份这个目录下的数据</p>
+<p>2&gt; Tmp 目录: 存储一些其他临时数据, 系统磁盘空间不够, 手机重启时, 会自动清除这个目录的数据。无需程序员手动清除该目录中的数据.iTunes、iCloud 备份时, 不会备份这个目录下的数据。</p>
+<p>3&gt; Caches 目录: 保存从网络上下载的文件（比如：听歌时的缓存、图片的缓存等），这个目录下的数据不会被自动删除，需要程序员自己实现清除目录数据功能。iTunes、iCloud 备份时, 不会备份这个目录下的数据。</p>
+<p>4&gt; Preference目录: 保存通过”偏好设置”写入的数据。iTunes、iCloud 备份时, 会备份这个目录下的数据。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>####”沙盒” -&gt; “Sandbox”</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//"沙盒"示例路径: /Users/Steve/Library/Developer/CoreSimulator/Devices/0C63A035-071E-4EFC-8718-C387A3F7E026/data/Containers/Data/Application/287DAF0F-B201-4EDA-9E8A-D1DEDD9C9135</span></div><div class="line"></div><div class="line"><span class="comment">//通过调用NSHomeDirectory();来获取沙盒的根目录。</span></div><div class="line"><span class="built_in">NSString</span> *sandboxPath = <span class="built_in">NSHomeDirectory</span>();</div><div class="line"></div><div class="line"><span class="comment">//获取"沙盒"下的"Documents"的路径</span></div><div class="line"><span class="comment">//1&gt; 方式一: 先获取"沙盒"根路径, 再获取Documents路径(拼接)。（不推荐, 因为一旦系统升级Documents目录名字变了就不能用了）</span></div><div class="line"><span class="built_in">NSString</span> *sandboxPath = <span class="built_in">NSHomeDirectory</span>();</div><div class="line"><span class="built_in">NSString</span> *docPath = [sandboxPath stringByAppendingPathComponent:<span class="string">@"Documents"</span>];</div><div class="line"></div><div class="line"><span class="comment">//2&gt; 方式二:</span></div><div class="line"><span class="comment">//参考代码:</span></div><div class="line"><span class="comment">// NSUserDomainMask 代表从用户文件夹下找, 沙盒根路径。</span></div><div class="line">     <span class="comment">// YES 代表展开路径中的波浪字符“~”</span></div><div class="line"><span class="built_in">NSArray</span> *array =  <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</div><div class="line"></div><div class="line"><span class="comment">// 在iOS中，只有一个目录跟传入的参数匹配(沙盒中只有一个Documents目录)，所以这个集合里面只有一个元素</span></div><div class="line"><span class="built_in">NSString</span> *documents = [array objectAtIndex:<span class="number">0</span>];</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, documents);</div><div class="line"></div><div class="line"><span class="comment">//向"沙盒"中写入数据</span></div><div class="line"><span class="built_in">NSArray</span> *array = @[<span class="string">@"Bob"</span>, <span class="string">@"John"</span>, <span class="string">@"Steve"</span>];</div><div class="line"><span class="built_in">NSString</span> *filePath = [docPath stringByAppendingPathComponent:<span class="string">@"data.plist"</span>];</div><div class="line">    [array writeToFile:filePath atomically:<span class="literal">YES</span>];</div></pre></td></tr></table></figure>
+<p>####从”沙盒”中读取数据<br>    1&gt; 获取文件的路径</p>
+<pre><code>2&gt; 调用NSArray、NSDictionary的xxxWithContentsOfFile
+
+** 总结: 使用对象: 仅仅是Foundation框架中的一些类, 比如: NSString\NSArray\NSDictionary\NSSet\NSNumber\NSData
+
+** 总结: 调用对象的writeToFile \ xxxWithContentsOfFile 方法来实现。
+</code></pre><p>####使用”偏好设置”来存储数据</p>
+<ul>
+<li><p>本质上就是通过”plist”来存储数据, 但是使用起来更简单(无需关注文件、文件夹路径和名称)。</p>
+<ul>
+<li><p>通过”偏好设置”的方式读、写文件时, 路径在”沙盒根目录” -&gt; “Library” -&gt; “Preferences”</p>
+</li>
+<li><p>使用步骤:</p>
+<ul>
+<li><p>1&gt; 创建一个访问”偏好设置”目录的对象NSUserDefaults对象</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSUserDefaults</span> *defaults = [<span class="built_in">NSUserDefaults</span> standardUserDefaults]; <span class="comment">// 获得单例对象</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>2&gt; 通过”键值对”方式存储数据</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[defaults setObject:<span class="string">@"value"</span> forKey:<span class="string">@"key"</span>];</div><div class="line">[defaults setInteger:<span class="number">100</span> forKey:<span class="string">@"age"</span>];</div><div class="line">[defaults setBool:<span class="literal">YES</span> forKey:<span class="string">@"auto_login"</span>];</div></pre></td></tr></table></figure>
+</li>
+<li><p>3&gt; 同步, 将内存中的数据写入文件。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[defaults synchronize];</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>** 注意: 如果不调用synchronize方法, 则由系统随机进行同步(什么时候同步不确定)。</p>
+<ul>
+<li>4&gt; 从”偏好设置”中读取数据<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[defaults objectForKey:<span class="string">@"key"</span>];</div><div class="line">[defaults boolForKey:<span class="string">@"key"</span>];</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>** 使用”偏好设置”存储数据的不足: 数据只能存储在一个文件中, 不存储大批量数据(很多时候大批量数据要分多个文件存储)</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>####通过”plist”文件来保存数据</p>
+<ul>
+<li><p>无法直接将一个对象保存到文件中。比如Person对象就没有writeToFile方法。</p>
+<ul>
+<li><p>“归档”是一种可以把任何对象, 直接保存为文件的方式。(其中包括”归档”与”反归档（读档）”)</p>
+</li>
+<li><p>归档: 对象 -&gt; 文件</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">NSKeyedArchiver</span> archiveRootObject:person toFile:filePath];</div></pre></td></tr></table></figure>
+</li>
+<li><p>反归档(读档): 文件 -&gt; 对象</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">NSKeyedUnarchiver</span> unarchiveObjectWithFile:filePath];</div></pre></td></tr></table></figure>
+</li>
+<li><p>通过”归档”的方式能将任何遵守了NSCoding协议的”对象”存储到文件中</p>
+</li>
+<li><p>NSCoding协议的两个重要的方法:</p>
+<ul>
+<li><p>1&gt; - (void)encodeWithCoder:(NSCoder *)aCoder;</p>
+<pre><code>** 作用: 对象归档时调用该方法（将对象写入文件时）.
+1&gt; 说明哪些属性要存储
+
+2&gt; 说明如何存储这些属性
+
+** 示例代码:
+// 归档时调用该方法
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.name forKey:@&quot;name&quot;];
+    [aCoder encodeInteger:self.age forKey:@&quot;age&quot;];
+    [aCoder encodeDouble:self.height forKey:@&quot;height&quot;];
+}
+
+// 通过调用NSKeyedArchiver的archiveRootObject方法来实现归档
+CZPerson *person = [[SteveZPerson alloc] init];
+person.name = @&quot;JackMeng&quot;;
+person.age = 27;
+person.height = 1.75;
+
+// 获取沙盒路径
+NSString *sandBoxPath = NSHomeDirectory();
+// 获取Documents的路径
+NSString *docPath = [sandBoxPath stringByAppendingPathComponent:@&quot;Documents&quot;];
+// 获取文件路径
+NSString *filePath = [docPath stringByAppendingPathComponent:@&quot;person.plist&quot;];
+
+// 将对象person归档
+[NSKeyedArchiver archiveRootObject:person toFile:filePath];
+</code></pre></li>
+<li><p>2&gt; - (id)initWithCoder:(NSCoder *)aDecoder;</p>
+<pre><code>** 作用: 当从文件中解析对象时调用该方法.
+1&gt; 说明哪些属性要解析（读取）
+
+2&gt; 说明如何解析（读取）这些属性
+
+** 示例代码:
+
+// 读档时调用该方法
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super init]) {
+    self.name = [aDecoder decodeObjectForKey:@&quot;name&quot;];
+    self.age = [aDecoder decodeIntegerForKey:@&quot;age&quot;];
+    self.height = [aDecoder decodeDoubleForKey:@&quot;height&quot;];
+}
+   return self;
+}
+
+// 获取沙盒路径
+NSString *sandBoxPath = NSHomeDirectory();
+// 获取Documents的路径
+NSString *docPath = [sandBoxPath stringByAppendingPathComponent:@&quot;Documents&quot;];
+// 获取文件路径
+NSString *filePath = [docPath stringByAppendingPathComponent:@&quot;person.bin&quot;];
+
+CZPerson *person = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+
+NSLog(@&quot;name: %@, age: %ld, height: %f&quot;, person.name, person.age, person.height);
+</code></pre></li>
+</ul>
+</li>
+<li><p>如果父类中也有属性需要归档、读档, 在子类中必须调用super的相关方法。<br>示例代码:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">SteveZStudent</span></span></div><div class="line">    - (<span class="keyword">id</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> initWithCoder:aDecoder]) &#123;</div><div class="line">           <span class="keyword">self</span>.SNo = [aDecoder decodeObjectForKey:<span class="string">@"SNo"</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    - (<span class="keyword">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)aCoder</div><div class="line">    &#123;</div><div class="line">        [<span class="keyword">super</span> encodeWithCoder:aCoder];</div><div class="line">        [aCoder encodeObject:<span class="keyword">self</span>.SNo forKey:<span class="string">@"SNo"</span>];</div><div class="line">    &#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="使用SQLite数据库存储-当非常大量的数据存储时使用"><a href="#使用SQLite数据库存储-当非常大量的数据存储时使用" class="headerlink" title="使用SQLite数据库存储, 当非常大量的数据存储时使用"></a>使用SQLite数据库存储, 当非常大量的数据存储时使用</h4><h4 id="使用Core-Data存储-就是对SQLite的封装"><a href="#使用Core-Data存储-就是对SQLite的封装" class="headerlink" title="使用Core Data存储, 就是对SQLite的封装"></a>使用Core Data存储, 就是对SQLite的封装</h4><ul>
+<li>1&gt; 从iOS 5.0出现</li>
+<li>2&gt; 效率低下, 不需要懂SQL语句, 直接操作对象。</li>
+</ul>
+<p><strong>*</strong> 使用Core Data存储, 就是对SQLite的封装 <strong>*</strong><br><strong>*</strong> 通过”网络”方式存储 <strong>*</strong></p>
+<p>####一、拖拽文件夹到项目中的3种方式:<br>• 当把一个文件夹拖拽到项目中的时候可以选择是否创建真正的文件夹还是只创建Group</p>
+<ol>
+<li><p>黄色的文件夹（Group）(经常用在应用程序中)<br>－在编译打包到设备上运行时，不会建立文件夹，所有的文件都保存在mainBundle中<br>－文件查找效率高<br>－不允许文件重名</p>
+</li>
+<li><p>蓝色的文件夹(经常用在游戏开发中)<br>－在编译打包到设备上运行时，会建立文件夹，所有的文件都会按照文件夹的位置放置<br>－文件查找效率低<br>－游戏中经常会有“关卡”“皮肤”<br>－允许重名</p>
+</li>
+<li><p>白色bundle(经常用在第三方框架，包装独立的素材[音效])<br>－第三方框架中，会自己指定文件名，为了不和应用程序的产生冲突，例如：success.png<br>－可以支持重名</p>
+</li>
+</ol>
+<ul>
+<li>简单制作 Bundle 文件, 可以直接把资源放到一个文件夹下, 然后修改文件夹的后缀为.bundle</li>
+<li>然后直接把 Bundle拖拽到项目中, 使用其中的图片的时候要加Xxx.bundle/aaa.png 才能正常显示图片。</li>
+</ul>
+<p>####二、如何通过 iTunes 下载ipa 文件, 并从中提取素材</p>
+<ul>
+<li>ipa文件本质上就是一个zip文件，使用“实用归档工具”可以直接解压缩</li>
+</ul>
+<p>####三、UIImage 使用的细节<br>如果要在代码中通过 [UIImage imageWithContentsOfFile:path]; 加载图片，图片不能放在 Images.xcassets 中</p>
+<p>####四、通过 block 为自定义视图传值。</p>
+<ul>
+<li>为自定义视图创建一个 block 属性（使用 copy）</li>
+<li>当点击自定义视图中的按钮时, 把自定义视图中的数据回传给主窗口中的 Label<br>** 要说明的问题:</li>
+</ul>
+<p>1&gt; 如何通过 block 传值</p>
+<p>2&gt; 通过 block 传值的时候, 对于 self 控制器要使用__weak修饰, 然后再使用, 否则有内存问题。</p>
+<p>3&gt; 为什么 bock 属性要使用 copy 来修饰</p>
+<ul>
+<li>原因: 默认如果在 block 中使用了外部变量, 那么数据是保存在栈区的, 当超出方法作用域后, 方法中的局部变量就释放了, 所以当调用 block 的时候, 方法中的局部变量已经释放, 所以就无法访问到了。通过使用 copy关键字, 在进行 block 赋值的时候, 把 block拷贝到了堆中存储, 所以当局部的方法被释放以后依然可以使用 block访问到原来方法中的变量。</li>
+<li>注意:此处使用strong 也是可以的, 在 arc 下使用 strong 编译器会默认做一次以 copy。但语义上最好还是用 copy。在 mrc 下没有 strong 关键字，所以必须使用 copy。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/ui/persistence_data/" data-id="ciqardt38001uqwnxtwedyiku" class="article-share-link">Share</a>
       
       
     </footer>
@@ -143,6 +638,10 @@
 
   
 
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
 </section>
         
           <aside id="sidebar">
@@ -157,7 +656,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Arkiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
     </div>
@@ -167,7 +666,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Siste innlegg</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
@@ -177,6 +676,18 @@
         
           <li>
             <a href="/2016/07/06/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uimenucontroller/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/other/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uilabel/">(no title)</a>
           </li>
         
       </ul>

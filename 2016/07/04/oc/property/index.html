@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="@property
+@property 4.4前
+
+1) @property + 手动实现
+2) @property int age; + @synthesize age;//get和set方法的声明和实现都帮我们做了
+3) @property int age + @synthesizes age = _b;
+
+
+@property 4.4增强 .h
+
+@property int age;
+1)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2016/07/04/oc/property/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="@property
+@property 4.4前
+
+1) @property + 手动实现
+2) @property int age; + @synthesize age;//get和set方法的声明和实现都帮我们做了
+3) @property int age + @synthesizes age = _b;
+
+
+@property 4.4增强 .h
+
+@property int age;
+1)">
+<meta property="og:image" content="http://yoursite.com/image/10.1.png">
+<meta property="og:updated_time" content="2016-07-04T06:36:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="@property
+@property 4.4前
+
+1) @property + 手动实现
+2) @property int age; + @synthesize age;//get和set方法的声明和实现都帮我们做了
+3) @property int age + @synthesizes age = _b;
+
+
+@property 4.4增强 .h
+
+@property int age;
+1)">
+<meta name="twitter:image" content="http://yoursite.com/image/10.1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-oc/property" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/property/" class="article-date">
+  <time datetime="2016-07-04T06:29:16.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="property"><a href="#property" class="headerlink" title="@property"></a>@property</h1><ul>
+<li><p>@property 4.4前</p>
+<ul>
+<li>1) @property + 手动实现</li>
+<li>2) @property int age; + @synthesize age;//get和set方法的声明和实现都帮我们做了</li>
+<li>3) @property int age + @synthesizes age = _b;</li>
+</ul>
+</li>
+<li><p>@property 4.4增强 .h</p>
+</li>
+<li>@property int age;<ul>
+<li>1) 生成_age</li>
+<li>2) 生成_age的get和set方法的声明</li>
+<li>3) 实现_age的get和set方法</li>
+</ul>
+</li>
+</ul>
+<h4 id="property-参数-一"><a href="#property-参数-一" class="headerlink" title="@property 参数(一)"></a>@property 参数(一)</h4><ul>
+<li>格式:@property (参数1,参数2) 数据类型 方法名<br><img src="image/10.1.png" alt=""></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 基本数据类型</span></div><div class="line"><span class="keyword">int</span> _age;</div><div class="line"></div><div class="line"><span class="comment">// set方法的写法</span></div><div class="line">-(<span class="keyword">void</span>)setAge:(<span class="keyword">int</span>) age</div><div class="line">&#123;</div><div class="line">_age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 用assign修饰后，仍旧会生成以上标准的set方法</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>) <span class="keyword">int</span> age;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// oc对象类型</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">retain</span>) Car *car ;</div><div class="line"></div><div class="line"><span class="comment">// 用retain修饰后，生成如下内存管理代码</span></div><div class="line">-(<span class="keyword">void</span>)setCar:(<span class="keyword">int</span>) car</div><div class="line">&#123;</div><div class="line">   <span class="keyword">if</span>(_car ! = car)</div><div class="line">   &#123;</div><div class="line">      [_car release];</div><div class="line">      _car = [car <span class="keyword">retain</span>];</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>1.内存管理相关参数<ul>
+<li>retain ： release旧值，retain新值（用于OC对象）</li>
+<li>assign ： 直接赋值，不做任何内存管理(默认，用于非OC对象类型)</li>
+<li>copy   ： release旧值，copy新值（一般用于NSString *）</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>验证assign如果作用在对象上,实际上就是直接赋值</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//使用@property增强型 生成get和set方法</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>)Car *car;</div><div class="line"></div><div class="line"><span class="comment">//.m文件中实际上生成的是</span></div><div class="line">- (<span class="keyword">void</span>)setCar:(Car *)cat</div><div class="line">&#123;</div><div class="line">   _car = car; <span class="comment">//当对象release后,将无法使用该对象</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// main函数</span></div><div class="line"><span class="keyword">int</span> main()</div><div class="line">&#123;</div><div class="line"> Person *p = [Person new];</div><div class="line"> Car *c = [Car new];</div><div class="line"></div><div class="line"> <span class="comment">// 给人一辆车</span></div><div class="line"> p.car = c;</div><div class="line"></div><div class="line"> <span class="comment">// 释放车</span></div><div class="line"> [c release];</div><div class="line"></div><div class="line"> <span class="comment">// 让人开车</span></div><div class="line"> [p drive]; <span class="comment">//此时p指向了僵尸对象</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用@property增强型 生成get和set方法</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//使用@property增强型 生成get和set方法</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">retain</span>)Car *car;</div><div class="line"></div><div class="line"><span class="comment">//.m文件中实际上生成的是</span></div><div class="line">- (<span class="keyword">void</span>)setCar:(Car *)cat</div><div class="line">&#123;</div><div class="line">   <span class="keyword">if</span>(_car != car)</div><div class="line">   &#123;</div><div class="line">     [_car release];</div><div class="line">     _car = [car <span class="keyword">retain</span>];</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// main函数</span></div><div class="line"><span class="keyword">int</span> main()</div><div class="line">&#123;</div><div class="line"> Person *p = [Person new];</div><div class="line"> Car *c = [Car new];</div><div class="line"></div><div class="line"> <span class="comment">// 给人一辆车</span></div><div class="line"> p.car = c;</div><div class="line"></div><div class="line"> <span class="comment">// 释放车</span></div><div class="line"> [c release];</div><div class="line"></div><div class="line"> <span class="comment">// 让人开车</span></div><div class="line"> [p drive];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>此时，会发生内存泄露。</li>
+<li>解决办法</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Person -- dealloc"</span>);</div><div class="line">    [_car release];</div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="property-参数-二"><a href="#property-参数-二" class="headerlink" title="@property 参数(二)"></a>@property 参数(二)</h4><ul>
+<li><p>1、是否要生成set方法(若为只读属性,则不生成)</p>
+<ul>
+<li>readonly:只读,只会生成get的声明和实现</li>
+<li>readwrite:默认的,同时生成set和get的声明和实现</li>
+</ul>
+</li>
+<li><p>2.多线程管理(苹果在一定程度上屏蔽了多线程操作)</p>
+<ul>
+<li>nonatomic:高性能,一般使用这个</li>
+<li><p>atomic:低性能,默认</p>
+</li>
+<li><p>atomic是Objc使用的一种线程保护技术,基本上来讲,是防止在写未完成的时候被另外一个线程读取,造成数据错误。而这种机制是耗费系统资源的,所以在iPhone这种小型设备上,如果没有使用多线程间的通讯编程,那么nonatomic是一个非常好的选择。</p>
+</li>
+</ul>
+</li>
+<li><p>3.set和get方法的名称</p>
+<ul>
+<li><p>修改set和get方法的名称,主要用于布尔类型。因为返回布尔类型的方法名一般以is开头,修改 名称一般用在布尔类型中的getter。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">控制set方法和get方法的名称</div><div class="line"><span class="keyword">setter</span> ： 设置set方法的名称，一定有个冒号:</div><div class="line"><span class="keyword">getter</span> ： 设置get方法的名称</div><div class="line"></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>, <span class="keyword">setter</span>=abc:,<span class="keyword">getter</span>=haha)<span class="keyword">int</span> age</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>可以理解为：</p>
+<ul>
+<li>[p setAge: ]——&gt; [p abc:],</li>
+<li>[p age] ———&gt; [p haha];</li>
+<li>p.age 不会报错(内部优化)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>, <span class="keyword">setter</span>=setVip:,<span class="keyword">getter</span>=isVip) <span class="built_in">BOOL</span> vip;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/property/" data-id="ciqardt2v001lqwnxz9voms0x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/04/oc/class/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/04/oc/setmemorymanagement/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/06/啦啦/">啦啦</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/06/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uimenucontroller/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/other/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uilabel/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

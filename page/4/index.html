@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-oc/category" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/category/" class="article-date">
+  <time datetime="2016-07-04T07:18:16.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Category"><a href="#Category" class="headerlink" title="Category"></a>Category</h1><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 学习引入：</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> :<span class="title">NSObject</span> -(<span class="title">void</span>)<span class="title">run</span>;</span></div><div class="line">-(<span class="keyword">void</span>)eat;</div><div class="line">-(<span class="keyword">void</span>)study;</div><div class="line"><span class="keyword">@end</span> -(<span class="keyword">void</span>)playlol;</div></pre></td></tr></table></figure>
+<h4 id="1、分类的概念："><a href="#1、分类的概念：" class="headerlink" title="1、分类的概念："></a>1、分类的概念：</h4><ul>
+<li>Category：类别、类目、分类。</li>
+</ul>
+<h4 id="2、分类的作用"><a href="#2、分类的作用" class="headerlink" title="2、分类的作用"></a>2、分类的作用</h4><ul>
+<li>1）将1个类中的不同方法分到多个不同的文件中存储，便于对类进行模块化设计和团队开发。</li>
+<li>2）可以在不修改原来类的基础上，为这个类扩充一些方法。</li>
+<li>3）注意：<ul>
+<li>分类中只能增加“方法”，不能增加成员变量。</li>
+<li>分类中可以访问原来类中的成员变量。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3、使用分类的目的"><a href="#3、使用分类的目的" class="headerlink" title="3、使用分类的目的"></a>3、使用分类的目的</h4><ul>
+<li>1）对现有类进行扩展:<ul>
+<li>比如,你可以扩展Cocoa touch框架中的类,你在类别中增加的方法会被子类所继承,而且在运行 时跟其他的方法没有区别。</li>
+</ul>
+</li>
+<li>2）作为子类的替代手段:<ul>
+<li>不需要定义和使用一个子类,你可以通过类别直接向已有的类里增加方法。</li>
+</ul>
+</li>
+<li>3）对类中的方法归类:<ul>
+<li>利用category把一个庞大的类划分为小块来分别进行开发,从而更好的对类中的方法进行更新和维护。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4、分类的使用流程"><a href="#4、分类的使用流程" class="headerlink" title="4、分类的使用流程"></a>4、分类的使用流程</h4><ul>
+<li>声明分类–&gt;实现分类–&gt;使用分类</li>
+<li>注意:分类的命名规则:类名+扩展方法,如“NSString+countNum”。 分类的接口声明与类的定义十分相似,但分类不继承父类,只需要带有一个括号,表明该分类的主要用途。</li>
+</ul>
+<h2 id="分类（Category）声明和实现"><a href="#分类（Category）声明和实现" class="headerlink" title="分类（Category）声明和实现"></a>分类（Category）声明和实现</h2><h4 id="1、声明和实现一个分类"><a href="#1、声明和实现一个分类" class="headerlink" title="1、声明和实现一个分类"></a>1、声明和实现一个分类</h4><ul>
+<li><p>在.h文件中,声明分类:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> 类名 (分类名)</span></div><div class="line"><span class="comment">//方法;</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>说明:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">声明分类格式</div><div class="line"><span class="number">1</span>）新添加的方法必须写在 <span class="class"><span class="keyword">@interface</span> 与 @<span class="title">end</span> 之间</span></div><div class="line"><span class="number">2</span>）ClassName 现有类的类名(要为哪个类扩展方法)。</div><div class="line"><span class="number">3</span>）CategoryName 待声明的分类名称</div><div class="line"><span class="number">4</span>）NewMethod 新添加的方法</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h5><ul>
+<li><p>不允许在声明分类的时候定义变量</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span>(<span class="title">sport</span>)</span></div><div class="line">&#123;</div><div class="line">   <span class="keyword">int</span> _age; <span class="comment">// 报错</span></div><div class="line"> &#125;</div><div class="line">- (<span class="keyword">void</span>)run;</div><div class="line">- (<span class="keyword">void</span>)jump;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>在.m文件中(也可以在.h中实现),实现分类:</strong><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ClassName</span>(<span class="title">CategoryName</span>) <span class="title">NewMethod</span></span></div><div class="line">&#123;</div><div class="line">......</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<ul>
+<li><p>说明:</p>
+<ul>
+<li>实现类别格式<ul>
+<li>1)新方法的实现必须写在@ implementation与@end之间</li>
+<li>2)ClassName 现有类的类名</li>
+<li>3)CategoryName 待声明的分类名称</li>
+<li>4)NewMethod 新添加的方法的实现</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>也可以通过图形界面生成分类</p>
+</li>
+</ul>
+<h6 id="2、调用分类中的方法"><a href="#2、调用分类中的方法" class="headerlink" title="2、调用分类中的方法"></a>2、调用分类中的方法</h6><ul>
+<li>调用分类中的方法与一般方法调用，完全一样（需要导入头文件）</li>
+</ul>
+<h2 id="分类的注意事项"><a href="#分类的注意事项" class="headerlink" title="分类的注意事项"></a>分类的注意事项</h2><ol>
+<li>分类只能增加方法, 不能增加成员变量</li>
+<li>可以使用 @property, 此时只会生成setter/getter方法, 不会生成私有变量</li>
+<li>如果分类的方法与原有类的方法重名, 那么优先调用分类中的方法, 原有类的方法被屏蔽</li>
+</ol>
+<h2 id="分类的编译顺序"><a href="#分类的编译顺序" class="headerlink" title="分类的编译顺序"></a>分类的编译顺序</h2><ol>
+<li>当分类与主类中都有同一个方法时，优先调用分类中的方法。</li>
+<li>当多个分类中都有同样的一个方法时，优先调用最后一个参与编译的分类中的方法。</li>
+</ol>
+<h2 id="所谓的非正式协议就是分类-即凡是NSObject或其子类Foundation框架中的类-增加的分类-都是非正式协议。"><a href="#所谓的非正式协议就是分类-即凡是NSObject或其子类Foundation框架中的类-增加的分类-都是非正式协议。" class="headerlink" title="所谓的非正式协议就是分类,即凡是NSObject或其子类Foundation框架中的类,增加的分类,都是非正式协议。"></a><code>所谓的非正式协议就是分类,即凡是NSObject或其子类Foundation框架中的类,增加的分类,都是非正式协议。</code></h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/category/" data-id="ciqardt0z000aqwnxh3bzqw7l" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/arcloop" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/arcloop/" class="article-date">
+  <time datetime="2016-07-04T07:10:43.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ARC循环引用"><a href="#ARC循环引用" class="headerlink" title="ARC循环引用"></a>ARC循环引用</h1><ul>
+<li>1、ARC下循环引入问题</li>
+<li>一个人拥有一只狗，一只狗拥有一个主人。<br><img src="image/311.png" alt=""></li>
+</ul>
+<p><img src="image/312.png" alt=""></p>
+<ul>
+<li><p>当增加d.owner = p;时形成循环引用。<br><img src="image/313.png" alt=""><br>#####解决方法：一端用strong，一端用weak。</p>
+</li>
+<li><p>2、ARC下@property参数</p>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ARC中的<span class="keyword">@property</span></div><div class="line"><span class="keyword">strong</span> : 用于OC对象, 相当于MRC中的<span class="keyword">retain</span></div><div class="line"><span class="keyword">weak</span> : 用于OC对象, 相当于MRC中的<span class="keyword">assign</span></div><div class="line"><span class="keyword">assign</span> : 用于基本数据类型, 跟MRC中的<span class="keyword">assign</span>一样</div><div class="line"><span class="keyword">copy</span> : 一般用于<span class="built_in">NSString</span>, 跟MRC中的<span class="keyword">copy</span>一样</div><div class="line"></div><div class="line">在ARC情况下解决”循环<span class="keyword">retain</span>”的问题:<span class="keyword">@property</span>一边用<span class="keyword">strong</span>,一边用<span class="keyword">weak</span>。</div></pre></td></tr></table></figure>
+<h3 id="ARC特点总结"><a href="#ARC特点总结" class="headerlink" title="ARC特点总结"></a>ARC特点总结</h3><ul>
+<li>1）不允许调用release,retain,retainCount</li>
+<li>2）允许重写dealloc,但是不允许调用[super dealloc]</li>
+<li>3）@property的参数:<ul>
+<li>strong:相当于原来的retain(适用于OC对象类型),成员变量是强指针</li>
+<li>weak:相当于原来的assign,(适用于oc对象类型),成员变量是弱指针</li>
+<li>assign:适用于非OC对象类型(基础类型)</li>
+</ul>
+</li>
+</ul>
+<h3 id="ARC使用注意事项"><a href="#ARC使用注意事项" class="headerlink" title="ARC使用注意事项"></a>ARC使用注意事项</h3><ul>
+<li><p>1）ARC中,只要弱指针指向的对象不在了,就直接把弱指针做清空(赋值为nil)操作。</p>
+</li>
+<li><p>2）__weak Person *p=[[Personalloc]init];//不合理</p>
+</li>
+<li><p>对象一创建出来就被释放掉,对象释放掉后,ARC把指针设置为nil。</p>
+</li>
+<li><p>3）ARC中在property处不再使用retain,而是使用strong,在dealloc中不需要再 [super dealloc]。</p>
+</li>
+<li><p>@property(nonatomic,strong)Dog *dog;<br>// 意味着生成的成员变量_dog是一个强指针,相当于以前的retain。</p>
+</li>
+<li><p>4）如果换成是弱指针,则换成weak,不需要加<em> </em>。</p>
+</li>
+</ul>
+<h2 id="ARC的兼容和转换"><a href="#ARC的兼容和转换" class="headerlink" title="ARC的兼容和转换"></a>ARC的兼容和转换</h2><ul>
+<li><p>1、ARC模式下如何兼容非ARC的类</p>
+<ul>
+<li>让程序兼容ARC和非ARC部分。转变为非ARC -fno-objc-arc 转变为ARC的, -f-objc-arc 。<br><img src="./image/1.png" alt=""><br><img src="./image/11.png" alt=""><br><img src="./image/12.png" alt=""></li>
+</ul>
+</li>
+<li><p>2、将MRC转换为ARC</p>
+<ul>
+<li>ARC也需要考虑循环引用问题：一端用strong，一端用weak。</li>
+<li><code>提示：字符串是特殊的对象，但是不需要使用release手动释放，这种字符串对象默认就是autorelease，不需要额外管理内存。</code></li>
+<li>如果一个项目是MRC的，那么我们可以把这个项目转换成ARC。<br><img src="./image/13.png" alt=""><br><img src="./image/2.png" alt=""><br><img src="./image/3.png" alt=""><br><img src="./image/4.png" alt=""><br><img src="./image/5.png" alt=""></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/arcloop/" data-id="ciqardt0q0006qwnxt27h7bo4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/arc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/arc/" class="article-date">
+  <time datetime="2016-07-04T07:01:45.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ARC"><a href="#ARC" class="headerlink" title="ARC"></a>ARC</h1><p>####1、指针分类</p>
+<ul>
+<li>1）强指针：默认情况下，所有的指针都是强指针，关键字strong</li>
+<li>2）弱指针：__weak关键字修饰的指针.</li>
+<li>声明1个弱指针： __weak Person *p;</li>
+</ul>
+<p>####2、什么是ARC？</p>
+<ul>
+<li><p>Automatic Reference Counting,自动引用计数,即ARC,可以说是WWDC2011和iOS5所引入的最大的变革和最激动人心的变化。ARC是新的LLVM 3.0编译器的一项特性,使用ARC,可以说一举解决了广大iOS开发者所憎恨的手动内存管理的麻烦。</p>
+</li>
+<li><p>在工程中使用ARC非常简单:只需要像往常那样编写代码,只不过永远不写retain,release和autorelease三个关键字就好~这是ARC的基本原则。</p>
+</li>
+<li><p>当ARC开启时,编译器将自动在代码合适的地方插入retain, release和autorelease,而作为开发者,完全不需要担心编译器会做错(除非开发者自己错用ARC了)。</p>
+</li>
+<li><p>手动管理内存, 可以简称MRC (Manual Reference Counting)<br>ARC与其他语言的”垃圾回收”机制不同。ARC:编译器特性;“垃圾回收”运行时特性。</p>
+</li>
+</ul>
+<h4 id="3、ARC工作原理及判断准则"><a href="#3、ARC工作原理及判断准则" class="headerlink" title="3、ARC工作原理及判断准则"></a>3、ARC工作原理及判断准则</h4><ul>
+<li>ARC是Objective-C编译器的特性,而不是运行时特性或者垃圾回收机制,ARC所做的只不过是在代码编译时为你自动在合适的位置插入release或autorelease。</li>
+<li>编译器会自动生成内存管理的代码，不需要程序员手动编写。<h5 id="ARC的判断准则："><a href="#ARC的判断准则：" class="headerlink" title="ARC的判断准则："></a>ARC的判断准则：</h5>只要没有强指针指向对象，对象就会被释放。<br><code>注意：当使用ARC的时候，暂时忘记“引用计数器”，因为判断标准变了。</code></li>
+</ul>
+<h4 id="4、ARC机制图解"><a href="#4、ARC机制图解" class="headerlink" title="4、ARC机制图解"></a>4、ARC机制图解</h4><ul>
+<li>NSString *firstName = @”oneV”;</li>
+<li><p>这个时候firstName持有了@”OneV”。<br><img src="image/0201.png" alt=""></p>
+</li>
+<li><p>当然,一个对象可以拥有不止一个的持有者(这个类似MRC中的retainCount&gt;1的情况)。在这个例子中显然self.textField.text也是@“OneV”,那么现在有两个指针指向对象@”OneV”(被持有两次,retainCount=2,其实对NSString对象说retainCount是有问题的,不过anyway~就这个意思而已)。<br><img src="image/0202.png" alt=""></p>
+</li>
+<li><p>过了一会儿,也许用户在textField里输入了其他的东西,那么self.textField.text指针显然现在指向了别的字符串,比如@“onevcat”,但是这时候原来的对象已然是存在的,因为还有一个指针firstName持有它。现在指针的指向关系是这样的:<br><img src="image/0203.png" alt=""></p>
+</li>
+<li><p>只有当firstName也被设定了新的值,或者是超出了作用范围的空间(比如它是局部变量但是这个方法执行完了或者它是实例变量但是这个实例被销毁了),那么此时firstName也不再持有@“OneV”,此时不再有指针指向@”OneV”,在ARC下这种状况发生后对象@”OneV”即被销毁,内存释放。<br><img src="image/0204.png" alt=""></p>
+</li>
+<li><p>类似于firstName和self.textField.text这样的指针使用关键字strong进行标志,它意味着只要该指针指向某个对象,那么这个对象就不会被销毁。反过来说,ARC的一个基本规则即是,只要某个对象被任一strong指针指向,那么它将不会被销毁。如果对象没有被任何strong指针指向,那么就将被销毁。在默认情况下,所有的实例变量和局部变量都是strong类型的。可以说strong类型的指针在行为上和MRC时代retain的property是比较相似的。既然有strong,那肯定有weak咯~weak类型的指针也可以指向对象,但是并不会持有该对象。比如:__weak NSString *weakName = self.textField.text 得到的指向关系是:<br><img src="image/0205.png" alt=""></p>
+</li>
+<li><p>这里声明了一个weak的指针weakName,它并不持有@“onevcat”。如果self.textField.text的内容发生改变的话,根据之前􏰀到的”只要某个对象被任一strong指针指向,那么它将不会被销毁。如果对象没有被任何strong指针指向,那么就将被销毁”原则,此时指向@“onevcat”的指针中没 有strong类型的指针,@”onevcat”将被销毁。</p>
+</li>
+<li><p>同时,在ARC机制作用下,所有指向这个对象的weak指针将被置为nil。这个特性相当有用,相信无数的开发者都曾经被指针指向已释放对象所造成的EXC_BAD_ACCESS困扰过,使用ARC以后,不论是strong还是weak类型的指针,都不再会指向一个dealloced的对象,从根源上解决了意外释放导致的crash。<br><img src="image/0206.png" alt=""></p>
+</li>
+<li><p>不过在大部分情况下,weak类型的指针可能并不会很常用。比较常见的用法是在两个对象间存在包含关系时:对象1有一个strong指针指向对象2,并持有它,而对象2中只有一个weak指针指回对 象1,从而避免了循环持有。</p>
+</li>
+<li><p>一个常见的例子就是oc中常见的delegate设计模式,viewController中有一个strong指针指向它所负责管理的UITableView,而UITableView中的dataSource和delegate指针都是指向viewController的weak指针。可以说,weak指针的行为和MRC时代的assign有一些相似点,但是考 虑到weak指针更聪明些(会自动指向nil),因此还是有所不同的。<br><img src="image/0207.png" alt=""></p>
+</li>
+</ul>
+<h3 id="ARC机制判断"><a href="#ARC机制判断" class="headerlink" title="ARC机制判断"></a>ARC机制判断</h3><ul>
+<li><p>iOS5以后，创建项目默认的都是ARC。</p>
+</li>
+<li><p>ARC机制下有几个明显的标志：</p>
+<ul>
+<li><p>1) 不允许使用retain或者release方法</p>
+</li>
+<li><p>2) 不允许调用autorelease方法</p>
+</li>
+<li><p>3) 重写父类的dealloc方法时,不能再调用 [super dealloc];</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="ARC快速使用"><a href="#ARC快速使用" class="headerlink" title="ARC快速使用"></a>ARC快速使用</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main()&#123;</div><div class="line">   Student *s = [[Student alloc] init];</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>只需要写一行代码，编译器会在合适的位置释放学生对象，程序员无需考虑释放问题。</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/arc/" data-id="ciqardt0p0005qwnxpf9o06nj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/autoreleaseattention" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/autoreleaseattention/" class="article-date">
+  <time datetime="2016-07-04T06:55:47.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Autorelease注意事项"><a href="#Autorelease注意事项" class="headerlink" title="Autorelease注意事项"></a>Autorelease注意事项</h1><h2 id="1、autorelease使用注意"><a href="#1、autorelease使用注意" class="headerlink" title="1、autorelease使用注意"></a>1、autorelease使用注意</h2><p>#####1）并不是放到自动释放池中，都会自动加入到自动释放池</p>
+<ul>
+<li><p>1.1） 因为没有调用autorelease方法，所以对象没有加入到自动释放池.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main() &#123;</div><div class="line">   <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">    Student *s = [[Student alloc] init];</div><div class="line">    [s release]; <span class="comment">// 正常释放</span></div><div class="line">   &#125;</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>1.2）在自动释放池的外部发送autorelease不会被加入到自动释放池中。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main()&#123;</div><div class="line">   <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line"></div><div class="line">   &#125;</div><div class="line">   <span class="comment">// 发送autorelease消息的对象，放到制动释放池外部</span></div><div class="line">   <span class="comment">// 此时无法被自动释放</span></div><div class="line">  Student *s = [[[Student alloc] init] autorelease];</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>1.3）不管对象是在自动释放池里创建，还是自动释放池外创建，只要在自动释放池内写1个[s autorelease];s就会被放到自动释放池中，注意：autorelease是一个方法，且只有在自动释放池中使用才有效。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main()&#123;</div><div class="line">     <span class="comment">// 不管在自动释放池内部还是外部创建</span></div><div class="line">     Student *s = [[Student alloc] init];</div><div class="line">     <span class="keyword">@autoreleasepool</span>&#123;</div><div class="line">         [s autorelease]; <span class="comment">// 此时s加入到释放池</span></div><div class="line">   &#125;</div><div class="line">   <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>2）自动释放池的嵌套使用</p>
+<ul>
+<li>自动释放池是栈结构。</li>
+<li>栈：先进后出。后进先出，</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">               <span class="comment">// 第一个池子，里面创建no的1学生</span></div><div class="line">                Student *s = [[[Student alloc] init] autorelease];</div><div class="line">                s.no = <span class="number">1</span>;</div><div class="line">        <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">                <span class="comment">// 第二个池子，里面创建no2的学生</span></div><div class="line">                   Student *s2 = [[[Student alloc] init] autorelease];</div><div class="line">                   s2.no = <span class="number">2</span>;</div><div class="line">            <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">                <span class="comment">// 第二个池子，里面创建no3的学生</span></div><div class="line">                        Student *s3 = [[[Student alloc] init] autorelease];</div><div class="line">                        s3.no = <span class="number">3</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>释放顺序：s3,s2,s1<ul>
+<li>3）自动释放池中不适合放占用内存空间较大的对象</li>
+<li>1&gt; 尽量避免对大内存使用该方法，对于这种延迟释放机制，尽量少用</li>
+<li>2&gt; 不要把大量循环操作放到同1个自动释放池中，这样会造成内存峰值的上升。</li>
+</ul>
+</li>
+</ul>
+<p>####2)、autorelease错误用法</p>
+<ul>
+<li>1、连续调用多次autorelease。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@autoreleasepool</span> &#123;</div><div class="line"></div><div class="line">    Student *s = [[[Student alloc] autorelease] autorelease];<span class="comment">// 调用了两次autorelease，对象过度释放。</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>2、对象创建在释放池外，但是在释放池内进行autorelease后，在释放池外，又进行了release。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line"></div><div class="line">     Student *s = [[Student alloc] init];</div><div class="line"></div><div class="line">     <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line"></div><div class="line">        [s autorelease];<span class="comment">// 此时出池子后，对象可以被释放</span></div><div class="line"></div><div class="line">     &#125;</div><div class="line">        [s release];<span class="comment">// 对象被释放后再次调用释放，会出错。</span></div><div class="line"></div><div class="line"></div><div class="line">   <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>3、alloc之后调用了autorelease，之后又调用release。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line"></div><div class="line">     <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line"></div><div class="line">        Student *s = [[[Student alloc] init] autorelease];</div><div class="line"></div><div class="line">     &#125;</div><div class="line">        [s release];</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>4、alloc之后调用release。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line"></div><div class="line">     <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">   <span class="comment">// 因为release没有返回值，所以这样调用是错误的。</span></div><div class="line">        Student *s = [[[Student alloc] init] release];</div><div class="line">     &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>##2、autorelease的应用场景</p>
+<h5 id="1、autorelease的应用场景"><a href="#1、autorelease的应用场景" class="headerlink" title="1、autorelease的应用场景"></a>1、autorelease的应用场景</h5><ul>
+<li>经常用来在类方法中快速创建1个对象。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 声明实现一个类方法</span></div><div class="line"> + (Student *)student</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 在里面直接进行autorelease</span></div><div class="line">    <span class="keyword">return</span> [[[Student alloc] init] autorelease];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>应用：</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 在自动释放池中使用类方法创建对象</span></div><div class="line"><span class="keyword">@autoreleasepool</span>&#123;</div><div class="line"> <span class="comment">// 此时创建出来的对象不用关注释放问题。</span></div><div class="line">  Student *s = [Student student];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>错误写法：</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main()&#123;</div><div class="line"><span class="comment">// 在自动释放池中使用类方法创建对象</span></div><div class="line"><span class="keyword">@autoreleasepool</span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="comment">// 写在自动释放池外部将无法释放对象。</span></div><div class="line"> Student *s = [Student student];</div><div class="line"> reutrn <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>#####2、完善快速创建对象的方法</p>
+<ul>
+<li><p>问题1：如果定1个GoodStudent，继承自Student,此时，还能使用类方法快速创建对象吗？</p>
+<ul>
+<li><p>解决方案：</p>
+<ul>
+<li>在类方法中使用id</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">   + (<span class="keyword">id</span>)student</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [[[Student alloc] init] autorelease];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><code>此时，返回的对象仍旧是Student.所以，应该用self，替代Student.</code></p>
+<ul>
+<li>问题2：用其他对象类型，接受自定义对象类型。</li>
+<li>如：<pre><code>NSString *s = [Student student];
+NSLog(@&quot;%lu&quot;,s.length);
+</code></pre><code>这段代码，编译时，不会报任何警告，但是运行时会直接崩溃。</code></li>
+<li><p>改进办法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">  <span class="comment">//instancetype：可以动态判断返回的类型和接受的类型是否一致</span></div><div class="line">  + (<span class="keyword">instancetype</span>)student&#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> [[<span class="keyword">self</span> alloc] init];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>此时，编译器会警告</p>
+<pre><code>NSString *s = [Student student];
+NSLog(@&quot;%lu&quot;,s.length);
+</code></pre></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/autoreleaseattention/" data-id="ciqardt0y0009qwnx2pq866mw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/autorelease" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/autorelease/" class="article-date">
+  <time datetime="2016-07-04T06:52:04.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Autorelease"><a href="#Autorelease" class="headerlink" title="Autorelease"></a>Autorelease</h1><p>####1.自动释放池及autorelease介绍</p>
+<ul>
+<li><p>1.自动释放池</p>
+<ul>
+<li>(1)在iOS程序运行过程中,会创建无数个池子,这些池子都是以栈结构(先进后出)存在的。</li>
+<li>(2)当一个对象调用autorelease时,会将这个对象放到位于栈顶的释放池中</li>
+</ul>
+</li>
+<li><p>2.自动释放池的创建方式</p>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">(<span class="number">1</span>)iOS <span class="number">5.0</span>以前的创建方式</div><div class="line">    <span class="built_in">NSAutoreleasePool</span> *pool=[[<span class="built_in">NSAutoreleasePool</span> alloc] init];</div><div class="line">    <span class="comment">// 代码</span></div><div class="line">    [pool release];  <span class="comment">//[pool drain];用于mac</span></div><div class="line"></div><div class="line">(<span class="number">2</span>)iOS5<span class="number">.0</span>以后</div><div class="line"><span class="keyword">@autoreleasepool</span></div><div class="line">&#123;</div><div class="line">  <span class="comment">//开始代表创建自动释放池</span></div><div class="line">&#125; <span class="comment">//结束代表销毁自动释放池</span></div></pre></td></tr></table></figure>
+<ul>
+<li>3.autorelease<ul>
+<li>是一种支持引用计数的内存管理方式</li>
+<li>它可以暂时的保存某个对象(object),然后在内存池自己的排干(drain)的时候对其中的每个对象发送release消息。</li>
+<li>注意,这里只是发送release消息,如果当时的引用计数(reference-counted)依然不为0,则该对象依然不会被释放。可以用该方法来保存某个对象,也要注意保存之后要释放该对象。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、【理解】为什么会有autorelease？"><a href="#2、【理解】为什么会有autorelease？" class="headerlink" title="2、【理解】为什么会有autorelease？"></a>2、【理解】为什么会有autorelease？</h4><ul>
+<li><p>OC的内存管理机制中比较重要的一条规律是:谁申请,谁释放</p>
+<ul>
+<li>考虑这种情况,如果一个方法需要返回一个新建的对象,该对象何时释放?</li>
+<li><p>方法内部是不会写release来释放对象的,因为这样做会将对象立即释放而返回一个空对象;</p>
+</li>
+<li><p>调用者也不会主动释放该对象的,因为调用者遵循“谁申请,谁释放”的原则。那么这个时候,就发生了内存泄露。</p>
+</li>
+</ul>
+</li>
+<li><p>不使用autorelease存在的问题</p>
+<ul>
+<li>针对这种情况,Objective-C的设计了autorelease,既能确保对象能正确释放,又能返回有效的 对象。</li>
+</ul>
+</li>
+<li><p>使用autorelease的好处</p>
+<ul>
+<li>(1)不需要再关心对象释放的时间</li>
+<li>(2)不需要再关心什么时候调用release</li>
+</ul>
+</li>
+</ul>
+<p>####3.autorelease基本用法</p>
+<ul>
+<li><p>基本用法</p>
+<ul>
+<li>(1)会将对象放到一个自动释放池中</li>
+<li>(2)当自动释放池被销毁时,会对池子里的所有对象做一次release</li>
+<li>(3)会返回对象本身</li>
+<li><p>(4)调用完autorelease方法后,对象的计数器不受影响(销毁时影响)</p>
+</li>
+<li><p>在autorelease的模式下,下述方法是合理的,即可以正确返回结果,也不会造成内存泄露。</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ClassA *Func1()</div><div class="line">&#123;</div><div class="line">  ClassA *obj = [[[ClassA alloc]init]autorelease];</div><div class="line">  <span class="keyword">return</span> obj;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="4、autorelease的原理？"><a href="#4、autorelease的原理？" class="headerlink" title="4、autorelease的原理？"></a>4、autorelease的原理？</h4><ul>
+<li>autorelease实际上只是把对release的调用延迟了,对于每一个Autorelease,系统只是把该Object放入了当前的Autorelease pool中,当该pool被释放时,该pool中的所有Object会被调用Release。</li>
+</ul>
+<h4 id="5、autorelease什么时候被释放？"><a href="#5、autorelease什么时候被释放？" class="headerlink" title="5、autorelease什么时候被释放？"></a>5、autorelease什么时候被释放？</h4><ul>
+<li><p>对于autorelease pool本身,会在如下两个条件发生时候被释放</p>
+<ul>
+<li>1)手动释放Autorelease pool</li>
+<li><p>2)Runloop结束后自动释放</p>
+</li>
+<li><p>对于autorelease pool内部的对象</p>
+</li>
+<li>在引用计数的retainCount ==0的时候释放。release和autorelease pool的 drain都会触发retain–事件。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/autorelease/" data-id="ciqardt0u0008qwnxm56qjz7p" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/nsstringandmrc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/nsstringandmrc/" class="article-date">
+  <time datetime="2016-07-04T06:44:45.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="NSString类的内存管理"><a href="#NSString类的内存管理" class="headerlink" title="NSString类的内存管理"></a>NSString类的内存管理</h1><p>####1、NSString等Foundation框架提供的类的内存管理</p>
+<ul>
+<li>先看看以下这几种写法:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line"></div><div class="line">        <span class="built_in">NSString</span> *s1 = <span class="string">@"hello iOS"</span>;</div><div class="line">        <span class="built_in">NSString</span> *s2 = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"hello iOS"</span>];</div><div class="line">        <span class="built_in">NSString</span> *s3 = [<span class="built_in">NSString</span> stringWithString:<span class="string">@"hello iOS"</span>];</div><div class="line">        <span class="built_in">NSString</span> *s4 = [<span class="built_in">NSString</span> stringWithUTF8String:<span class="string">"hello iOS"</span>];</div><div class="line"></div><div class="line">        <span class="built_in">NSString</span> *s5 = [[<span class="built_in">NSString</span> alloc] initWithFormat:<span class="string">@"hello iOS"</span>];</div><div class="line">        <span class="built_in">NSString</span> *s6 = [[<span class="built_in">NSString</span> alloc]initWithString:<span class="string">@"hello iOS"</span>];</div><div class="line">        <span class="built_in">NSString</span> *s7 = [[<span class="built_in">NSString</span> alloc] initWithUTF8String:<span class="string">"hello iOS"</span>];</div><div class="line"></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s1.retainCount - %lu,s1 = %p"</span>,s1.retainCount,s1);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s2.retainCount - %lu,s2 = %p"</span>,s2.retainCount,s2);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s3.retainCount - %lu,s3 = %p"</span>,s3.retainCount,s3);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s4.retainCount - %lu,s4 = %p"</span>,s4.retainCount,s4);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s5.retainCount - %lu,s5 = %p"</span>,s5.retainCount,s5);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s6.retainCount - %lu,s6 = %p"</span>,s6.retainCount,s6);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s7.retainCount - %lu,s7 = %p"</span>,s7.retainCount,s7);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">* 结果</div><div class="line"></div><div class="line">`retainCount = <span class="number">18446744073709551615</span>`</div><div class="line"></div><div class="line">* 引用计数</div><div class="line"> * 首先可以看到每一个字符串的引用计数非常大，有多大呢？</div><div class="line"> * 利用计算器可以得到：<span class="number">9223372036854775807</span></div><div class="line"> * 可见这个数字非常巨大，是无符号<span class="keyword">long</span>类型的最大数值。</div><div class="line"></div><div class="line">* 设置引用计数</div><div class="line"> * 既然数字那么大，而且对象的创建也不像原来那么规律，那么尝试设置一下字符串的引用计数，得到：</div><div class="line"> ```objc</div><div class="line">        <span class="built_in">NSString</span> *s = <span class="string">@"hello iOS"</span>;</div><div class="line"></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s.retainCount:%lu"</span>,s.retainCount);</div><div class="line"></div><div class="line">        [s <span class="keyword">retain</span>];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s.retainCount:%lu"</span>,s.retainCount);</div><div class="line"></div><div class="line">        [s release];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s.retainCount:%lu"</span>,s.retainCount);</div></pre></td></tr></table></figure>
+<ul>
+<li>不需要管理NSString<ul>
+<li>实际上无论是OC，还是C语言，甚至其他编程语言，字符串都是使用极为频繁的，因此，如果按照原来对象的内存管理的模式进行执行，那么对于频繁的字符串处理就会表现出很低的性能，因此字符串做了一个处理。</li>
+<li>字符串一般使用固定的内存，代码中的字符串，只要相同，都是指向同一个内存空间。</li>
+<li>使用字符串类创建的字符串，是一个固定的内存，使用格式化创建的字符串是一个固定的内存。</li>
+<li>因此得到结论：使用NSString的时候不需要考虑其内存管理问题。</li>
+</ul>
+</li>
+</ul>
+<p>####2、Funny way</p>
+<ul>
+<li>下面这段代码，显然是没有办法执行成功的！</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> ([a retainCount] &gt; <span class="number">0</span>)</div><div class="line">&#123;</div><div class="line">   [a release];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/nsstringandmrc/" data-id="ciqardt2d0017qwnxaqkh3a19" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/loopretain" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/loopretain/" class="article-date">
+  <time datetime="2016-07-04T06:39:20.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="循环retain"><a href="#循环retain" class="headerlink" title="循环retain"></a>循环retain</h1><p>####循环retain的使用</p>
+<ul>
+<li>问题：人有一只狗，狗有一个主人。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> <span class="string">"Dog.h"</span>;</div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> :<span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">retain</span>)Dog *dog;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@class</span> "<span class="title">Person</span>.<span class="title">h</span>";</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Dog</span>:<span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">retain</span>)Person *owner;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">//main.m</span></div><div class="line"></div><div class="line"><span class="comment">//创建对象</span></div><div class="line">Dog *d = [Dog new];</div><div class="line">Person *p = [Person new];</div><div class="line"></div><div class="line"><span class="comment">//循环引用</span></div><div class="line">p.dog = d;</div><div class="line">d.owner = p;</div><div class="line"></div><div class="line"><span class="comment">//看似正确的释放代码</span></div><div class="line">[d release];</div><div class="line">[p release];</div></pre></td></tr></table></figure>
+<ul>
+<li><p>程序执行结果: p和d都没有被释放掉</p>
+</li>
+<li><p>原理分析:</p>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">p.dog  = d; <span class="comment">//因为dog的set方法中是 进行了 [dog retain];dog2</span></div><div class="line">d.owner = p;<span class="comment">//会让p的引用计数+1  owner2</span></div><div class="line"></div><div class="line">当执行了</div><div class="line">[d release];</div><div class="line">[p release];</div><div class="line"></div><div class="line">dog和owner 的引用计数变成<span class="number">1</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>循环retain的场景</strong></p>
+<ul>
+<li>比如A对象retain了B对象,B对象retain了A对象</li>
+<li>循环retain的弊端</li>
+<li>这样会导致A对象和B对象永远无法释放</li>
+</ul>
+</li>
+<li><p><strong>循环retain的解决方案</strong></p>
+<ul>
+<li>当两端互相引用时,应该一端用retain、一端用assign</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/loopretain/" data-id="ciqardt1h000mqwnx01kiw769" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/class" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/class/" class="article-date">
+  <time datetime="2016-07-04T06:36:26.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="class"><a href="#class" class="headerlink" title="@class"></a>@class</h1><p>####1.@class的使用</p>
+<ul>
+<li>作用<ul>
+<li>可以简单地引用一个类</li>
+</ul>
+</li>
+<li>简单使用<ul>
+<li>@class Dog; //类的引入</li>
+<li>仅仅是告诉编译器:Dog是一个类;并不会包含Dog这个类的所有内容</li>
+</ul>
+</li>
+<li><p>具体使用</p>
+<ul>
+<li>在.h文件中使用@class引用一个类</li>
+<li>在.m文件中使用#import包含这个类的.h文件</li>
+</ul>
+</li>
+<li><p>如下面代码:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> A.h文件</div><div class="line"><span class="meta">#import <span class="meta-string">"B.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">A</span> : <span class="title">NSObject</span></span></div><div class="line"> &#123;</div><div class="line">    B *b;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>为了简单起见:A类是引用类,B类是被引用类,这里先不考虑A类的实现文件。</p>
+</li>
+<li><p>通常引用一个类有两种办法:</p>
+<ul>
+<li>一种是通过#import方式引入;</li>
+<li>另一种是通过@class引入;</li>
+</ul>
+</li>
+<li><p>这两种的方式的区别在于:</p>
+<ul>
+<li><p>1）#import方式会包含被引用类的所有信息,包括被引用类的变量和方法;@class方式只是告诉编译器在 A.h文件中 B *b只是类的声明,具体这个类里有什么信息,这里不需要知道,等实现文件中真正要用到时,才会真正去查看B类中信息;</p>
+</li>
+<li><p>2）使用@class方式由于只需要知道被引用类(B类)的名称就可以了,而在实现类由于要用到被引用类中的实体变量和方法,所以需要使用#import来包含被引用类的头文件;</p>
+</li>
+<li><p>3）通过上面2点也很容易知道在编译效率上,如果有上百个头文件都#import了同一个文件,或者这些文件依次被#improt(A-&gt;B, B-&gt;C,C-&gt;D…),<strong>一旦最开始的头文件稍有改动,后面引用到这个文件的所有类 都需要重新编译一遍,这样的效率也是可想而知的.</strong>而相对来讲,使用@class方式就不会出现这种问题了;</p>
+</li>
+<li><p><strong>所以:我们实际开发中尽量在.h头文件中使用@class</strong></p>
+</li>
+<li>4）对于循环依赖关系来说,比方A类引用B类,同时B类也引用A类,B类的代码:</li>
+</ul>
+</li>
+<li>当程序运行时,编译会报错,当使用@class在两个类相互声明,就不会出现编译报错。<br>*</li>
+<li><p>把其中的一个头文件中的import换成@class</p>
+</li>
+<li><p>面试题：#import和@class的区别。</p>
+<ul>
+<li>作用上的区别<ul>
+<li>import会包含引用类的所有信息(内容),包括引用类的变量和方法 @class仅仅是告诉编译器有这么一个类,具体这个类里有什么信息,完全不知道。</li>
+</ul>
+</li>
+<li>效率上的区别<ul>
+<li>如果有上百个头文件都#import了同一个文件,或者这些文件依次被#import,那么一旦最开始的头文件稍有改动,后面引用到这个文件的所有类都需要重新编译一遍,编译效率非常低相对来讲,使用@class方式就不会出现这种问题了。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/class/" data-id="ciqardt13000cqwnxbjaiitaf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/property" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/property/" class="article-date">
+  <time datetime="2016-07-04T06:29:16.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="property"><a href="#property" class="headerlink" title="@property"></a>@property</h1><ul>
+<li><p>@property 4.4前</p>
+<ul>
+<li>1) @property + 手动实现</li>
+<li>2) @property int age; + @synthesize age;//get和set方法的声明和实现都帮我们做了</li>
+<li>3) @property int age + @synthesizes age = _b;</li>
+</ul>
+</li>
+<li><p>@property 4.4增强 .h</p>
+</li>
+<li>@property int age;<ul>
+<li>1) 生成_age</li>
+<li>2) 生成_age的get和set方法的声明</li>
+<li>3) 实现_age的get和set方法</li>
+</ul>
+</li>
+</ul>
+<h4 id="property-参数-一"><a href="#property-参数-一" class="headerlink" title="@property 参数(一)"></a>@property 参数(一)</h4><ul>
+<li>格式:@property (参数1,参数2) 数据类型 方法名<br><img src="image/10.1.png" alt=""></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 基本数据类型</span></div><div class="line"><span class="keyword">int</span> _age;</div><div class="line"></div><div class="line"><span class="comment">// set方法的写法</span></div><div class="line">-(<span class="keyword">void</span>)setAge:(<span class="keyword">int</span>) age</div><div class="line">&#123;</div><div class="line">_age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 用assign修饰后，仍旧会生成以上标准的set方法</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>) <span class="keyword">int</span> age;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// oc对象类型</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">retain</span>) Car *car ;</div><div class="line"></div><div class="line"><span class="comment">// 用retain修饰后，生成如下内存管理代码</span></div><div class="line">-(<span class="keyword">void</span>)setCar:(<span class="keyword">int</span>) car</div><div class="line">&#123;</div><div class="line">   <span class="keyword">if</span>(_car ! = car)</div><div class="line">   &#123;</div><div class="line">      [_car release];</div><div class="line">      _car = [car <span class="keyword">retain</span>];</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>1.内存管理相关参数<ul>
+<li>retain ： release旧值，retain新值（用于OC对象）</li>
+<li>assign ： 直接赋值，不做任何内存管理(默认，用于非OC对象类型)</li>
+<li>copy   ： release旧值，copy新值（一般用于NSString *）</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>验证assign如果作用在对象上,实际上就是直接赋值</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//使用@property增强型 生成get和set方法</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>)Car *car;</div><div class="line"></div><div class="line"><span class="comment">//.m文件中实际上生成的是</span></div><div class="line">- (<span class="keyword">void</span>)setCar:(Car *)cat</div><div class="line">&#123;</div><div class="line">   _car = car; <span class="comment">//当对象release后,将无法使用该对象</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// main函数</span></div><div class="line"><span class="keyword">int</span> main()</div><div class="line">&#123;</div><div class="line"> Person *p = [Person new];</div><div class="line"> Car *c = [Car new];</div><div class="line"></div><div class="line"> <span class="comment">// 给人一辆车</span></div><div class="line"> p.car = c;</div><div class="line"></div><div class="line"> <span class="comment">// 释放车</span></div><div class="line"> [c release];</div><div class="line"></div><div class="line"> <span class="comment">// 让人开车</span></div><div class="line"> [p drive]; <span class="comment">//此时p指向了僵尸对象</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用@property增强型 生成get和set方法</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//使用@property增强型 生成get和set方法</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">retain</span>)Car *car;</div><div class="line"></div><div class="line"><span class="comment">//.m文件中实际上生成的是</span></div><div class="line">- (<span class="keyword">void</span>)setCar:(Car *)cat</div><div class="line">&#123;</div><div class="line">   <span class="keyword">if</span>(_car != car)</div><div class="line">   &#123;</div><div class="line">     [_car release];</div><div class="line">     _car = [car <span class="keyword">retain</span>];</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// main函数</span></div><div class="line"><span class="keyword">int</span> main()</div><div class="line">&#123;</div><div class="line"> Person *p = [Person new];</div><div class="line"> Car *c = [Car new];</div><div class="line"></div><div class="line"> <span class="comment">// 给人一辆车</span></div><div class="line"> p.car = c;</div><div class="line"></div><div class="line"> <span class="comment">// 释放车</span></div><div class="line"> [c release];</div><div class="line"></div><div class="line"> <span class="comment">// 让人开车</span></div><div class="line"> [p drive];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>此时，会发生内存泄露。</li>
+<li>解决办法</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Person -- dealloc"</span>);</div><div class="line">    [_car release];</div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="property-参数-二"><a href="#property-参数-二" class="headerlink" title="@property 参数(二)"></a>@property 参数(二)</h4><ul>
+<li><p>1、是否要生成set方法(若为只读属性,则不生成)</p>
+<ul>
+<li>readonly:只读,只会生成get的声明和实现</li>
+<li>readwrite:默认的,同时生成set和get的声明和实现</li>
+</ul>
+</li>
+<li><p>2.多线程管理(苹果在一定程度上屏蔽了多线程操作)</p>
+<ul>
+<li>nonatomic:高性能,一般使用这个</li>
+<li><p>atomic:低性能,默认</p>
+</li>
+<li><p>atomic是Objc使用的一种线程保护技术,基本上来讲,是防止在写未完成的时候被另外一个线程读取,造成数据错误。而这种机制是耗费系统资源的,所以在iPhone这种小型设备上,如果没有使用多线程间的通讯编程,那么nonatomic是一个非常好的选择。</p>
+</li>
+</ul>
+</li>
+<li><p>3.set和get方法的名称</p>
+<ul>
+<li><p>修改set和get方法的名称,主要用于布尔类型。因为返回布尔类型的方法名一般以is开头,修改 名称一般用在布尔类型中的getter。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">控制set方法和get方法的名称</div><div class="line"><span class="keyword">setter</span> ： 设置set方法的名称，一定有个冒号:</div><div class="line"><span class="keyword">getter</span> ： 设置get方法的名称</div><div class="line"></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>, <span class="keyword">setter</span>=abc:,<span class="keyword">getter</span>=haha)<span class="keyword">int</span> age</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>可以理解为：</p>
+<ul>
+<li>[p setAge: ]——&gt; [p abc:],</li>
+<li>[p age] ———&gt; [p haha];</li>
+<li>p.age 不会报错(内部优化)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>, <span class="keyword">setter</span>=setVip:,<span class="keyword">getter</span>=isVip) <span class="built_in">BOOL</span> vip;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/property/" data-id="ciqardt2v001lqwnxz9voms0x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/setmemorymanagement" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/setmemorymanagement/" class="article-date">
+  <time datetime="2016-07-04T06:25:30.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="set方法的内存管理"><a href="#set方法的内存管理" class="headerlink" title="set方法的内存管理"></a>set方法的内存管理</h1><ul>
+<li>需求：<ul>
+<li>1、让玩家换房间，进入1号房间后，再进入2号房间</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 实现玩家类</span></div><div class="line"> <span class="class"><span class="keyword">@implementation</span> <span class="title">Gamer</span></span></div><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line">    [_room release];</div><div class="line">    _room = [room <span class="keyword">retain</span>];</div><div class="line">&#125;</div><div class="line">- (Room *)room&#123;</div><div class="line">    <span class="keyword">return</span> _room;</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    [_room dealloc];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"玩家被释放"</span>);</div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main()&#123;</div><div class="line">    <span class="comment">// 1、创建玩家对象</span></div><div class="line">    Gamer *game = [[Gamer alloc] init];</div><div class="line"></div><div class="line">    <span class="comment">// 2、创建房间对象</span></div><div class="line">    Room *room = [[Room alloc] init];</div><div class="line">    room.no = <span class="number">1</span>;</div><div class="line"></div><div class="line">    Room *room1 = [[room alloc] init];</div><div class="line">    room.no = <span class="number">2</span>;</div><div class="line"></div><div class="line">    <span class="comment">// 3、让玩家进入房间</span></div><div class="line">    game.room = room;</div><div class="line">    game.room = room1;</div><div class="line"></div><div class="line">    <span class="comment">// 4、释放房间对象</span></div><div class="line">    [room release];</div><div class="line"></div><div class="line">    <span class="comment">// 5、释放玩家对象</span></div><div class="line">    [game release];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>问题：房间对象再次无法被释放</li>
+<li>解决方案：</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_room != room) &#123;</div><div class="line">        <span class="comment">// 释放旧房间</span></div><div class="line">        [_room release];</div><div class="line">        [room <span class="keyword">retain</span>];</div><div class="line">        _room = room;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>总结：</li>
+<li>1、set方法的内存管理</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_room != room) &#123;</div><div class="line">    [_room release];</div><div class="line">    _room = [room <span class="keyword">retain</span>];</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>2、dealloc方法内存管理</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 当玩家不在了，代表不用房间了</span></div><div class="line">    <span class="comment">// 对房间进行一次release</span></div><div class="line">    [_room release];</div><div class="line"></div><div class="line">    <span class="comment">// 重写dealloc方法，必须在最后调用父类的dealloc方法</span></div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>常见错误写法</li>
+<li>会引发内存泄露<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gamer.room = [[Room alloc] init];</div><div class="line">[[Room alloc] init].no= <span class="number">10</span>;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/setmemorymanagement/" data-id="ciqardt2q001iqwnxbkqd5maj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/06/啦啦/">啦啦</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/06/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uimenucontroller/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/other/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uilabel/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

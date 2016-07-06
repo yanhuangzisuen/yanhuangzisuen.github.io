@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-ui/uiscrollview" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/ui/uiscrollview/" class="article-date">
+  <time datetime="2016-07-04T08:05:13.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="UIScrollView"><a href="#UIScrollView" class="headerlink" title="UIScrollView"></a>UIScrollView</h1><p>##缩放<br>    设置最大能方法多少倍<br>    最小能缩小多少倍<br>    告诉 scrollView 要对哪个 view 进行缩放(代理方法)</p>
+<p>##滚动<br>    contentSize —滚动范围<br>    contentInset — 内边距<br>    contentOffset — 偏移量(内容滚动到某个点)</p>
+<p>##UIScrollView的常见属性</p>
+<pre><code>//不要自动调整insets, 自己设置contentInset
+self.automaticallyAdjustsScrollViewInsets = NO;
+
+滚动范围: contentSize --&gt; 要比 scrollView 的 size 大
+
+内边距 : contentInset --&gt; (滚动到边界的时候) imageView 的边框距离 scrollView 边框的距离
+
+偏移量 : contentOffset --&gt; 是滚动到某个位置(点)
+
+弹簧效果 : bounces --&gt; 默认 YES, 一般不关闭
+
+分页效果(以 scrollView 的宽度进行分页) :
+_scrollView.pagingEnabled = YES;
+
+总有弹簧效果 : 就算不设置 contentSize 也可以有弹簧效果, 前提是 bounces = YES;
+alwaysBounceHorizontal
+alwaysBounceVertical
+
+滚动指示器 : 默认是 YES, 打开的
+showsHorizontalScrollIndicator
+showsVerticalScrollIndicator
+
+是否可以滚动 :
+scrollEnabled = YES;
+</code></pre><h2 id="无法滚动的原因"><a href="#无法滚动的原因" class="headerlink" title="无法滚动的原因"></a><code>无法滚动的原因</code></h2><ol>
+<li><code>contentSize 小于 scrollView.size</code></li>
+<li><code>scrollEnable = NO;</code></li>
+<li><code>userInteractionEnabled = NO;禁止用户交互</code></li>
+</ol>
+<h2 id="pageControl-注意属性"><a href="#pageControl-注意属性" class="headerlink" title="pageControl 注意属性:"></a>pageControl 注意属性:</h2><pre><code>1.numberOfPages --&gt; 设置点数
+2.currentPage --&gt; 当前位置 取值0 ~ numberOfPages - 1;
+3.currentPageIndicatorTintColor --&gt; 当前指示器的颜色
+4.pageIndicatorTintColor --&gt; 非当前指示器的颜色
+</code></pre><h2 id="NSTimer-的使用"><a href="#NSTimer-的使用" class="headerlink" title="NSTimer 的使用"></a>NSTimer 的使用</h2><pre><code>scheduled : 计划
+Interval : 间隔
+target : 一般指控制器
+selector : 方法
+uesrInfo : 用户自定义的参数
+repeats : 重复
+
+一旦创建就会立即执行
+
+invalidate 无效后, 要再次使用, 需要重新创建timer
+fire 立即执行, 不会等待 Interval 设置的时间
+</code></pre><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> + (<span class="built_in">NSTimer</span> *)scheduledTimerWithTimeInterval:(<span class="built_in">NSTimeInterval</span>)ti target:(<span class="keyword">id</span>)aTarget selector:(SEL)aSelector userInfo:(<span class="keyword">nullable</span> <span class="keyword">id</span>)userInfo repeats:(<span class="built_in">BOOL</span>)yesOrNo;</div><div class="line"></div><div class="line"> <span class="built_in">NSRunLoop</span> *mainLoop = [<span class="built_in">NSRunLoop</span> mainRunLoop];</div><div class="line">    <span class="comment">/*</span></div><div class="line">     设置优先级</div><div class="line">     NSDefaultRunLoopMode;</div><div class="line">     NSRunLoopCommonModes//优先级更高, 拖拽时定时器不会停止</div><div class="line">     */</div><div class="line">[mainLoop addTimer:_timer forMode:<span class="built_in">NSRunLoopCommonModes</span>];</div></pre></td></tr></table></figure>
+<h2 id="使用-delegate"><a href="#使用-delegate" class="headerlink" title="使用 delegate :"></a>使用 delegate :</h2><ol>
+<li>修饰符必须使用 weak, 防止循环引用</li>
+<li>如果两个对象相互引用, 其中一个必须是 weak</li>
+<li>addSubview –&gt; 强引用</li>
+</ol>
+<h2 id="UIScrollViewDelegate"><a href="#UIScrollViewDelegate" class="headerlink" title="UIScrollViewDelegate"></a>UIScrollViewDelegate</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//滚动完毕就会调用（如果不是人为拖拽scrollView导致滚动完毕，才会调用这个方法</span></div><div class="line">- (<span class="keyword">void</span>)scrollViewDidEndScrollingAnimation:(<span class="built_in">UIScrollView</span> *)scrollView</div><div class="line">&#123;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="拖拽"><a href="#拖拽" class="headerlink" title="拖拽"></a>拖拽</h4><ul>
+<li>当 scrollView 内容滚动时, 就会调用</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)scrollViewDidScroll:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"滚动时调用"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>deagg : 拖拽, 开始拖拽的时候调用</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)scrollViewWillBeginDragging:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</div><div class="line">     <span class="built_in">NSLog</span>(<span class="string">@"开始拖拽"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>停止拖拽是调用</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)scrollViewDidEndDragging:(<span class="built_in">UIScrollView</span> *)scrollView willDecelerate:(<span class="built_in">BOOL</span>)decelerate &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"停止拖拽"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h4><ul>
+<li>返回的 view 将被拉伸/缩放</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UIView</span> *)viewForZoomingInScrollView:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</div><div class="line">    <span class="keyword">return</span> _imageView;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>只要图片在放大/缩小时一直调用</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)scrollViewDidZoom:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"缩放时调用"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>开始缩放的时候调用</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//withView : 进行缩放的 view</span></div><div class="line">- (<span class="keyword">void</span>)scrollViewWillBeginZooming:(<span class="built_in">UIScrollView</span> *)scrollView withView:(<span class="built_in">UIView</span> *)view &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"开始缩放的时候调用"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>结束的时候调用</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//withView : 进行缩放的 view</span></div><div class="line"><span class="comment">//atScale : 缩放的倍数</span></div><div class="line">- (<span class="keyword">void</span>)scrollViewDidEndZooming:(<span class="built_in">UIScrollView</span> *)scrollView withView:(<span class="built_in">UIView</span> *)view atScale:(<span class="built_in">CGFloat</span>)scale &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"结束的时候调用"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/ui/uiscrollview/" data-id="ciqardt3i0021qwnxgb91ejej" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ui/launch" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/ui/launch/" class="article-date">
+  <time datetime="2016-07-04T08:02:33.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Launch启动图片"><a href="#Launch启动图片" class="headerlink" title="Launch启动图片"></a>Launch启动图片</h1><p>###1.应用图标<br>    Launch Image Source</p>
+<p>###2.启动图片<br>    Launch Screen</p>
+<p>###3.修改状态栏的样式</p>
+<pre><code>- (UIStatusBarStyle)preferredStatusBarStyle
+</code></pre><p>###4.隐藏状态栏</p>
+<pre><code>- (BOOL)prefersStatusBarHidden
+</code></pre><p>###5.使用 KVC 的方式赋值<br>    [self setValuesForKeysWithDictionary:dict];</p>
+<p>###6.让数组中的对象都执行一个方法</p>
+<ul>
+<li><p>makeObjectsPerformSelector</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[_answerView.subviews  makeObjectsPerformSelector:<span class="keyword">@selector</span>(removeFromSuperview)];</div></pre></td></tr></table></figure>
+</li>
+<li><p>makeObjectsPerformSelector: 让数组中的对象都执行这个 removeFromSuperview 方法</p>
+</li>
+</ul>
+<p>###7.block 遍历数组</p>
+<ul>
+<li><p>enumerateObjectsUsingBlock:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">   [_optionView.subviews enumerateObjectsUsingBlock:^(__kindof <span class="built_in">UIView</span> * _Nonnull obj, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> * _Nonnull stop) &#123;</div><div class="line"><span class="comment">// obj 数组中对象 UIView *类型的对象, 根据实际更改</span></div><div class="line"><span class="comment">// idx 数组的下标</span></div><div class="line"><span class="comment">// *stop = YES, 立即跳出遍历</span></div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p>###8.用户交互功能</p>
+<ul>
+<li>userInteractionEnabled –&gt; NO 禁止用户交互, 如果父View 设置了, 子view 也将不接受用户交互</li>
+</ul>
+<p>###9.前置view</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">   [<span class="keyword">self</span>.view bringSubviewToFront:_imageButton];</div><div class="line"><span class="keyword">self</span>.view 必须是 _imageButton 的父view</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/ui/launch/" data-id="ciqardt31001qqwnxbw3k660b" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ui/uiimageview" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/ui/uiimageview/" class="article-date">
+  <time datetime="2016-07-04T08:00:29.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="UIImageView"><a href="#UIImageView" class="headerlink" title="UIImageView"></a>UIImageView</h1><p>###UIImageView 帧动画</p>
+<pre><code>1. 可以展示单张图片
+2. 也可以用来播放动画
+3. 播放动画的方法
+ - (void)startAnimating;//开始播放
+ - (void)stopAnimating;//结束播放
+ - (BOOL)isAnimating;//是否正在播放
+4. 用来存放动画图片的属性
+ @property(nonatomic, copy) NSArray *animationImages;
+5. 播放的属性
+ @property (nonatomic) NSTimeInterval animationDuration;//持续时间
+
+ //如果不设置默认会无限循环播放
+ @property (nonatomic) NSInteger      animationRepeatCount;//重复次数
+</code></pre><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//eg:</span></div><div class="line"><span class="keyword">if</span> ([<span class="keyword">self</span>.imageView isAnimating]) <span class="keyword">return</span>;</div><div class="line"></div><div class="line"><span class="comment">//动画数组</span></div><div class="line"><span class="keyword">self</span>.imageView.animationImages = arrM;</div><div class="line"></div><div class="line"><span class="comment">//设置播放动画的属性 ---- 必须在播放之前</span></div><div class="line"><span class="keyword">self</span>.imageView.animationDuration = <span class="number">3</span>;<span class="comment">//时间</span></div><div class="line"><span class="keyword">self</span>.imageView.animationRepeatCount = <span class="number">1</span>;<span class="comment">//次数</span></div><div class="line"></div><div class="line"><span class="comment">//开始动画</span></div><div class="line">[<span class="keyword">self</span>.imageView startAnimating];</div><div class="line"></div><div class="line"><span class="comment">//动画结束, 释放图片内存</span></div><div class="line"></div><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">3.0</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">    <span class="comment">// 3.0s后自动执行这个block里面的代码</span></div><div class="line">    <span class="keyword">self</span>.imageView.animationImages = <span class="literal">nil</span>;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>###读取图片的两种方式:</p>
+<pre><code>imageNamed: 自动对图片做缓存
+    优点: 第一次加载之后,  后面再使用直接读取缓存
+    缺点: 会导致内存飙升
+imageWithContentOfFile: 不会做缓存  路径: NSBundle
+    优点:  不做缓存
+    缺点: 加载比较慢
+</code></pre><h3 id="拉伸图片"><a href="#拉伸图片" class="headerlink" title="拉伸图片"></a>拉伸图片</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//方式一:</span></div><div class="line"><span class="built_in">UIImage</span> *resizeImage = [image resizableImageWithCapInsets:<span class="built_in">UIEdgeInsetsMake</span>(halfHeight, halfWidth, halfHeight, halfWidth) resizingMode:<span class="built_in">UIImageResizingModeStretch</span>];</div><div class="line"><span class="comment">//方式二:</span></div><div class="line">Assets : Show Slicing</div></pre></td></tr></table></figure>
+<h3 id="Xcode-的-UUID"><a href="#Xcode-的-UUID" class="headerlink" title="Xcode 的 UUID"></a>Xcode 的 UUID</h3><p>9AFF134A-08DC-4096-8CEE-62A4BB123046<br>插件的安装路径<br>~/Library/Application Support/Developer/Shared/Xcode/Plug-ins</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/ui/uiimageview/" data-id="ciqardt3h0020qwnxor0ncspt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ui/uiview" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/ui/uiview/" class="article-date">
+  <time datetime="2016-07-04T07:56:05.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="UIView"><a href="#UIView" class="headerlink" title="UIView"></a>UIView</h1><h2 id="UIView-的常见属性"><a href="#UIView-的常见属性" class="headerlink" title="UIView 的常见属性"></a>UIView 的常见属性</h2><ul>
+<li>NSArray *subviews<ul>
+<li>所有的子控件</li>
+<li>数组元素的顺序决定着子控件的显示层级顺序 (下标越大的, 越显示在上面)</li>
+</ul>
+</li>
+</ul>
+<h2 id="UIView-的常见方法"><a href="#UIView-的常见方法" class="headerlink" title="UIView 的常见方法"></a>UIView 的常见方法</h2><pre><code>1.tag  标识
+2.removeFromSuperview  想要删除哪个控件, 就调用那个控件的方法
+3.addSubView  添加子控件
+4.SubViewS 获取所有的子控件
+5.viewWithTag 通过 tag 获取子控件, 优先获取自己的 tag
+6.frame  决定了控件的位置和尺寸
+7.transform  可以改变位置, 大小, 旋转  一套创建固定值, 一套在原有基础上偏移
+</code></pre><ul>
+<li>addSubview:<ul>
+<li>添加一个子控件</li>
+<li>使用这个方法添加的子控件会被塞到 subviews 数组的最后面</li>
+</ul>
+</li>
+<li>可以使用下面的方法调整子控件在 subview 数组中的顺序</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//将子控件 view 插入到 subviews 数组的 index 位置</span></div><div class="line">- (<span class="keyword">void</span>)insertSubview:(<span class="built_in">UIView</span> *)view atIndex:(<span class="built_in">NSInteger</span>)index;</div><div class="line"></div><div class="line"><span class="comment">//将子控件 view 显示到子控件 siblingSubview 的下面</span></div><div class="line">- (<span class="keyword">void</span>)insertSubview:(<span class="built_in">UIView</span> *)view belowSubview:(<span class="built_in">UIView</span> *)siblingSubview;</div><div class="line"></div><div class="line"><span class="comment">//将子控件 view 显示到子控件 siblingSubview 的上面</span></div><div class="line">- (<span class="keyword">void</span>)insertSubview:(<span class="built_in">UIView</span> *)view aboveSubview:(<span class="built_in">UIView</span> *)siblingSubview;</div><div class="line"></div><div class="line"><span class="comment">//将子控件 view 放在数组的最后面, 显示在最上面</span></div><div class="line">- (<span class="keyword">void</span>)bringSubviewToFront:(<span class="built_in">UIView</span> *)view;</div><div class="line"></div><div class="line"><span class="comment">//将子控件 view 放在数组的最前面, 显示在最下面</span></div><div class="line">- (<span class="keyword">void</span>)sendSubviewToBack:(<span class="built_in">UIView</span> *)view;</div></pre></td></tr></table></figure>
+<h2 id="代码创建控件-—UIView"><a href="#代码创建控件-—UIView" class="headerlink" title="代码创建控件 —UIView"></a>代码创建控件 —UIView</h2><pre><code>1.alloc init
+2.修改 frame
+3.设置颜色    backgroundColor
+4.添加到控制器的 View    addSubview
+</code></pre><h3 id="viewDidLoad"><a href="#viewDidLoad" class="headerlink" title="viewDidLoad"></a>viewDidLoad</h3><pre><code>在控制器的 View 加载到内存中的时候, 就会运行
+一般在这里, 初始化数据, 或者创建控件等等
+</code></pre><h3 id="创建按钮"><a href="#创建按钮" class="headerlink" title="创建按钮"></a>创建按钮</h3><pre><code>1.创建某一种 type 的按钮    UIButton *bun = [UIButton buttonWithType:UIButtonTypeCustom];
+2.frame
+3.文字     [bun setTitle:    forState:(UIControlState)];
+4.文字颜色    setTitleColor: forState:
+5.设置图片    setBackgroundImage: forState:
+6.设置背景图片    setImage: forState:
+7.绑定方法(事件)    addTarget:(nullable id) action:(non null SEL) forControlEvents:(UIControlEvents)
+    addTarget : 添加哪个类的方法
+    action : 绑定哪个方法    @selector()    生成
+    forControlEvents : 触发方式
+8.添加    addSubview:
+</code></pre><h2 id="九宫格计算思路"><a href="#九宫格计算思路" class="headerlink" title="九宫格计算思路"></a>九宫格计算思路</h2><ul>
+<li>利用控件的索引index计算出控件所在的行号和列号</li>
+<li>利用列号计算控件的x值</li>
+<li>利用行号计算控件的y值</li>
+</ul>
+<h2 id="HUD"><a href="#HUD" class="headerlink" title="HUD"></a>HUD</h2><ul>
+<li>其他说法：指示器、遮盖、蒙板</li>
+<li>半透明HUD的做法<ul>
+<li>背景色设置为半透明颜色</li>
+</ul>
+</li>
+</ul>
+<h2 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h2><ul>
+<li>方法1：performSelector</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1.5s后自动调用self的hideHUD方法</span></div><div class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(hideHUD) withObject:<span class="literal">nil</span> afterDelay:<span class="number">1.5</span>];</div></pre></td></tr></table></figure>
+<ul>
+<li>方法2：GCD</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">1.5</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">    <span class="comment">// 1.5s后自动执行这个block里面的代码</span></div><div class="line">    <span class="keyword">self</span>.hud.alpha = <span class="number">0.0</span>;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>方法3：NSTimer</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1.5s后自动调用self的hideHUD方法</span></div><div class="line">[<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">1.5</span> target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(hideHUD) userInfo:<span class="literal">nil</span> repeats:<span class="literal">NO</span>];</div><div class="line"><span class="comment">// repeats如果为YES，意味着每隔1.5s都会调用一次self的hidHUD方法</span></div></pre></td></tr></table></figure>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ul>
+<li>项目里面的某个.m文件无法使用<ul>
+<li>检查：Build Phases -&gt; Compile Sources</li>
+</ul>
+</li>
+<li>项目里面的某个资源文件（比如plist、音频等）无法使用<ul>
+<li>检查：Build Phases -&gt; Copy Bundle Resources</li>
+</ul>
+</li>
+</ul>
+<p>###xib<br>    描述局部界面, 解决界面问题 代码与逻辑处理需要与类进行关联<br>    属于轻量级别,<br>    返回数组 [NSBundle mainBundle] loadNibNamed: owner: options:<br>    重写 setter 方法, 一定要先给属性赋值</p>
+<p>###MVC 模式<br>    M —&gt; Model    描述数据, 处理数据<br>    V —&gt; View    展示界面<br>    C —&gt; Controller    用户交互的逻辑处理, 管理 view 的生命周期</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><ul>
+<li>什么是模型？<ul>
+<li>专门用来存放数据的对象</li>
+<li>一般都是一些直接继承自NSObject的纯对象</li>
+<li>内部会提供一些属性来存放数据</li>
+</ul>
+</li>
+</ul>
+<h2 id="一个控件看不见有哪些可能？"><a href="#一个控件看不见有哪些可能？" class="headerlink" title="一个控件看不见有哪些可能？"></a>一个控件看不见有哪些可能？</h2><ul>
+<li>宽度或者高度其实为0</li>
+<li>位置不对（比如是个负数或者超大的数，已经超出屏幕）</li>
+<li>hidden == YES</li>
+<li>alpha &lt;= 0.01</li>
+<li>没有设置背景色、没有设置内容</li>
+<li>可能是文字颜色和背景色一样</li>
+<li>检查父 View 的上面几种情况</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/ui/uiview/" data-id="ciqardt3r0027qwnx4ojv4h4k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/foundation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/foundation/" class="article-date">
+  <time datetime="2016-07-04T07:49:19.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Foundation"><a href="#Foundation" class="headerlink" title="Foundation"></a>Foundation</h1><h3 id="1、什么是框架？"><a href="#1、什么是框架？" class="headerlink" title="1、什么是框架？"></a>1、什么是框架？</h3><ul>
+<li>众多功能、API的集合（应用程序接口）</li>
+</ul>
+<h3 id="2、Foundation框架提供了非常多好用的类，比如："><a href="#2、Foundation框架提供了非常多好用的类，比如：" class="headerlink" title="2、Foundation框架提供了非常多好用的类，比如："></a>2、Foundation框架提供了非常多好用的类，比如：</h3><ul>
+<li>NSString :字符串</li>
+<li>NSArray :数组</li>
+<li>NSDictionary:字典</li>
+<li>NSDate:日期</li>
+<li>NSData:数据</li>
+<li>NSNumber:数字</li>
+</ul>
+<p>###3、Foundation框架中的类都是以NS为前缀（Next Step的缩写）</p>
+<ul>
+<li>乔布斯于1976年创立苹果公司</li>
+<li>1985年离开苹果，创立NeXT公司，开发Next Step操作系统</li>
+<li>在开发Next Step操作系统过程中产生了Foundation框架。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/foundation/" data-id="ciqardt17000gqwnxiaqq1i4d" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/delegate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/delegate/" class="article-date">
+  <time datetime="2016-07-04T07:47:51.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="delegate"><a href="#delegate" class="headerlink" title="delegate"></a>delegate</h1><h3 id="protocol代理设计模式概念"><a href="#protocol代理设计模式概念" class="headerlink" title="protocol代理设计模式概念"></a>protocol代理设计模式概念</h3><ul>
+<li>代理模式概念</li>
+<li><p>传入的对象,代替当前类完成了某个功能,称为代理模式</p>
+</li>
+<li><p>利用协议实现代理模式的主要思路为:</p>
+<ul>
+<li>1）定义一个协议,里面声明代理类需要实现的方法列表,比如这里：一个代理类需要实现：feedBaby与HongSleep方法</li>
+<li>2）创建一个代理类(比如BaoMu),遵守上面的代理协议</li>
+<li>3）在需要代理的类中(Baby),定义一个对象类型为id且遵守代理协议 的成员变量。(delegate)</li>
+<li>4）在Baby类中调用成员变量delegate(代理)的方法,调用代理类的方法。</li>
+<li>5）main.m或其他使用Baby类的文件中,为Baby类的成员变量(代理类)赋值。</li>
+</ul>
+</li>
+</ul>
+<h3 id="protocol代理模式应用场合"><a href="#protocol代理模式应用场合" class="headerlink" title="protocol代理模式应用场合"></a>protocol代理模式应用场合</h3><ul>
+<li>代理设计模式的场合:<ul>
+<li>当对象A发生了一些行为,想告知对象B (让对象B成为对象A的代理对象)</li>
+<li>对象B想监听对象A的一些行为 (让对象B成为对象A的代理对象)</li>
+<li>当对象A无法处理某些行为的时候,想让对象B帮忙处理。(让对象B成为对象A的代理对象)</li>
+</ul>
+</li>
+<li>1）监听器的场合<ul>
+<li>Teacher想监听Baby的一些行为</li>
+</ul>
+</li>
+<li>2）通知的场合<ul>
+<li>Baby发生了一些行为,想告知Teacher</li>
+</ul>
+</li>
+<li>3）有些事情,不想自己处理,想交给别人处理<ul>
+<li>Baby发生了一些行为,但是自己不会处理,可以交给Teacher处理。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/delegate/" data-id="ciqardt1f000kqwnxsbnwpsq9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/idandinstancetype" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/idandinstancetype/" class="article-date">
+  <time datetime="2016-07-04T07:43:55.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="protocol类型限制"><a href="#protocol类型限制" class="headerlink" title="protocol类型限制"></a>protocol类型限制</h1><h2 id="protocol类型限制-1"><a href="#protocol类型限制-1" class="headerlink" title="protocol类型限制"></a>protocol类型限制</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">id</span> d = [[Person alloc] init];</div><div class="line"></div><div class="line">要求：变量d指向的对象必须遵守PlayProtocol协议</div><div class="line"><span class="keyword">id</span>&lt;PlayProtocol&gt; d = [[Person alloc] init];</div><div class="line"></div><div class="line">要求：要求Person创建出来的对象，必须遵守PlayProtocol协议。</div><div class="line">Person &lt; PlayProtocol &gt; *p = [[Person alloc] init];</div><div class="line"></div><div class="line">真实使用场景:</div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> :<span class="title">NSObject</span> &lt;<span class="title">PlayProtocol</span>&gt;</span></div><div class="line"><span class="keyword">@end</span></div><div class="line">这样创建的任何对象，都拥有协议当中的方法。</div></pre></td></tr></table></figure>
+<h2 id="id和instancetype的区别"><a href="#id和instancetype的区别" class="headerlink" title="id和instancetype的区别"></a>id和instancetype的区别</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">创建对象：</div><div class="line">(<span class="keyword">id</span>)person &#123;</div><div class="line">    <span class="keyword">return</span> [[Person alloc] init];</div><div class="line">&#125;</div><div class="line"></div><div class="line">这样，子类无法用这个方法创建对象：</div><div class="line">(<span class="keyword">id</span>)person &#123;</div><div class="line">    <span class="keyword">return</span> [[<span class="keyword">self</span> alloc] init];</div><div class="line">&#125;</div><div class="line"></div><div class="line">调用自己没有的方法，程序会崩溃</div><div class="line">建议使用：</div><div class="line">(instanstype)person &#123;</div><div class="line">    <span class="keyword">return</span> [[<span class="keyword">self</span> alloc] init];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ul>
+<li>id和instancetype的区别<ul>
+<li>1）instancetype只能作为函数或者方法的返回值</li>
+<li>2）id能作为方法或者参数的数据类型、返回值，也能用来定义变量。</li>
+<li>3）instancetype对比id的好处：<ul>
+<li>能精确的限制返回值的具体类型。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/idandinstancetype/" data-id="ciqardt1g000lqwnxd5edax12" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/protocol" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/protocol/" class="article-date">
+  <time datetime="2016-07-04T07:38:25.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Protocol"><a href="#Protocol" class="headerlink" title="Protocol"></a>Protocol</h1><h2 id="1、什么是Protocol"><a href="#1、什么是Protocol" class="headerlink" title="1、什么是Protocol?"></a>1、什么是Protocol?</h2><ul>
+<li>1）Protocol中文意思：协议。</li>
+<li>2）协议中只能声明一些方法。</li>
+<li>3）遵守了协议，就等于拥有了协议中的所有方法。</li>
+</ul>
+<h2 id="2、协议的基本用法："><a href="#2、协议的基本用法：" class="headerlink" title="2、协议的基本用法："></a>2、协议的基本用法：</h2><ul>
+<li><p>1、协议的定义格式：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@protocol</span> 协议名称</span></div><div class="line"><span class="comment">// 各种方法；</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>2、协议的使用格式：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> 类名 : <span class="title">NSObject</span> &lt;协议名1，协议名2，...&gt;</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="protocol的使用注意"><a href="#protocol的使用注意" class="headerlink" title="protocol的使用注意"></a>protocol的使用注意</h2><ul>
+<li>1）把同一类方法，放到1个协议当中</li>
+<li>2）1个类可以同时遵守多个协议。</li>
+<li>3）父类遵守了某个协议，子类也遵守了该协议。</li>
+<li>4）协议遵守协议：1个协议可以遵守多个协议。</li>
+</ul>
+<h2 id="protocol基协议介绍"><a href="#protocol基协议介绍" class="headerlink" title="protocol基协议介绍"></a>protocol基协议介绍</h2> <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">SportProtocol</span> &lt;<span class="title">NSObject</span>&gt;</span></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"> * 此处的<span class="built_in">NSObject</span>就是基协议，意义等同于继承<span class="built_in">NSObject</span>。</div><div class="line"> * 继承基协议的好处：能够拥有基协议当中所声明的所有方法。</div></pre></td></tr></table></figure>
+<ul>
+<li>总结：</li>
+<li>1、需要添加成员变量和方法时，建议使用继承</li>
+<li>2、只需要添加方法时，建议使用分类</li>
+<li>3、当很多不同类中，有共同的方法可以抽取时，类之间不存在继承关系，建议使用协议。</li>
+</ul>
+<h2 id="protocol中-required和-optional"><a href="#protocol中-required和-optional" class="headerlink" title="protocol中@required和@optional"></a>protocol中@required和@optional</h2><ul>
+<li>@required：用@required修饰的方法，必须实现。</li>
+<li>@optional：用@optional修饰的方法，可实现，可不实现。</li>
+<li>@required 和 @optional的主要意义:一般用于序员交流用。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/protocol/" data-id="ciqardt2n001gqwnxgbfpwq53" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/block" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/block/" class="article-date">
+  <time datetime="2016-07-04T07:31:13.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Block"><a href="#Block" class="headerlink" title="Block"></a>Block</h1><h3 id="1、什么是block？"><a href="#1、什么是block？" class="headerlink" title="1、什么是block？"></a>1、什么是block？</h3><ul>
+<li>block是iOS中一种比较特殊的数据类型。</li>
+<li>block是苹果官方特别推荐使用的数据类型，应用场景比较广泛。</li>
+</ul>
+<h3 id="2、使用场合？"><a href="#2、使用场合？" class="headerlink" title="2、使用场合？"></a>2、使用场合？</h3><pre><code>* 1）动画
+* 2）多线程
+* 3）集合遍历
+* 4）网络请求回调
+</code></pre><p>###3、block的作用</p>
+<pre><code>* 用来保存一段代码，可以在恰当的时间再取出来调用.
+</code></pre><h2 id="block的基本用法"><a href="#block的基本用法" class="headerlink" title="block的基本用法"></a>block的基本用法</h2><h3 id="1）简单的认识下block"><a href="#1）简单的认识下block" class="headerlink" title="1）简单的认识下block"></a>1）简单的认识下block</h3><ul>
+<li><p>函数写法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">void</span> myBlock ()&#123;</div><div class="line">  <span class="built_in">NSLog</span>(@“******”);</div><div class="line">  <span class="built_in">NSLog</span>(@“******”);</div><div class="line">  <span class="built_in">NSLog</span>(@“******”);</div><div class="line">  <span class="built_in">NSLog</span>(@“******”);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>block写法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> (^myBlock)() =  ^&#123;</div><div class="line">  <span class="built_in">NSLog</span>(@“******”);</div><div class="line">  <span class="built_in">NSLog</span>(@“******”);</div><div class="line">  <span class="built_in">NSLog</span>(@“******”);</div><div class="line">  <span class="built_in">NSLog</span>(@“******”);</div><div class="line">&#125;；</div><div class="line">myBlock();</div></pre></td></tr></table></figure>
+</li>
+<li><p>block格式：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> (^block名称)(参数列表) = ^(参数列表)&#123;</div><div class="line"><span class="comment">// 代码实现；</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="2）定义block遍历，存储一段代码，这段代码的功能是能打印任意行数"><a href="#2）定义block遍历，存储一段代码，这段代码的功能是能打印任意行数" class="headerlink" title="2）定义block遍历，存储一段代码，这段代码的功能是能打印任意行数"></a>2）定义block遍历，存储一段代码，这段代码的功能是能打印任意行数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">void (^ myBlock)(int) = ^(int numberOfLines)&#123;</div><div class="line">  for(int i = 0; i &lt; numberOfLines ; i ++)&#123;</div><div class="line">     NSLog(@“******”);</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h5 id="3）定义block，计算两个整数的和"><a href="#3）定义block，计算两个整数的和" class="headerlink" title="3）定义block，计算两个整数的和."></a>3）定义block，计算两个整数的和.</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">int (^ sumBlock)(int,int) = ^(int num1, int num2)&#123;</div><div class="line">     return num1 + num2;</div><div class="line">&#125;;</div><div class="line">int c = sumBlock(10,20);</div><div class="line">NSLog(@“%d”,c);</div></pre></td></tr></table></figure>
+<p>#####4）定义1个block，计算1个整数的平方<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">int (^squareBlock)(int);</div><div class="line">squareBlock = ^(int sum)&#123;</div><div class="line">   return sum * sum;</div><div class="line">&#125;;</div><div class="line">squareBlock(25);</div></pre></td></tr></table></figure></p>
+<h2 id="block的typedef"><a href="#block的typedef" class="headerlink" title="block的typedef"></a>block的typedef</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> ( ^minusBlock)(<span class="keyword">int</span>,<span class="keyword">int</span>) = ^(<span class="keyword">int</span> num1,<span class="keyword">int</span> num2)&#123;</div><div class="line">  <span class="keyword">return</span> num1 - num2;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>定义1个叫做:MyBlock的数据类型，它存储的代码必须返回int，，必须接受2个int类型参数</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span>(^MyBlock)(<span class="keyword">int</span>,<span class="keyword">int</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>重命名之后，可这样使用：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">MyBlock minusBlock = ^(<span class="keyword">int</span> num1,<span class="keyword">int</span> num2)&#123;</div><div class="line">  <span class="keyword">return</span> num1 - num2;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>##block访问外部变量</p>
+<ul>
+<li><p>1）block访问外面变量。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</div><div class="line"><span class="keyword">void</span> (^block()) = ^&#123;</div><div class="line">  <span class="built_in">NSLog</span>(@“%d”,a);</div><div class="line">&#125;;</div><div class="line">block();</div></pre></td></tr></table></figure>
+</li>
+<li><p>2）block修改外部变量值</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">__block <span class="keyword">int</span> b = <span class="number">10</span>;</div><div class="line"><span class="keyword">void</span> (^block()) = ^&#123;</div><div class="line"> b = <span class="number">20</span>;</div><div class="line">  <span class="built_in">NSLog</span>(@“%d”,b);</div><div class="line">&#125;;</div><div class="line">block();</div></pre></td></tr></table></figure>
+</li>
+<li><p>3）block的快捷操作，名称写完整，直接敲回车.</p>
+</li>
+</ul>
+<h2 id="block作为函数的返回值"><a href="#block作为函数的返回值" class="headerlink" title="block作为函数的返回值"></a>block作为函数的返回值</h2><ul>
+<li>1、使用typedef定义一个新的类型</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//给block起一个别名</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span>(^newType)(<span class="keyword">int</span> num1,<span class="keyword">int</span> num2);</div></pre></td></tr></table></figure>
+<ul>
+<li>2、使用新类型作为函数的返回值</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//定义一个返回值是block类型的函数</span></div><div class="line">newType test()&#123;</div><div class="line"></div><div class="line"><span class="comment">//定义一个newType 类型的block变量</span></div><div class="line">newType work1=^(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</div><div class="line">&#123;</div><div class="line"><span class="keyword">return</span> x+y;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">return</span> work1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>3）定义变量接收函数返回的值(block类型)</li>
+<li>4）调用block</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//在main函数中调用返回值是newType类型的函数</span></div><div class="line"></div><div class="line"><span class="comment">// 定义block类型的变量n</span></div><div class="line">newType n = test();</div><div class="line"></div><div class="line"><span class="comment">// 调用block，输出结果</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"n = %d"</span>,n(<span class="number">10</span>,<span class="number">20</span>));</div></pre></td></tr></table></figure>
+<h2 id="block结构的快速提示"><a href="#block结构的快速提示" class="headerlink" title="block结构的快速提示"></a>block结构的快速提示</h2><ul>
+<li>输入：<code>inlineBlock</code></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/block/" data-id="ciqardt11000bqwnxvzl33uo9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-oc/extension" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/extension/" class="article-date">
+  <time datetime="2016-07-04T07:27:05.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Extension"><a href="#Extension" class="headerlink" title="Extension"></a>Extension</h1><h5 id="1、类的延展的概念"><a href="#1、类的延展的概念" class="headerlink" title="1、类的延展的概念"></a>1、类的延展的概念</h5><ul>
+<li>延展类别又称为扩展(Extendsion)</li>
+<li>Extension是Category的一个特例</li>
+<li>其名字为匿名(为空),并且新添加的方法一定要予以实现。(Category没有这个限制)</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">MyClass</span> ()</span></div><div class="line">&#123;</div><div class="line">   <span class="comment">//类扩展 float value;</span></div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)setValue:(<span class="keyword">float</span>)newValue;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<ul>
+<li>这种写法的类别叫<code>匿名分类</code>,又叫<code>类扩展</code>,所谓的扩展,其实就是为一个类添加额外的原来没有的变量、方法或者合成属性。</li>
+</ul>
+<p>#####2、类扩展的作用：</p>
+<ul>
+<li>为本类扩充一些私有的成员变量和私有方法。</li>
+</ul>
+<h5 id="3、延展的实现"><a href="#3、延展的实现" class="headerlink" title="3、延展的实现"></a>3、延展的实现</h5><ul>
+<li>1）通过延展来实现方法的私有,延展的头文件独立。这种方法不能实现真正的方法私有,当在别的文件中引入延展的头文件,那么在这个文件中定义的类的对象就可以直接调用在延展中定义所谓 私有的方法.</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 对类的延展,隐藏方法的一种手段</span></div><div class="line">.h文件</div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SceneManager</span> ()</span></div><div class="line">+ (<span class="keyword">void</span>) wrap;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line">.m类的实现文件中</div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">SceneManager</span></span></div><div class="line">+ (<span class="keyword">void</span>) wrap &#123;</div><div class="line">  <span class="built_in">NSLog</span>(<span class="string">@"method of wrap"</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>调用</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[SceneManager wrap];</div><div class="line"><span class="comment">// 这里会报一个警告:Class method of "+ wrap" not found</span></div><div class="line"><span class="comment">// 不过虽然是警告,不过运行是正常的,不过这么写在自我规范上不好,即使编译器没有做强制限制,我们自己也要限制自己。</span></div><div class="line"><span class="comment">// 不然,延展方法就毫无意义可言。</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>通过界面创建延展:</p>
+</li>
+</ul>
+<p><img src="image/0601.png" alt=""></p>
+<ul>
+<li>2）第二种实现延展的方式是延展没有独立的头文件,在类的实现文件.m中声明和实现延展,这种方法可以很好的实现方法的私有,因为在OC中是不能引入.m的文件的。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"> .m文件</div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SceneManager</span> ()</span></div><div class="line">+ (<span class="keyword">void</span>) wrap;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">SceneManager</span></span></div><div class="line">+ (<span class="keyword">void</span>) wrap &#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"method of wrap"</span>); &#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line">调用</div><div class="line">[SceneManager wrap];</div></pre></td></tr></table></figure>
+<h5 id="分类和类扩展的区别："><a href="#分类和类扩展的区别：" class="headerlink" title="分类和类扩展的区别："></a>分类和类扩展的区别：</h5><ul>
+<li>1、类别中只能增加方法;</li>
+<li>2、是的,你没看错,类扩展不仅可以增加方法,还可以增加实例变量(或者合成属性),只是该<code>实例变量默认是私有类型的</code>(作用范围只能在自身类,而不是子类或其他地方);</li>
+<li>3、类扩展中声明的方法没被实现,编译器会报警,但是类别中的方法没被实现编译器是不会有任何警告的。这是因为类扩展是在编译阶段被添加到类中,而类别是在运行时添加到类中。</li>
+<li>4、类扩展不能像类别那样拥有独立的实现部分(@implementation部分),也就是说,类扩展所声明的方法必须依托对应类的实现部分来实现。</li>
+<li>5、定义在 .m 文件中的类扩展方法为私有的,定义在 .h 文件(头文件)中的类扩展方法为公有 的。类扩展是在 .m 文件中声明私有方法的非常好的方式。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/extension/" data-id="ciqardt1d000jqwnx17ot8gps" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/06/啦啦/">啦啦</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/06/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uimenucontroller/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/other/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/05/ui/uilabel/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
