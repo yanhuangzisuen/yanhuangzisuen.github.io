@@ -100,7 +100,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
+    sidebar: {"position":"left","display":"always"},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -216,108 +216,6 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/04/oc/nsdictionaryandfile/" itemprop="url">
-                  Unbenannt
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-07-04T10:19:11+08:00" content="2016-07-04">
-              2016-07-04
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="NSDictionary简写与文件操作"><a href="#NSDictionary简写与文件操作" class="headerlink" title="NSDictionary简写与文件操作"></a>NSDictionary简写与文件操作</h1><h2 id="NSDictionary-的简写形式"><a href="#NSDictionary-的简写形式" class="headerlink" title="NSDictionary 的简写形式"></a>NSDictionary 的简写形式</h2><ul>
-<li>NSDictionary 的创建</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//以前</span></div><div class="line">[<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys:<span class="string">@"Jack"</span>, <span class="string">@"name"</span>, <span class="string">@"男"</span>, <span class="string">@"sex"</span>, <span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//现在</span></div><div class="line">@&#123;<span class="string">@"name"</span> : <span class="string">@"Jack"</span>, <span class="string">@"sex"</span> : <span class="string">@"男"</span>&#125;;</div></pre></td></tr></table></figure>
-<ul>
-<li>NSDictionary 获取元素</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//以前</span></div><div class="line">[dict objectForKey:<span class="string">@"name"</span>];</div><div class="line"></div><div class="line"><span class="comment">//现在</span></div><div class="line">dict[<span class="string">@"name"</span>];</div></pre></td></tr></table></figure>
-<h2 id="NSDictionary-的文件操作"><a href="#NSDictionary-的文件操作" class="headerlink" title="NSDictionary 的文件操作"></a>NSDictionary 的文件操作</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//写入文件</span></div><div class="line">- (<span class="built_in">BOOL</span>)writeToFile:(<span class="built_in">NSString</span> *)path atomically:(<span class="built_in">BOOL</span>)useAuxiliaryFile;</div><div class="line">- (<span class="built_in">BOOL</span>)writeToURL:(<span class="built_in">NSURL</span> *)url atomically:(<span class="built_in">BOOL</span>)atomically;</div><div class="line"></div><div class="line"><span class="comment">//从文件中读取</span></div><div class="line">+ (<span class="built_in">NSDictionary</span> *)dictionaryWithContentsOfFile:(<span class="built_in">NSString</span> *)path;</div><div class="line">+ (<span class="built_in">NSDictionary</span> *)dictionaryWithContentsOfURL:(<span class="built_in">NSURL</span> *)url;</div><div class="line">- (<span class="built_in">NSDictionary</span> *)initWithContentsOfFile:(<span class="built_in">NSString</span> *)path;</div><div class="line">- (<span class="built_in">NSDictionary</span> *)initWithContentsOfURL:(<span class="built_in">NSURL</span> *)url;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
     
       
 
@@ -1277,6 +1175,115 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/03/oc/nsstringother/" itemprop="url">
+                  Unbenannt
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-07-03T19:14:36+08:00" content="2016-07-03">
+              2016-07-03
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="NSString的其他用法"><a href="#NSString的其他用法" class="headerlink" title="NSString的其他用法"></a>NSString的其他用法</h1><ul>
+<li>获取字符串的长度</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSUIntrger</span>)length;</div></pre></td></tr></table></figure>
+<ul>
+<li>获取具体位置的字符</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">unichar</span>)characterAtIndex:(<span class="built_in">NSUInteger</span>)index;</div><div class="line"><span class="comment">//返回 index 位置对应的字符, %c 输出</span></div></pre></td></tr></table></figure>
+<ul>
+<li>字符串和其他数据类型转换</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//转为基本数据类型</span></div><div class="line">- (<span class="keyword">double</span>)doubleValue;</div><div class="line">- (<span class="keyword">float</span>)floatValue;</div><div class="line">- (<span class="keyword">int</span>)intValue;</div><div class="line">...</div><div class="line"><span class="comment">//转为C语言字符串</span></div><div class="line">- (<span class="keyword">char</span> *)UTF8String;</div></pre></td></tr></table></figure>
+<ul>
+<li>NSString去除空格</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//去除所有空格, 字符串替换</span></div><div class="line">[str strByReplaceingOccurrencesOfString:<span class="string">@" "</span> withString:<span class="string">@""</span>];</div><div class="line"></div><div class="line"><span class="comment">//去除首位空格</span></div><div class="line">[str stringByTrimmingCharactersInSet:[<span class="built_in">NSCharacterSet</span> whitespaceCharacterSet]];</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1322,7 +1329,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">82</span>
+              <span class="site-state-item-count">81</span>
               <span class="site-state-item-name">Artikel</span>
             </a>
           </div>

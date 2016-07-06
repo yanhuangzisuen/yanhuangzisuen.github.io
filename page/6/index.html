@@ -100,7 +100,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
+    sidebar: {"position":"left","display":"always"},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -216,109 +216,6 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/04/oc/gathermemorymanagement/" itemprop="url">
-                  Unbenannt
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-07-04T11:52:11+08:00" content="2016-07-04">
-              2016-07-04
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="集合对象的内存管理"><a href="#集合对象的内存管理" class="headerlink" title="集合对象的内存管理"></a>集合对象的内存管理</h1><h4 id="1、集合对象的内存管理"><a href="#1、集合对象的内存管理" class="headerlink" title="1、集合对象的内存管理"></a>1、集合对象的内存管理</h4><ul>
-<li>集合，就是能用来容纳OC对象的容器</li>
-<li>NSArray、NSDictionary等都是.</li>
-</ul>
-<h4 id="2、集合对象内存管理总结"><a href="#2、集合对象内存管理总结" class="headerlink" title="2、集合对象内存管理总结"></a>2、集合对象内存管理总结</h4><ul>
-<li>集合有一些内存管理细节</li>
-<li><strong>只要将一个对象添加到集合中，这个对象计数器就会 + 1(做一次retain操作)</strong></li>
-<li><strong>只要将一个对象从集合中移除，这个对象计数器就会 - 1(做一次release操作)</strong></li>
-<li><strong>如果集合被销毁了，集合里面的所有对象计数器都会 - 1(做一次release操作）</strong></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
     
       
 
@@ -1305,6 +1202,108 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/04/oc/nsdictionaryandfile/" itemprop="url">
+                  Unbenannt
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-07-04T10:19:11+08:00" content="2016-07-04">
+              2016-07-04
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="NSDictionary简写与文件操作"><a href="#NSDictionary简写与文件操作" class="headerlink" title="NSDictionary简写与文件操作"></a>NSDictionary简写与文件操作</h1><h2 id="NSDictionary-的简写形式"><a href="#NSDictionary-的简写形式" class="headerlink" title="NSDictionary 的简写形式"></a>NSDictionary 的简写形式</h2><ul>
+<li>NSDictionary 的创建</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//以前</span></div><div class="line">[<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys:<span class="string">@"Jack"</span>, <span class="string">@"name"</span>, <span class="string">@"男"</span>, <span class="string">@"sex"</span>, <span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//现在</span></div><div class="line">@&#123;<span class="string">@"name"</span> : <span class="string">@"Jack"</span>, <span class="string">@"sex"</span> : <span class="string">@"男"</span>&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>NSDictionary 获取元素</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//以前</span></div><div class="line">[dict objectForKey:<span class="string">@"name"</span>];</div><div class="line"></div><div class="line"><span class="comment">//现在</span></div><div class="line">dict[<span class="string">@"name"</span>];</div></pre></td></tr></table></figure>
+<h2 id="NSDictionary-的文件操作"><a href="#NSDictionary-的文件操作" class="headerlink" title="NSDictionary 的文件操作"></a>NSDictionary 的文件操作</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//写入文件</span></div><div class="line">- (<span class="built_in">BOOL</span>)writeToFile:(<span class="built_in">NSString</span> *)path atomically:(<span class="built_in">BOOL</span>)useAuxiliaryFile;</div><div class="line">- (<span class="built_in">BOOL</span>)writeToURL:(<span class="built_in">NSURL</span> *)url atomically:(<span class="built_in">BOOL</span>)atomically;</div><div class="line"></div><div class="line"><span class="comment">//从文件中读取</span></div><div class="line">+ (<span class="built_in">NSDictionary</span> *)dictionaryWithContentsOfFile:(<span class="built_in">NSString</span> *)path;</div><div class="line">+ (<span class="built_in">NSDictionary</span> *)dictionaryWithContentsOfURL:(<span class="built_in">NSURL</span> *)url;</div><div class="line">- (<span class="built_in">NSDictionary</span> *)initWithContentsOfFile:(<span class="built_in">NSString</span> *)path;</div><div class="line">- (<span class="built_in">NSDictionary</span> *)initWithContentsOfURL:(<span class="built_in">NSURL</span> *)url;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1350,7 +1349,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">82</span>
+              <span class="site-state-item-count">81</span>
               <span class="site-state-item-name">Artikel</span>
             </a>
           </div>

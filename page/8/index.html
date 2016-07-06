@@ -100,7 +100,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
+    sidebar: {"position":"left","display":"always"},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -216,115 +216,6 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/03/oc/nsstringother/" itemprop="url">
-                  Unbenannt
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-07-03T19:14:36+08:00" content="2016-07-03">
-              2016-07-03
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="NSString的其他用法"><a href="#NSString的其他用法" class="headerlink" title="NSString的其他用法"></a>NSString的其他用法</h1><ul>
-<li>获取字符串的长度</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSUIntrger</span>)length;</div></pre></td></tr></table></figure>
-<ul>
-<li>获取具体位置的字符</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">unichar</span>)characterAtIndex:(<span class="built_in">NSUInteger</span>)index;</div><div class="line"><span class="comment">//返回 index 位置对应的字符, %c 输出</span></div></pre></td></tr></table></figure>
-<ul>
-<li>字符串和其他数据类型转换</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//转为基本数据类型</span></div><div class="line">- (<span class="keyword">double</span>)doubleValue;</div><div class="line">- (<span class="keyword">float</span>)floatValue;</div><div class="line">- (<span class="keyword">int</span>)intValue;</div><div class="line">...</div><div class="line"><span class="comment">//转为C语言字符串</span></div><div class="line">- (<span class="keyword">char</span> *)UTF8String;</div></pre></td></tr></table></figure>
-<ul>
-<li>NSString去除空格</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//去除所有空格, 字符串替换</span></div><div class="line">[str strByReplaceingOccurrencesOfString:<span class="string">@" "</span> withString:<span class="string">@""</span>];</div><div class="line"></div><div class="line"><span class="comment">//去除首位空格</span></div><div class="line">[str stringByTrimmingCharactersInSet:[<span class="built_in">NSCharacterSet</span> whitespaceCharacterSet]];</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
     
       
 
@@ -1537,6 +1428,203 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/03/SUMMARY/" itemprop="url">
+                  Unbenannt
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-07-03T14:54:28+08:00" content="2016-07-03">
+              2016-07-03
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul>
+<li><a href="README.md">Introduction</a></li>
+<li><a href="c/README.md">C语言</a></li>
+<li><a href="oc/README.md">Objective-C</a><ul>
+<li><a href="oc/classandobject.md">类与对象</a></li>
+<li><a href="oc/nsstring.md">NSString</a><ul>
+<li><a href="oc/nsstringandnsurl.md">使用NSURL读写字符串</a></li>
+<li><a href="oc/nsstringcompare.md">字符串的比较</a></li>
+<li><a href="oc/nsstringsearch.md">字符串搜索与NSRange</a></li>
+<li><a href="oc/nsstringinterceptionandreplacement.md">字符串的截取和替换</a></li>
+<li><a href="oc/nsstringother.md">NSString的其他用法</a></li>
+<li><a href="oc/nsmutablestring.md">NSMutableString</a></li>
+</ul>
+</li>
+<li><a href="oc/nsarray.md">NSArray</a><ul>
+<li><a href="oc/nsarrayaction.md">NSArray常见用法</a></li>
+<li><a href="oc/nsarraytraverse.md">NSArray的遍历</a></li>
+<li><a href="oc/nsarrayandfile.md">NSArray读写文件</a></li>
+<li><a href="oc/nsarrayandnsstring.md">NSArray与NSString</a></li>
+<li><a href="oc/nsmutablearray.md">NSMutableArray</a></li>
+</ul>
+</li>
+<li><a href="oc/nsdictionary.md">NSDictionary</a><ul>
+<li><a href="oc/nsdictionaryaction.md">NSDictionary常见用法</a></li>
+<li><a href="oc/nsdictionaryandfile.md">NSDictionary简写与文件操作</a></li>
+<li><a href="oc/nsmutabledictionary.md">NSMutableDictionary</a></li>
+</ul>
+</li>
+<li><a href="oc/nsfilemanager.md">NSFileManager</a><ul>
+<li><a href="oc/nsfilemanagerandfile.md">NSFileManager的文件访问</a></li>
+<li><a href="oc/nsfilemanagerfileoperation.md">NSFileManager的文件或文件夹操作</a></li>
+<li><a href="oc/iossanbox.md">iOS沙盒(sanbox)机制</a></li>
+</ul>
+</li>
+<li><a href="oc/struct.md">Struct结构体</a></li>
+<li><a href="oc/nsnumber.md">NSNumber</a></li>
+<li><a href="oc/nsvalue.md">NSValue</a></li>
+<li><a href="oc/nsdate.md">NSDate</a></li>
+<li><a href="oc/gathermemorymanagement.md">集合对象的内存管理</a></li>
+<li><a href="oc/copy.md">Copy</a><ul>
+<li><a href="oc/copyandmemorymanagement.md">Copy与内存管理</a></li>
+<li><a href="oc/copyaction.md">为自定义的类实现copy操作</a></li>
+</ul>
+</li>
+<li><a href="oc/singletonpattern.md">单例模式</a></li>
+<li><a href="oc/memorymanagement.md">内存管理</a><ul>
+<li><a href="oc/principle.md">内存管理的原理及分类</a></li>
+<li><a href="oc/mrc.md">MRC</a></li>
+<li><a href="oc/mrcprinciple.md">手动管理内存的原则</a></li>
+<li><a href="oc/moreobject.md">多个对象的内存管理</a></li>
+<li><a href="oc/setmemorymanagement.md">set方法的内存管理</a></li>
+<li><a href="oc/property.md">@property</a></li>
+<li><a href="oc/class.md">@class</a></li>
+<li><a href="oc/loopretain.md">循环retain</a></li>
+<li><a href="oc/nsstringandmrc.md">NSString类的内存管理</a></li>
+<li><a href="oc/autorelease.md">Autorelease</a><ul>
+<li><a href="oc/autoreleaseattention.md">Autorelease注意事项</a></li>
+</ul>
+</li>
+<li><a href="oc/arc.md">ARC</a><ul>
+<li><a href="oc/arcloop.md">ARC循环引用</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="oc/category.md">Category</a><ul>
+<li><a href="oc/extension.md">Extension</a></li>
+</ul>
+</li>
+<li><a href="oc/block.md">Block</a></li>
+<li><a href="oc/protocol.md">Protocol</a><ul>
+<li><a href="oc/idandinstancetype.md">protocol类型限制</a></li>
+<li><a href="oc/delegate.md">delegate</a></li>
+</ul>
+</li>
+<li><a href="oc/foundation.md">Foundation</a></li>
+</ul>
+</li>
+<li><a href="ui/README.md">UI</a><ul>
+<li><a href="ui/uiview.md">UIView</a></li>
+<li><a href="ui/uiimageview.md">UIImageView</a></li>
+<li><a href="ui/launch.md">Launch启动图片</a></li>
+<li><a href="ui/uiscrollview.md">UIScrollView</a></li>
+<li><a href="ui/uitableview.md">UITableView</a></li>
+<li><a href="ui/uitableviewcell.md">UITableViewCell</a></li>
+<li><a href="ui/uicollectionview.md">UICollectionView</a></li>
+<li><a href="ui/cellidentifier.md">CellIdentifier</a></li>
+<li><a href="ui/nsnotificationcenter_and_delegate.md">NSNotificationCenter And Delegate</a></li>
+<li><a href="ui/autoresizing.md">Autoresizing</a></li>
+<li><a href="ui/autolayout.md">Autolayout</a></li>
+<li><a href="ui/uipickerview.md">UIPickerView</a></li>
+<li><a href="ui/uiapplication.md">UIApplication</a></li>
+<li><a href="ui/uitextfield.md">UITextField</a></li>
+<li><a href="ui/persistence_data.md">Persistence Data</a></li>
+<li><a href="ui/layoutsubviews.md">LayoutSubViews</a></li>
+<li><a href="ui/transform.md">Transform</a></li>
+<li><a href="ui/uibutton.md">UIButton</a></li>
+<li><a href="ui/storyboardandxib.md">StoryboardAndXib</a></li>
+<li><a href="ui/uilabel.md">UILabel</a></li>
+<li><a href="ui/other.md">Other</a></li>
+<li><a href="ui/uimenucontroller.md">UIMenuController</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1582,7 +1670,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">82</span>
+              <span class="site-state-item-count">81</span>
               <span class="site-state-item-name">Artikel</span>
             </a>
           </div>

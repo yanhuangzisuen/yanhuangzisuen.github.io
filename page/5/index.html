@@ -100,7 +100,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
+    sidebar: {"position":"left","display":"always"},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -216,125 +216,6 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/04/oc/setmemorymanagement/" itemprop="url">
-                  Unbenannt
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-07-04T14:25:30+08:00" content="2016-07-04">
-              2016-07-04
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="set方法的内存管理"><a href="#set方法的内存管理" class="headerlink" title="set方法的内存管理"></a>set方法的内存管理</h1><ul>
-<li>需求：<ul>
-<li>1、让玩家换房间，进入1号房间后，再进入2号房间</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 实现玩家类</span></div><div class="line"> <span class="class"><span class="keyword">@implementation</span> <span class="title">Gamer</span></span></div><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line">    [_room release];</div><div class="line">    _room = [room <span class="keyword">retain</span>];</div><div class="line">&#125;</div><div class="line">- (Room *)room&#123;</div><div class="line">    <span class="keyword">return</span> _room;</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    [_room dealloc];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"玩家被释放"</span>);</div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main()&#123;</div><div class="line">    <span class="comment">// 1、创建玩家对象</span></div><div class="line">    Gamer *game = [[Gamer alloc] init];</div><div class="line"></div><div class="line">    <span class="comment">// 2、创建房间对象</span></div><div class="line">    Room *room = [[Room alloc] init];</div><div class="line">    room.no = <span class="number">1</span>;</div><div class="line"></div><div class="line">    Room *room1 = [[room alloc] init];</div><div class="line">    room.no = <span class="number">2</span>;</div><div class="line"></div><div class="line">    <span class="comment">// 3、让玩家进入房间</span></div><div class="line">    game.room = room;</div><div class="line">    game.room = room1;</div><div class="line"></div><div class="line">    <span class="comment">// 4、释放房间对象</span></div><div class="line">    [room release];</div><div class="line"></div><div class="line">    <span class="comment">// 5、释放玩家对象</span></div><div class="line">    [game release];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>问题：房间对象再次无法被释放</li>
-<li>解决方案：</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_room != room) &#123;</div><div class="line">        <span class="comment">// 释放旧房间</span></div><div class="line">        [_room release];</div><div class="line">        [room <span class="keyword">retain</span>];</div><div class="line">        _room = room;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>总结：</li>
-<li>1、set方法的内存管理</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_room != room) &#123;</div><div class="line">    [_room release];</div><div class="line">    _room = [room <span class="keyword">retain</span>];</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>2、dealloc方法内存管理</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 当玩家不在了，代表不用房间了</span></div><div class="line">    <span class="comment">// 对房间进行一次release</span></div><div class="line">    [_room release];</div><div class="line"></div><div class="line">    <span class="comment">// 重写dealloc方法，必须在最后调用父类的dealloc方法</span></div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>常见错误写法</li>
-<li>会引发内存泄露<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gamer.room = [[Room alloc] init];</div><div class="line">[[Room alloc] init].no= <span class="number">10</span>;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
     
       
 
@@ -1599,6 +1480,109 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/04/oc/gathermemorymanagement/" itemprop="url">
+                  Unbenannt
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-07-04T11:52:11+08:00" content="2016-07-04">
+              2016-07-04
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="集合对象的内存管理"><a href="#集合对象的内存管理" class="headerlink" title="集合对象的内存管理"></a>集合对象的内存管理</h1><h4 id="1、集合对象的内存管理"><a href="#1、集合对象的内存管理" class="headerlink" title="1、集合对象的内存管理"></a>1、集合对象的内存管理</h4><ul>
+<li>集合，就是能用来容纳OC对象的容器</li>
+<li>NSArray、NSDictionary等都是.</li>
+</ul>
+<h4 id="2、集合对象内存管理总结"><a href="#2、集合对象内存管理总结" class="headerlink" title="2、集合对象内存管理总结"></a>2、集合对象内存管理总结</h4><ul>
+<li>集合有一些内存管理细节</li>
+<li><strong>只要将一个对象添加到集合中，这个对象计数器就会 + 1(做一次retain操作)</strong></li>
+<li><strong>只要将一个对象从集合中移除，这个对象计数器就会 - 1(做一次release操作)</strong></li>
+<li><strong>如果集合被销毁了，集合里面的所有对象计数器都会 - 1(做一次release操作）</strong></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1644,7 +1628,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">82</span>
+              <span class="site-state-item-count">81</span>
               <span class="site-state-item-name">Artikel</span>
             </a>
           </div>
