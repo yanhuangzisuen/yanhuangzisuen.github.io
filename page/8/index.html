@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -60,6 +60,48 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-oc/nsstringother" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/03/oc/nsstringother/" class="article-date">
+  <time datetime="2016-07-03T11:14:36.000Z" itemprop="datePublished">2016-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="NSString的其他用法"><a href="#NSString的其他用法" class="headerlink" title="NSString的其他用法"></a>NSString的其他用法</h1><ul>
+<li>获取字符串的长度</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSUIntrger</span>)length;</div></pre></td></tr></table></figure>
+<ul>
+<li>获取具体位置的字符</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">unichar</span>)characterAtIndex:(<span class="built_in">NSUInteger</span>)index;</div><div class="line"><span class="comment">//返回 index 位置对应的字符, %c 输出</span></div></pre></td></tr></table></figure>
+<ul>
+<li>字符串和其他数据类型转换</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//转为基本数据类型</span></div><div class="line">- (<span class="keyword">double</span>)doubleValue;</div><div class="line">- (<span class="keyword">float</span>)floatValue;</div><div class="line">- (<span class="keyword">int</span>)intValue;</div><div class="line">...</div><div class="line"><span class="comment">//转为C语言字符串</span></div><div class="line">- (<span class="keyword">char</span> *)UTF8String;</div></pre></td></tr></table></figure>
+<ul>
+<li>NSString去除空格</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//去除所有空格, 字符串替换</span></div><div class="line">[str strByReplaceingOccurrencesOfString:<span class="string">@" "</span> withString:<span class="string">@""</span>];</div><div class="line"></div><div class="line"><span class="comment">//去除首位空格</span></div><div class="line">[str stringByTrimmingCharactersInSet:[<span class="built_in">NSCharacterSet</span> whitespaceCharacterSet]];</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringother/" data-id="ciqaroacr0020rtnxtv9l066g" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-oc/nsstringinterceptionandreplacement" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -81,7 +123,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringinterceptionandreplacement/" data-id="ciqarh38i001br9nx71btq7ck" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringinterceptionandreplacement/" data-id="ciqaroact0021rtnxkjrv71a1" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -126,7 +168,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringsearch/" data-id="ciqarh38n001er9nxkl9w1tlp" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringsearch/" data-id="ciqaroacy0023rtnx5o69t3yo" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -169,7 +211,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringcompare/" data-id="ciqarh38h001ar9nxm1iz1xu8" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringcompare/" data-id="ciqaroacq001yrtnxpqzgwhab" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -219,7 +261,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringandnsurl/" data-id="ciqarh38l001dr9nxphjgu4v6" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/03/oc/nsstringandnsurl/" data-id="ciqaroaco001wrtnx0qy5yei2" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -273,7 +315,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/03/oc/nsstring/" data-id="ciqarh38e0018r9nxxtehgqty" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/03/oc/nsstring/" data-id="ciqaroacp001xrtnxobep712t" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -422,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/03/oc/classandobject/" data-id="ciqarh36z000fr9nxcpqy6ge4" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/03/oc/classandobject/" data-id="ciqaroabe0012rtnxxyo183ik" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -507,7 +549,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/03/ui/README/" data-id="ciqarh38w001lr9nx0qdgdvz7" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/03/ui/README/" data-id="ciqaroa9q0006rtnxbnd7y45m" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -634,7 +676,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/03/oc/README/" data-id="ciqarh3660005r9nxbwoud5q4" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/03/oc/README/" data-id="ciqaroaav000trtnxd6jqg9qi" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -660,137 +702,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/03/c/README/" data-id="ciqarh3510004r9nxjdn21ncf" class="article-share-link">Delen</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-SUMMARY" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/07/03/SUMMARY/" class="article-date">
-  <time datetime="2016-07-03T06:54:28.000Z" itemprop="datePublished">2016-07-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul>
-<li><a href="README.md">Introduction</a></li>
-<li><a href="c/README.md">C语言</a></li>
-<li><a href="oc/README.md">Objective-C</a><ul>
-<li><a href="oc/classandobject.md">类与对象</a></li>
-<li><a href="oc/nsstring.md">NSString</a><ul>
-<li><a href="oc/nsstringandnsurl.md">使用NSURL读写字符串</a></li>
-<li><a href="oc/nsstringcompare.md">字符串的比较</a></li>
-<li><a href="oc/nsstringsearch.md">字符串搜索与NSRange</a></li>
-<li><a href="oc/nsstringinterceptionandreplacement.md">字符串的截取和替换</a></li>
-<li><a href="oc/nsstringother.md">NSString的其他用法</a></li>
-<li><a href="oc/nsmutablestring.md">NSMutableString</a></li>
-</ul>
-</li>
-<li><a href="oc/nsarray.md">NSArray</a><ul>
-<li><a href="oc/nsarrayaction.md">NSArray常见用法</a></li>
-<li><a href="oc/nsarraytraverse.md">NSArray的遍历</a></li>
-<li><a href="oc/nsarrayandfile.md">NSArray读写文件</a></li>
-<li><a href="oc/nsarrayandnsstring.md">NSArray与NSString</a></li>
-<li><a href="oc/nsmutablearray.md">NSMutableArray</a></li>
-</ul>
-</li>
-<li><a href="oc/nsdictionary.md">NSDictionary</a><ul>
-<li><a href="oc/nsdictionaryaction.md">NSDictionary常见用法</a></li>
-<li><a href="oc/nsdictionaryandfile.md">NSDictionary简写与文件操作</a></li>
-<li><a href="oc/nsmutabledictionary.md">NSMutableDictionary</a></li>
-</ul>
-</li>
-<li><a href="oc/nsfilemanager.md">NSFileManager</a><ul>
-<li><a href="oc/nsfilemanagerandfile.md">NSFileManager的文件访问</a></li>
-<li><a href="oc/nsfilemanagerfileoperation.md">NSFileManager的文件或文件夹操作</a></li>
-<li><a href="oc/iossanbox.md">iOS沙盒(sanbox)机制</a></li>
-</ul>
-</li>
-<li><a href="oc/struct.md">Struct结构体</a></li>
-<li><a href="oc/nsnumber.md">NSNumber</a></li>
-<li><a href="oc/nsvalue.md">NSValue</a></li>
-<li><a href="oc/nsdate.md">NSDate</a></li>
-<li><a href="oc/gathermemorymanagement.md">集合对象的内存管理</a></li>
-<li><a href="oc/copy.md">Copy</a><ul>
-<li><a href="oc/copyandmemorymanagement.md">Copy与内存管理</a></li>
-<li><a href="oc/copyaction.md">为自定义的类实现copy操作</a></li>
-</ul>
-</li>
-<li><a href="oc/singletonpattern.md">单例模式</a></li>
-<li><a href="oc/memorymanagement.md">内存管理</a><ul>
-<li><a href="oc/principle.md">内存管理的原理及分类</a></li>
-<li><a href="oc/mrc.md">MRC</a></li>
-<li><a href="oc/mrcprinciple.md">手动管理内存的原则</a></li>
-<li><a href="oc/moreobject.md">多个对象的内存管理</a></li>
-<li><a href="oc/setmemorymanagement.md">set方法的内存管理</a></li>
-<li><a href="oc/property.md">@property</a></li>
-<li><a href="oc/class.md">@class</a></li>
-<li><a href="oc/loopretain.md">循环retain</a></li>
-<li><a href="oc/nsstringandmrc.md">NSString类的内存管理</a></li>
-<li><a href="oc/autorelease.md">Autorelease</a><ul>
-<li><a href="oc/autoreleaseattention.md">Autorelease注意事项</a></li>
-</ul>
-</li>
-<li><a href="oc/arc.md">ARC</a><ul>
-<li><a href="oc/arcloop.md">ARC循环引用</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="oc/category.md">Category</a><ul>
-<li><a href="oc/extension.md">Extension</a></li>
-</ul>
-</li>
-<li><a href="oc/block.md">Block</a></li>
-<li><a href="oc/protocol.md">Protocol</a><ul>
-<li><a href="oc/idandinstancetype.md">protocol类型限制</a></li>
-<li><a href="oc/delegate.md">delegate</a></li>
-</ul>
-</li>
-<li><a href="oc/foundation.md">Foundation</a></li>
-</ul>
-</li>
-<li><a href="ui/README.md">UI</a><ul>
-<li><a href="ui/uiview.md">UIView</a></li>
-<li><a href="ui/uiimageview.md">UIImageView</a></li>
-<li><a href="ui/launch.md">Launch启动图片</a></li>
-<li><a href="ui/uiscrollview.md">UIScrollView</a></li>
-<li><a href="ui/uitableview.md">UITableView</a></li>
-<li><a href="ui/uitableviewcell.md">UITableViewCell</a></li>
-<li><a href="ui/uicollectionview.md">UICollectionView</a></li>
-<li><a href="ui/cellidentifier.md">CellIdentifier</a></li>
-<li><a href="ui/nsnotificationcenter_and_delegate.md">NSNotificationCenter And Delegate</a></li>
-<li><a href="ui/autoresizing.md">Autoresizing</a></li>
-<li><a href="ui/autolayout.md">Autolayout</a></li>
-<li><a href="ui/uipickerview.md">UIPickerView</a></li>
-<li><a href="ui/uiapplication.md">UIApplication</a></li>
-<li><a href="ui/uitextfield.md">UITextField</a></li>
-<li><a href="ui/persistence_data.md">Persistence Data</a></li>
-<li><a href="ui/layoutsubviews.md">LayoutSubViews</a></li>
-<li><a href="ui/transform.md">Transform</a></li>
-<li><a href="ui/uibutton.md">UIButton</a></li>
-<li><a href="ui/storyboardandxib.md">StoryboardAndXib</a></li>
-<li><a href="ui/uilabel.md">UILabel</a></li>
-<li><a href="ui/other.md">Other</a></li>
-<li><a href="ui/uimenucontroller.md">UIMenuController</a></li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/03/SUMMARY/" data-id="ciqarh32q0001r9nxawo3bfxq" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/03/c/README/" data-id="ciqaroa8z0005rtnx2qk3xl47" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -819,7 +731,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archieven</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
     </div>
@@ -829,7 +741,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recente berichten</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
         
@@ -866,7 +778,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

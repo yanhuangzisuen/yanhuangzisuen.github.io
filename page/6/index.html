@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -60,6 +60,42 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-oc/gathermemorymanagement" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/04/oc/gathermemorymanagement/" class="article-date">
+  <time datetime="2016-07-04T03:52:11.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="集合对象的内存管理"><a href="#集合对象的内存管理" class="headerlink" title="集合对象的内存管理"></a>集合对象的内存管理</h1><h4 id="1、集合对象的内存管理"><a href="#1、集合对象的内存管理" class="headerlink" title="1、集合对象的内存管理"></a>1、集合对象的内存管理</h4><ul>
+<li>集合，就是能用来容纳OC对象的容器</li>
+<li>NSArray、NSDictionary等都是.</li>
+</ul>
+<h4 id="2、集合对象内存管理总结"><a href="#2、集合对象内存管理总结" class="headerlink" title="2、集合对象内存管理总结"></a>2、集合对象内存管理总结</h4><ul>
+<li>集合有一些内存管理细节</li>
+<li><strong>只要将一个对象添加到集合中，这个对象计数器就会 + 1(做一次retain操作)</strong></li>
+<li><strong>只要将一个对象从集合中移除，这个对象计数器就会 - 1(做一次release操作)</strong></li>
+<li><strong>如果集合被销毁了，集合里面的所有对象计数器都会 - 1(做一次release操作）</strong></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/04/oc/gathermemorymanagement/" data-id="ciqaroabj0016rtnxuas2gmix" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-oc/nsdate" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -97,7 +133,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/04/oc/nsdate/" data-id="ciqarh380000zr9nxz7zrkqcy" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/04/oc/nsdate/" data-id="ciqaroac3001jrtnx3q5dl9tb" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -144,7 +180,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/04/oc/nsvalue/" data-id="ciqarh38q001gr9nxfx6st603" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/04/oc/nsvalue/" data-id="ciqaroacx0022rtnxqwdwahpp" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -193,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/04/oc/nsnumber/" data-id="ciqarh38a0017r9nxns02tw0m" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/04/oc/nsnumber/" data-id="ciqaroacn001vrtnxg0frprhv" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -239,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/04/oc/struct/" data-id="ciqarh38t001kr9nx4dbyj798" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/04/oc/struct/" data-id="ciqaroad30029rtnxibvuwztn" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -282,7 +318,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/04/oc/iossanbox/" data-id="ciqarh37d000lr9nxo12gs2r1" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/04/oc/iossanbox/" data-id="ciqaroabq001artnxf93l7w2p" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -331,7 +367,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/04/oc/nsfilemanagerfileoperation/" data-id="ciqarh3850014r9nxfpyx73oo" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/04/oc/nsfilemanagerfileoperation/" data-id="ciqaroacf001rrtnx5zcag4xc" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -361,7 +397,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/04/oc/nsfilemanagerandfile/" data-id="ciqarh3820011r9nx3o1q5tio" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/04/oc/nsfilemanagerandfile/" data-id="ciqaroacc001prtnxa42xxmhs" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -393,7 +429,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/04/oc/nsfilemanager/" data-id="ciqarh3830012r9nx8ycpcryt" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/04/oc/nsfilemanager/" data-id="ciqaroacd001qrtnxia9s1j64" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -433,42 +469,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/04/oc/nsmutabledictionary/" data-id="ciqarh3870015r9nxcvez7n8o" class="article-share-link">Delen</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-oc/nsdictionaryandfile" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/07/04/oc/nsdictionaryandfile/" class="article-date">
-  <time datetime="2016-07-04T02:19:11.000Z" itemprop="datePublished">2016-07-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="NSDictionary简写与文件操作"><a href="#NSDictionary简写与文件操作" class="headerlink" title="NSDictionary简写与文件操作"></a>NSDictionary简写与文件操作</h1><h2 id="NSDictionary-的简写形式"><a href="#NSDictionary-的简写形式" class="headerlink" title="NSDictionary 的简写形式"></a>NSDictionary 的简写形式</h2><ul>
-<li>NSDictionary 的创建</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//以前</span></div><div class="line">[<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys:<span class="string">@"Jack"</span>, <span class="string">@"name"</span>, <span class="string">@"男"</span>, <span class="string">@"sex"</span>, <span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//现在</span></div><div class="line">@&#123;<span class="string">@"name"</span> : <span class="string">@"Jack"</span>, <span class="string">@"sex"</span> : <span class="string">@"男"</span>&#125;;</div></pre></td></tr></table></figure>
-<ul>
-<li>NSDictionary 获取元素</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//以前</span></div><div class="line">[dict objectForKey:<span class="string">@"name"</span>];</div><div class="line"></div><div class="line"><span class="comment">//现在</span></div><div class="line">dict[<span class="string">@"name"</span>];</div></pre></td></tr></table></figure>
-<h2 id="NSDictionary-的文件操作"><a href="#NSDictionary-的文件操作" class="headerlink" title="NSDictionary 的文件操作"></a>NSDictionary 的文件操作</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//写入文件</span></div><div class="line">- (<span class="built_in">BOOL</span>)writeToFile:(<span class="built_in">NSString</span> *)path atomically:(<span class="built_in">BOOL</span>)useAuxiliaryFile;</div><div class="line">- (<span class="built_in">BOOL</span>)writeToURL:(<span class="built_in">NSURL</span> *)url atomically:(<span class="built_in">BOOL</span>)atomically;</div><div class="line"></div><div class="line"><span class="comment">//从文件中读取</span></div><div class="line">+ (<span class="built_in">NSDictionary</span> *)dictionaryWithContentsOfFile:(<span class="built_in">NSString</span> *)path;</div><div class="line">+ (<span class="built_in">NSDictionary</span> *)dictionaryWithContentsOfURL:(<span class="built_in">NSURL</span> *)url;</div><div class="line">- (<span class="built_in">NSDictionary</span> *)initWithContentsOfFile:(<span class="built_in">NSString</span> *)path;</div><div class="line">- (<span class="built_in">NSDictionary</span> *)initWithContentsOfURL:(<span class="built_in">NSURL</span> *)url;</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/04/oc/nsdictionaryandfile/" data-id="ciqarh3810010r9nxjbl7rzfn" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/07/04/oc/nsmutabledictionary/" data-id="ciqaroacl001urtnxjc36qe6i" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -497,7 +498,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archieven</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
     </div>
@@ -507,7 +508,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recente berichten</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
         
@@ -544,7 +545,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
