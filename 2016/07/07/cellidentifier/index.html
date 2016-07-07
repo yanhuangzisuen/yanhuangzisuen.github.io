@@ -108,22 +108,22 @@
 <meta property="og:url" content="http://yoursite.com/2016/07/07/cellidentifier/index.html">
 <meta property="og:site_name" content="颜文字">
 <meta property="og:description" content="tableView性能优化 - cell的循环利用方式112345678910111213141516171819202122/** *  什么时候调用：每当有一个cell进入视野范围内就会调用 */- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPa">
-<meta property="og:image" content="http://yoursite.com/image2/Snip20150602_152.png">
-<meta property="og:image" content="http://yoursite.com/image2/Snip20150602_153.png">
-<meta property="og:image" content="http://yoursite.com/image2/Snip20150602_110.png">
-<meta property="og:image" content="http://yoursite.com/image2/Snip20150602_305.png">
-<meta property="og:image" content="http://yoursite.com/image2/Snip20150602_302.png">
-<meta property="og:image" content="http://yoursite.com/image2/Snip20150602_303.png">
-<meta property="og:image" content="http://yoursite.com/image2/Snip20150602_304.png">
-<meta property="og:image" content="http://yoursite.com/image2/Snip20150602_301.png">
-<meta property="og:image" content="http://yoursite.com/image2/Snip20150602_299.png">
-<meta property="og:image" content="http://yoursite.com/image2/Snip20150602_298.png">
-<meta property="og:image" content="http://yoursite.com/image2/Snip20150602_300.png">
-<meta property="og:updated_time" content="2016-07-07T07:08:13.000Z">
+<meta property="og:image" content="http://yoursite.com/img/Snip20150602_152.png">
+<meta property="og:image" content="http://yoursite.com/img/Snip20150602_153.png">
+<meta property="og:image" content="http://yoursite.com/img/Snip20150602_110.png">
+<meta property="og:image" content="http://yoursite.com/img/Snip20150602_305.png">
+<meta property="og:image" content="http://yoursite.com/img/Snip20150602_302.png">
+<meta property="og:image" content="http://yoursite.com/img/Snip20150602_303.png">
+<meta property="og:image" content="http://yoursite.com/img/Snip20150602_304.png">
+<meta property="og:image" content="http://yoursite.com/img/Snip20150602_301.png">
+<meta property="og:image" content="http://yoursite.com/img/Snip20150602_299.png">
+<meta property="og:image" content="http://yoursite.com/img/Snip20150602_298.png">
+<meta property="og:image" content="http://yoursite.com/img/Snip20150602_300.png">
+<meta property="og:updated_time" content="2016-07-07T07:22:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CellIdentifier">
 <meta name="twitter:description" content="tableView性能优化 - cell的循环利用方式112345678910111213141516171819202122/** *  什么时候调用：每当有一个cell进入视野范围内就会调用 */- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPa">
-<meta name="twitter:image" content="http://yoursite.com/image2/Snip20150602_152.png">
+<meta name="twitter:image" content="http://yoursite.com/img/Snip20150602_152.png">
 
 
 
@@ -391,15 +391,15 @@
 </ul>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 1.去缓存池中查找cell</span></div><div class="line">    <span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:ID];</div><div class="line"></div><div class="line">    <span class="comment">// 2.覆盖数据</span></div><div class="line">    cell.textLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"testdata - %zd"</span>, indexPath.row];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> cell;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="tableView性能优化-cell的循环利用方式3"><a href="#tableView性能优化-cell的循环利用方式3" class="headerlink" title="tableView性能优化 - cell的循环利用方式3"></a>tableView性能优化 - cell的循环利用方式3</h2><ul>
-<li><p>在storyboard中设置UITableView的Dynamic Prototypes Cell<br><img src="image2/Snip20150602_152.png" alt=""></p>
+<li><p>在storyboard中设置UITableView的Dynamic Prototypes Cell<br><img src="/img/Snip20150602_152.png" alt=""></p>
 </li>
-<li><p>设置cell的重用标识<br><img src="image2/Snip20150602_153.png" alt=""></p>
+<li><p>设置cell的重用标识<br><img src="/img/Snip20150602_153.png" alt=""></p>
 </li>
 <li><p>在代码中利用重用标识获取cell</p>
 </li>
 </ul>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 0.重用标识</span></div><div class="line"><span class="comment">// 被static修饰的局部变量：只会初始化一次，在整个程序运行过程中，只有一份内存</span></div><div class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *ID = <span class="string">@"cell"</span>;</div><div class="line"></div><div class="line"><span class="comment">// 1.先根据cell的标识去缓存池中查找可循环利用的cell</span></div><div class="line"><span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:ID];</div><div class="line"></div><div class="line"><span class="comment">// 2.覆盖数据</span></div><div class="line">cell.textLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"cell - %zd"</span>, indexPath.row];</div><div class="line"></div><div class="line"><span class="keyword">return</span> cell;</div></pre></td></tr></table></figure>
-<h2 id="错误将UIViewController当做UITableViewController来用"><a href="#错误将UIViewController当做UITableViewController来用" class="headerlink" title="错误将UIViewController当做UITableViewController来用"></a>错误将UIViewController当做UITableViewController来用</h2><p><img src="image2/Snip20150602_110.png" alt=""></p>
+<h2 id="错误将UIViewController当做UITableViewController来用"><a href="#错误将UIViewController当做UITableViewController来用" class="headerlink" title="错误将UIViewController当做UITableViewController来用"></a>错误将UIViewController当做UITableViewController来用</h2><p><img src="/img/Snip20150602_110.png" alt=""></p>
 <h2 id="UITableView的常见设置"><a href="#UITableView的常见设置" class="headerlink" title="UITableView的常见设置"></a>UITableView的常见设置</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 分割线颜色</span></div><div class="line"><span class="keyword">self</span>.tableView.separatorColor = [<span class="built_in">UIColor</span> redColor];</div><div class="line"></div><div class="line"><span class="comment">// 隐藏分割线</span></div><div class="line"><span class="keyword">self</span>.tableView.separatorStyle = <span class="built_in">UITableViewCellSeparatorStyleNone</span>;</div><div class="line"></div><div class="line"><span class="comment">// tableView有数据的时候才需要分割线</span></div><div class="line"><span class="comment">// 开发小技巧:快速取消分割线</span></div><div class="line"> <span class="keyword">self</span>.tableView.tableFooterView = [[<span class="built_in">UIView</span> alloc] init];</div></pre></td></tr></table></figure>
 <h2 id="UITableViewCell的常见设置"><a href="#UITableViewCell的常见设置" class="headerlink" title="UITableViewCell的常见设置"></a>UITableViewCell的常见设置</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 取消选中的样式(常用) 让当前 cell 按下无反应</span></div><div class="line">cell.selectionStyle = <span class="built_in">UITableViewCellSelectionStyleNone</span>;</div><div class="line"></div><div class="line"><span class="comment">// 设置选中的背景色</span></div><div class="line"><span class="built_in">UIView</span> *selectedBackgroundView = [[<span class="built_in">UIView</span> alloc] init];</div><div class="line">selectedBackgroundView.backgroundColor = [<span class="built_in">UIColor</span> redColor];</div><div class="line">cell.selectedBackgroundView = selectedBackgroundView;</div><div class="line"></div><div class="line"><span class="comment">// 设置默认的背景色</span></div><div class="line">cell.backgroundColor = [<span class="built_in">UIColor</span> blueColor];</div><div class="line"></div><div class="line"><span class="comment">// 设置默认的背景色</span></div><div class="line"><span class="built_in">UIView</span> *backgroundView = [[<span class="built_in">UIView</span> alloc] init];</div><div class="line">backgroundView.backgroundColor = [<span class="built_in">UIColor</span> greenColor];</div><div class="line">cell.backgroundView = backgroundView;</div><div class="line"></div><div class="line"><span class="comment">// backgroundView的优先级 &gt; backgroundColor</span></div><div class="line"><span class="comment">// 设置指示器</span></div><div class="line"><span class="comment">//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;</span></div><div class="line">cell.accessoryView = [[<span class="built_in">UISwitch</span> alloc] init];</div></pre></td></tr></table></figure>
 <h2 id="自定义cell"><a href="#自定义cell" class="headerlink" title="自定义cell"></a>自定义cell</h2><ul>
@@ -407,21 +407,21 @@
 <ul>
 <li><p><code>storyboard自定义cell</code></p>
 <ul>
-<li>1.创建一个继承自UITableViewCell的子类，比如XMGDealCell<br><br><img src="image2/Snip20150602_305.png" alt=""></li>
+<li>1.创建一个继承自UITableViewCell的子类，比如XMGDealCell<br><br><img src="/img/Snip20150602_305.png" alt=""></li>
 <li>2.在storyboard中<ul>
-<li>往cell里面增加需要用到的子控件<br><br><img src="image2/Snip20150602_302.png" alt=""></li>
-<li>设置cell的重用标识<br><br><img src="image2/Snip20150602_303.png" alt=""></li>
-<li>设置cell的class为XMGDealCell<br><br><img src="image2/Snip20150602_304.png" alt=""></li>
+<li>往cell里面增加需要用到的子控件<br><br><img src="/img/Snip20150602_302.png" alt=""></li>
+<li>设置cell的重用标识<br><br><img src="/img/Snip20150602_303.png" alt=""></li>
+<li>设置cell的class为XMGDealCell<br><br><img src="/img/Snip20150602_304.png" alt=""></li>
 </ul>
 </li>
 <li>3.在控制器中<ul>
 <li>利用重用标识找到cell</li>
-<li>给cell传递模型数据<br><br><img src="image2/Snip20150602_301.png" alt=""></li>
+<li>给cell传递模型数据<br><br><img src="/img/Snip20150602_301.png" alt=""></li>
 </ul>
 </li>
 <li>4.在XMGDealCell中<ul>
-<li>将storyboard中的子控件连线到类扩展中<br><br><img src="image2/Snip20150602_299.png" alt=""></li>
-<li>需要提供一个模型属性，重写模型的set方法，在这个方法中设置模型数据到子控件上<br><br><img src="image2/Snip20150602_298.png" alt=""><br><img src="image2/Snip20150602_300.png" alt=""></li>
+<li>将storyboard中的子控件连线到类扩展中<br><br><img src="/img/Snip20150602_299.png" alt=""></li>
+<li>需要提供一个模型属性，重写模型的set方法，在这个方法中设置模型数据到子控件上<br><br><img src="/img/Snip20150602_298.png" alt=""><br><img src="/img/Snip20150602_300.png" alt=""></li>
 </ul>
 </li>
 </ul>
