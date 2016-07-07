@@ -2084,11 +2084,1270 @@ RESTful设计风格:
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/CALayer/" itemprop="url">
+                  CALayer
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/CALayer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/CALayer/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><ul>
+<li><p>在iOS中，你能看得见摸得着的东西基本上都是UIView，比如一个按钮、一个文本标签、一个文本输入框、一个图标等等，这些都是UIView，<strong>其实UIView之所以能显示在屏幕上，完全是因为它内部的一个图层</strong></p>
+</li>
+<li><p>在创建UIView对象时，UIView内部会自动创建一个图层(即CALayer对象)，通过UIView的layer属性可以访问这个层</p>
+<pre><code>@property(nonatomic,readonly,retain) CALayer *layer; 
+</code></pre></li>
+<li><p>当UIView需要显示到屏幕上时，会调用drawRect:方法进行绘图，并且会将所有内容绘制在自己的图层上(layer)，绘图完毕后，系统会将图层拷贝到屏幕上，于是就完成了UIView的显示</p>
+</li>
+</ul>
+<p>*换句话说，UIView本身不具备显示的功能，是它内部的层才有显示功能</p>
+<h2 id="二、CALayer应用"><a href="#二、CALayer应用" class="headerlink" title="二、CALayer应用"></a>二、CALayer应用</h2><h4 id="1、CALayer的属性"><a href="#1、CALayer的属性" class="headerlink" title="1、CALayer的属性"></a>1、CALayer的属性</h4><pre><code>@property CGFloat borderWidth;                //边框宽度
+@property CGColorRef borderColor;            //边框颜色(CGColorRef类型)
+@property CGColorRef backgroundColor;         //背景颜色
+@property float opacity;                    //透明度
+@property CGColorRef shadowColor;             //阴影颜色
+@property float shadowOpacity;
+@property CGSize shadowOffset;
+@property CGFloat shadowRadius;
+@property(strong) id contents;                内容(比如设置为图片CGImageRef)
+@property CGFloat cornerRadius;                //圆角半径
+@property CGRect bounds;                    //宽度和高度
+@property CGPoint position;                    //位置(默认指中点，具体由anchorPoint决定)
+@property CGPoint anchorPoint;                //锚点(x,y的范围都是0-1)，决定了position的含义
+@property CATransform3D transform;            //形变属性
+@property(getter=isHidden) BOOL hidden;
+@property(readonly) CALayer *superlayer;
+@property(copy) NSArray *sublayers;
+@property BOOL masksToBounds;
+</code></pre><h4 id="2、UIView和CALayer的选择"><a href="#2、UIView和CALayer的选择" class="headerlink" title="2、UIView和CALayer的选择"></a>2、UIView和CALayer的选择</h4><ul>
+<li><p>通过CALayer，就能做出跟UIImageView一样的界面效果</p>
+</li>
+<li><p>既然CALayer和UIView都能实现相同的显示效果，那究竟该选择谁好呢？</p>
+<ul>
+<li>其实，对比CALayer，UIView多了一个事件处理的功能。也就是说，CALayer不能处理用户的触摸事件，而UIView可以</li>
+<li><p>所以，如果显示出来的东西需要跟用户进行交互的话，用UIView；如果不需要跟用户进行交互，用UIView或者CALayer都可以<br>当然，CALayer的性能会高一些，因为它少了事件处理的功能，更加轻量级</p>
+<p><strong>UIView ： 接受和处理系统事件、触摸事件。</strong></p>
+<p><strong>CALayer ： 显示内容</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3、position和anchorPoint"><a href="#3、position和anchorPoint" class="headerlink" title="3、position和anchorPoint"></a>3、position和anchorPoint</h4><h6 id="1、-property-CGPoint-position"><a href="#1、-property-CGPoint-position" class="headerlink" title="1、@property CGPoint position;"></a>1、@property CGPoint position;</h6><ul>
+<li>用来设置CALayer在父层中的位置</li>
+<li>以父层的左上角为原点(0, 0)</li>
+</ul>
+<h6 id="2、-property-CGPoint-anchorPoint"><a href="#2、-property-CGPoint-anchorPoint" class="headerlink" title="2、@property CGPoint anchorPoint;"></a>2、@property CGPoint anchorPoint;</h6><ul>
+<li>称为“定位点”、“锚点”</li>
+<li>决定着CALayer的position属性所指的是哪个点</li>
+<li>以自己的左上角为原点(0, 0)</li>
+<li>它的x、y取值范围都是0~1，默认值为（0.5, 0.5）</li>
+</ul>
+<h4 id="4、隐式动画"><a href="#4、隐式动画" class="headerlink" title="4、隐式动画"></a>4、隐式动画</h4><ul>
+<li>每一个UIView内部都默认关联着一个CALayer, 我们可称这个Layer为Root Layer（根层）</li>
+<li>所有的非Root Layer, 也就是手动创建的CALayer对象, 都存在着隐式动画。 root layer 是没有隐式动画的</li>
+<li><p><strong>可以通过动画事务(CATransaction)关闭默认的隐式动画效果</strong></p>
+<pre><code>[CATransaction begin];
+[CATransaction setDisableActions:YES];
+self.myview.layer.position = CGPointMake(10, 10);
+[CATransaction commit];
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/UIDynamic（物理引擎）/" itemprop="url">
+                  UIDynamic（物理引擎）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/UIDynamic（物理引擎）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/UIDynamic（物理引擎）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><h4 id="1、相关概念"><a href="#1、相关概念" class="headerlink" title="1、相关概念"></a>1、相关概念</h4><p>a. 谁要进行物理仿真?(要谁做)</p>
+<pre><code>* 物理仿真元素(Dynamic Item)
+* 是任何遵守了UIDynamicItem协议的对象
+</code></pre><p>b. 执行怎样的物理仿真效果?怎样的动画效果?(做什么动画)</p>
+<pre><code>* 物理仿真行为(Dynamic Behavior) 
+* 仿真行为,是动力学行为的父类,基本的动力学行为类
+UIGravityBehavior、UICollisionBehavior、UIAttachmentBehavior、UISnapBehavi or、UIPushBehavior以及UIDynamicItemBehavior均继承自该父类,可以组合使用
+</code></pre><p>c. 让物理仿真元素执行具体的物理仿真行为(开始做) </p>
+<pre><code>* 物理仿真器(Dynamic Animator)
+* 为动力学元素提供物理学相关的能力及动画,同时为这些元素提供相关的上 
+* 下文,是动力学元素与底层iOS物理引擎之间的中介,将Behavior对象添加到 Animator即可实现动力仿真
+</code></pre><p>d. 注意不是任何对象都可以做物理仿真效果 </p>
+<pre><code>* 物理仿真元素要素:
+* 任何遵守了UIDynamicItem协议的对象 UIView默认已经遵守了    * UIDynamicItem协议,因此任何UI控件都能做物理仿真     * UICollectionViewLayoutAttributes类默认也遵守UIDynamicItem协议
+</code></pre><p><strong>仿真器使用时必须设置一个strong属性使其不会立即销毁</strong></p>
+<pre><code>@property (nonatomic, strong) UIDynamicAnimator *animator;
+</code></pre><h4 id="2、使用步骤"><a href="#2、使用步骤" class="headerlink" title="2、使用步骤"></a>2、使用步骤</h4><p>a. 创建一个UIDynamicAnimator对象<br>b. 创建行为对象(UIDynamicBehavior)<br>c. 将要执行动画的对象添加到UIDynamicBehavior中<br>一般会将 UIView 添加到行为对象中 UIView 遵守了UIDynamicItem协议</p>
+<h2 id="二、物理仿真行为"><a href="#二、物理仿真行为" class="headerlink" title="二、物理仿真行为"></a>二、物理仿真行为</h2><h4 id="1、重力行为-Gravity"><a href="#1、重力行为-Gravity" class="headerlink" title="1、重力行为(Gravity)"></a>1、重力行为(Gravity)</h4><h6 id="1、重力行为用于给动力学元素指定一个重力向量"><a href="#1、重力行为用于给动力学元素指定一个重力向量" class="headerlink" title="1、重力行为用于给动力学元素指定一个重力向量"></a>1、重力行为用于给动力学元素指定一个重力向量</h6><h6 id="2、代码示例"><a href="#2、代码示例" class="headerlink" title="2、代码示例"></a>2、代码示例</h6><pre><code>//1 创建物理仿真器
+UIDynamicAnimator *animator = [[UIDynamicAnimator alloc]
+initWithReferenceView:self.redView];
+self.animator = animator;
+//2 创建重力行为(物理行为)
+UIGravityBehavior *behavior = [[UIGravityBehavior alloc]
+initWithItems:@[self.redView]]; //量级(用来控制加速度,1.0代表加速度是1000 points
+/second2) behavior.magnitude = 0.2; //方向
+//
+behavior.gravityDirection = CGVectorMake(1, 1);
+behavior.angle = 0;
+//3 把物理行为添加到物理仿真器中 开始动画
+[animator addBehavior:behavior];
+</code></pre><h4 id="2、碰撞行为-Collision"><a href="#2、碰撞行为-Collision" class="headerlink" title="2、碰撞行为(Collision)"></a>2、碰撞行为(Collision)</h4><h6 id="1、相关属性"><a href="#1、相关属性" class="headerlink" title="1、相关属性"></a>1、相关属性</h6><p>translatesReferenceBoundsIntoBoundary</p>
+<pre><code>translatesReferenceBoundsIntoBoundary设置为YES而不是明确的添加边界的坐标。这样会使这
+个边界使用 UIDynamicAnimator 提供的参考系的边界。
+</code></pre><p>collisionMode</p>
+<pre><code>UICollisionBehaviorModeItems 碰到元素碰撞,边界不碰撞 UICollisionBehaviorModeBoundaries 碰到边界碰撞,元素不碰撞 UICollisionBehaviorModeEverything 默认,碰到边界或元素会发生碰撞
+</code></pre><h6 id="2、代码示例-1"><a href="#2、代码示例-1" class="headerlink" title="2、代码示例"></a>2、代码示例</h6><pre><code>//1 创建物理仿真器,动画的范围
+self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+//2 创建物理仿真行为
+//2.1 重力行为
+UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:@[self.redView]];
+//2.2 碰撞行为
+UICollisionBehavior *collision = [[UICollisionBehavior alloc] initWithItems:@[self.redView]];
+//2.3 碰撞的边界,translatesReferenceBoundsIntoBoundary设置为YES而不是明确的添加边界的坐
+标。这样会使这个边界使用 UIDynamicAnimator 提供的参考系的边界。 collision.translatesReferenceBoundsIntoBoundary = YES;
+//3 把物理仿真行为添加到物理仿真器中 [self.animator addBehavior:gravity]; [self.animator addBehavior:collision];
+</code></pre><h6 id="3、碰撞行为-其它"><a href="#3、碰撞行为-其它" class="headerlink" title="3、碰撞行为-其它"></a>3、碰撞行为-其它</h6><ol>
+<li><p>两种自定义边界的方式,设置直线<br> a. 添加边界,设置两个点</p>
+<pre><code>[collision addBoundaryWithIdentifier:@&quot;b1&quot; fromPoint:CGPointMake(0, 200) toPoint:CGPointMake(180, 250)];
+</code></pre><p> b. 使用路径的方式</p>
+<pre><code>UIBezierPath *path = [UIBezierPath bezierPath];
+[path moveToPoint:CGPointMake(0, 200)];
+[path addLineToPoint:CGPointMake(180, 250)];
+[collision addBoundaryWithIdentifier:@&quot;b1&quot; forPath:path];
+</code></pre></li>
+<li><p>自定义边界,设置矩形的边界</p>
+<pre><code>UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 200, 180, 20)]; [collision addBoundaryWithIdentifier:@&quot;b2&quot; forPath:path];
+</code></pre></li>
+<li><p>碰撞过程中监听frame的变化 </p>
+<pre><code>[collision setAction:^{
+NSLog(@&quot;%@&quot;,NSStringFromCGRect(self.redView.frame)); }];
+</code></pre></li>
+<li>碰撞行为的弹力系数(0-1之间)</li>
+</ol>
+<pre><code>UIDynamicItemBehavior *item = [[UIDynamicItemBehavior alloc] initWithItems: @[self.redView]];
+item.elasticity = 1;
+</code></pre><p>添加到物理仿真器中</p>
+<pre><code>[self.animator addBehavior:item];
+</code></pre><ol>
+<li><p>设置碰撞行为的代理,碰撞到边界以后改变物体的状态</p>
+<pre><code>- (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id&lt;UIDynamicItem&gt;)item withBoundaryIdentifier:(id&lt;NSCopying&gt;)identifier atPoint:(CGPoint)p {
+</code></pre><p>//开始的碰撞物体</p>
+<pre><code>UIView *view = (UIView *)item;
+</code></pre><p>//边界的id</p>
+<pre><code>NSString *strId = (NSString *)identifier; //当碰撞到黄色边界以后改变当前物体的颜色 if ([strId isEqualToString:@&quot;b2&quot;]) {
+[UIView animateWithDuration:0.3 animations:^{ view.backgroundColor = [UIColor blackColor];
+} completion:^(BOOL finished) {
+view.backgroundColor = [UIColor redColor]; }];
+} }
+</code></pre></li>
+</ol>
+<h4 id="3、捕捉行为-Snap"><a href="#3、捕捉行为-Snap" class="headerlink" title="3、捕捉行为(Snap)"></a>3、捕捉行为(Snap)</h4><h6 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h6><pre><code>//1 物理仿真器
+self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+//2 创建捕捉行为
+UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:self.redView snapToPoint:location]; //阻尼,减幅,衰减 取值(0-1)
+snap.damping = 0;
+//3 把行为添加到物理仿真器
+[self.animator addBehavior:snap];
+</code></pre><h4 id="4、附着行为-Attachment"><a href="#4、附着行为-Attachment" class="headerlink" title="4、附着行为(Attachment)"></a>4、附着行为(Attachment)</h4><p><strong>附着行为描述一个视图与一个锚点或者另一个视图相连接的情况附着 行为描述的是两点之间的连接情况,可以模拟刚性或者弹性连接在多 个物体间设定多个UIAttachmentBehavior,可以模拟多物体连接</strong></p>
+<h6 id="1、属性"><a href="#1、属性" class="headerlink" title="1、属性"></a>1、属性</h6><ul>
+<li>attachedBehaviorType:连接类型(连接到锚点或视图) items:连接视图数组</li>
+<li>anchorPoint:连接锚点</li>
+<li>length:距离连接锚点的距离 只要设置了以下两个属性,即为弹性连接 * damping:振幅大小</li>
+<li>frequency:振动频率</li>
+</ul>
+<h6 id="2、示例代码"><a href="#2、示例代码" class="headerlink" title="2、示例代码"></a>2、示例代码</h6><pre><code>//1 物理仿真器
+self.animator = [[UIDynamicAnimator alloc]
+initWithReferenceView:self.view];
+//2 重力行为
+UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:
+@[self.redView]]; [gravity setAction:^{
+view.startPoint = self.redView.center;
+view.endPoint = point; }];
+//2.1 添加附着行为
+UIAttachmentBehavior *attachment = [[UIAttachmentBehavior alloc] initWithItem:self.redView attachedToAnchor:point];
+//弹性行为
+attachment.frequency = 0.5; attachment.damping = 0.5;
+//3 把行为添加到仿真器
+[self.animator addBehavior:gravity]; [self.animator addBehavior:attachment];
+</code></pre><h4 id="5、推动行为-Push"><a href="#5、推动行为-Push" class="headerlink" title="5、推动行为(Push)"></a>5、推动行为(Push)</h4><p><strong>推行为可以为一个视图施加一个作用力,该力可以是持续的,也可以是一次性的可以设置力的大小,方向和作用点等信息</strong></p>
+<h6 id="1、属性-1"><a href="#1、属性-1" class="headerlink" title="1、属性"></a>1、属性</h6><ul>
+<li>mode:推动类型(一次性或是持续推) </li>
+<li>angle:推动角度</li>
+<li>magnitude:推动力量</li>
+</ul>
+<h6 id="2、示例代码-1"><a href="#2、示例代码-1" class="headerlink" title="2、示例代码"></a>2、示例代码</h6><pre><code>//1 物理仿真器
+self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view]; //2 一次性推动行为(持续性推动行为)
+UIPushBehavior *push = [[UIPushBehavior alloc] initWithItems:@[self.redView]
+mode:UIPushBehaviorModeContinuous];
+//
+//设置推动的方向和推力的大小 push.angle = M_PI_2; push.magnitude = 1; //设置向量
+push.pushDirection = CGVectorMake(0, 100); //3 把推动行为添加都物理仿真器
+[self.animator addBehavior:push];
+</code></pre><h4 id="6、UIDynamicItemBehavior"><a href="#6、UIDynamicItemBehavior" class="headerlink" title="6、UIDynamicItemBehavior"></a>6、UIDynamicItemBehavior</h4><p><strong>UIDynamicItemBehavior:元素行为</strong></p>
+<h6 id="1、属性-2"><a href="#1、属性-2" class="headerlink" title="1、属性"></a>1、属性</h6><ul>
+<li>DynamicItem是一个辅助的行为,用来设置运动学元素参与物理仿真过程中的参数,如:弹 性系数、摩擦系数、密度、阻力、角阻力以及是否允许旋转等</li>
+<li>elasticity(弹性系数):决定了碰撞的弹性程度,比如碰撞时物体的弹性 * friction(摩擦系数) :决定了沿接触面滑动时的摩擦力大小</li>
+<li>density(密度): 跟size结合使用,计算物体的总质量。质量越大,物体加速或减速就越 困难</li>
+<li>resistance(阻力):决定线性移动的阻力大小,与摩擦系数不同,摩擦系数只作用于滑动 运动</li>
+<li>angularResistance(角阻力) :决定旋转运动时的阻力大小</li>
+<li>allowsRotation(允许旋转):这个属性很有意思,它在真实的物理世界没有对应的模型。 设置这个属性为 NO 物体就完全不会转动,而无论施加多大的转动力</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/SQLite语句/" itemprop="url">
+                  SQLite语句
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/SQLite语句/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/SQLite语句/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><h4 id="1、SQL语句的特点"><a href="#1、SQL语句的特点" class="headerlink" title="1、SQL语句的特点"></a>1、SQL语句的特点</h4><ul>
+<li>不区分大小写（比如数据库认为user和UsEr是一样的）</li>
+<li>每条语句都必须以分号 ; 结尾</li>
+</ul>
+<h6 id="SQL中的常用关键字有"><a href="#SQL中的常用关键字有" class="headerlink" title="SQL中的常用关键字有"></a>SQL中的常用关键字有</h6><p>select、insert、update、delete、from、create、where、desc、order、by、group、table、alter、view、index等等</p>
+<p><strong>数据库中不可以使用关键字来命名表、字段</strong></p>
+<h4 id="2、SQL语句的种类"><a href="#2、SQL语句的种类" class="headerlink" title="2、SQL语句的种类"></a>2、SQL语句的种类</h4><h6 id="数据定义语句（DDL：Data-Definition-Language）"><a href="#数据定义语句（DDL：Data-Definition-Language）" class="headerlink" title="数据定义语句（DDL：Data Definition Language）"></a>数据定义语句（DDL：Data Definition Language）</h6><ul>
+<li>包括create和drop等操作</li>
+<li>在数据库中创建新表或删除表（create table或 drop table）<h6 id="数据操作语句（DML：Data-Manipulation-Language）"><a href="#数据操作语句（DML：Data-Manipulation-Language）" class="headerlink" title="数据操作语句（DML：Data Manipulation Language）"></a>数据操作语句（DML：Data Manipulation Language）</h6></li>
+<li>包括insert、update、delete等操作</li>
+<li>上面的3种操作分别用于添加、修改、删除表中的数据<h6 id="数据查询语句（DQL：Data-Query-Language）"><a href="#数据查询语句（DQL：Data-Query-Language）" class="headerlink" title="数据查询语句（DQL：Data Query Language）"></a>数据查询语句（DQL：Data Query Language）</h6></li>
+<li>可以用于查询获得表中的数据</li>
+<li>关键字select是DQL（也是所有SQL）用得最多的操作</li>
+<li>其他DQL常用的关键字有where，order by，group by和having</li>
+</ul>
+<h2 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h2><h4 id="1、创表"><a href="#1、创表" class="headerlink" title="1、创表"></a>1、创表</h4><h6 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h6><ul>
+<li>create table 表名 (字段名1 字段类型1, 字段名2 字段类型2, …) ;</li>
+<li>create table if not exists 表名 (字段名1 字段类型1, 字段名2 字段类型2, …) ;</li>
+</ul>
+<h6 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h6><ul>
+<li>create table t_student (id integer, name text, age inetger, score real) ;</li>
+</ul>
+<h4 id="2、字段类型"><a href="#2、字段类型" class="headerlink" title="2、字段类型"></a>2、字段类型</h4><h6 id="SQLite将数据划分为以下几种存储类型："><a href="#SQLite将数据划分为以下几种存储类型：" class="headerlink" title="SQLite将数据划分为以下几种存储类型："></a>SQLite将数据划分为以下几种存储类型：</h6><ul>
+<li>integer : 整型值</li>
+<li>real : 浮点值</li>
+<li>text : 文本字符串</li>
+<li>blob : 二进制数据（比如文件）</li>
+</ul>
+<h6 id="实际上SQLite是无类型的"><a href="#实际上SQLite是无类型的" class="headerlink" title="实际上SQLite是无类型的"></a>实际上SQLite是无类型的</h6><ul>
+<li>就算声明为integer类型，还是能存储字符串文本（主键除外）</li>
+<li>建表时声明啥类型或者不声明类型都可以，也就意味着创表语句可以这么写：</li>
+<li>create table t_student(name, age);</li>
+</ul>
+<p><strong>为了保持良好的编程规范、方便程序员之间的交流，编写建表语句的时候最好加上每个字段的具体类型</strong></p>
+<h4 id="3、删表"><a href="#3、删表" class="headerlink" title="3、删表"></a>3、删表</h4><h6 id="格式-1"><a href="#格式-1" class="headerlink" title="格式"></a>格式</h6><ul>
+<li>drop table 表名 ;</li>
+<li>drop table if exists 表名 ;<h6 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h6></li>
+<li>drop table t_student ;</li>
+</ul>
+<h4 id="4、插入数据（insert）"><a href="#4、插入数据（insert）" class="headerlink" title="4、插入数据（insert）"></a>4、插入数据（insert）</h4><h6 id="格式-2"><a href="#格式-2" class="headerlink" title="格式"></a>格式</h6><ul>
+<li>insert into 表名 (字段1, 字段2, …) values (字段1的值, 字段2的值, …) ;</li>
+</ul>
+<h6 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h6><ul>
+<li>insert into t_student (name, age) values (‘lnj’, 10) ;</li>
+</ul>
+<p><strong>注：数据库中的字符串内容应该用单引号 ’ 括住</strong></p>
+<h4 id="5、更新数据（update）"><a href="#5、更新数据（update）" class="headerlink" title="5、更新数据（update）"></a>5、更新数据（update）</h4><h6 id="格式-3"><a href="#格式-3" class="headerlink" title="格式"></a>格式</h6><ul>
+<li>update 表名 set 字段1 = 字段1的值, 字段2 = 字段2的值, … ; </li>
+</ul>
+<h6 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h6><ul>
+<li>update t_student set name = ‘jack’, age = 20 ; </li>
+</ul>
+<p><strong>注：上面的示例会将t_student表中所有记录的name都改为jack，age都改为20</strong></p>
+<h4 id="6、删除数据（delete）"><a href="#6、删除数据（delete）" class="headerlink" title="6、删除数据（delete）"></a>6、删除数据（delete）</h4><h6 id="格式-4"><a href="#格式-4" class="headerlink" title="格式"></a>格式</h6><ul>
+<li>delete from 表名 ;</li>
+</ul>
+<h6 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h6><p>delete from t_student ;</p>
+<p><strong>注：上面的示例会将t_student表中所有记录都删掉</strong></p>
+<h4 id="7、条件语句"><a href="#7、条件语句" class="headerlink" title="7、条件语句"></a>7、条件语句</h4><p><strong>如果只想更新或者删除某些固定的记录，那就必须在DML语句后加上一些条件</strong></p>
+<h6 id="条件语句的常见格式"><a href="#条件语句的常见格式" class="headerlink" title="条件语句的常见格式"></a>条件语句的常见格式</h6><pre><code>where 字段 = 某个值 ;   // 不能用两个 =
+where 字段 is 某个值 ;   // is 相当于 = 
+where 字段 != 某个值 ; 
+where 字段 is not 某个值 ;   // is not 相当于 != 
+where 字段 &gt; 某个值 ; 
+where 字段1 = 某个值 and 字段2 &gt; 某个值 ;  // and相当于C语言中的 &amp;&amp;
+where 字段1 = 某个值 or 字段2 = 某个值 ;  //  or 相当于C语言中的 ||
+</code></pre><h6 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h6><pre><code>将t_student表中年龄大于10 并且 姓名不等于jack的记录，年龄都改为 5
+update t_student set age = 5 where age &gt; 10 and name != ‘jack’ ;
+
+删除t_student表中年龄小于等于10 或者 年龄大于30的记录
+delete from t_student where age &lt;= 10 or age &gt; 30 ;
+
+猜猜下面语句的作用
+update t_student set score = age where name = ‘jack’ ;
+将t_student表中名字等于jack的记录，score字段的值 都改为 age字段的值
+</code></pre><h4 id="8、查询"><a href="#8、查询" class="headerlink" title="8、查询"></a>8、查询</h4><h6 id="格式-5"><a href="#格式-5" class="headerlink" title="格式"></a>格式</h6><ul>
+<li>select 字段1, 字段2, … from 表名 ;</li>
+<li>select * from 表名;   //  查询所有的字段</li>
+</ul>
+<h6 id="示例-5"><a href="#示例-5" class="headerlink" title="示例"></a>示例</h6><ul>
+<li>select name, age from t_student ;</li>
+<li>select * from t_student ;</li>
+<li>select * from t_student where age &gt; 10 ;  //  条件查询</li>
+</ul>
+<h4 id="9、起别名"><a href="#9、起别名" class="headerlink" title="9、起别名"></a>9、起别名</h4><h6 id="格式-字段和表都可以起别名"><a href="#格式-字段和表都可以起别名" class="headerlink" title="格式(字段和表都可以起别名)"></a>格式(字段和表都可以起别名)</h6><ul>
+<li>select 字段1 别名 , 字段2 别名 , … from 表名 别名 ; </li>
+<li>select 字段1 别名, 字段2 as 别名, … from 表名 as 别名 ;</li>
+<li>select 别名.字段1, 别名.字段2, … from 表名 别名 ;</li>
+</ul>
+<h6 id="示例-6"><a href="#示例-6" class="headerlink" title="示例"></a>示例</h6><ul>
+<li>select name myname, age myage from t_student ;</li>
+<li>给name起个叫做myname的别名，给age起个叫做myage的别名</li>
+<li>select s.name, s.age from t_student s ;</li>
+<li>给t_student表起个别名叫做s，利用s来引用表中的字段</li>
+</ul>
+<h4 id="10、计算记录的数量"><a href="#10、计算记录的数量" class="headerlink" title="10、计算记录的数量"></a>10、计算记录的数量</h4><h6 id="格式-6"><a href="#格式-6" class="headerlink" title="格式"></a>格式</h6><ul>
+<li>select count (字段) from 表名 ;</li>
+<li>select count ( * ) from 表名 ;<h6 id="示例-7"><a href="#示例-7" class="headerlink" title="示例"></a>示例</h6></li>
+<li>select count (age) from t_student ;</li>
+<li>select count ( * ) from t_student where score &gt;= 60;</li>
+</ul>
+<h4 id="11、排序"><a href="#11、排序" class="headerlink" title="11、排序"></a>11、排序</h4><pre><code>查询出来的结果可以用order by进行排序
+select * from t_student order by 字段 ;
+select * from t_student order by age ;
+
+默认是按照升序排序（由小到大），也可以变为降序（由大到小）
+select * from t_student order by age desc ;  //降序
+select * from t_student order by age asc ;   // 升序（默认）
+
+也可以用多个字段进行排序
+select * from t_student order by age asc, height desc ;
+先按照年龄排序（升序），年龄相等就按照身高排序（降序）
+</code></pre><h4 id="12、limit"><a href="#12、limit" class="headerlink" title="12、limit"></a>12、limit</h4><pre><code>使用limit可以精确地控制查询结果的数量，比如每次只查询10条数据
+格式：
+select * from 表名 limit 数值1, 数值2 ;
+示例：
+select * from t_student limit 4, 8 ;
+可以理解为：跳过最前面4条语句，然后取8条记录
+
+limit常用来做分页查询，比如每页固定显示5条数据，那么应该这样取数据
+第1页：limit 0, 5
+第2页：limit 5, 5
+第3页：limit 10, 5
+…
+第n页：limit 5*(n-1), 5
+
+猜猜下面语句的作用
+select * from t_student limit 7 ;
+相当于select * from t_student limit 0, 7 ;
+表示取最前面的7条记录
+</code></pre><h4 id="13、简单约束"><a href="#13、简单约束" class="headerlink" title="13、简单约束"></a>13、简单约束</h4><pre><code>建表时可以给特定的字段设置一些约束条件，常见的约束有
+not null ：规定字段的值不能为null
+unique ：规定字段的值必须唯一
+default ：指定字段的默认值
+（建议：尽量给字段设定严格的约束，以保证数据的规范性）
+
+示例
+create table t_student (id integer, name text not null unique, age integer not null default 1) ;
+name字段不能为null，并且唯一
+age字段不能为null，并且默认为1
+</code></pre><h4 id="14、主键约束"><a href="#14、主键约束" class="headerlink" title="14、主键约束"></a>14、主键约束</h4><p>如果t_student表中就name和age两个字段，而且有些记录的name和age字段的值都一样时，那么就没法区分这些数据，造成数据库的记录不唯一，这样就不方便管理数据</p>
+<h6 id="主键的设计原则"><a href="#主键的设计原则" class="headerlink" title="主键的设计原则"></a>主键的设计原则</h6><ul>
+<li>主键应当是对用户没有意义的</li>
+<li>永远也不要更新主键</li>
+<li>主键不应包含动态变化的数据</li>
+<li>主键应当由计算机自动生成</li>
+</ul>
+<h6 id="主键的声明"><a href="#主键的声明" class="headerlink" title="主键的声明"></a>主键的声明</h6><pre><code>在创表的时候用primary key声明一个主键
+create table t_student (id integer primary key, name text, age integer) ;
+integer类型的id作为t_student表的主键
+
+主键字段
+只要声明为primary key，就说明是一个主键字段
+主键字段默认就包含了not null 和 unique 两个约束
+
+如果想要让主键自动增长（必须是integer类型），应该增加autoincrement
+create table t_student (id integer primary key autoincrement, name text, age integer) ;
+</code></pre><h4 id="15、外键约束"><a href="#15、外键约束" class="headerlink" title="15、外键约束"></a>15、外键约束</h4><pre><code>利用外键约束可以用来建立表与表之间的联系
+外键的一般情况是：一张表的某个字段，引用着另一张表的主键字段
+
+新建一个外键
+create table t_student (id integer primary key autoincrement, name text, age integer, class_id integer, constraint fk_t_student_class_id_t_class_id foreign key (class_id) references t_class (id)) ; 
+t_student表中有一个叫做fk_t_student_class_id_t_class_id的外键
+这个外键的作用是用t_student表中的class_id字段引用t_class表的id字段
+</code></pre><h4 id="16、表连接查询"><a href="#16、表连接查询" class="headerlink" title="16、表连接查询"></a>16、表连接查询</h4><pre><code>什么是表连接查询
+需要联合多张表才能查到想要的数据
+
+表连接的类型
+内连接：inner join 或者 join  （显示的是左右表都有完整字段值的记录）
+左外连接：left outer join （保证左表数据的完整性）
+
+示例
+查询0316iOS班的所有学生
+select s.name,s.age from t_student s, t_class c where s.class_id = c.id and c.name = ‘0316iOS’;
+</code></pre><h2 id="三、SQLite编码"><a href="#三、SQLite编码" class="headerlink" title="三、SQLite编码"></a>三、SQLite编码</h2><h4 id="1、创建、打开、关闭数据库"><a href="#1、创建、打开、关闭数据库" class="headerlink" title="1、创建、打开、关闭数据库"></a>1、创建、打开、关闭数据库</h4><pre><code>创建或打开数据库
+// path是数据库文件的存放路径
+sqlite3 *db = NULL;
+int result = sqlite3_open([path UTF8String], &amp;db); 
+
+代码解析：
+sqlite3_open()将根据文件路径打开数据库，如果不存在，则会创建一个新的数据库。如果result等于常量SQLITE_OK，则表示成功打开数据库
+sqlite3 *db：一个打开的数据库实例
+数据库文件的路径必须以C字符串(而非NSString)传入
+
+关闭数据库：sqlite3_close(db);
+</code></pre><h4 id="2、执行不返回数据的SQL语句"><a href="#2、执行不返回数据的SQL语句" class="headerlink" title="2、执行不返回数据的SQL语句"></a>2、执行不返回数据的SQL语句</h4><pre><code>执行创表语句
+char *errorMsg = NULL;  // 用来存储错误信息
+char *sql = &quot;create table if not exists t_person(id integer primary key autoincrement, name text, age integer);&quot;;
+int result = sqlite3_exec(db, sql, NULL, NULL, &amp;errorMsg);
+
+代码解析：
+sqlite3_exec()可以执行任何SQL语句，比如创表、更新、插入和删除操作。但是一般不用它执行查询语句，因为它不会返回查询到的数据
+sqlite3_exec()还可以执行的语句：
+开启事务：begin transaction;
+回滚事务：rollback;
+提交事务：commit;
+</code></pre><h4 id="3、带占位符插入数据"><a href="#3、带占位符插入数据" class="headerlink" title="3、带占位符插入数据"></a>3、带占位符插入数据</h4><pre><code>char *sql = &quot;insert into t_person(name, age) values(?, ?);&quot;;
+sqlite3_stmt *stmt;
+if (sqlite3_prepare_v2(db, sql, -1, &amp;stmt, NULL) == SQLITE_OK) {
+    sqlite3_bind_text(stmt, 1, &quot;母鸡&quot;, -1, NULL);
+    sqlite3_bind_int(stmt, 2, 27);
+}
+if (sqlite3_step(stmt) != SQLITE_DONE) {
+    NSLog(@&quot;插入数据错误&quot;);
+}
+sqlite3_finalize(stmt);
+
+代码解析：
+sqlite3_prepare_v2()返回值等于SQLITE_OK，说明SQL语句已经准备成功，没有语法问题
+
+sqlite3_bind_text()：大部分绑定函数都只有3个参数
+第1个参数是sqlite3_stmt *类型
+第2个参数指占位符的位置，第一个占位符的位置是1，不是0
+第3个参数指占位符要绑定的值
+第4个参数指在第3个参数中所传递数据的长度，对于C字符串，可以传递-1代替字符串的长度
+第5个参数是一个可选的函数回调，一般用于在语句执行后完成内存清理工作
+sqlite_step()：执行SQL语句，返回SQLITE_DONE代表成功执行完毕
+sqlite_finalize()：销毁sqlite3_stmt *对象
+</code></pre><h4 id="4、查询数据"><a href="#4、查询数据" class="headerlink" title="4、查询数据"></a>4、查询数据</h4><pre><code>char *sql = &quot;select id,name,age from t_person;&quot;;
+sqlite3_stmt *stmt;
+if (sqlite3_prepare_v2(db, sql, -1, &amp;stmt, NULL) == SQLITE_OK) {
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        int _id = sqlite3_column_int(stmt, 0);
+        char *_name = (char *)sqlite3_column_text(stmt, 1);
+        NSString *name = [NSString stringWithUTF8String:_name];
+        int _age = sqlite3_column_int(stmt, 2);
+        NSLog(@&quot;id=%i, name=%@, age=%i&quot;, _id, name, _age);
+    }
+}
+sqlite3_finalize(stmt);
+代码解析
+sqlite3_step()返回SQLITE_ROW代表遍历到一条新记录
+sqlite3_column_*()用于获取每个字段对应的值，第2个参数是字段的索引，从0开始
+</code></pre><h2 id="四、附件"><a href="#四、附件" class="headerlink" title="四、附件"></a>四、附件</h2><pre><code>/*简单约束*/
+CREATE TABLE IF NOT EXISTS t_student(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, age INTEGER);
+CREATE TABLE IF NOT EXISTS t_student(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, age INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS t_student(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, age INTEGER);
+CREATE TABLE IF NOT EXISTS t_student(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, age INTEGER DEFAULT 1);
+
+/*分页*/
+SELECT * FROM t_student ORDER BY id ASC LIMIT 30, 10;
+
+/*排序*/
+SELECT * FROM t_student WHERE score &gt; 50 ORDER BY age DESC;
+SELECT * FROM t_student WHERE score &lt; 50 ORDER BY age ASC , score DESC;
+
+/*计量*/
+SELECT COUNT(*) FROM t_student WHERE age &gt; 50;
+
+/*别名*/
+SELECT name as myName, age as myAge, score as myScore FROM t_student;
+SELECT name myName, age myAge, score myScore FROM t_student;
+SELECT s.name myName, s.age myAge, s.score myScore FROM t_student s WHERE s.age &gt; 50;
+
+/*查询*/
+SELECT name, age, score FROM t_student;
+SELECT * FROM t_student;
+
+/*修改指定数据*/
+UPDATE t_student SET name = &apos;MM&apos; WHERE age = 10;
+UPDATE t_student SET name = &apos;WW&apos; WHERE age is 7;
+UPDATE t_student SET name = &apos;XXOO&apos; WHERE age &lt; 20;
+UPDATE t_student SET name = &apos;NNMM&apos; WHERE age &lt; 50 and score &gt; 10;
+
+/*删除数据*/
+DELETE FROM t_student;
+
+/*更新数据*/
+UPDATE t_student SET name = &apos;LNJ&apos;;
+
+/*插入数据*/
+ INSERT INTO t_student(age, score, name) VALUES (&apos;28&apos;, 100, &apos;jonathan&apos;);
+ INSERT INTO t_student(name, age) VALUES (&apos;lee&apos;, &apos;28&apos;);
+ INSERT INTO t_student(score) VALUES (100);
+
+/*插入数据*/
+INSERT INTO t_student(name, age, score) VALUES (&apos;lee&apos;, &apos;28&apos;, 100);
+
+/*添加主键*/
+CREATE TABLE IF NOT EXISTS t_student (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, age INTEGER, score REAL);
+CREATE TABLE IF NOT EXISTS t_student (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, score REAL);
+CREATE TABLE IF NOT EXISTS t_student (id INTEGER, name TEXT, age INTEGER, score REAL, PRIMARY KEY(id));
+
+/*删除表*/
+DROP TABLE t_student;
+DROP TABLE IF EXISTS t_student;
+
+/*创建表*/
+CREATE TABLE t_student(id INTEGER , name TEXT, age , score REAL);
+CREATE TABLE IF NOT EXISTS t_student(id INTEGER , name TEXT, age , score REAL);
+</code></pre><h4 id="1-打开数据库"><a href="#1-打开数据库" class="headerlink" title="1.打开数据库"></a>1.打开数据库</h4><pre><code>int sqlite3_open(
+    const char *filename,   // 数据库的文件路径
+    sqlite3 **ppDb          // 数据库实例
+);
+</code></pre><h4 id="2、执行任何SQL语句"><a href="#2、执行任何SQL语句" class="headerlink" title="2、执行任何SQL语句"></a>2、执行任何SQL语句</h4><pre><code>int sqlite3_exec(
+    sqlite3*,                                  // 一个打开的数据库实例
+    const char *sql,                           // 需要执行的SQL语句
+    int (*callback)(void*,int,char**,char**),  // SQL语句执行完毕后的回调
+    void *,                                    // 回调函数的第1个参数
+    char **errmsg                              // 错误信息
+);
+</code></pre><h4 id="3、检查SQL语句的合法性"><a href="#3、检查SQL语句的合法性" class="headerlink" title="3、检查SQL语句的合法性"></a>3、检查SQL语句的合法性</h4><pre><code>int sqlite3_prepare_v2(
+    sqlite3 *db,            // 数据库实例
+    const char *zSql,       // 需要检查的SQL语句
+    int nByte,              // SQL语句的最大字节长度
+    sqlite3_stmt **ppStmt,  // sqlite3_stmt实例，用来获得数据库数据
+    const char **pzTail
+);
+</code></pre><h4 id="4、查询一行数据"><a href="#4、查询一行数据" class="headerlink" title="4、查询一行数据"></a>4、查询一行数据</h4><pre><code>int sqlite3_step(sqlite3_stmt*); // 如果查询到一行数据，就会返回
+</code></pre><h4 id="5、利用stmt获得某一字段的值"><a href="#5、利用stmt获得某一字段的值" class="headerlink" title="5、利用stmt获得某一字段的值"></a>5、利用stmt获得某一字段的值</h4><pre><code>double sqlite3_column_double(sqlite3_stmt*, int iCol);  // 浮点数据
+int sqlite3_column_int(sqlite3_stmt*, int iCol); // 整型数据
+sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol); // 长整型数据
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/CoreAnimation（核心动画）/" itemprop="url">
+                  CoreAnimation（核心动画）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/CoreAnimation（核心动画）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/CoreAnimation（核心动画）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、核心动画-简介"><a href="#一、核心动画-简介" class="headerlink" title="一、核心动画(简介)"></a>一、核心动画(简介)</h2><ul>
+<li>Core Animation的动画执行过程都是在后台操作的，不会阻塞主线程。</li>
+<li><strong>要注意的是，Core Animation是直接作用在CALayer上的，并非UIView。</strong></li>
+</ul>
+<h4 id="1、动画使用步骤"><a href="#1、动画使用步骤" class="headerlink" title="1、动画使用步骤"></a>1、动画使用步骤</h4><ol>
+<li>创建动画对象</li>
+<li>设置动画属性</li>
+<li>把动画对象添加到某个 CALayer 对象上</li>
+<li>需要停止动画：可以调用 remove 方法移除动画</li>
+</ol>
+<h4 id="2、Core-Animation的使用步骤"><a href="#2、Core-Animation的使用步骤" class="headerlink" title="2、Core Animation的使用步骤"></a>2、Core Animation的使用步骤</h4><ol>
+<li><p>使用它需要先添加QuartzCore.framework框架和引入主头文件<quartzcore quartzcore.h="">(iOS7+不需要)</quartzcore></p>
+</li>
+<li><p>初始化一个CAAnimation对象，并设置一些动画相关属性</p>
+</li>
+<li><p>通过调用CALayer的addAnimation:forKey:方法增加CAAnimation对象到CALayer中，这样就能开始执行动画了</p>
+</li>
+<li><p>通过调用CALayer的removeAnimationForKey:方法可以停止CALayer中的动画</p>
+</li>
+</ol>
+<h4 id="3、注意：（问题）"><a href="#3、注意：（问题）" class="headerlink" title="3、注意：（问题）"></a>3、注意：（问题）</h4><h6 id="1、动画太快-默认时间是0-25秒-通过-duration-属性修改"><a href="#1、动画太快-默认时间是0-25秒-通过-duration-属性修改" class="headerlink" title="1、动画太快, 默认时间是0.25秒, 通过 duration 属性修改"></a>1、动画太快, 默认时间是0.25秒, 通过 duration 属性修改</h6><h6 id="2、动画执行完毕以后回到了起始的位置。"><a href="#2、动画执行完毕以后回到了起始的位置。" class="headerlink" title="2、动画执行完毕以后回到了起始的位置。"></a>2、动画执行完毕以后回到了起始的位置。</h6><ul>
+<li>原因:<ul>
+<li>核心动画的本质是在后台移动图层中的内容, 控件本身的 frame 没有发生改变。</li>
+<li>所以看到动画执行完毕后, 又回到了原来的位置</li>
+<li>通过设置动画代理来观察动画执行完毕后控件的 frame 值, layer 的 Frame 值, layer 的 position 值, 都是没有变化的</li>
+</ul>
+</li>
+<li><p>解决:</p>
+<ul>
+<li><p><strong>解决1：</strong>当动画执行完毕以后, 手动设置控件的位置。在动画的代理方法（动画结束的时候设置控件的 center）</p>
+<pre><code>self.blueView.center = CGPointMake(300, 50);
+</code></pre><p><strong>注意: 不指定 fromValue 的情况下, 如果直接在添加完毕动画后, 设置控件的 center = 最终的终点有问题!!!所以不要在添加完动画以后直接设置 center 为最终的终点, 而要放到代理方法中。</strong></p>
+<ul>
+<li><p><strong>解决2：</strong></p>
+<ul>
+<li>动画执行完毕后不要删除动画对象</li>
+<li><p>设置 fillMode</p>
+<pre><code>// 当动画执行完毕后不要删除动画对象
+animation.removedOnCompletion = NO;
+animation.fillMode = kCAFillModeForwards;
+</code></pre></li>
+<li>缺点： 无法与用户交互, 因为 frame 就没变</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>核心动画的本质：在后台移动图层中的内容,  执行完毕后图层本身的位置并没有发生变化。</li>
+</ul>
+<h4 id="4、CAAnimation"><a href="#4、CAAnimation" class="headerlink" title="4、CAAnimation"></a>4、CAAnimation</h4><h6 id="1、所有动画对象的父类，负责控制动画的持续时间和速度，是个抽象类，不能直接使用，应该使用它具体的子类"><a href="#1、所有动画对象的父类，负责控制动画的持续时间和速度，是个抽象类，不能直接使用，应该使用它具体的子类" class="headerlink" title="1、所有动画对象的父类，负责控制动画的持续时间和速度，是个抽象类，不能直接使用，应该使用它具体的子类"></a>1、所有动画对象的父类，负责控制动画的持续时间和速度，是个抽象类，不能直接使用，应该使用它具体的子类</h6><h6 id="2、属性解析：-红色代表来自CAMediaTiming协议的属性"><a href="#2、属性解析：-红色代表来自CAMediaTiming协议的属性" class="headerlink" title="2、属性解析：(红色代表来自CAMediaTiming协议的属性)"></a>2、属性解析：(红色代表来自CAMediaTiming协议的属性)</h6><ul>
+<li>duration：动画的持续时间</li>
+<li>repeatCount：动画的重复次数</li>
+<li>repeatDuration：动画的重复时间</li>
+<li>removedOnCompletion：默认为YES，代表动画执行完毕后就从图层上移除，图形会恢复到动画执行前的状态。如果想让图层保持显示动画执行后的状态，那就设置为NO，不过还要设置fillMode为kCAFillModeForwards</li>
+<li>fillMode：决定当前对象在非active时间段的行为.比如动画开始之前,动画结束之后</li>
+<li>beginTime：可以用来设置动画延迟执行时间，若想延迟2s，就设置为* CACurrentMediaTime()+2，CACurrentMediaTime()为图层的当前时间</li>
+<li>timingFunction：速度控制函数，控制动画运行的节奏</li>
+<li>delegate：动画代理<h4 id="5、CAPropertyAnimation"><a href="#5、CAPropertyAnimation" class="headerlink" title="5、CAPropertyAnimation"></a>5、CAPropertyAnimation</h4></li>
+<li>是CAAnimation的子类，也是个抽象类，要想创建动画对象，应该使用它的两个子类：CABasicAnimation和CAKeyframeAnimation<br>属性解析：</li>
+<li>keyPath：通过指定CALayer的一个属性名称为keyPath(NSString类型)，并且对CALayer的这个属性的值进行修改，达到相应的动画效果。比如，指定@”position”为keyPath，就修改CALayer的position属性的值，以达到平移的动画效果</li>
+</ul>
+<h2 id="二、动画"><a href="#二、动画" class="headerlink" title="二、动画"></a>二、动画</h2><h4 id="1、CABasicAnimation-基本动画-只有两帧的动画"><a href="#1、CABasicAnimation-基本动画-只有两帧的动画" class="headerlink" title="1、CABasicAnimation(基本动画-只有两帧的动画)"></a>1、CABasicAnimation(基本动画-只有两帧的动画)</h4><ul>
+<li>1、CAPropertyAnimation的子类</li>
+<li>2、属性解析:<ul>
+<li>fromValue：keyPath相应属性的初始值</li>
+<li>toValue：keyPath相应属性的结束值</li>
+</ul>
+</li>
+<li>3、随着动画的进行，在长度为duration的持续时间内，keyPath相应属性的值从fromValue渐渐地变为toValue</li>
+</ul>
+<p><strong>如果fillMode=kCAFillModeForwards和removedOnComletion=NO，那么在动画执行完毕后，图层会保持显示动画执行后的状态。但在实质上，图层的属性值还是动画执行前的初始值，并没有真正被改变。比如，CALayer的position初始值为(0,0)，CABasicAnimation的fromValue为(10,10)，toValue为(100,100)，虽然动画执行完毕后图层保持在(100,100)这个位置，实质上图层的position还是为(0,0)</strong></p>
+<h4 id="2、CAAnimationGroup"><a href="#2、CAAnimationGroup" class="headerlink" title="2、CAAnimationGroup"></a>2、CAAnimationGroup</h4><ul>
+<li>CAAnimation的子类，可以保存一组动画对象，将CAAnimationGroup对象加入层后，组中所有动画对象可以同时并发运行<br>属性解析：</li>
+<li>animations：用来保存一组动画对象的NSArray</li>
+<li>默认情况下，一组动画对象是同时运行的，也可以通过设置动画对象的beginTime属性来更改动画的开始时间</li>
+</ul>
+<h4 id="3、CATransition-转场动画"><a href="#3、CATransition-转场动画" class="headerlink" title="3、CATransition-转场动画"></a>3、CATransition-转场动画</h4><ul>
+<li>CAAnimation的子类，用于做转场动画，能够为层提供移出屏幕和移入屏幕的动画效果。iOS比Mac OS X的转场动画效果少一点</li>
+<li>UINavigationController就是通过CATransition实现了将控制器的视图推入屏幕的动画效果</li>
+<li>属性解析:<ul>
+<li>type：动画过渡类型</li>
+<li>subtype：动画过渡方向</li>
+<li>startProgress：动画起点(在整体动画的百分比)</li>
+<li>endProgress：动画终点(在整体动画的百分比)</li>
+</ul>
+</li>
+</ul>
+<h6 id="1、使用UIView动画函数实现转场动画——单视图"><a href="#1、使用UIView动画函数实现转场动画——单视图" class="headerlink" title="1、使用UIView动画函数实现转场动画——单视图"></a>1、使用UIView动画函数实现转场动画——单视图</h6><pre><code>+ (void)transitionWithView:(UIView *)view duration:(NSTimeInterval)duration options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^)(BOOL finished))completion;
+</code></pre><p><strong>参数说明：</strong></p>
+<pre><code>duration：动画的持续时间
+view：需要进行转场动画的视图
+options：转场动画的类型
+animations：将改变视图属性的代码放在这个block中
+completion：动画结束后，会自动调用这个block
+</code></pre><h6 id="2、使用UIView动画函数实现转场动画——双视图"><a href="#2、使用UIView动画函数实现转场动画——双视图" class="headerlink" title="2、使用UIView动画函数实现转场动画——双视图"></a>2、使用UIView动画函数实现转场动画——双视图</h6><pre><code>+ (void)transitionFromView:(UIView *)fromView toView:(UIView *)toView duration:(NSTimeInterval)duration options:(UIViewAnimationOptions)options completion:(void (^)(BOOL finished))completion;
+</code></pre><p><strong>参数说明：</strong></p>
+<pre><code>duration：动画的持续时间
+options：转场动画的类型
+animations：将改变视图属性的代码放在这个block中
+completion：动画结束后，会自动调用这个block
+</code></pre><h2 id="三、CADisplayLink"><a href="#三、CADisplayLink" class="headerlink" title="三、CADisplayLink"></a>三、CADisplayLink</h2><ul>
+<li>CADisplayLink是一种以屏幕刷新频率触发的时钟机制，每秒钟执行大约60次左右</li>
+<li>CADisplayLink是一个计时器，可以使绘图代码与视图的刷新频率保持同步，而NSTimer无法确保计时器实际被触发的准确时间</li>
+<li>使用方法：<ul>
+<li>定义CADisplayLink并制定触发调用方法</li>
+<li>将显示链接添加到主运行循环队列</li>
+</ul>
+</li>
+</ul>
+<h4 id="4、UIView动画"><a href="#4、UIView动画" class="headerlink" title="4、UIView动画"></a>4、UIView动画</h4><p><strong>常见方法解析:</strong></p>
+<pre><code>+ (void)setAnimationDelegate:(id)delegate
+设置动画代理对象，当动画开始或者结束时会发消息给代理对象
++ (void)setAnimationWillStartSelector:(SEL)selector
+当动画即将开始时，执行delegate对象的selector，并且把beginAnimations:context:中传入的参数传进selector
++ (void)setAnimationDidStopSelector:(SEL)selector
+当动画结束时，执行delegate对象的selector，并且把beginAnimations:context:中传入的参数传进selector
++ (void)setAnimationDuration:(NSTimeInterval)duration
+动画的持续时间，秒为单位
++ (void)setAnimationDelay:(NSTimeInterval)delay
+动画延迟delay秒后再开始
++ (void)setAnimationStartDate:(NSDate *)startDate
+动画的开始时间，默认为now
++ (void)setAnimationCurve:(UIViewAnimationCurve)curve
+动画的节奏控制,具体看下面的”备注”
++ (void)setAnimationRepeatCount:(float)repeatCount
+动画的重复次数
++ (void)setAnimationRepeatAutoreverses:(BOOL)repeatAutoreverses
+如果设置为YES,代表动画每次重复执行的效果会跟上一次相反
++ (void)setAnimationTransition:(UIViewAnimationTransition)transition forView:(UIView *)view cache:(BOOL)cache
+设置视图view的过渡效果, transition指定过渡类型, cache设置YES代表使用视图缓存，性能较好
+</code></pre><h4 id="5、UIImageView的帧动画"><a href="#5、UIImageView的帧动画" class="headerlink" title="5、UIImageView的帧动画"></a>5、UIImageView的帧动画</h4><ul>
+<li>UIImageView可以让一系列的图片在特定的时间内按顺序显示</li>
+<li><p>相关属性解析:</p>
+<pre><code>animationImages：要显示的图片(一个装着UIImage的NSArray)
+animationDuration：完整地显示一次animationImages中的所有图片所需的时间
+animationRepeatCount：动画的执行次数(默认为0，代表无限循环)
+</code></pre></li>
+<li><p>相关方法解析:</p>
+<pre><code>- (void)startAnimating; 开始动画
+- (void)stopAnimating;  停止动画
+- (BOOL)isAnimating;  是否正在运行动画
+</code></pre><h4 id="6、UIActivityIndicatorView"><a href="#6、UIActivityIndicatorView" class="headerlink" title="6、UIActivityIndicatorView"></a>6、UIActivityIndicatorView</h4></li>
+<li>是一个旋转进度轮，可以用来告知用户有一个操作正在进行中，一般用initWithActivityIndicatorStyle初始化</li>
+<li><p>方法解析:</p>
+<pre><code>- (void)startAnimating; 开始动画
+- (void)stopAnimating;  停止动画
+- (BOOL)isAnimating;  是否正在运行动画
+</code></pre></li>
+<li><p>UIActivityIndicatorViewStyle有3个值可供选择：</p>
+<pre><code>UIActivityIndicatorViewStyleWhiteLarge   //大型白色指示器    
+UIActivityIndicatorViewStyleWhite      //标准尺寸白色指示器    
+UIActivityIndicatorViewStyleGray    //灰色指示器，用于白色背景
+</code></pre></li>
+</ul>
+<h2 id="四、参考代码"><a href="#四、参考代码" class="headerlink" title="四、参考代码"></a>四、参考代码</h2><h4 id="基本动画-位移"><a href="#基本动画-位移" class="headerlink" title="基本动画: 位移"></a>基本动画: 位移</h4><pre><code>// 1. 创建动画对象
+CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@&quot;position&quot;];
+// 默认动画时间是0.25秒
+animation.duration = 2.0;
+// 设置动画代理
+animation.delegate = self;
+
+// 当动画执行完毕后不要删除动画对象
+animation.removedOnCompletion = NO;
+animation.fillMode = kCAFillModeForwards;
+
+// 2. 设置动画属性值
+//animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(200, 30)];
+animation.fromValue = [NSValue valueWithCGPoint:self.blueView.center];
+animation.toValue = [NSValue valueWithCGPoint:CGPointMake(240, 500)];
+// 3. 将动画添加到对应的layer 中
+// 这样每次会添加一个新的动画
+ //self.blueView.layer addAnimation:animation forKey:nil]
+ // 注意： 如果下面的 key 指定了一个写死的 key,@&quot;animation100&quot;，这样不会每次都添加一个新的动画了。
+[self.blueView.layer addAnimation:animation forKey:@&quot;animation1&quot;];
+// 动画执行完毕后设置控件的 center
+//self.blueView.center = CGPointMake(300, 50);
+</code></pre><h4 id="2、基本动画-缩放动画"><a href="#2、基本动画-缩放动画" class="headerlink" title="2、基本动画: 缩放动画"></a>2、基本动画: 缩放动画</h4><pre><code>// 创建动画对象
+CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@&quot;transform.scale&quot;];
+// 设置动画属性
+anim.fromValue = @(1.0f);
+anim.toValue = @(0.7f);
+// 设置重复次数
+anim.repeatCount = 10;
+
+// 将动画对象添加到 layer 中
+[self.blueView.layer addAnimation:anim forKey:nil];
+</code></pre><h4 id="3、基本动画-旋转动画"><a href="#3、基本动画-旋转动画" class="headerlink" title="3、基本动画: 旋转动画"></a>3、基本动画: 旋转动画</h4><pre><code>CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@&quot;transform.rotation&quot;];
+
+anim.duration = 3;
+anim.repeatCount = CGFLOAT_MAX;
+// 不要每次都设置起始度数
+//anim.fromValue = @(0);
+anim.toValue = @(M_PI * 2);
+
+[self.blueView.layer addAnimation:anim forKey:nil];
+</code></pre><h6 id="一些问题："><a href="#一些问题：" class="headerlink" title="一些问题："></a>一些问题：</h6><p><strong>1、注意: 如果 [self.blueView.layer addAnimation:anim forKey:nil];没有指定 forKey, 那么每次都会添加一个新动画, 会越来越快</strong></p>
+<h6 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h6><pre><code>// 判断如果已经有动画对象了, 就不再添加了
+if ([self.blueView.layer animationForKey:@&quot;anim1&quot;] != nil) {
+return;
+}
+</code></pre><p><strong>2、注意: 如果当动画正在执行的时候, 将程序退出到后台, 那么当程序再次进入前台的时候就不执行了。</strong></p>
+<h6 id="解决办法-1"><a href="#解决办法-1" class="headerlink" title="解决办法"></a>解决办法</h6><ul>
+<li>原因: 因为再次进入前台后动画已经被删除了。</li>
+<li>解决1: anim.removedOnCompletion = NO;</li>
+</ul>
+<p><strong>3、问题: 当双击 home 键的时候, 动画不会暂停。</strong></p>
+<h6 id="解决办法-2"><a href="#解决办法-2" class="headerlink" title="解决办法"></a>解决办法</h6><pre><code>// 暂停
+- (void)applicationWillResignActive:(UIApplication *)application {
+ViewController *vc =  (ViewController *)self.window.rootViewController;
+[vc pause];
+}
+
+// 恢复
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+ViewController *vc =  (ViewController *)self.window.rootViewController;
+[vc resume];
+}
+</code></pre><h4 id="4、基本动画-关键帧动画"><a href="#4、基本动画-关键帧动画" class="headerlink" title="4、基本动画: 关键帧动画"></a>4、基本动画: 关键帧动画</h4><h6 id="1、设置-values-属性"><a href="#1、设置-values-属性" class="headerlink" title="1、设置 values 属性"></a>1、设置 values 属性</h6><pre><code>CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@&quot;position&quot;];
+anim.duration = 3;
+anim.removedOnCompletion = NO;
+CGPoint p1 = CGPointMake(10, 10);
+CGPoint p2 = CGPointMake(10, 110);
+CGPoint p3 = CGPointMake(110, 110);
+CGPoint p4 = CGPointMake(110, 10);
+CGPoint p5 = CGPointMake(10, 10);
+anim.values = @[[NSValue valueWithCGPoint:p1], [NSValue valueWithCGPoint:p2], [NSValue valueWithCGPoint:p3], [NSValue valueWithCGPoint:p4],[NSValue valueWithCGPoint:p5]];
+
+[self.blueView.layer addAnimation:anim forKey:nil];
+</code></pre><h6 id="2、设置-path-属性"><a href="#2、设置-path-属性" class="headerlink" title="2、设置 path 属性"></a>2、设置 path 属性</h6><pre><code>CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@&quot;position&quot;];
+anim.duration = 3;
+anim.removedOnCompletion = NO;
+anim.fillMode = kCAFillModeForwards;
+UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(50, 50, 150, 150)];
+anim.path = path.CGPath;
+
+[self.blueView.layer addAnimation:anim forKey:nil];
+</code></pre><h6 id="3、-模拟”app-抖动”"><a href="#3、-模拟”app-抖动”" class="headerlink" title="3、 模拟”app 抖动”"></a>3、 模拟”app 抖动”</h6><p><strong>思路: 通过设置左右旋转实现</strong></p>
+<pre><code>if ([self.blueView.layer animationForKey:@&quot;shake&quot;]) {
+return;
+}
+
+CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@&quot;transform.rotation&quot;];
+anim.values = @[@(-M_PI / 36), @(M_PI / 36), @(-M_PI / 36)];
+anim.duration = 0.15;
+anim.repeatCount = CGFLOAT_MAX;
+[self.blueView.layer addAnimation:anim forKey:@&quot;shake&quot;];
+</code></pre><h4 id="5、组动画"><a href="#5、组动画" class="headerlink" title="5、组动画"></a>5、组动画</h4><pre><code>// 动画组, 组动画
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+UITouch *touch = touches.anyObject;
+CGPoint location = [touch locationInView:touch.view];
+
+
+CAAnimationGroup *groupAnim = [[CAAnimationGroup alloc] init];
+
+// 位移
+CABasicAnimation *anim1 = [CABasicAnimation animationWithKeyPath:@&quot;position&quot;];
+anim1.toValue = [NSValue valueWithCGPoint:location];
+
+// 缩放
+CABasicAnimation *anim2 = [CABasicAnimation animationWithKeyPath:@&quot;transform.scale&quot;];
+anim2.toValue = @(0.3);
+
+
+// 旋转
+CABasicAnimation *anim3 = [CABasicAnimation animationWithKeyPath:@&quot;transform.rotation&quot;];
+anim3.toValue = @(M_PI * 8);
+
+// 关键帧动画
+CAKeyframeAnimation *anim4 = [CAKeyframeAnimation animationWithKeyPath:@&quot;position&quot;];
+UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(180, 150, 150, 150)];
+anim4.path = path.CGPath;
+
+groupAnim.animations = @[anim1, anim2, anim3, anim4];
+groupAnim.duration = 1.0;
+groupAnim.repeatCount = CGFLOAT_MAX;
+
+[self.blueView.layer addAnimation:groupAnim forKey:nil];
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2129,7 +3388,7 @@ RESTful设计风格:
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">86</span>
+              <span class="site-state-item-count">93</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2146,7 +3405,7 @@ RESTful设计风格:
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">56</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -1,0 +1,1021 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Quartz2D," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="一、基本图形绘制
+线段（线宽、线段样式）
+矩形（空心、实心、颜色）
+三角形、四边形等形状
+1、说明 - (void)drawRect:(CGRect)rect 什么时候调用、调用次数等
+当 view 第一次被显示的时候调用(调用一次)
+或者是重绘事件被触发的时候
+不要手动去调用这个方法
+
+
+
+
+手动调用重绘方法 setNeedsDisplay 或者 setNeedsDisplayInRect:
+s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quartz2D(绘图)">
+<meta property="og:url" content="http://yoursite.com/2016/07/07/Quartz2d(绘图)/index.html">
+<meta property="og:site_name" content="颜文字">
+<meta property="og:description" content="一、基本图形绘制
+线段（线宽、线段样式）
+矩形（空心、实心、颜色）
+三角形、四边形等形状
+1、说明 - (void)drawRect:(CGRect)rect 什么时候调用、调用次数等
+当 view 第一次被显示的时候调用(调用一次)
+或者是重绘事件被触发的时候
+不要手动去调用这个方法
+
+
+
+
+手动调用重绘方法 setNeedsDisplay 或者 setNeedsDisplayInRect:
+s">
+<meta property="og:updated_time" content="2016-07-07T08:30:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Quartz2D(绘图)">
+<meta name="twitter:description" content="一、基本图形绘制
+线段（线宽、线段样式）
+矩形（空心、实心、颜色）
+三角形、四边形等形状
+1、说明 - (void)drawRect:(CGRect)rect 什么时候调用、调用次数等
+当 view 第一次被显示的时候调用(调用一次)
+或者是重绘事件被触发的时候
+不要手动去调用这个方法
+
+
+
+
+手动调用重绘方法 setNeedsDisplay 或者 setNeedsDisplayInRect:
+s">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/07/Quartz2d(绘图)/"/>
+
+  <title> Quartz2D(绘图) | 颜文字 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">颜文字</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'iRPRT9JgJfvxEsHZRgKm','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Quartz2D(绘图)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/Quartz2d(绘图)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/Quartz2d(绘图)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、基本图形绘制"><a href="#一、基本图形绘制" class="headerlink" title="一、基本图形绘制"></a>一、基本图形绘制</h2><ul>
+<li>线段（线宽、线段样式）</li>
+<li>矩形（空心、实心、颜色）</li>
+<li>三角形、四边形等形状</li>
+<li>1、说明 - (void)drawRect:(CGRect)rect 什么时候调用、调用次数等<ul>
+<li>当 view 第一次被显示的时候调用(调用一次)</li>
+<li>或者是重绘事件被触发的时候</li>
+<li>不要手动去调用这个方法</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>手动调用重绘方法 setNeedsDisplay 或者 setNeedsDisplayInRect:</strong></p>
+<pre><code>setNeedsDisplay 方法会把之前的内容都清除掉, 然后再重绘。
+setNeedsDisplayInRect:&lt;#(CGRect)#&gt;局部刷新
+</code></pre></li>
+</ul>
+<ul>
+<li>2、说明为什么要在 - (void)drawRect:(CGRect)rect 方法中进行绘图</li>
+<li><strong>只有在这个方法中才能获取当前 View 的绘图上下文</strong></li>
+</ul>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ol>
+<li>当要向UIView上绘图的时候, 必须重写UIView的drawRect:方法, 然后在这个方法中进行绘图</li>
+<li>在drawRect:方法中获取的参数rect, 指的就是当前view的bounds属性</li>
+<li>为什么向当前view中绘制图形, 必须在drawRect:方法中进行?<ul>
+<li>3.1 原因: 只有在当前view的drawRect:方法中才能成功的获取当前view的”图形上下文”, 有了图形上下文才能进行绘图</li>
+<li>3.2 为什么只有在drawRect:方法中才能获取当前view的图形上下文呢？</li>
+<li>3.3 原因: 是因为系统在调用drawRect:方法之前已经帮我们创建好了一个与当前view相关的图形上下文了, 然后才调用的drawRect:方法, 所以在drawRect:方法中, 我们就可以成功获取当前view的图形上下文了。</li>
+<li>3.4 如何创建一个图形上下文？（后面说）<ul>
+<li>3.5 drawRect:方法是谁来调用的？什么时候调用的？<ul>
+<li>3.5.1 drawRect:方法是系统帮我们调用的, 千万别手动去调用这个方法。原因是, 自己手动去调用drawRect:方法的时候无法保证系统已经帮我们创建好了”图形上下文”, 所以这样就无法保证在drawRect:方法中获取”图形上下文”对象, 所以也就无法绘图。</li>
+<li>3.5.2 drawRect:方法的什么时候被调用？<ul>
+<li>1&gt; 当这个View第一次显示的时候会条用一次drawRect:方法。</li>
+<li>2&gt; 当这个View执行重绘操作的时候, 会重新调用drawRect:方法来进行绘图。</li>
+<li>3&gt; 通过调用【[self setNeedsDisplay];// 把这个view都重绘一次】 或 【[self setNeedsDisplayInRect:(CGRect)]// 把view中的某个区域重绘一次】 来实现重绘</li>
+<li>4&gt; 在每次调用 setNeedsDisplay 或 setNeedsDisplayInRect:方法的时候, 内部会先创建一个与当前view相关连的”图形上下文”然后再调用drawRect:实现重绘。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>注意: UIBezierPath 对象可以独立使用,  无需手动获取“图形上下文”对象，此处为了更好的理解“图形上下文对象”所以暂时还是采用手动获取“图形上下文”对象的方式来绘图
+</strong>        </p>
+<h4 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h4><h6 id="1、绘制一个”三角形”"><a href="#1、绘制一个”三角形”" class="headerlink" title="1、绘制一个”三角形”"></a>1、绘制一个”三角形”</h6><pre><code>// 1. 获取当前的图形上下文
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 2. 在上下文中绘制图形（拼接路径）
+// 2.1 设置一个起点
+CGContextMoveToPoint(ctx, 20, 20);
+// 2.2 添加一条直线到(100, 100)这个点
+CGContextAddLineToPoint(ctx, 100, 100);
+// 2.3 再添加一条线
+CGContextAddLineToPoint(ctx, 120, 30);
+// 2.4 再添加一条线段
+//CGContextAddLineToPoint(ctx, 20, 20);
+// 另外一种做法: 直接关闭路径（连接最后一个点和起点）
+CGContextClosePath(ctx);
+// 3. 把上下文渲染显示到 HMView01上
+// StrokePath 表示把路径以空心的形式渲染出来。
+CGContextStrokePath(ctx);
+</code></pre><h6 id="2、绘制一个实心”矩形”"><a href="#2、绘制一个实心”矩形”" class="headerlink" title="2、绘制一个实心”矩形”"></a>2、绘制一个实心”矩形”</h6><pre><code>// 绘制一个&quot;四边形&quot;
+// 1. 获取当前图形上下文
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 2. 开始绘制路径
+CGContextAddRect(ctx, CGRectMake(20, 20, 100, 120));
+// 3. 渲染
+CGContextFillPath(ctx);
+</code></pre><h6 id="3、设置图形的颜色"><a href="#3、设置图形的颜色" class="headerlink" title="3、设置图形的颜色"></a>3、设置图形的颜色</h6><pre><code>// 绘制一个&quot;四边形&quot;
+// 1. 获取当前图形上下文
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 2. 开始绘制路径
+CGContextAddRect(ctx, CGRectMake(20, 20, 100, 120));
+
+//============ C 语言的方式设置颜色 =================
+CGContextSetRGBFillColor(ctx, 200/255.0, 100/255.0, 50/255.0, 1.0);
+//CGContextSetRGBStrokeColor(&lt;#CGContextRef context#&gt;, &lt;#CGFloat red#&gt;, &lt;#CGFloat green#&gt;, &lt;#CGFloat blue#&gt;, &lt;#CGFloat alpha#&gt;)
+//============ C 语言的方式设置颜色 =================
+
+//============ OC 的方式设置颜色 =================
+// 设置空心图形的线条颜色
+// [[UIColor redColor] setStroke];
+// 设置实心图形的填充颜色
+// [[UIColor redColor] setFill];
+// 统一设置&quot;空心图形&quot; 和 &quot;实心图形&quot;的颜色
+//[[UIColor redColor] set];
+//============ OC 的方式设置颜色 =================
+// 3. 渲染
+CGContextFillPath(ctx);
+</code></pre><h6 id="4、设置不同线段-不同颜色"><a href="#4、设置不同线段-不同颜色" class="headerlink" title="4、设置不同线段, 不同颜色"></a>4、设置不同线段, 不同颜色</h6><pre><code>//画两根线, 一根红色, 一根蓝色
+// 1. 获取上下文对象
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 2. 绘制图形
+// 2.1 设置起点
+CGContextMoveToPoint(ctx, 50, 50);
+// 2.2 添加一根线
+CGContextAddLineToPoint(ctx, 50, 150);
+// 2.3 设置线段颜色
+[[UIColor redColor] set];
+// 2.4 设置线宽
+CGContextSetLineWidth(ctx, 10);
+// 渲染一次
+CGContextStrokePath(ctx);
+
+// 再移动到一个新的起点
+CGContextMoveToPoint(ctx, 100, 50);
+// 再添加一根线
+CGContextAddLineToPoint(ctx, 100, 150);
+// 设置线的颜色
+[[UIColor blueColor] set];
+// 3. 渲染&quot;上下文对象&quot;到 view 上
+CGContextStrokePath(ctx);
+</code></pre><h6 id="5、设置线段”头尾部”的样式"><a href="#5、设置线段”头尾部”的样式" class="headerlink" title="5、设置线段”头尾部”的样式"></a>5、设置线段”头尾部”的样式</h6><pre><code> // 1. 获取上下文对象
+ CGContextRef ctx = UIGraphicsGetCurrentContext();
+ // 2. 绘制路径
+ // 2.1 移动到起点
+ CGContextMoveToPoint(ctx, 20, 20);
+ // 2.2 添加一条线段
+ CGContextAddLineToPoint(ctx, 100, 100);
+ // 2.3 设置颜色
+ [[UIColor redColor] set];
+ // 2.4 设置线段宽度
+ CGContextSetLineWidth(ctx, 15);
+ // 2.5 设置线段头尾部样式
+ //enum CGLineCap {
+ //kCGLineCapButt, 默认值
+ //kCGLineCapRound, 圆角
+ //kCGLineCapSquare 方角
+ //};
+CGContextSetLineCap(ctx, kCGLineCapSquare);
+// 3. 渲染
+CGContextStrokePath(ctx);
+</code></pre><h6 id="6、设置转折点样式"><a href="#6、设置转折点样式" class="headerlink" title="6、设置转折点样式"></a>6、设置转折点样式</h6><pre><code>// 2.4 设置线段宽度
+CGContextSetLineWidth(ctx, 15);
+// 2.5 设置线段头尾部样式
+CGContextSetLineCap(ctx, kCGLineCapRound);
+// 2.6 设置转折点样式
+CGContextSetLineJoin(ctx, kCGLineJoinBevel);
+</code></pre><h6 id="7、文字绘制-通过OC-来绘制图形"><a href="#7、文字绘制-通过OC-来绘制图形" class="headerlink" title="7、文字绘制(通过OC 来绘制图形)"></a>7、文字绘制(通过OC 来绘制图形)</h6><p><strong>1、绘制一段文字(思路: 直接使用 OC 的方法, 无需手动获取上下文对象)</strong></p>
+<pre><code>NSString *str = @&quot;哈哈, 黑马程序员 iOS学院。&quot;;
+NSDictionary *attrs = @{
+    NSForegroundColorAttributeName : [UIColor redColor],
+    NSFontAttributeName : [UIFont systemFontOfSize:20]
+};
+[str drawAtPoint:CGPointMake(30, 50) withAttributes:attrs];
+</code></pre><p><strong>2、绘制一段文字到一个指定的区域</strong></p>
+<p>思路: 调用字符串的 drawInRect: 方法.</p>
+<pre><code>// 1. 绘制文字
+NSString *str = @&quot;哈哈, 黑马程序员 iOS。&quot;;
+NSDictionary *attrs = @{
+NSForegroundColorAttributeName : [UIColor redColor],
+NSFontAttributeName : [UIFont systemFontOfSize:20]
+};
+
+[str drawInRect:CGRectMake(20, 20, 50, 250) withAttributes:attrs];
+// 1. 获取上下文
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 2. 把矩形画出来
+CGContextAddRect(ctx,CGRectMake(20, 20, 50, 250));
+// 3. 渲染
+CGContextStrokePath(ctx);
+</code></pre><h6 id="8、图片绘制-通过OC-来绘制图形"><a href="#8、图片绘制-通过OC-来绘制图形" class="headerlink" title="8、图片绘制(通过OC 来绘制图形)"></a>8、图片绘制(通过OC 来绘制图形)</h6><p><strong>1、绘制一张图片到 UIView 上</strong></p>
+<pre><code>// 1. 获取图片
+UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
+// 2. 把图片画到当前的 view中
+[img drawAtPoint:CGPointMake(0, 0)];
+</code></pre><p><strong>2、在指定的矩形中绘制图片（会自动拉伸）</strong></p>
+<pre><code>// 1. 获取图片
+UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
+// 2. 把图片画到当前的 view中
+[img drawInRect:CGRectMake(0, 0, 150, 150)];
+</code></pre><p><strong>3、画格子花纹效果(（pattern）), 思路: 调用drawAsPatternInRect:方法</strong></p>
+<pre><code>// 1. 获取图片
+UIImage *img = [UIImage imageNamed:@&quot;abc&quot;];
+// 2. 把图片画到当前的 view中
+[img drawAsPatternInRect:self.bounds];
+// 3. 在右下角显示文字
+NSString *str = @&quot;@Lonely ios&quot;;
+NSDictionary *attrs = @{
+NSForegroundColorAttributeName : [UIColor redColor],
+NSFontAttributeName : [UIFont systemFontOfSize:20]
+};
+[ str drawInRect:CGRectMake(0, 100, 200, 30) withAttributes:attrs];
+</code></pre><h2 id="二、图形上下文栈"><a href="#二、图形上下文栈" class="headerlink" title="二、图形上下文栈"></a>二、图形上下文栈</h2><ul>
+<li><strong>CGContextSaveGState(ctx);// 保存ctx这个绘图上下文对象</strong></li>
+<li><strong>CGContextRestoreGState(ctx); // 恢复 ctx这个图形上下文</strong></li>
+</ul>
+<h4 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h4><h6 id="1、矩阵操作"><a href="#1、矩阵操作" class="headerlink" title="1、矩阵操作"></a>1、矩阵操作</h6><pre><code>// 1. 获取上下文
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 保存上下文
+CGContextSaveGState(ctx);
+//======================= 矩阵操作 ============================
+// 1.1 旋转
+CGContextRotateCTM(ctx, M_PI_4 * 0.5);
+// 1.2 缩放
+CGContextScaleCTM(ctx, 0.5, 0.5);
+//======================= 矩阵操作 ============================
+// 2. 绘制一些图形
+CGContextMoveToPoint(ctx, 10, 10);
+CGContextAddLineToPoint(ctx, 100, 100);
+CGContextAddEllipseInRect(ctx, CGRectMake(130, 150, 100, 100));
+// 恢复上下文
+CGContextRestoreGState(ctx);
+CGContextAddRect(ctx, CGRectMake(70, 90, 100, 80));
+// 3. 渲染
+CGContextStrokePath(ctx);
+</code></pre><p><strong>注：在绘制任何图形前保存上下文, 在绘制最后一个图形前恢复上下文</strong></p>
+<h6 id="2、图片裁剪"><a href="#2、图片裁剪" class="headerlink" title="2、图片裁剪"></a>2、图片裁剪</h6><pre><code>CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 1. 画圆，这里最好使用 Ellipse 来绘制圆（画圆和画图片都从0,0点开始）。
+CGContextAddArc(ctx, 100, 100, 90, 0, M_PI * 2, 1);
+// 2. 裁剪上下文, 注意裁剪完毕就只能在裁剪好的区域内画东西了, 超出的地方无法绘制图形。
+CGContextClip(ctx);
+// 3. 把图片绘制上去
+UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
+[img drawAtPoint:CGPointMake(0, 0)];
+</code></pre><h6 id="3、图片裁剪（返回圆形边框View）"><a href="#3、图片裁剪（返回圆形边框View）" class="headerlink" title="3、图片裁剪（返回圆形边框View）"></a>3、图片裁剪（返回圆形边框View）</h6><pre><code>- (UIImage *)zc_circleImage
+{
+    //NO -&gt; 透明
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
+    //获取上下文
+    CGContextRef contex = UIGraphicsGetCurrentContext();
+    //添加圆
+    CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
+    CGContextAddEllipseInRect(contex, rect);
+    //裁剪
+    CGContextClip(contex);
+    //将图片画上去
+    [self drawInRect:rect];
+    //获取图片
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    //关闭
+    UIGraphicsEndImageContext();
+    return image;
+}
+</code></pre><p><strong> 因为绘图操作是 CPU密集型操作（会大量使用到 CPU），所以如果可以使用普通 UIView 来代替的就不要自己进行绘图</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Quartz2D/" rel="tag">#Quartz2D</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/07/数据存储(数据持久化)/" rel="next" title="数据存储(数据持久化)">
+                <i class="fa fa-chevron-left"></i> 数据存储(数据持久化)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/07/CoreAnimation（核心动画）/" rel="prev" title="CoreAnimation（核心动画）">
+                CoreAnimation（核心动画） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/07/Quartz2d(绘图)/"
+           data-title="Quartz2D(绘图)" data-url="http://yoursite.com/2016/07/07/Quartz2d(绘图)/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=697890588,3646918970&fm=116&gp=0.jpg"
+               alt="颜文字" />
+          <p class="site-author-name" itemprop="name">颜文字</p>
+          <p class="site-description motion-element" itemprop="description">颜貌岁岁改，波澜誓不起。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">93</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuangzisuen" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/yanyan767006743" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、基本图形绘制"><span class="nav-number">1.</span> <span class="nav-text">一、基本图形绘制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#说明"><span class="nav-number">1.0.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考代码"><span class="nav-number">1.0.2.</span> <span class="nav-text">参考代码</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1、绘制一个”三角形”"><span class="nav-number">1.0.2.0.1.</span> <span class="nav-text">1、绘制一个”三角形”</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2、绘制一个实心”矩形”"><span class="nav-number">1.0.2.0.2.</span> <span class="nav-text">2、绘制一个实心”矩形”</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3、设置图形的颜色"><span class="nav-number">1.0.2.0.3.</span> <span class="nav-text">3、设置图形的颜色</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4、设置不同线段-不同颜色"><span class="nav-number">1.0.2.0.4.</span> <span class="nav-text">4、设置不同线段, 不同颜色</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5、设置线段”头尾部”的样式"><span class="nav-number">1.0.2.0.5.</span> <span class="nav-text">5、设置线段”头尾部”的样式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6、设置转折点样式"><span class="nav-number">1.0.2.0.6.</span> <span class="nav-text">6、设置转折点样式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#7、文字绘制-通过OC-来绘制图形"><span class="nav-number">1.0.2.0.7.</span> <span class="nav-text">7、文字绘制(通过OC 来绘制图形)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#8、图片绘制-通过OC-来绘制图形"><span class="nav-number">1.0.2.0.8.</span> <span class="nav-text">8、图片绘制(通过OC 来绘制图形)</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、图形上下文栈"><span class="nav-number">2.</span> <span class="nav-text">二、图形上下文栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考代码-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">参考代码</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1、矩阵操作"><span class="nav-number">2.0.1.0.1.</span> <span class="nav-text">1、矩阵操作</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2、图片裁剪"><span class="nav-number">2.0.1.0.2.</span> <span class="nav-text">2、图片裁剪</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3、图片裁剪（返回圆形边框View）"><span class="nav-number">2.0.1.0.3.</span> <span class="nav-text">3、图片裁剪（返回圆形边框View）</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">颜文字</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yancode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
