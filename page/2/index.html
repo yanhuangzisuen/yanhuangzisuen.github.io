@@ -296,8 +296,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/transform/" itemprop="url">
-                  Transform
+                <a class="post-title-link" href="/2016/07/07/nsstringsearch/" itemprop="url">
+                  字符串搜索
                 </a>
               
             
@@ -310,7 +310,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
               2016-07-07
             </time>
           </span>
@@ -324,8 +324,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
                   </a>
                 </span>
 
@@ -340,8 +340,146 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/transform/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/transform/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsstringsearch/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsstringsearch/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前后缀检查"><a href="#前后缀检查" class="headerlink" title="前后缀检查"></a>前后缀检查</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1.是否以 aString 开头</span></div><div class="line">- (<span class="built_in">BOOL</span>)hasPrefix:(<span class="built_in">NSString</span> *)aString;</div><div class="line"></div><div class="line"><span class="comment">//2.是否以 aString 结尾</span></div><div class="line">- (<span class="built_in">BOOL</span>)hasSuffix:(<span class="built_in">NSString</span> *)aString;</div></pre></td></tr></table></figure>
+<h2 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用于检查字符串内容是否包含 aString</span></div><div class="line"><span class="comment">//如果包含, 返回 aString 的范围</span></div><div class="line"><span class="comment">//如果不包含, NSRange 的 location 为 NSNotFound, length为0</span></div><div class="line">- (<span class="built_in">NSRange</span>)rangeOfString:(<span class="built_in">NSString</span> *)aString;</div></pre></td></tr></table></figure>
+<h2 id="NSRange"><a href="#NSRange" class="headerlink" title="NSRange"></a>NSRange</h2><ul>
+<li>常见结构体, 定义:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _NSRange &#123;</div><div class="line">    <span class="built_in">NSUInteger</span> location;</div><div class="line">    <span class="built_in">NSUInteger</span> length;</div><div class="line">&#125;</div><div class="line"><span class="comment">//NSUInteger 的定义:无符号的整型</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="built_in">NSUInteger</span>;</div><div class="line"><span class="built_in">NSUInteger</span> location : 表示该范围的起始位置</div><div class="line"><span class="built_in">NSUInteger</span> length : 表示该范围内的长度</div></pre></td></tr></table></figure>
+<ul>
+<li><p>NSRange创建的几种方式</p>
+</li>
+<li><p>方式1:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSRange</span> range;</div><div class="line">range.location = <span class="number">7</span>;</div><div class="line">range.length = <span class="number">3</span>;</div></pre></td></tr></table></figure>
+</li>
+<li><p>方式2:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSRange</span> range = &#123;<span class="number">7</span>, <span class="number">3</span>&#125;;</div><div class="line"><span class="comment">// or</span></div><div class="line"><span class="built_in">NSRange</span> range = &#123;.locatin = <span class="number">7</span>, .length = <span class="number">3</span>&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>方式3:使用 NSMake 函数 OC中的结构体一般都有对应的 NSMake 函数</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSRange</span> range = <span class="built_in">NSMakeRange</span>(<span class="number">7</span>, <span class="number">3</span>);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/nsstringother/" itemprop="url">
+                  NSString的其他用法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/nsstringother/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsstringother/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -367,13 +505,21 @@
         
           
             <ul>
-<li>下面的方法是直接创建一个固定的 transform</li>
+<li>获取字符串的长度</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//参数最多, 可定制性最强, 用的不多</span></div><div class="line"><span class="built_in">CGAffineTransformMake</span>(&lt;<span class="meta">#CGFloat a#&gt;, <span class="meta-string">&lt;#CGFloat b#&gt;</span>, <span class="meta-string">&lt;#CGFloat c#&gt;</span>, <span class="meta-string">&lt;#CGFloat d#&gt;</span>, <span class="meta-string">&lt;#CGFloat tx#&gt;</span>, <span class="meta-string">&lt;#CGFloat ty#&gt;</span>);</span></div><div class="line"></div><div class="line"><span class="comment">//平移, 修改位置</span></div><div class="line"><span class="built_in">CGAffineTransformMakeTranslation</span>(&lt;<span class="meta">#CGFloat tx#&gt;, <span class="meta-string">&lt;#CGFloat ty#&gt;</span>);</span></div><div class="line"></div><div class="line"><span class="comment">//缩放</span></div><div class="line"><span class="built_in">CGAffineTransformMakeScale</span>(&lt;<span class="meta">#CGFloat sx#&gt;, <span class="meta-string">&lt;#CGFloat sy#&gt;</span>);</span></div><div class="line"></div><div class="line"><span class="comment">//旋转, 弧度 CGFloat == double</span></div><div class="line">    M_PI == 一个π  M_PI_2 == π/<span class="number">2</span>   M_1_PI = <span class="number">1</span>/π</div><div class="line"><span class="built_in">CGAffineTransformMakeRotation</span>(&lt;<span class="meta">#CGFloat angle#&gt;);</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSUIntrger</span>)length;</div></pre></td></tr></table></figure>
 <ul>
-<li>每次累加当前的 transform, 连续动画</li>
+<li>获取具体位置的字符</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//持续旋转</span></div><div class="line"><span class="built_in">CGAffineTransformRotate</span>(&lt;<span class="meta">#CGAffineTransform t#&gt;, <span class="meta-string">&lt;#CGFloat angle#&gt;</span>)</span></div><div class="line"></div><div class="line"><span class="comment">//持续缩放</span></div><div class="line"><span class="built_in">CGAffineTransformScale</span>(&lt;<span class="meta">#CGAffineTransform t#&gt;, <span class="meta-string">&lt;#CGFloat sx#&gt;</span>, <span class="meta-string">&lt;#CGFloat sy#&gt;</span>)</span></div><div class="line"></div><div class="line"><span class="comment">//连续移动</span></div><div class="line"><span class="built_in">CGAffineTransformTranslate</span>(&lt;<span class="meta">#CGAffineTransform t#&gt;, <span class="meta-string">&lt;#CGFloat tx#&gt;</span>, <span class="meta-string">&lt;#CGFloat ty#&gt;</span>)</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">unichar</span>)characterAtIndex:(<span class="built_in">NSUInteger</span>)index;</div><div class="line"><span class="comment">//返回 index 位置对应的字符, %c 输出</span></div></pre></td></tr></table></figure>
+<ul>
+<li>字符串和其他数据类型转换</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//转为基本数据类型</span></div><div class="line">- (<span class="keyword">double</span>)doubleValue;</div><div class="line">- (<span class="keyword">float</span>)floatValue;</div><div class="line">- (<span class="keyword">int</span>)intValue;</div><div class="line">...</div><div class="line"><span class="comment">//转为C语言字符串</span></div><div class="line">- (<span class="keyword">char</span> *)UTF8String;</div></pre></td></tr></table></figure>
+<ul>
+<li>NSString去除空格</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//去除所有空格, 字符串替换</span></div><div class="line">[str strByReplaceingOccurrencesOfString:<span class="string">@" "</span> withString:<span class="string">@""</span>];</div><div class="line"></div><div class="line"><span class="comment">//去除首位空格</span></div><div class="line">[str stringByTrimmingCharactersInSet:[<span class="built_in">NSCharacterSet</span> whitespaceCharacterSet]];</div></pre></td></tr></table></figure>
 
           
         
@@ -423,8 +569,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/uiapplication/" itemprop="url">
-                  UIApplication
+                <a class="post-title-link" href="/2016/07/07/nsstringinterceptionandreplacement/" itemprop="url">
+                  字符串的截取和替换
                 </a>
               
             
@@ -437,7 +583,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
               2016-07-07
             </time>
           </span>
@@ -451,8 +597,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
                   </a>
                 </span>
 
@@ -467,8 +613,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/uiapplication/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uiapplication/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsstringinterceptionandreplacement/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsstringinterceptionandreplacement/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -493,44 +639,10 @@
       
         
           
-            <h2 id="UIApplication对象介绍"><a href="#UIApplication对象介绍" class="headerlink" title="UIApplication对象介绍"></a>UIApplication对象介绍</h2><pre><code>* 对象主要用来保存一些数据和封装一些方法
-* 对象中的属性主要用来保存数据
-* 对象中的方法主要用来执行一些代码，即对象的一些行为
-
-* 如果接收到推送消息时，应用头像上的数字就是在应用级别上的操作。
-
-* 一个UIApplication代理一个应用程序，而且是单例的。
-    * 用来封装整个应用程序的一个对象，比如当应用程序执行到某个时期要做什么，生命周期等。
-* 获取UIApplication对象,&quot;[UIApplication sharedApplication];&quot;(单例)
-
-sharedApplication : 返回应用程序的单例对象
-    openURL : 可以打电话, 发邮件, 应用程序之间的跳转
-    keyWindow : 应用程序的主窗口
-    networkActivityIndicatorVisible : 在状态栏显示网络旋转的齿轮
-    applicationIconBadgeNumber : 应用头像上的数字
-    applicationSupportsShakeToEdit : 默认 yes, 摇晃手机时, Undo Redo 按钮
-
-* 当一个iOS程序启动后，首先创建的第一个对象就是UIApplication对象;
-* 利用UIApplication可以做一些应用级别的操作。
-    * 当qq有消息的时候右上角显示的消息条数。
-        * iOS8以后要经过用户的允许才能设置通知。
-        * 如果用户点击了不允许，就要手动到设置里面去进行配置。
-    * 联网操作时，状态栏上的等待图表指示器。waiting图表
-    * 利用UIApplication打开某个资源：
-        * 系统会自动根据协议识别使用某个app打开
-* 通过UIApplication管理状态栏
-    * 自从iOS7开始可以通过两种方式控制器状态栏的
-        * 控制器：通过UIViewController管理
-</code></pre><h2 id="UIApplicationDelegate介绍"><a href="#UIApplicationDelegate介绍" class="headerlink" title="UIApplicationDelegate介绍"></a>UIApplicationDelegate介绍</h2><pre><code>* 新建完项目后的那个AppDelegate文件，就是UIApplication的代理对象
-    * 并且该代理对象已经被设置好了，无需我们手动设置了。
-    * 在main函数中进行的设置
-</code></pre><h1 id="AppDelegate-应用程序代理对象"><a href="#AppDelegate-应用程序代理对象" class="headerlink" title="AppDelegate 应用程序代理对象"></a>AppDelegate 应用程序代理对象</h1><ul>
-<li><p>应用程序代理对象，用来监听应用程序的执行过程</p>
-</li>
-<li><p>常用监听方法</p>
-</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//应用程序加载完毕</span></div><div class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</div><div class="line">    <span class="comment">// Override point for customization after application launch.</span></div><div class="line">    <span class="comment">//可执行自定义操作</span></div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序失去焦点</span></div><div class="line">- (<span class="keyword">void</span>)applicationWillResignActive:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//不接受用户交互</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序进入后台</span></div><div class="line">- (<span class="keyword">void</span>)applicationDidEnterBackground:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//双击home键课查看</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序进入前台</span></div><div class="line">- (<span class="keyword">void</span>)applicationWillEnterForeground:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//双击home键，选中程序的时候进入前台</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序获取焦点</span></div><div class="line">- (<span class="keyword">void</span>)applicationDidBecomeActive:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//接受用户交互</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序销毁</span></div><div class="line">- (<span class="keyword">void</span>)applicationWillTerminate:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//只有在直接双击home，销毁程序时在会调用</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序接收到内存警告</span></div><div class="line">- (<span class="keyword">void</span>)didReceiveMemoryWarning &#123;</div><div class="line">    [<span class="keyword">super</span> didReceiveMemoryWarning];</div><div class="line">    <span class="comment">//当内存不足时，会收到系统的内存警告</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+            <h2 id="字符串的截取"><a href="#字符串的截取" class="headerlink" title="字符串的截取"></a>字符串的截取</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1.从指定位置from(包含指定位置的字符)开始到结尾</span></div><div class="line">- (<span class="built_in">NSString</span> *)substringFromIndex:(<span class="built_in">NSUInteger</span>)from;</div><div class="line"></div><div class="line"><span class="comment">//2.从字符串的开头一直截取到指定的位置to(不包含该位置的字符)</span></div><div class="line">- (<span class="built_in">NSString</span> *)substringToIndex:(<span class="built_in">NSUInteger</span>)to;</div><div class="line"></div><div class="line"><span class="comment">//3.按照所给的NSRange从字符串中截取子串</span></div><div class="line">- (<span class="built_in">NSString</span> *)substringWithRange:(<span class="built_in">NSRange</span>)range;</div></pre></td></tr></table></figure>
+<h2 id="字符串的替换"><a href="#字符串的替换" class="headerlink" title="字符串的替换"></a>字符串的替换</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用 replacement 替换 target</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByReplacingOccurrencesOfString:(<span class="built_in">NSString</span> *)target withString:(<span class="built_in">NSString</span> *)replacement;</div></pre></td></tr></table></figure>
+<h2 id="字符串与路径"><a href="#字符串与路径" class="headerlink" title="字符串与路径"></a>字符串与路径</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//是否是绝对路径</span></div><div class="line">- (<span class="built_in">BOOL</span>)isAbsolutePath;</div><div class="line"></div><div class="line"><span class="comment">//获得最后一个目录</span></div><div class="line">- (<span class="built_in">NSString</span> *)lastPathComponent;</div><div class="line"></div><div class="line"><span class="comment">//删除最后一个目录</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByDeletingLastPathComponent;</div><div class="line"></div><div class="line"><span class="comment">//在路径的后面拼接一个目录</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByAppendingPathComponent:(<span class="built_in">NSString</span> *)str;</div><div class="line"><span class="comment">//or 使用stringByAppendingString:或者stringByAppendingFormat:拼接字符串内容</span></div></pre></td></tr></table></figure>
+<h2 id="字符串与文件扩展名"><a href="#字符串与文件扩展名" class="headerlink" title="字符串与文件扩展名"></a>字符串与文件扩展名</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取扩展名</span></div><div class="line">- (<span class="built_in">NSString</span> *)pathExtension;</div><div class="line"></div><div class="line"><span class="comment">//删除尾部扩展名</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByDeletingPathExtension;</div><div class="line"></div><div class="line"><span class="comment">//在尾部添加扩展名</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByAppendingPathExtension:(<span class="built_in">NSString</span> *)str;</div></pre></td></tr></table></figure>
 
           
         
@@ -580,8 +692,8 @@ sharedApplication : 返回应用程序的单例对象
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/autolayout/" itemprop="url">
-                  Autolayout
+                <a class="post-title-link" href="/2016/07/07/nsstringcompare/" itemprop="url">
+                  字符串的比较
                 </a>
               
             
@@ -594,7 +706,7 @@ sharedApplication : 返回应用程序的单例对象
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
               2016-07-07
             </time>
           </span>
@@ -608,8 +720,8 @@ sharedApplication : 返回应用程序的单例对象
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
                   </a>
                 </span>
 
@@ -624,8 +736,8 @@ sharedApplication : 返回应用程序的单例对象
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/autolayout/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/autolayout/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsstringcompare/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsstringcompare/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -650,46 +762,23 @@ sharedApplication : 返回应用程序的单例对象
       
         
           
-            <h2 id="使用代码实现Autolayout的方法1"><a href="#使用代码实现Autolayout的方法1" class="headerlink" title="使用代码实现Autolayout的方法1"></a>使用代码实现Autolayout的方法1</h2><ul>
-<li>创建约束</li>
+            <h2 id="NSString的大小写处理"><a href="#NSString的大小写处理" class="headerlink" title="NSString的大小写处理"></a>NSString的大小写处理</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//全部转大写</span></div><div class="line">- (<span class="built_in">NSString</span> *)uppercaseString;</div><div class="line"><span class="comment">//全部转小写</span></div><div class="line">- (<span class="built_in">NSString</span> *)lowercaseString;</div><div class="line"><span class="comment">//首字母大写, 其它变小写</span></div><div class="line">- (<span class="built_in">NSString</span> *)capitalizedString;</div></pre></td></tr></table></figure>
+<h2 id="字符串的比较"><a href="#字符串的比较" class="headerlink" title="字符串的比较"></a>字符串的比较</h2><ul>
+<li>1.两个字符串的内容相同就返回YES, 否则返回NO</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+(<span class="keyword">id</span>)constraintWithItem:(<span class="keyword">id</span>)view1</div><div class="line">attribute:(<span class="built_in">NSLayoutAttribute</span>)attr1</div><div class="line">relatedBy:(<span class="built_in">NSLayoutRelation</span>)relation</div><div class="line">toItem:(<span class="keyword">id</span>)view2</div><div class="line">attribute:(<span class="built_in">NSLayoutAttribute</span>)attr2</div><div class="line">multiplier:(<span class="built_in">CGFloat</span>)multiplier</div><div class="line">constant:(<span class="built_in">CGFloat</span>)c;</div><div class="line">* view1 ：要约束的控件</div><div class="line">* attr1 ：约束的类型（做怎样的约束）</div><div class="line">* relation ：与参照控件之间的关系</div><div class="line">* view2 ：参照的控件</div><div class="line">* attr2 ：约束的类型（做怎样的约束）</div><div class="line">* multiplier ：乘数</div><div class="line">* c ：常量</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)isEqualToString:(<span class="built_in">NSString</span> *)aString;</div></pre></td></tr></table></figure>
 <ul>
-<li>添加约束</li>
+<li>2.比较两个字符串内容的大小</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)addConstraint:(<span class="built_in">NSLayoutConstraint</span> *)constraint;</div><div class="line">- (<span class="keyword">void</span>)addConstraints:(<span class="built_in">NSArray</span> *)constraints;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//比较方法:逐个字符进行比较ASCII值, 只要有有一个值能够比较出大小, 就返回NSComparisonResult作为比较结果</span></div><div class="line"><span class="comment">/**</span></div><div class="line">NSComparisonResult是一个枚举，有3个值:</div><div class="line">如果左侧  &lt;  右侧,返回NSOrderedAscending,-1L</div><div class="line">如果左侧  &gt;  右侧,返回NSOrderedDescending,</div><div class="line">如果左侧  == 右侧,返回NSOrderedSame</div><div class="line">*/</div><div class="line"></div><div class="line"><span class="comment">//区分大小写比较</span></div><div class="line">- (<span class="built_in">NSComparisonResult</span>)compare:(<span class="built_in">NSString</span> *)string;</div><div class="line"><span class="comment">//忽略大小写比较</span></div><div class="line">- (<span class="built_in">NSComparisonResult</span>) caseInsensitiveCompare:(<span class="built_in">NSString</span> *)string;</div></pre></td></tr></table></figure>
 <ul>
-<li>注意<ul>
-<li>一定要在拥有父控件之后再添加约束</li>
-<li>关闭Autoresizing功能<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">view.translatesAutoresizingMaskIntoConstraints = <span class="literal">NO</span>;</div></pre></td></tr></table></figure>
-</li>
+<li>eg:</li>
 </ul>
-</li>
-</ul>
-<h2 id="使用代码实现Autolayout的方法2-VFL"><a href="#使用代码实现Autolayout的方法2-VFL" class="headerlink" title="使用代码实现Autolayout的方法2 - VFL"></a>使用代码实现Autolayout的方法2 - VFL</h2><ul>
-<li>使用VFL创建约束数组</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">NSArray</span> *)constraintsWithVisualFormat:(<span class="built_in">NSString</span> *)format</div><div class="line">options:(<span class="built_in">NSLayoutFormatOptions</span>)opts</div><div class="line">metrics:(<span class="built_in">NSDictionary</span> *)metrics</div><div class="line">views:(<span class="built_in">NSDictionary</span> *)views;</div><div class="line">* format ：VFL语句</div><div class="line">* opts ：约束类型</div><div class="line">* metrics ：VFL语句中用到的具体数值</div><div class="line">* views ：VFL语句中用到的控件</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str = <span class="string">@"adc"</span>;</div><div class="line"><span class="built_in">NSString</span> *str2 = <span class="string">@"ADc"</span>;</div><div class="line"><span class="built_in">NSComparisonResult</span> result = [str compare:str2];</div><div class="line"><span class="keyword">switch</span> (result) &#123;</div><div class="line">  <span class="keyword">case</span> <span class="built_in">NSOrderedDescending</span>:</div><div class="line">       <span class="built_in">NSLog</span>(<span class="string">@"str &gt; str2"</span>);</div><div class="line">       <span class="keyword">break</span>;</div><div class="line">  <span class="keyword">case</span> <span class="built_in">NSOrderedAscending</span>:</div><div class="line">       <span class="built_in">NSLog</span>(<span class="string">@"str &lt; str2"</span>);</div><div class="line">       <span class="keyword">break</span>;</div><div class="line">  <span class="keyword">case</span> <span class="built_in">NSOrderedSame</span>:</div><div class="line">       <span class="built_in">NSLog</span>(<span class="string">@"str == str2"</span>);</div><div class="line">       <span class="keyword">break</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
-<li>使用下面的宏来自动生成views和metrics参数</li>
+<li>eg:</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSDictionaryOfVariableBindings</span>(...)</div></pre></td></tr></table></figure>
-<h2 id="使用代码实现Autolayout的方法3-Masonry"><a href="#使用代码实现Autolayout的方法3-Masonry" class="headerlink" title="使用代码实现Autolayout的方法3 - Masonry"></a>使用代码实现Autolayout的方法3 - Masonry</h2><ul>
-<li><p>使用步骤</p>
-<ul>
-<li>添加Masonry文件夹的所有源代码到项目中</li>
-<li>添加2个宏、导入主头文件<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">// 只要添加了这个宏，就不用带mas_前缀</span></div><div class="line">    <span class="meta">#define MAS_SHORTHAND</span></div><div class="line"><span class="comment">// 只要添加了这个宏，equalTo就等价于mas_equalTo</span></div><div class="line"><span class="meta">#define MAS_SHORTHAND_GLOBALS</span></div><div class="line"><span class="comment">// 这个头文件一定要放在上面两个宏的后面</span></div><div class="line"><span class="meta">#import <span class="meta-string">"Masonry.h"</span></span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>添加约束的方法</p>
-</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 这个方法只会添加新的约束</span></div><div class="line"> [view makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line"></div><div class="line"> &#125;];</div><div class="line"></div><div class="line"><span class="comment">// 这个方法会将以前的所有约束删掉，添加新的约束</span></div><div class="line"> [view remakeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line"></div><div class="line"> &#125;];</div><div class="line"></div><div class="line"> <span class="comment">// 这个方法将会覆盖以前的某些特定的约束</span></div><div class="line"> [view updateConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line"></div><div class="line"> &#125;];</div></pre></td></tr></table></figure>
-<ul>
-<li>约束的类型<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span>尺寸：width\height\size</div><div class="line"><span class="number">2.</span>边界：left\leading\right\trailing\top\bottom</div><div class="line"><span class="number">3.</span>中心点：center\centerX\centerY</div><div class="line"><span class="number">4.</span>边界：edges</div></pre></td></tr></table></figure>
-</li>
-</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> <span class="built_in">NSString</span> *str = <span class="string">@"aBc"</span>;</div><div class="line"> <span class="built_in">NSString</span> *str1 = <span class="string">@"abc"</span>;</div><div class="line"></div><div class="line"> <span class="comment">// 忽略大小写字符串比较</span></div><div class="line"> <span class="built_in">NSComparisonResult</span> result = [str caseInsensitiveCompare:str1];</div><div class="line"></div><div class="line"><span class="comment">// 因为忽略B和b,所以str = str1</span></div><div class="line">  <span class="built_in">NSLog</span>(<span class="string">@"%ld"</span>,result);</div></pre></td></tr></table></figure>
 
           
         
@@ -739,8 +828,8 @@ sharedApplication : 返回应用程序的单例对象
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/uicollectionview/" itemprop="url">
-                  UICollectionView
+                <a class="post-title-link" href="/2016/07/07/nsstring/" itemprop="url">
+                  NSString
                 </a>
               
             
@@ -753,7 +842,7 @@ sharedApplication : 返回应用程序的单例对象
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
               2016-07-07
             </time>
           </span>
@@ -767,8 +856,8 @@ sharedApplication : 返回应用程序的单例对象
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
                   </a>
                 </span>
 
@@ -783,8 +872,8 @@ sharedApplication : 返回应用程序的单例对象
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/uicollectionview/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uicollectionview/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsstring/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsstring/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -809,194 +898,33 @@ sharedApplication : 返回应用程序的单例对象
       
         
           
-            <p>###UICollectionView</p>
-<p>####1. 实例化 collectionView 必须传入一个非空的 layout 布局对象</p>
+            <h2 id="NSString创建方法"><a href="#NSString创建方法" class="headerlink" title="NSString创建方法"></a>NSString创建方法</h2><ul>
+<li>1.直接创建字符串:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str1 = <span class="string">@"ZXX"</span>;</div><div class="line"><span class="built_in">NSString</span> *str2 = <span class="string">@"ZXX"</span>;</div><div class="line"><span class="comment">//输出地址相同</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str1-%p"</span>, str1);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str2-%p"</span>, str2);</div></pre></td></tr></table></figure>
 <ul>
-<li>UICollectionViewLayout</li>
-<li>UICollectionViewFlowLayout 是 UICollectionViewLayout 的子类</li>
+<li>2.格式化(凭借)字符串(堆区):</li>
 </ul>
-<p>####2. 注册 cell</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str1 = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"ZXX"</span>];</div><div class="line"><span class="built_in">NSString</span> *str2 = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"ZXX"</span>];</div><div class="line"><span class="comment">//输出地址不同</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str1-%p"</span>, str1);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str2-%p"</span>, str2);</div></pre></td></tr></table></figure>
 <ul>
-<li>class</li>
-<li>xib  必须设置重用标识符 registerNib</li>
-<li>storyboard prototype  必须设置重用标识符</li>
+<li>3.转换C语言字符串</li>
 </ul>
-<p>####3. flowLayout</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> *str1 = <span class="string">"ZXX"</span>;</div><div class="line"><span class="built_in">NSString</span> *str2 = [<span class="built_in">NSString</span> stringWithUTF8String:str1];</div><div class="line"><span class="comment">//输出地址不同</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str1--%p--%s"</span>,str1,str1);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str2--%p--%@"</span>,str2,str2);</div></pre></td></tr></table></figure>
 <ul>
-<li>itemSize 设置 cell 的大小</li>
-<li>sectionInsets 设置组的内边距</li>
-<li>scrollDirection 设置滚动方向</li>
-<li>minimumInterItemSpacing 列间距(垂直方向)</li>
-<li>minimumLineSpacing  行间距(垂直方向)</li>
-</ul>
-<p>####4.组头/组尾</p>
+<li><p>4.从文件在读取:</p>
 <ul>
-<li>必须通过代理方法进行重用返回</li>
-<li>如果通过 storyboard 拖拽显示, 必须设置重用标识符, 不然代理方法不会执行</li>
-</ul>
-<p>####悬浮效果<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- flowLayout.sectionHeaderPinToVisibleBounds = <span class="literal">YES</span>;</div><div class="line">- flowLayout.sectionFooterPinToVisibleBounds = <span class="literal">YES</span>;</div></pre></td></tr></table></figure></p>
-<p>####设置组头/组尾的 size, 也与滚动方向有关</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">flowLayout.headerReferenceSize = <span class="built_in">CGSizeMake</span>(垂直滚动时无效, 水平滚动时无效);</div><div class="line">flowLayout.footerReferenceSize = <span class="built_in">CGSizeMake</span>(垂直滚动时无效, 水平滚动时无效);</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/uitextfield/" itemprop="url">
-                  UITextField
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/uitextfield/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uitextfield/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>####返回textField的宽度</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.textField.width = [<span class="keyword">self</span>.textField.text sizeWithAttributes:@&#123;<span class="built_in">NSFontAttributeName</span> : <span class="keyword">self</span>.textField.font&#125;].width;</div></pre></td></tr></table></figure>
-<h3 id="富文本"><a href="#富文本" class="headerlink" title="富文本"></a>富文本</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">   NSMutableDictionary *attributes = [NSMutableDictionary dictionary];</div><div class="line"></div><div class="line">   attributes[NSFontAttributeName] = [UIFont systemFontOfSize:16];</div><div class="line"></div><div class="line">   attributes[NSForegroundColorAttributeName] = [UIColor grayColor];</div><div class="line"></div><div class="line">   //NSAttributedString : 带有属性的文字(富文本)</div><div class="line">   NSAttributedString *placeholder = [[NSAttributedString alloc] initWithString:@"账号" attributes:attributes];</div><div class="line"></div><div class="line">   self.phoneField.attributedPlaceholder = placeholder;</div><div class="line">    */</div><div class="line"></div><div class="line">   <span class="comment">/*</span></div><div class="line">   NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc] initWithString:@"手机号"];</div><div class="line">   //NSMutableAttributedString 可以单个字设置属性</div><div class="line">   [placeholder setAttributes:@&#123;NSForegroundColorAttributeName: [UIColor whiteColor]&#125; range:NSMakeRange(0, 1)];</div><div class="line"></div><div class="line">   self.phoneField.attributedPlaceholder = placeholder;</div><div class="line">    */</div></pre></td></tr></table></figure>
-<h2 id="UITextField-设置监听的3种方式"><a href="#UITextField-设置监听的3种方式" class="headerlink" title="UITextField 设置监听的3种方式:"></a>UITextField 设置监听的3种方式:</h2><h5 id="1-gt-通过addTarget方式"><a href="#1-gt-通过addTarget方式" class="headerlink" title="1&gt; 通过addTarget方式"></a>1&gt; 通过addTarget方式</h5><ul>
-<li>UITextField继承UIControll,可以addTarget监听。</li>
-<li>但是这种方式只能监听一些”单击事件”、”滚动条滚动事件”等, 有些事件通过addTarget方式监听无效, 比如”Value Changed”事件。</li>
-</ul>
-<p>####2&gt; 通过代理</p>
-<ul>
-<li>文本框的代理协议”UITextFieldDelegate”。演示:textFieldShouldBeginEditing方法。</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 为某个文本框设置代理</span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="comment">// 设置文本框代理为当前控制器。</span></div><div class="line">    <span class="keyword">self</span>.textFidld.delegate = <span class="keyword">self</span>;</div><div class="line"> &#125;</div><div class="line"></div><div class="line"><span class="comment">// 让当前控制器遵守UITextFieldDelegate协议, 并且实现- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField方法, 返回YES</span></div><div class="line">- (<span class="built_in">BOOL</span>)textFieldShouldBeginEditing:(<span class="built_in">UITextField</span> *)textField</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="3-gt-通过”通知中心”监听事件。"><a href="#3-gt-通过”通知中心”监听事件。" class="headerlink" title="3&gt; 通过”通知中心”监听事件。"></a>3&gt; 通过”通知中心”监听事件。</h3><p>** 思路: 让用户名、密码文本框同时设置监听到textChanged方法。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//参考代码:</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line"><span class="comment">//通过通知中心监听文本框内容变化, 添加观察者</span></div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(textFieldValueChanged) name:<span class="built_in">UITextFieldTextDidChangeNotification</span> object:<span class="keyword">self</span>.userNameTextField];</div><div class="line"></div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(textFieldValueChanged) name:<span class="built_in">UITextFieldTextDidChangeNotification</span> object:<span class="keyword">self</span>.passWordTextField];</div><div class="line"></div><div class="line"><span class="comment">//TextField通知名</span></div><div class="line"><span class="comment">//    UIKIT_EXTERN NSString *const UITextFieldTextDidBeginEditingNotification;</span></div><div class="line"><span class="comment">//    UIKIT_EXTERN NSString *const UITextFieldTextDidEndEditingNotification;</span></div><div class="line"><span class="comment">//    UIKIT_EXTERN NSString *const UITextFieldTextDidChangeNotification;</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//实现监听方法</span></div><div class="line">- (<span class="keyword">void</span>) textFieldValueChanged</div><div class="line">&#123;</div><div class="line">    <span class="comment">//文本框的值发送改变, 就会调用</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**** 注意通过通知的方式注册事件, 需要在dealloc方法中移除 ****/</span></div><div class="line"><span class="comment">// 移除通知监听, 观察者被销毁时, 在观察着的dealloc方法中移除</span></div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="comment">//移除观察者</span></div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter]removeObserver:<span class="keyword">self</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Placeholder"><a href="#Placeholder" class="headerlink" title="Placeholder"></a>Placeholder</h3><ul>
-<li>文本框有占位符，提示用户输入什么。设置 placeholder</li>
-</ul>
-<h3 id="Secure-Text-Entry"><a href="#Secure-Text-Entry" class="headerlink" title="Secure Text Entry"></a>Secure Text Entry</h3><ul>
-<li>密码文本框是暗文，密码属于机密，不需要显示出来。设置文本框的”Secure Text Entry”属性</li>
-</ul>
-<h3 id="Clear-Button"><a href="#Clear-Button" class="headerlink" title="Clear Button"></a>Clear Button</h3><ul>
-<li>当文本框输入文字，会显示清除按钮，提高用户体验。设置文本框的”Clear Button”属性</li>
-</ul>
-<h3 id="Segue对象。"><a href="#Segue对象。" class="headerlink" title="Segue对象。"></a>Segue对象。</h3><ul>
-<li><p>在xcode6.1下, 拖线时选择Segue的style为show, 等价于以前的push。</p>
+<li><p>4.1编码:</p>
+<p>英文:iso-8859-1</p>
+<p>中文:GB2312 &lt; GBK &lt; GB18030  汉字多少</p>
 </li>
-<li><p>重新拖线（手动 Segue）, 从控制器 to 控制器。</p>
+<li><p>4.2将字符串写入文件</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *content = <span class="string">@"ZXX"</span>;</div><div class="line"><span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</div><div class="line"><span class="comment">// 注意：此时的one文件夹必须存在，否则写入失败。</span></div><div class="line"><span class="comment">// 如果one文件夹存在，write.txt会自动被创建。</span></div><div class="line">[content writeToFile:<span class="string">@"/Users/yan/Desktop/one/write.txt"</span> atomically:<span class="literal">YES</span> encoding:<span class="built_in">NSUTF8StringEncoding</span> error:&amp;error];</div><div class="line"><span class="keyword">if</span> (error != <span class="literal">nil</span>) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"错误信息：%@"</span>,error.localizedDescription);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"恭喜！写入成功！"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>4.2从文件中读取字符串</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</div><div class="line"><span class="built_in">NSString</span> *readFile = [<span class="built_in">NSString</span> stringWithContentsOfFile:<span class="string">@"/Users/yan/Desktop/readFile.txt"</span> encoding:<span class="built_in">NSUTF8StringEncoding</span> error:&amp;error];</div><div class="line"></div><div class="line"><span class="keyword">if</span> (error == <span class="literal">nil</span>) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,readFile);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,error.localizedDescription);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//参考代码 :</span></div><div class="line">[<span class="keyword">self</span> performSegueWithIdentifier:<span class="string">@"login2contact"</span> sender:<span class="string">@"Jack"</span>];</div><div class="line"></div><div class="line"><span class="comment">//实现控制器的- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender方法。</span></div><div class="line"></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)prepareForSegue:(<span class="built_in">UIStoryboardSegue</span> *)segue sender:(<span class="keyword">id</span>)sender &#123;</div><div class="line"><span class="comment">// Get the new view controller using [segue destinationViewController].</span></div><div class="line"><span class="comment">// Pass the selected object to the new view controller.</span></div><div class="line"><span class="comment">//    NSLog(@"%@",sender);</span></div><div class="line"><span class="comment">//获取目标控制器</span></div><div class="line">    <span class="built_in">UIViewController</span> * targetVC = segue.destinationViewController;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//performSegueWithIdentifier:sender:的执行过程</span></div><div class="line">[<span class="keyword">self</span> performSegueWithIdentifier:<span class="string">@"login2contacts"</span> sender:<span class="literal">nil</span>];</div><div class="line"><span class="comment">//1&gt; self是来源控制器，只能通过来源控制器来调该方法。</span></div><div class="line"><span class="comment">//2&gt; 根据identifier去storyboard中找到对应的线，新建UIStoryboardSegue对象</span></div><div class="line"><span class="comment">//3&gt; 设置Segue对象的sourceViewController（来源控制器）</span></div><div class="line"><span class="comment">//4&gt; 新建并且设置Segue对象的destinationViewController（目标控制器）</span></div><div class="line"><span class="comment">//5&gt; 调用- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender方法</span></div><div class="line"><span class="comment">//6&gt; 执行跳转。</span></div><div class="line"><span class="comment">//** 具体跳转步骤:</span></div><div class="line"><span class="comment">//1&gt; 通过segue对象的sourceViewController获取源控制器所在的导航控制器。</span></div><div class="line"><span class="comment">//2&gt; 将segue的destinationViewControlelr压栈(push)进去。</span></div></pre></td></tr></table></figure>
-<h3 id="提示框的弹出"><a href="#提示框的弹出" class="headerlink" title="提示框的弹出"></a>提示框的弹出</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//xcode7下</span></div><div class="line">- (<span class="keyword">IBAction</span>)logOutBtnClick:(<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="built_in">UIAlertController</span> * alert = [<span class="built_in">UIAlertController</span> alertControllerWithTitle:<span class="string">@"确定注销吗?"</span> message:<span class="literal">nil</span> preferredStyle:<span class="built_in">UIAlertControllerStyleActionSheet</span>];</div><div class="line"></div><div class="line">    <span class="built_in">UIAlertAction</span> * okAction = [<span class="built_in">UIAlertAction</span> actionWithTitle:<span class="string">@"确定"</span> style:<span class="built_in">UIAlertActionStyleDestructive</span> handler:^(<span class="built_in">UIAlertAction</span> * _Nonnull action) &#123;</div><div class="line">    [<span class="keyword">self</span>.navigationController popViewControllerAnimated:<span class="literal">YES</span>];</div><div class="line">    &#125;];</div><div class="line"></div><div class="line">    <span class="built_in">UIAlertAction</span> * cancel = [<span class="built_in">UIAlertAction</span> actionWithTitle:<span class="string">@"取消"</span> style:<span class="built_in">UIAlertActionStyleCancel</span> handler:<span class="literal">nil</span>];</div><div class="line"></div><div class="line">    [alert addAction:okAction];</div><div class="line"></div><div class="line">    [alert addAction:cancel];</div><div class="line"></div><div class="line">    [<span class="keyword">self</span> presentViewController:alert animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// xcode6</span></div><div class="line"></div><div class="line"><span class="comment">// 1. 弹出UIActionSheet对话框</span></div><div class="line"><span class="built_in">UIActionSheet</span> *sheet = [[<span class="built_in">UIActionSheet</span> alloc] initWithTitle:<span class="string">@"确定要注销"</span> delegate:<span class="keyword">self</span> cancelButtonTitle:<span class="string">@"取消"</span> destructiveButtonTitle:<span class="string">@"注销"</span> otherButtonTitles:<span class="literal">nil</span>, <span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//alertView 上添加一个 textField</span></div><div class="line"><span class="comment">/*</span></div><div class="line">UIAlertViewStyleDefault = 0,</div><div class="line">UIAlertViewStyleSecureTextInput,//安全的文本输入, 密码保护模式</div><div class="line">UIAlertViewStylePlainTextInput,//普通的文本输入</div><div class="line">UIAlertViewStyleLoginAndPasswordInput//两行输入,Login 和 Password</div><div class="line">*/</div><div class="line">alertView.alertViewStyle = <span class="built_in">UIAlertViewStylePlainTextInput</span>;</div><div class="line"></div><div class="line"><span class="comment">//获取 alertView上的 textField</span></div><div class="line"><span class="built_in">UITextField</span> *textField = [alertView textFieldAtIndex:<span class="number">0</span>];</div><div class="line"></div><div class="line">[sheet showInView:<span class="keyword">self</span>.view];</div></pre></td></tr></table></figure>
-<ul>
-<li>UIActionSheet中的按钮点击事件</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)actionSheet:(<span class="built_in">UIActionSheet</span> *)actionSheet clickedButtonAtIndex:(<span class="built_in">NSInteger</span>)buttonIndex</div><div class="line">&#123;</div><div class="line">    <span class="comment">//buttonIndex 对应按钮的下标</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="awakeFromNib"><a href="#awakeFromNib" class="headerlink" title="awakeFromNib"></a>awakeFromNib</h3><ul>
-<li>awakeFromNib什么时候调用？xib加载完成的时候调用</li>
-<li>awakeFromNib的作用:从控件从xib加载完成之后，做一些初始化操作。</li>
-<li>在layoutSubViews设置尺寸。</li>
+</li>
 </ul>
 
           
@@ -1047,8 +975,8 @@ sharedApplication : 返回应用程序的单例对象
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/uiimageview/" itemprop="url">
-                  UIImageView
+                <a class="post-title-link" href="/2016/07/07/nsstringandnsurl/" itemprop="url">
+                  使用NSURL读写字符串
                 </a>
               
             
@@ -1061,7 +989,7 @@ sharedApplication : 返回应用程序的单例对象
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
               2016-07-07
             </time>
           </span>
@@ -1075,8 +1003,8 @@ sharedApplication : 返回应用程序的单例对象
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
                   </a>
                 </span>
 
@@ -1091,8 +1019,8 @@ sharedApplication : 返回应用程序的单例对象
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/uiimageview/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uiimageview/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsstringandnsurl/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsstringandnsurl/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1117,30 +1045,30 @@ sharedApplication : 返回应用程序的单例对象
       
         
           
-            <p>###UIImageView 帧动画</p>
-<pre><code>1. 可以展示单张图片
-2. 也可以用来播放动画
-3. 播放动画的方法
- - (void)startAnimating;//开始播放
- - (void)stopAnimating;//结束播放
- - (BOOL)isAnimating;//是否正在播放
-4. 用来存放动画图片的属性
- @property(nonatomic, copy) NSArray *animationImages;
-5. 播放的属性
- @property (nonatomic) NSTimeInterval animationDuration;//持续时间
-
- //如果不设置默认会无限循环播放
- @property (nonatomic) NSInteger      animationRepeatCount;//重复次数
-</code></pre><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//eg:</span></div><div class="line"><span class="keyword">if</span> ([<span class="keyword">self</span>.imageView isAnimating]) <span class="keyword">return</span>;</div><div class="line"></div><div class="line"><span class="comment">//动画数组</span></div><div class="line"><span class="keyword">self</span>.imageView.animationImages = arrM;</div><div class="line"></div><div class="line"><span class="comment">//设置播放动画的属性 ---- 必须在播放之前</span></div><div class="line"><span class="keyword">self</span>.imageView.animationDuration = <span class="number">3</span>;<span class="comment">//时间</span></div><div class="line"><span class="keyword">self</span>.imageView.animationRepeatCount = <span class="number">1</span>;<span class="comment">//次数</span></div><div class="line"></div><div class="line"><span class="comment">//开始动画</span></div><div class="line">[<span class="keyword">self</span>.imageView startAnimating];</div><div class="line"></div><div class="line"><span class="comment">//动画结束, 释放图片内存</span></div><div class="line"></div><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">3.0</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">    <span class="comment">// 3.0s后自动执行这个block里面的代码</span></div><div class="line">    <span class="keyword">self</span>.imageView.animationImages = <span class="literal">nil</span>;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>###读取图片的两种方式:</p>
-<pre><code>imageNamed: 自动对图片做缓存
-    优点: 第一次加载之后,  后面再使用直接读取缓存
-    缺点: 会导致内存飙升
-imageWithContentOfFile: 不会做缓存  路径: NSBundle
-    优点:  不做缓存
-    缺点: 加载比较慢
-</code></pre><h3 id="拉伸图片"><a href="#拉伸图片" class="headerlink" title="拉伸图片"></a>拉伸图片</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//方式一:</span></div><div class="line"><span class="built_in">UIImage</span> *resizeImage = [image resizableImageWithCapInsets:<span class="built_in">UIEdgeInsetsMake</span>(halfHeight, halfWidth, halfHeight, halfWidth) resizingMode:<span class="built_in">UIImageResizingModeStretch</span>];</div><div class="line"><span class="comment">//方式二:</span></div><div class="line">Assets : Show Slicing</div></pre></td></tr></table></figure>
-<h3 id="Xcode-的-UUID"><a href="#Xcode-的-UUID" class="headerlink" title="Xcode 的 UUID"></a>Xcode 的 UUID</h3><p>9AFF134A-08DC-4096-8CEE-62A4BB123046<br>插件的安装路径<br>~/Library/Application Support/Developer/Shared/Xcode/Plug-ins</p>
+            <h2 id="NSURL简介"><a href="#NSURL简介" class="headerlink" title="NSURL简介"></a>NSURL简介</h2><ul>
+<li><strong>什么是URL?</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">URL:Uniform Resource Locator(统一资源定位符).</div><div class="line">URL是互联网上标准资源的地址</div><div class="line">互联网上的每个资源都有一个唯一的URL, 它包含的信息指出资源的位置, 根据一个URL就能找到唯一的一个资源.</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>URL的格式?</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">基本URL包含协议、主机域名(服务器名称\IP地址)、路径</div><div class="line">举例: http://ios.itcast.cn/ios/images/content_25.jpg</div><div class="line">可以简单认为: URL == 协议头://主机域名/路径</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>常见的URL协议头(URL类型)</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">http\https:超文本传输协议资源, 网络资源</div><div class="line">在URL前加https://前缀表明是用SSL加密的。你的电脑与服务器之间收发的信息传输将更加安全。</div><div class="line"></div><div class="line">Web服务器启用SSL需要获得一个服务器证书并将该证书与要使用SSL的服务器绑定。</div><div class="line">http和https使用的是完全不同的连接方式,用的端口也不一样,前者是80,后者是443。http的连接很简单,是无状态的。</div><div class="line"></div><div class="line">https协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议要比http协议安全。</div><div class="line">ftp:文件传输协议。</div><div class="line">file:本地电脑的文件。</div></pre></td></tr></table></figure>
+<h2 id="URL创建"><a href="#URL创建" class="headerlink" title="URL创建"></a>URL创建</h2><ul>
+<li><p>通过URL读取字符串</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">//获取URL</span></div><div class="line">    <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@"file:///Users/yan/Desktop/writeFile.txt"</span>];</div><div class="line"><span class="comment">//    NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];</span></div><div class="line">    <span class="comment">//保存错误信息</span></div><div class="line">    <span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</div><div class="line">    <span class="comment">//读取URL中的内容</span></div><div class="line">    <span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithContentsOfURL:url encoding:<span class="built_in">NSUTF8StringEncoding</span> error:&amp;error];</div><div class="line">    <span class="keyword">if</span> (error != <span class="literal">nil</span>) &#123;</div><div class="line">        <span class="comment">// 如果读取失败，打印失败信息</span></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"错误信息：%@"</span>,error.localizedDescription);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="comment">// 否则，输出URL内容</span></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,str);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>通过文件路径创建URL(默认就是file协议)</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">    <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> fileURLWithPath:<span class="string">@"/Users/yan/Desktop/writeFile.txt"</span>];</div><div class="line">    <span class="comment">// 读取URL中的内容</span></div><div class="line">    <span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithContentsOfURL:url encoding:<span class="built_in">NSUTF8StringEncoding</span> error:<span class="literal">nil</span>];</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"成功：%@"</span>,str);</div><div class="line"><span class="comment">// 注意：默认是file协议，不能手动写。否则解析不出来。</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="NSString的存储"><a href="#NSString的存储" class="headerlink" title="NSString的存储"></a>NSString的存储</h2><ul>
+<li>可以将NSString存储到一个文件中</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str = <span class="string">@"sayHi~"</span>;</div><div class="line"><span class="comment">//存储到文件中</span></div><div class="line">[str writeToFild:<span class="string">@"/Users/yan/Desktop/str.txt"</span> atomically:<span class="literal">YES</span> encoding:<span class="built_in">NSUTF8StringEncoding</span> error:<span class="literal">nil</span>];</div><div class="line"><span class="comment">//存储到URL中</span></div><div class="line">[str writeToURL:[<span class="built_in">NSURL</span> URLWithString:<span class="string">@"file:///Users/yan/Desktop/str.txt"</span>] atomically:<span class="literal">YES</span> encoding:<span class="built_in">NSUTF8StringEncoding</span> error:<span class="literal">nil</span>];</div></pre></td></tr></table></figure>
 
           
         
@@ -1190,8 +1118,8 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/uimenucontroller/" itemprop="url">
-                  UIMenuController
+                <a class="post-title-link" href="/2016/07/07/nsstringandmrc/" itemprop="url">
+                  NSString类的内存管理
                 </a>
               
             
@@ -1204,7 +1132,7 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
               2016-07-07
             </time>
           </span>
@@ -1218,8 +1146,8 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
                   </a>
                 </span>
 
@@ -1234,8 +1162,8 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/uimenucontroller/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uimenucontroller/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsstringandmrc/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsstringandmrc/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1260,8 +1188,25 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
       
         
           
-            <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark -</span></div><div class="line"><span class="meta">#pragma mark - UIMenuController的处理</span></div><div class="line">- (<span class="keyword">void</span>)didClickCell</div><div class="line">&#123;</div><div class="line">    <span class="built_in">UIMenuController</span> *menu = [<span class="built_in">UIMenuController</span> sharedMenuController];</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (menu.isMenuVisible) &#123;</div><div class="line"></div><div class="line">        [menu setMenuVisible:<span class="literal">NO</span> animated:<span class="literal">YES</span>];</div><div class="line"></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [<span class="keyword">self</span> becomeFirstResponder];</div><div class="line"></div><div class="line">        <span class="built_in">UIMenuItem</span> *dingItem = [[<span class="built_in">UIMenuItem</span> alloc] initWithTitle:<span class="string">@"顶"</span> action:<span class="keyword">@selector</span>(ding:)];</div><div class="line">        <span class="built_in">UIMenuItem</span> *replyItem = [[<span class="built_in">UIMenuItem</span> alloc] initWithTitle:<span class="string">@"回复"</span> action:<span class="keyword">@selector</span>(reply:)];</div><div class="line">        <span class="built_in">UIMenuItem</span> *reportItem = [[<span class="built_in">UIMenuItem</span> alloc] initWithTitle:<span class="string">@"举报"</span> action:<span class="keyword">@selector</span>(report:)];</div><div class="line">        [menu setMenuItems:@[dingItem, replyItem, reportItem]];</div><div class="line"></div><div class="line">        <span class="built_in">CGRect</span> rect = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="keyword">self</span>.height * <span class="number">0.5</span>, <span class="keyword">self</span>.width, <span class="keyword">self</span>.height * <span class="number">0.5</span>);</div><div class="line">        [menu setTargetRect:rect inView:<span class="keyword">self</span>];</div><div class="line">        [menu setMenuVisible:<span class="literal">YES</span> animated:<span class="literal">YES</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  能能成为第一响应者</div><div class="line"> */</div><div class="line">- (<span class="built_in">BOOL</span>)canBecomeFirstResponder</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  能响应对应的事件</div><div class="line"> */</div><div class="line">- (<span class="built_in">BOOL</span>)canPerformAction:(SEL)action withSender:(<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (action == <span class="keyword">@selector</span>(ding:) || action == <span class="keyword">@selector</span>(reply:) || action == <span class="keyword">@selector</span>(report:)) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  顶</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)ding:(<span class="built_in">UIMenuController</span> *)menu</div><div class="line">&#123;</div><div class="line">    ZXX_SHOW_METHOD_INFO</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  评论</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)reply:(<span class="built_in">UIMenuController</span> *)menu</div><div class="line">&#123;</div><div class="line">    ZXX_SHOW_METHOD_INFO</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  举报</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)report:(<span class="built_in">UIMenuController</span> *)menu</div><div class="line">&#123;</div><div class="line">    ZXX_SHOW_METHOD_INFO</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="block-调用时防错处理"><a href="#block-调用时防错处理" class="headerlink" title="block 调用时防错处理"></a>block 调用时防错处理</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)clickButtonWithCompletionBlock:(<span class="keyword">void</span>(^)())completionBlock</div><div class="line">&#123;</div><div class="line">    <span class="comment">//...</span></div><div class="line">    <span class="comment">//当外界调用该方法传block 为 nil 时, 直接调用会出错</span></div><div class="line">    <span class="comment">//要判断</span></div><div class="line">    !completionBlock ? : completionBlock();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+            <p>####1、NSString等Foundation框架提供的类的内存管理</p>
+<ul>
+<li>先看看以下这几种写法:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line"></div><div class="line">        <span class="built_in">NSString</span> *s1 = <span class="string">@"hello iOS"</span>;</div><div class="line">        <span class="built_in">NSString</span> *s2 = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"hello iOS"</span>];</div><div class="line">        <span class="built_in">NSString</span> *s3 = [<span class="built_in">NSString</span> stringWithString:<span class="string">@"hello iOS"</span>];</div><div class="line">        <span class="built_in">NSString</span> *s4 = [<span class="built_in">NSString</span> stringWithUTF8String:<span class="string">"hello iOS"</span>];</div><div class="line"></div><div class="line">        <span class="built_in">NSString</span> *s5 = [[<span class="built_in">NSString</span> alloc] initWithFormat:<span class="string">@"hello iOS"</span>];</div><div class="line">        <span class="built_in">NSString</span> *s6 = [[<span class="built_in">NSString</span> alloc]initWithString:<span class="string">@"hello iOS"</span>];</div><div class="line">        <span class="built_in">NSString</span> *s7 = [[<span class="built_in">NSString</span> alloc] initWithUTF8String:<span class="string">"hello iOS"</span>];</div><div class="line"></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s1.retainCount - %lu,s1 = %p"</span>,s1.retainCount,s1);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s2.retainCount - %lu,s2 = %p"</span>,s2.retainCount,s2);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s3.retainCount - %lu,s3 = %p"</span>,s3.retainCount,s3);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s4.retainCount - %lu,s4 = %p"</span>,s4.retainCount,s4);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s5.retainCount - %lu,s5 = %p"</span>,s5.retainCount,s5);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s6.retainCount - %lu,s6 = %p"</span>,s6.retainCount,s6);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s7.retainCount - %lu,s7 = %p"</span>,s7.retainCount,s7);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">* 结果</div><div class="line"></div><div class="line">`retainCount = <span class="number">18446744073709551615</span>`</div><div class="line"></div><div class="line">* 引用计数</div><div class="line"> * 首先可以看到每一个字符串的引用计数非常大，有多大呢？</div><div class="line"> * 利用计算器可以得到：<span class="number">9223372036854775807</span></div><div class="line"> * 可见这个数字非常巨大，是无符号<span class="keyword">long</span>类型的最大数值。</div><div class="line"></div><div class="line">* 设置引用计数</div><div class="line"> * 既然数字那么大，而且对象的创建也不像原来那么规律，那么尝试设置一下字符串的引用计数，得到：</div><div class="line"> ```objc</div><div class="line">        <span class="built_in">NSString</span> *s = <span class="string">@"hello iOS"</span>;</div><div class="line"></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s.retainCount:%lu"</span>,s.retainCount);</div><div class="line"></div><div class="line">        [s <span class="keyword">retain</span>];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s.retainCount:%lu"</span>,s.retainCount);</div><div class="line"></div><div class="line">        [s release];</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"s.retainCount:%lu"</span>,s.retainCount);</div></pre></td></tr></table></figure>
+<ul>
+<li>不需要管理NSString<ul>
+<li>实际上无论是OC，还是C语言，甚至其他编程语言，字符串都是使用极为频繁的，因此，如果按照原来对象的内存管理的模式进行执行，那么对于频繁的字符串处理就会表现出很低的性能，因此字符串做了一个处理。</li>
+<li>字符串一般使用固定的内存，代码中的字符串，只要相同，都是指向同一个内存空间。</li>
+<li>使用字符串类创建的字符串，是一个固定的内存，使用格式化创建的字符串是一个固定的内存。</li>
+<li>因此得到结论：使用NSString的时候不需要考虑其内存管理问题。</li>
+</ul>
+</li>
+</ul>
+<p>####2、Funny way</p>
+<ul>
+<li>下面这段代码，显然是没有办法执行成功的！</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> ([a retainCount] &gt; <span class="number">0</span>)</div><div class="line">&#123;</div><div class="line">   [a release];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
           
         
@@ -1311,8 +1256,8 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/uipickerview/" itemprop="url">
-                  UIPickerView
+                <a class="post-title-link" href="/2016/07/07/nsnumber/" itemprop="url">
+                  NSNumber
                 </a>
               
             
@@ -1325,7 +1270,7 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
               2016-07-07
             </time>
           </span>
@@ -1339,8 +1284,8 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
                   </a>
                 </span>
 
@@ -1355,8 +1300,8 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/uipickerview/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uipickerview/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsnumber/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsnumber/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1381,68 +1326,29 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
       
         
           
-            <h2 id="1-数据选择控件介绍："><a href="#1-数据选择控件介绍：" class="headerlink" title="1.数据选择控件介绍："></a>1.数据选择控件介绍：</h2><pre><code>* UIPickerView-显示一组或多组数据方便用户选择。
-    * 在文本框中输入数据时，如果是比较固定的话，就可以让用户直接去滚动选择，不需要用户再去手动输入。
-
-* UIDatePicker-显示一个日期组件方便用户选择日期或时间。
-    * 与UIPickerView类似，可以更好地提高用户体验，方便用户输入内容。
-
-* 在iOS 8中就比较少使用UIPickerView控件了。比如选择语言或者区域时用户的是UITableView了。
-
-* 控件作用：
-    * 从指定的数据源中选择控件。
-    * 通常以UITextField的inputView的形式出现（当选中某个文本框后，弹出键盘中显示该控件）
-
-* 注意：
-    * 使用PickerView之前都需要指定数据源对象和代理对象
-    * 需要使用的两个协议：
-        * UIPickerViewDataSource 数据源协议
-        * UIPickerViewDelegate   代理协议
-</code></pre><h2 id="info-plist文件介绍"><a href="#info-plist文件介绍" class="headerlink" title="info.plist文件介绍"></a>info.plist文件介绍</h2><pre><code>* 将项目文件夹用记事本打开，查看配置信息
-* 显示各项配置信息
-* 第一个文件夹保存项目中所有的相关内容。
-* Test文件夹主要是坐单元测试的时候用的，暂时没有用到，所以先不考虑
-* info.plist文件中保存了当前项目的所有配置。
-    * 文件本身是一个xml文件，标记语言。
-    * 在项目中配置的信息最后保存到info.plist文件中了。
-    * 应用版本号
-    * 应用要求的可运行的最低系统版本号
-    * Main的storyboard
-</code></pre><h6 id="注意：自己创建的plist文件中不要包含Info关键字。"><a href="#注意：自己创建的plist文件中不要包含Info关键字。" class="headerlink" title="注意：自己创建的plist文件中不要包含Info关键字。"></a>注意：自己创建的plist文件中不要包含Info关键字。</h6><pre><code>* 在Xcode 5中名称为&quot;项目名称-Info.plist&quot;名称，Xcode6 以后就直接就是info.plist了。
-* bundle display name 应用名称的key，名称如果太长就不能完全显示了。
-* bundle identifier 应用的唯一标示，如果相同就会被覆盖。
-* bundle versions String short 最终应用发布时的版本号
-* bundle version 针对内部的一个版本号。
-* Supported interface ortations 标识设备所支持的方向，对应的选中&quot;项目&quot;-&gt;&quot;General&quot;-&gt;&quot;Deployment Info&quot;-&gt;&quot;Device Orientation&quot;。iPhone只支持3种方向，不支持上下颠倒的旋转，Portrait（竖屏），Landscape Left（横屏向左），Landscape Right（横屏向右）
-
-* Info.plist就是一个xml文件，可以通过open as source code 查看
-</code></pre><h2 id="pch文件-“Prefix-Header-File（头文件）”"><a href="#pch文件-“Prefix-Header-File（头文件）”" class="headerlink" title="pch文件 “Prefix Header File（头文件）”"></a>pch文件 “Prefix Header File（头文件）”</h2><pre><code>* 在Xcode 6以后苹果就不推荐使用了。
-* 遇到的问题：
-    * 整个项目中很多地方都在使用某个类的头文件
-    * 整个项目中很多地方都在使用同一个&quot;宏&quot;
-    * 在项目中很多地方都用到了NSLog（）方法，想一下子全部清除掉
-* 解决以上问题，可以通过使用PCH文件，它也是个头文件类似于*.h文件
-</code></pre><h6 id="注意：PCH文件的特点，项目中所有其他代码文件无序显示导入该PCH文件，默认就可以访问（其他文件无序手动-import该PCH文件就能使用）"><a href="#注意：PCH文件的特点，项目中所有其他代码文件无序显示导入该PCH文件，默认就可以访问（其他文件无序手动-import该PCH文件就能使用）" class="headerlink" title="注意：PCH文件的特点，项目中所有其他代码文件无序显示导入该PCH文件，默认就可以访问（其他文件无序手动#import该PCH文件就能使用）"></a>注意：PCH文件的特点，项目中所有其他代码文件无序显示导入该PCH文件，默认就可以访问（其他文件无序手动#import该PCH文件就能使用）</h6><pre><code>* 主要作用：
-    * 可以做一些公用的宏定义
-    * 把公共的Model类的#import导入写到pch文件.
-    * 自定义NSLog()。例如:#define ZXXLog(...) NSLog(__VA_ARGS__)
-
-*  创建pch文件
-    * &quot;newFile&quot;-&gt;&quot;&quot;-&gt;&quot;&quot;
-    * 将通用的头文件和相应的宏放进去。
-*  配置头文件，以使用头文件
-    * 选择&quot;项目&quot;-&gt;&quot;Build Setting&quot; -&gt;&quot;All&quot;-&gt;搜索 &quot;Prefix Header&quot;,配置相应的pch文件。
-    * &quot;$(SRCROOT)/$(PRODUCT_NAME)/PrefixHeader.pch&quot;（如果有问题，更换为下面的方式，可能会与中文有关）
-    * &quot;$(SRCROOT)/对应的文件夹名/PrefixHeader.pch&quot;
-
-* 在应用程序测试的时候，需要log很多信息，但是如果我们发布程序的时候就要禁止打印信息。
-    * 自定义自己的log方式。
-    * 自定义log的完整形式
-</code></pre><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#ifdef DEBUG</span></div><div class="line"></div><div class="line"><span class="meta">#define ZXXLog(...) NSLog(__VA_ARGS__)</span></div><div class="line"></div><div class="line"><span class="meta">#else</span></div><div class="line"></div><div class="line"><span class="meta">#define ZXXLog(...)</span></div><div class="line"></div><div class="line"><span class="meta">#endif</span></div></pre></td></tr></table></figure>
-<pre><code>* 在使用pch文件时的注意点：
-    * 创建c语言文件进去，直接编译就报错，因为默认情况下所有文件都会包含pch文件中的OC内容，C语言文件内不能识别OC代码，所以就会报错。
-    * 解决：在pch文件中判断一下，如果是OC文件菜引入响应的宏，如果是普通C语言文件则不引入，否则项目中添加C语言文件时会报错。
-</code></pre><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#ifdef __OBJC__</span></div><div class="line"></div><div class="line"><span class="comment">// OC相关的内容</span></div><div class="line"></div><div class="line"><span class="meta">#endif</span></div></pre></td></tr></table></figure>
+            <h4 id="1、【理解】NSNumber的介绍和使用"><a href="#1、【理解】NSNumber的介绍和使用" class="headerlink" title="1、【理解】NSNumber的介绍和使用"></a>1、【理解】NSNumber的介绍和使用</h4><ul>
+<li><p>NSArray\NSDictionary中只能存放OC对象,不能存放int\float\double等基本数据类型。</p>
+</li>
+<li><p>如果真想把基本数据(比如int)放进数组或字典中,需要先将基本数据类型包装成OC对象。</p>
+<ul>
+<li>基本数据类型（如int）–<code>包装</code>–&gt;OC对象–<code>放进</code>–&gt;数组/字典</li>
+</ul>
+</li>
+<li><p>NSNumber可以将基本数据类型包装成对象,这样就可以间接将基本数据类型存进NSArray\NSDictionary中</p>
+<ul>
+<li>基本数据类型（如int）–<code>包装</code>–&gt;NSNumber对象–<code>放进</code>–&gt;数组/字典</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、【理解】NSNumber的创建"><a href="#2、【理解】NSNumber的创建" class="headerlink" title="2、【理解】NSNumber的创建"></a>2、【理解】NSNumber的创建</h4><ul>
+<li><p>以前</p>
+ <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">NSNumber</span> *)numberWithInt:(<span class="keyword">int</span>)value;</div><div class="line">+ (<span class="built_in">NSNumber</span> *)numberWithDouble:(<span class="keyword">double</span>)value;</div><div class="line">+ (<span class="built_in">NSNumber</span> *)numberWithBool:(<span class="built_in">BOOL</span>)value;</div></pre></td></tr></table></figure>
+</li>
+<li><p>现在</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@<span class="number">10</span>;</div><div class="line">@<span class="number">10.5</span>;</div><div class="line">@YES;</div><div class="line">@(num);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3、从NSNumber对象中得到基本类型数据"><a href="#3、从NSNumber对象中得到基本类型数据" class="headerlink" title="3、从NSNumber对象中得到基本类型数据"></a>3、从NSNumber对象中得到基本类型数据</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">char</span>)charValue;</div><div class="line">- (<span class="keyword">int</span>)intValue;</div><div class="line">- (<span class="keyword">long</span>)longValue;</div><div class="line">- (<span class="keyword">double</span>)doubleValue;</div><div class="line">- (<span class="built_in">BOOL</span>)boolValue;</div><div class="line">- (<span class="built_in">NSString</span> *)stringValue;</div><div class="line"></div><div class="line">- (<span class="built_in">NSComparisonResult</span>)compare:(<span class="built_in">NSNumber</span> *)otherNumber;</div><div class="line">- (<span class="built_in">BOOL</span>)isEqualToNumber:(<span class="built_in">NSNumber</span> *)number;</div></pre></td></tr></table></figure>
 
           
         
@@ -1492,8 +1398,8 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/uiscrollview/" itemprop="url">
-                  UIScrollView
+                <a class="post-title-link" href="/2016/07/07/nsmutablestring/" itemprop="url">
+                  NSMutableString
                 </a>
               
             
@@ -1506,7 +1412,7 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
               2016-07-07
             </time>
           </span>
@@ -1520,8 +1426,8 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
                   </a>
                 </span>
 
@@ -1536,8 +1442,8 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/uiscrollview/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uiscrollview/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsmutablestring/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsmutablestring/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1562,88 +1468,13 @@ imageWithContentOfFile: 不会做缓存  路径: NSBundle
       
         
           
-            <p>##缩放<br>    设置最大能方法多少倍<br>    最小能缩小多少倍<br>    告诉 scrollView 要对哪个 view 进行缩放(代理方法)</p>
-<p>##滚动<br>    contentSize —滚动范围<br>    contentInset — 内边距<br>    contentOffset — 偏移量(内容滚动到某个点)</p>
-<p>##UIScrollView的常见属性</p>
-<pre><code>//不要自动调整insets, 自己设置contentInset
-self.automaticallyAdjustsScrollViewInsets = NO;
-
-滚动范围: contentSize --&gt; 要比 scrollView 的 size 大
-
-内边距 : contentInset --&gt; (滚动到边界的时候) imageView 的边框距离 scrollView 边框的距离
-
-偏移量 : contentOffset --&gt; 是滚动到某个位置(点)
-
-弹簧效果 : bounces --&gt; 默认 YES, 一般不关闭
-
-分页效果(以 scrollView 的宽度进行分页) :
-_scrollView.pagingEnabled = YES;
-
-总有弹簧效果 : 就算不设置 contentSize 也可以有弹簧效果, 前提是 bounces = YES;
-alwaysBounceHorizontal
-alwaysBounceVertical
-
-滚动指示器 : 默认是 YES, 打开的
-showsHorizontalScrollIndicator
-showsVerticalScrollIndicator
-
-是否可以滚动 :
-scrollEnabled = YES;
-</code></pre><h2 id="无法滚动的原因"><a href="#无法滚动的原因" class="headerlink" title="无法滚动的原因"></a><code>无法滚动的原因</code></h2><ol>
-<li><code>contentSize 小于 scrollView.size</code></li>
-<li><code>scrollEnable = NO;</code></li>
-<li><code>userInteractionEnabled = NO;禁止用户交互</code></li>
+            <p><strong>NSMutableString 是可变字符串, 是NSString 的子类.</strong></p>
+<ol>
+<li>NSString 是不可变的, 里面的文字内容是不能进行修改的.</li>
+<li>NSMutableString 是可变的, 里面的文字内容可以随时改变.</li>
+<li><code>NSMutableString 能使用 NSString 的所有方法</code></li>
 </ol>
-<h2 id="pageControl-注意属性"><a href="#pageControl-注意属性" class="headerlink" title="pageControl 注意属性:"></a>pageControl 注意属性:</h2><pre><code>1.numberOfPages --&gt; 设置点数
-2.currentPage --&gt; 当前位置 取值0 ~ numberOfPages - 1;
-3.currentPageIndicatorTintColor --&gt; 当前指示器的颜色
-4.pageIndicatorTintColor --&gt; 非当前指示器的颜色
-</code></pre><h2 id="NSTimer-的使用"><a href="#NSTimer-的使用" class="headerlink" title="NSTimer 的使用"></a>NSTimer 的使用</h2><pre><code>scheduled : 计划
-Interval : 间隔
-target : 一般指控制器
-selector : 方法
-uesrInfo : 用户自定义的参数
-repeats : 重复
-
-一旦创建就会立即执行
-
-invalidate 无效后, 要再次使用, 需要重新创建timer
-fire 立即执行, 不会等待 Interval 设置的时间
-</code></pre><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> + (<span class="built_in">NSTimer</span> *)scheduledTimerWithTimeInterval:(<span class="built_in">NSTimeInterval</span>)ti target:(<span class="keyword">id</span>)aTarget selector:(SEL)aSelector userInfo:(<span class="keyword">nullable</span> <span class="keyword">id</span>)userInfo repeats:(<span class="built_in">BOOL</span>)yesOrNo;</div><div class="line"></div><div class="line"> <span class="built_in">NSRunLoop</span> *mainLoop = [<span class="built_in">NSRunLoop</span> mainRunLoop];</div><div class="line">    <span class="comment">/*</span></div><div class="line">     设置优先级</div><div class="line">     NSDefaultRunLoopMode;</div><div class="line">     NSRunLoopCommonModes//优先级更高, 拖拽时定时器不会停止</div><div class="line">     */</div><div class="line">[mainLoop addTimer:_timer forMode:<span class="built_in">NSRunLoopCommonModes</span>];</div></pre></td></tr></table></figure>
-<h2 id="使用-delegate"><a href="#使用-delegate" class="headerlink" title="使用 delegate :"></a>使用 delegate :</h2><ol>
-<li>修饰符必须使用 weak, 防止循环引用</li>
-<li>如果两个对象相互引用, 其中一个必须是 weak</li>
-<li>addSubview –&gt; 强引用</li>
-</ol>
-<h2 id="UIScrollViewDelegate"><a href="#UIScrollViewDelegate" class="headerlink" title="UIScrollViewDelegate"></a>UIScrollViewDelegate</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//滚动完毕就会调用（如果不是人为拖拽scrollView导致滚动完毕，才会调用这个方法</span></div><div class="line">- (<span class="keyword">void</span>)scrollViewDidEndScrollingAnimation:(<span class="built_in">UIScrollView</span> *)scrollView</div><div class="line">&#123;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="拖拽"><a href="#拖拽" class="headerlink" title="拖拽"></a>拖拽</h4><ul>
-<li>当 scrollView 内容滚动时, 就会调用</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)scrollViewDidScroll:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"滚动时调用"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>deagg : 拖拽, 开始拖拽的时候调用</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)scrollViewWillBeginDragging:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</div><div class="line">     <span class="built_in">NSLog</span>(<span class="string">@"开始拖拽"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>停止拖拽是调用</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)scrollViewDidEndDragging:(<span class="built_in">UIScrollView</span> *)scrollView willDecelerate:(<span class="built_in">BOOL</span>)decelerate &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"停止拖拽"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h4><ul>
-<li>返回的 view 将被拉伸/缩放</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UIView</span> *)viewForZoomingInScrollView:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</div><div class="line">    <span class="keyword">return</span> _imageView;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>只要图片在放大/缩小时一直调用</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)scrollViewDidZoom:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"缩放时调用"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>开始缩放的时候调用</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//withView : 进行缩放的 view</span></div><div class="line">- (<span class="keyword">void</span>)scrollViewWillBeginZooming:(<span class="built_in">UIScrollView</span> *)scrollView withView:(<span class="built_in">UIView</span> *)view &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"开始缩放的时候调用"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>结束的时候调用</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//withView : 进行缩放的 view</span></div><div class="line"><span class="comment">//atScale : 缩放的倍数</span></div><div class="line">- (<span class="keyword">void</span>)scrollViewDidEndZooming:(<span class="built_in">UIScrollView</span> *)scrollView withView:(<span class="built_in">UIView</span> *)view atScale:(<span class="built_in">CGFloat</span>)scale &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"结束的时候调用"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//拼接 aString 到最后面</span></div><div class="line">- (<span class="keyword">void</span>)appendString:(<span class="built_in">NSString</span> *)aString;</div><div class="line"></div><div class="line"><span class="comment">//拼接一段格式化字符串到最后面</span></div><div class="line">- (<span class="keyword">void</span>)appendFormat:(<span class="built_in">NSString</span> *)format, ...;</div><div class="line"></div><div class="line"><span class="comment">//删除 range 范围内的字符串</span></div><div class="line">- (<span class="keyword">void</span>)deleteCharactersInRange:(<span class="built_in">NSRange</span>)range;</div><div class="line"></div><div class="line"><span class="comment">//在 loc 这个位置插入 aString</span></div><div class="line">- (<span class="keyword">void</span>)insertString:(<span class="built_in">NSString</span> *)aString atIndex:(<span class="built_in">NSUInteger</span>)loc;</div><div class="line"></div><div class="line"><span class="comment">//使用aString替换range范围内的字符串</span></div><div class="line">- (<span class="keyword">void</span>)replaceCharactersInRange:(<span class="built_in">NSRange</span>)range withString:(<span class="built_in">NSString</span> *)aString;</div></pre></td></tr></table></figure>
 
           
         
@@ -1693,8 +1524,8 @@ fire 立即执行, 不会等待 Interval 设置的时间
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/uitableview/" itemprop="url">
-                  UITableView
+                <a class="post-title-link" href="/2016/07/07/nsmutabledictionary/" itemprop="url">
+                  NSMutableDictionary
                 </a>
               
             
@@ -1707,7 +1538,7 @@ fire 立即执行, 不会等待 Interval 设置的时间
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
               2016-07-07
             </time>
           </span>
@@ -1721,8 +1552,8 @@ fire 立即执行, 不会等待 Interval 设置的时间
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
                   </a>
                 </span>
 
@@ -1737,8 +1568,8 @@ fire 立即执行, 不会等待 Interval 设置的时间
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/uitableview/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uitableview/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsmutabledictionary/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsmutabledictionary/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1763,19 +1594,20 @@ fire 立即执行, 不会等待 Interval 设置的时间
       
         
           
-            <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//有两个tableView不要调整inset</span></div><div class="line"><span class="keyword">self</span>.automaticallyAdjustsScrollViewInsets = <span class="literal">NO</span>;</div></pre></td></tr></table></figure>
-<h2 id="分隔线样式"><a href="#分隔线样式" class="headerlink" title="分隔线样式"></a>分隔线样式</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//没有分隔线</span></div><div class="line"><span class="keyword">self</span>.tableView.separatorStyle = <span class="built_in">UITableViewCellSeparatorStyleNone</span>;</div></pre></td></tr></table></figure>
-<h2 id="tableView如何显示数据"><a href="#tableView如何显示数据" class="headerlink" title="tableView如何显示数据"></a>tableView如何显示数据</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">tableView 中想要显示数据:</div><div class="line">        遵守协议 : <span class="built_in">UITableViewDataSouse</span> (决定数据)</div><div class="line">        实现方法 :</div><div class="line">            <span class="number">0.</span>numberOfSectionsInTableView 一个 tableView 中有多少组</div><div class="line">            <span class="number">1.</span>numberOfRowsInSection 一组有多少行</div><div class="line">            <span class="number">2.</span>cellForRowAtIndexPath 每一行的内容</div><div class="line">        调用的循序 :</div><div class="line">            <span class="number">1.</span>numberOfSectionsInTableView:</div><div class="line">            <span class="number">2.</span>numberOfRowsInSection: 会调用多遍, 上面的方法返回多少组就调用多少次</div><div class="line">            <span class="number">3.</span>cellForRowAtIndexPath: 总共有多少行, 就调用多少遍</div></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *  告诉tableView一共有多少组数据</div><div class="line"> */</div><div class="line">- (<span class="built_in">NSInteger</span>)numberOfSectionsInTableView:(<span class="built_in">UITableView</span> *)tableView</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  告诉tableView第section组有多少行</div><div class="line"> */</div><div class="line">- (<span class="built_in">NSInteger</span>)tableView:(<span class="built_in">UITableView</span> *)tableView numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  告诉tableView第indexPath行显示怎样的cell</div><div class="line"> */</div><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  告诉tableView第section组的头部标题</div><div class="line"> */</div><div class="line">- (<span class="built_in">NSString</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView titleForHeaderInSection:(<span class="built_in">NSInteger</span>)section</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  告诉tableView第section组的尾部标题</div><div class="line"> */</div><div class="line">- (<span class="built_in">NSString</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView titleForFooterInSection:(<span class="built_in">NSInteger</span>)section</div></pre></td></tr></table></figure>
-<h3 id="静态单元格"><a href="#静态单元格" class="headerlink" title="静态单元格"></a>静态单元格</h3><ul>
-<li><p>静态单元格:</p>
-<p>  一般数据不发送改变<br>  一定要在 UITableViewController 中使用<br>  只是相对于动态, cell 中的内容少, 而且不经常改变<br>  如果静态单元格, 实现了对应的数据源方法, 依然会走代码, 代码的组数, 行数只能比 storyboard 中的少, 不能多</p>
-</li>
-<li><p>动态单元格:</p>
-<p>  里面的数据根据动态来加载 (plist,服务器)</p>
-</li>
+            <pre><code>1. NSMutableDictionary 是 NSDictionary 的子类, NSDictionary 是不可变的, 一旦初始化完毕后, 它里面的内容就永远固定的, 不能删除里面的内容, 也不能再往里面添加元素
+2. NSMutableDictionary 是可变的, 可以进行增\删\改操作
+</code></pre><h2 id="NSMutableDictionary-的常见用法"><a href="#NSMutableDictionary-的常见用法" class="headerlink" title="NSMutableDictionary 的常见用法"></a>NSMutableDictionary 的常见用法</h2><ul>
+<li>添加\修改操作</li>
 </ul>
-<p><strong>如果storyboard 设置了静态单元格, 而又实现了这3个数据源方法, 会清空storyboard的数据,<br>但是组数与行数与storyboard设置的不一致, 导致奔溃</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加一个键值对(如果字典中存在这个 key, 会将之前对应的值替换掉)</span></div><div class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">id</span>)anObject forKey:(<span class="keyword">id</span>&lt;<span class="built_in">NSCopying</span>&gt;)aKey;</div></pre></td></tr></table></figure>
+<ul>
+<li>删除操作</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//通过 aKey 删除对应的 value</span></div><div class="line">- (<span class="keyword">void</span>)removeObjectForKey:(<span class="keyword">id</span>)aKey;</div><div class="line"></div><div class="line"><span class="comment">//删除所有的键值对</span></div><div class="line">- (<span class="keyword">void</span>)removeAllObjects;</div></pre></td></tr></table></figure>
+<h2 id="NSMutableDictionary-的简写"><a href="#NSMutableDictionary-的简写" class="headerlink" title="NSMutableDictionary 的简写"></a>NSMutableDictionary 的简写</h2><ul>
+<li>设置键值对</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//before</span></div><div class="line">[dict setObject:<span class="string">@"Jack"</span> forKey:<span class="string">@"name"</span>];</div><div class="line"></div><div class="line"><span class="comment">//now</span></div><div class="line">dict[<span class="string">@"name"</span>] = <span class="string">@"Jack"</span></div></pre></td></tr></table></figure>
 
           
         
@@ -1808,7 +1640,7 @@ fire 立即执行, 不会等待 Interval 设置的时间
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1849,7 +1681,7 @@ fire 立即执行, 不会等待 Interval 设置的时间
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">75</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1857,7 +1689,7 @@ fire 立即执行, 不会等待 Interval 设置的时间
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1866,7 +1698,7 @@ fire 立即执行, 不会等待 Interval 设置的时间
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -1,0 +1,816 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="单例模式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="1、单例模式概念
+1、 什么是单例模式:(Singleton)
+
+单例模式的意图是的类的对象成为系统中唯一的实例,提供一个访问点,供客户类共享资源。
+
+
+2、 什么情况下使用单例?
+
+1）类只能有一个实例,而且必须从一个为人熟知的访问点对其进行访问,比如工厂方法。
+2）这个唯一的实例只能通过子类化进行扩展,而且扩展的对象不会破坏客户端代码。
+
+
+3、 单例设计模式的要点:
+
+1）某个类只能有一个实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单例模式">
+<meta property="og:url" content="http://yoursite.com/2016/07/07/singletonpattern/index.html">
+<meta property="og:site_name" content="颜文字">
+<meta property="og:description" content="1、单例模式概念
+1、 什么是单例模式:(Singleton)
+
+单例模式的意图是的类的对象成为系统中唯一的实例,提供一个访问点,供客户类共享资源。
+
+
+2、 什么情况下使用单例?
+
+1）类只能有一个实例,而且必须从一个为人熟知的访问点对其进行访问,比如工厂方法。
+2）这个唯一的实例只能通过子类化进行扩展,而且扩展的对象不会破坏客户端代码。
+
+
+3、 单例设计模式的要点:
+
+1）某个类只能有一个实">
+<meta property="og:updated_time" content="2016-07-07T07:50:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单例模式">
+<meta name="twitter:description" content="1、单例模式概念
+1、 什么是单例模式:(Singleton)
+
+单例模式的意图是的类的对象成为系统中唯一的实例,提供一个访问点,供客户类共享资源。
+
+
+2、 什么情况下使用单例?
+
+1）类只能有一个实例,而且必须从一个为人熟知的访问点对其进行访问,比如工厂方法。
+2）这个唯一的实例只能通过子类化进行扩展,而且扩展的对象不会破坏客户端代码。
+
+
+3、 单例设计模式的要点:
+
+1）某个类只能有一个实">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/07/singletonpattern/"/>
+
+  <title> 单例模式 | 颜文字 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">颜文字</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'iRPRT9JgJfvxEsHZRgKm','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                单例模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/singletonpattern/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/singletonpattern/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1、单例模式概念"><a href="#1、单例模式概念" class="headerlink" title="1、单例模式概念"></a>1、单例模式概念</h4><ul>
+<li><p>1、 什么是单例模式:(Singleton)</p>
+<ul>
+<li>单例模式的意图是的类的对象成为系统中唯一的实例,提供一个访问点,供客户类共享资源。</li>
+</ul>
+</li>
+<li><p>2、 什么情况下使用单例?</p>
+<ul>
+<li>1）类只能有一个实例,而且必须从一个为人熟知的访问点对其进行访问,比如工厂方法。</li>
+<li>2）这个唯一的实例只能通过子类化进行扩展,而且扩展的对象不会破坏客户端代码。</li>
+</ul>
+</li>
+<li><p>3、 单例设计模式的要点:</p>
+<ul>
+<li>1）某个类只能有一个实例。</li>
+<li>2）他必须自行创建这个对象</li>
+<li>3）必须自行向整个系统提供这个实例;</li>
+<li><p>4）为了保证实例的唯一性,我们必须将如下方法实现进行覆盖</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone +(<span class="keyword">id</span>)allocWithZone:(<span class="built_in">NSZone</span> *)zone -(<span class="keyword">id</span>)<span class="keyword">retain</span> -(<span class="built_in">NSUInteger</span>)retainCount</div><div class="line">-(<span class="keyword">oneway</span> <span class="keyword">void</span>)release</div><div class="line">-(<span class="keyword">id</span>)autorelease 。</div></pre></td></tr></table></figure>
+</li>
+<li><p>5）这个方法必须是一个静态类。</p>
+</li>
+</ul>
+</li>
+<li>4、 在OC中实现单例模式:<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">先创建一个单例类,即:</div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Bee</span> : <span class="title">NSObject</span>&lt;<span class="title">NSCopying</span>&gt;//注意此处调用了<span class="title">NScoping</span>协议</span></div><div class="line">+ (Bee *)shareIsrance;<span class="comment">//此处定义了一个工厂方法,用工厂方法来限制实例化过程</span></div><div class="line"><span class="keyword">@end</span> <span class="comment">//调用NScoping协议,从而在实现文件中覆盖</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="简单的单例模式实现"><a href="#简单的单例模式实现" class="headerlink" title="简单的单例模式实现"></a>简单的单例模式实现</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Tools.h文件</span></div><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Tools</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>, <span class="title">NSMutableCopying</span>&gt;</span></div><div class="line"><span class="comment">//一般情况下,创建一个单例对象都会提供一个类工厂方法</span></div><div class="line"><span class="comment">//一般情况下,用于创建单例对象的方法名都以 share 开头或 default 开头</span></div><div class="line"><span class="comment">// share + 当前的类名</span></div><div class="line">+ (<span class="keyword">instancetype</span>)shareTools;<span class="comment">//仅仅是提供一个 share 的类方法,无其他意义</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Tools.m文件</span></div><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">"Tools.h"</span></span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Tools</span></span></div><div class="line"></div><div class="line">+ (<span class="keyword">instancetype</span>)shareTools</div><div class="line">&#123;</div><div class="line">    Tools *instance = [[<span class="keyword">self</span> alloc] init];</div><div class="line">    <span class="keyword">return</span> instance;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">static</span> Tools *_instance = <span class="literal">nil</span>;<span class="comment">//1.定义一个全局变量</span></div><div class="line"></div><div class="line">+ (<span class="keyword">instancetype</span>)allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone</div><div class="line">&#123;</div><div class="line"><span class="comment">//    多线程可能有问题</span></div><div class="line"><span class="comment">//    2.由于所有的创建方法都会调用该方法,所以只需要在该方法中控制当前对象只创建一次</span></div><div class="line">    <span class="comment">/*</span></div><div class="line">    if (_instance == nil) &#123;</div><div class="line">        _instance = [[super allocWithZone:zone] init];</div><div class="line">    &#125;</div><div class="line">    return _instance;</div><div class="line">     */</div><div class="line"><span class="comment">//    以下在多线程也没有问题 保证在多线程也执行一次  GCD</span></div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        _instance = [[<span class="keyword">super</span> allocWithZone:zone] init];</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> _instance;</div><div class="line">&#125;</div><div class="line"><span class="comment">//  3.重写 copy</span></div><div class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> _instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="built_in">NSZone</span> *)zone</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> _instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// MRC 中的单例要重写以下方法</span></div><div class="line">- (<span class="keyword">oneway</span> <span class="keyword">void</span>)release</div><div class="line">&#123;</div><div class="line"><span class="comment">//    为了保证整个程序过程中只有一份实例,在这个方法中什么都不做</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span>)<span class="keyword">retain</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> _instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">NSUInteger</span>)retainCount</div><div class="line">&#123;</div><div class="line"><span class="comment">//    return 1;</span></div><div class="line"><span class="comment">//    注意:为了方便沟通,一般情况下,单例中不会返回 retainCount = 1;</span></div><div class="line"><span class="comment">//    一般返回比较大的值</span></div><div class="line">    <span class="keyword">return</span> <span class="built_in">NSUIntegerMax</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/单例模式/" rel="tag">#单例模式</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/07/setmemorymanagement/" rel="next" title="set方法的内存管理">
+                <i class="fa fa-chevron-left"></i> set方法的内存管理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/07/struct/" rel="prev" title="Struct结构体">
+                Struct结构体 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/07/singletonpattern/"
+           data-title="单例模式" data-url="http://yoursite.com/2016/07/07/singletonpattern/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=697890588,3646918970&fm=116&gp=0.jpg"
+               alt="颜文字" />
+          <p class="site-author-name" itemprop="name">颜文字</p>
+          <p class="site-description motion-element" itemprop="description">颜貌岁岁改，波澜誓不起。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuangzisuen" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/yanyan767006743" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、单例模式概念"><span class="nav-number">1.</span> <span class="nav-text">1、单例模式概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单的单例模式实现"><span class="nav-number">2.</span> <span class="nav-text">简单的单例模式实现</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">颜文字</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yancode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
