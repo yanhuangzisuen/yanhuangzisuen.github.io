@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="NSDate," />
+  <meta name="keywords" content="property," />
 
 
 
@@ -102,28 +102,51 @@
 
 
 
-<meta name="description" content="1、【理解】NSDate的介绍和使用
-NSDate可以用来表示时间,可以进行一些常见的日期\时间处理。
-一个NSDate对象就代表一个时间
+<meta name="description" content="@property 4.4前
 
-2、格式化日期 12345678NSDateFormatter *formatter = [[NSDateFormatter alloc] init];formatter.dateFormat = @&quot;yyyy-MM-dd HH:mm:ss&quot;;// 将NSS">
+1) @property + 手动实现
+2) @property int age; + @synthesize age;//get和set方法的声明和实现都帮我们做了
+3) @property int age + @synthesizes age = _b;
+
+
+@property 4.4增强 .h
+
+@property int age;
+1) 生成_age
+2)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NSDate">
-<meta property="og:url" content="http://yoursite.com/2016/07/07/nsdate/index.html">
+<meta property="og:title" content="property">
+<meta property="og:url" content="http://yoursite.com/2016/07/07/property/index.html">
 <meta property="og:site_name" content="颜文字">
-<meta property="og:description" content="1、【理解】NSDate的介绍和使用
-NSDate可以用来表示时间,可以进行一些常见的日期\时间处理。
-一个NSDate对象就代表一个时间
+<meta property="og:description" content="@property 4.4前
 
-2、格式化日期 12345678NSDateFormatter *formatter = [[NSDateFormatter alloc] init];formatter.dateFormat = @&quot;yyyy-MM-dd HH:mm:ss&quot;;// 将NSS">
-<meta property="og:updated_time" content="2016-07-07T07:41:52.000Z">
+1) @property + 手动实现
+2) @property int age; + @synthesize age;//get和set方法的声明和实现都帮我们做了
+3) @property int age + @synthesizes age = _b;
+
+
+@property 4.4增强 .h
+
+@property int age;
+1) 生成_age
+2)">
+<meta property="og:image" content="http://yoursite.com/img/10.1.png">
+<meta property="og:updated_time" content="2016-07-07T08:44:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NSDate">
-<meta name="twitter:description" content="1、【理解】NSDate的介绍和使用
-NSDate可以用来表示时间,可以进行一些常见的日期\时间处理。
-一个NSDate对象就代表一个时间
+<meta name="twitter:title" content="property">
+<meta name="twitter:description" content="@property 4.4前
 
-2、格式化日期 12345678NSDateFormatter *formatter = [[NSDateFormatter alloc] init];formatter.dateFormat = @&quot;yyyy-MM-dd HH:mm:ss&quot;;// 将NSS">
+1) @property + 手动实现
+2) @property int age; + @synthesize age;//get和set方法的声明和实现都帮我们做了
+3) @property int age + @synthesizes age = _b;
+
+
+@property 4.4增强 .h
+
+@property int age;
+1) 生成_age
+2)">
+<meta name="twitter:image" content="http://yoursite.com/img/10.1.png">
 
 
 
@@ -144,9 +167,9 @@ NSDate可以用来表示时间,可以进行一些常见的日期\时间处理。
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/07/nsdate/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/07/property/"/>
 
-  <title> NSDate | 颜文字 </title>
+  <title> property | 颜文字 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -306,7 +329,7 @@ NSDate可以用来表示时间,可以进行一些常见的日期\时间处理。
             
             
               
-                NSDate
+                property
               
             
           </h1>
@@ -348,8 +371,8 @@ NSDate可以用来表示时间,可以进行一些常见的日期\时间处理。
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/nsdate/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsdate/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/property/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/property/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -377,26 +400,80 @@ NSDate可以用来表示时间,可以进行一些常见的日期\时间处理。
       
 
       
-        <h4 id="1、【理解】NSDate的介绍和使用"><a href="#1、【理解】NSDate的介绍和使用" class="headerlink" title="1、【理解】NSDate的介绍和使用"></a>1、【理解】NSDate的介绍和使用</h4><ul>
-<li>NSDate可以用来表示时间,可以进行一些常见的日期\时间处理。</li>
-<li>一个NSDate对象就代表一个时间</li>
+        <ul>
+<li><p>@property 4.4前</p>
+<ul>
+<li>1) @property + 手动实现</li>
+<li>2) @property int age; + @synthesize age;//get和set方法的声明和实现都帮我们做了</li>
+<li>3) @property int age + @synthesizes age = _b;</li>
 </ul>
-<h4 id="2、格式化日期"><a href="#2、格式化日期" class="headerlink" title="2、格式化日期"></a>2、格式化日期</h4> <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSDateFormatter</span> *formatter = [[<span class="built_in">NSDateFormatter</span> alloc] init];</div><div class="line">formatter.dateFormat = <span class="string">@"yyyy-MM-dd HH:mm:ss"</span>;</div><div class="line"></div><div class="line"><span class="comment">// 将NSString转换为NSDate</span></div><div class="line"><span class="built_in">NSDate</span> *date = [formatter dateFromString:<span class="string">@"2010-03-24 00:00:00"</span>];</div><div class="line"></div><div class="line"><span class="comment">// 将NSDate转换为NSString</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, [formatter stringFromDate:date]);</div></pre></td></tr></table></figure>
-<h4 id="3、计算日期"><a href="#3、计算日期" class="headerlink" title="3、计算日期"></a>3、计算日期</h4><ul>
-<li>[NSDate date]返回的就是当前时间</li>
+</li>
+<li><p>@property 4.4增强 .h</p>
+</li>
+<li>@property int age;<ul>
+<li>1) 生成_age</li>
+<li>2) 生成_age的get和set方法的声明</li>
+<li>3) 实现_age的get和set方法</li>
 </ul>
-<h4 id="4、日期时间对象"><a href="#4、日期时间对象" class="headerlink" title="4、日期时间对象"></a>4、日期时间对象</h4><ul>
-<li>结合NSCalendar和NSDate能做更多的日期\时间处理</li>
-<li><p>获得NSCalendar对象</p>
- <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSCalendar</span> *calendar = [<span class="built_in">NSCalendar</span> currentCalendar];</div></pre></td></tr></table></figure>
-</li>
-<li><p>获得年月日</p>
- <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSDateComponents</span> *)components:(<span class="built_in">NSCalendarUnit</span>)unitFlags fromDate:(<span class="built_in">NSDate</span> *)date;</div></pre></td></tr></table></figure>
-</li>
-<li><p>比较两个日期的差距</p>
- <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSDateComponents</span> *)components:(<span class="built_in">NSCalendarUnit</span>)unitFlags fromDate:(<span class="built_in">NSDate</span> *)startingDate toDate:(<span class="built_in">NSDate</span> *)resultDate options:(<span class="built_in">NSCalendarOptions</span>)opts;</div></pre></td></tr></table></figure>
 </li>
 </ul>
+<h4 id="property-参数-一"><a href="#property-参数-一" class="headerlink" title="@property 参数(一)"></a>@property 参数(一)</h4><ul>
+<li>格式:@property (参数1,参数2) 数据类型 方法名<br><img src="/img/10.1.png" alt=""></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 基本数据类型</span></div><div class="line"><span class="keyword">int</span> _age;</div><div class="line"></div><div class="line"><span class="comment">// set方法的写法</span></div><div class="line">-(<span class="keyword">void</span>)setAge:(<span class="keyword">int</span>) age</div><div class="line">&#123;</div><div class="line">_age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 用assign修饰后，仍旧会生成以上标准的set方法</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>) <span class="keyword">int</span> age;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// oc对象类型</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">retain</span>) Car *car ;</div><div class="line"></div><div class="line"><span class="comment">// 用retain修饰后，生成如下内存管理代码</span></div><div class="line">-(<span class="keyword">void</span>)setCar:(<span class="keyword">int</span>) car</div><div class="line">&#123;</div><div class="line">   <span class="keyword">if</span>(_car ! = car)</div><div class="line">   &#123;</div><div class="line">      [_car release];</div><div class="line">      _car = [car <span class="keyword">retain</span>];</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>1.内存管理相关参数<ul>
+<li>retain ： release旧值，retain新值（用于OC对象）</li>
+<li>assign ： 直接赋值，不做任何内存管理(默认，用于非OC对象类型)</li>
+<li>copy   ： release旧值，copy新值（一般用于NSString *）</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>验证assign如果作用在对象上,实际上就是直接赋值</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//使用@property增强型 生成get和set方法</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>)Car *car;</div><div class="line"></div><div class="line"><span class="comment">//.m文件中实际上生成的是</span></div><div class="line">- (<span class="keyword">void</span>)setCar:(Car *)cat</div><div class="line">&#123;</div><div class="line">   _car = car; <span class="comment">//当对象release后,将无法使用该对象</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// main函数</span></div><div class="line"><span class="keyword">int</span> main()</div><div class="line">&#123;</div><div class="line"> Person *p = [Person new];</div><div class="line"> Car *c = [Car new];</div><div class="line"></div><div class="line"> <span class="comment">// 给人一辆车</span></div><div class="line"> p.car = c;</div><div class="line"></div><div class="line"> <span class="comment">// 释放车</span></div><div class="line"> [c release];</div><div class="line"></div><div class="line"> <span class="comment">// 让人开车</span></div><div class="line"> [p drive]; <span class="comment">//此时p指向了僵尸对象</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用@property增强型 生成get和set方法</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//使用@property增强型 生成get和set方法</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">retain</span>)Car *car;</div><div class="line"></div><div class="line"><span class="comment">//.m文件中实际上生成的是</span></div><div class="line">- (<span class="keyword">void</span>)setCar:(Car *)cat</div><div class="line">&#123;</div><div class="line">   <span class="keyword">if</span>(_car != car)</div><div class="line">   &#123;</div><div class="line">     [_car release];</div><div class="line">     _car = [car <span class="keyword">retain</span>];</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// main函数</span></div><div class="line"><span class="keyword">int</span> main()</div><div class="line">&#123;</div><div class="line"> Person *p = [Person new];</div><div class="line"> Car *c = [Car new];</div><div class="line"></div><div class="line"> <span class="comment">// 给人一辆车</span></div><div class="line"> p.car = c;</div><div class="line"></div><div class="line"> <span class="comment">// 释放车</span></div><div class="line"> [c release];</div><div class="line"></div><div class="line"> <span class="comment">// 让人开车</span></div><div class="line"> [p drive];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>此时，会发生内存泄露。</li>
+<li>解决办法</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Person -- dealloc"</span>);</div><div class="line">    [_car release];</div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="property-参数-二"><a href="#property-参数-二" class="headerlink" title="@property 参数(二)"></a>@property 参数(二)</h4><ul>
+<li><p>1、是否要生成set方法(若为只读属性,则不生成)</p>
+<ul>
+<li>readonly:只读,只会生成get的声明和实现</li>
+<li>readwrite:默认的,同时生成set和get的声明和实现</li>
+</ul>
+</li>
+<li><p>2.多线程管理(苹果在一定程度上屏蔽了多线程操作)</p>
+<ul>
+<li>nonatomic:高性能,一般使用这个</li>
+<li><p>atomic:低性能,默认</p>
+</li>
+<li><p>atomic是Objc使用的一种线程保护技术,基本上来讲,是防止在写未完成的时候被另外一个线程读取,造成数据错误。而这种机制是耗费系统资源的,所以在iPhone这种小型设备上,如果没有使用多线程间的通讯编程,那么nonatomic是一个非常好的选择。</p>
+</li>
+</ul>
+</li>
+<li><p>3.set和get方法的名称</p>
+<ul>
+<li><p>修改set和get方法的名称,主要用于布尔类型。因为返回布尔类型的方法名一般以is开头,修改 名称一般用在布尔类型中的getter。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">控制set方法和get方法的名称</div><div class="line"><span class="keyword">setter</span> ： 设置set方法的名称，一定有个冒号:</div><div class="line"><span class="keyword">getter</span> ： 设置get方法的名称</div><div class="line"></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>, <span class="keyword">setter</span>=abc:,<span class="keyword">getter</span>=haha)<span class="keyword">int</span> age</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>可以理解为：</p>
+<ul>
+<li>[p setAge: ]——&gt; [p abc:],</li>
+<li>[p age] ———&gt; [p haha];</li>
+<li>p.age 不会报错(内部优化)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>, <span class="keyword">setter</span>=setVip:,<span class="keyword">getter</span>=isVip) <span class="built_in">BOOL</span> vip;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -419,7 +496,7 @@ NSDate可以用来表示时间,可以进行一些常见的日期\时间处理。
       
         <div class="post-tags">
           
-            <a href="/tags/NSDate/" rel="tag">#NSDate</a>
+            <a href="/tags/property/" rel="tag">#property</a>
           
         </div>
       
@@ -428,16 +505,16 @@ NSDate可以用来表示时间,可以进行一些常见的日期\时间处理。
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/07/nsdictionaryandfile/" rel="next" title="NSDictionary简写与文件操作">
-                <i class="fa fa-chevron-left"></i> NSDictionary简写与文件操作
+              <a href="/2016/07/07/class/" rel="next" title="class">
+                <i class="fa fa-chevron-left"></i> class
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/07/nsarraytraverse/" rel="prev" title="NSArray的遍历">
-                NSArray的遍历 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/07/nsarrayandnsstring/" rel="prev" title="NSArray与NSString">
+                NSArray与NSString <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -487,8 +564,8 @@ NSDate可以用来表示时间,可以进行一些常见的日期\时间处理。
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/07/nsdate/"
-           data-title="NSDate" data-url="http://yoursite.com/2016/07/07/nsdate/">
+      <div class="ds-thread" data-thread-key="2016/07/07/property/"
+           data-title="property" data-url="http://yoursite.com/2016/07/07/property/">
       </div>
     
   </div>
@@ -599,7 +676,7 @@ NSDate可以用来表示时间,可以进行一些常见的日期\时间处理。
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、【理解】NSDate的介绍和使用"><span class="nav-number">1.</span> <span class="nav-text">1、【理解】NSDate的介绍和使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、格式化日期"><span class="nav-number">2.</span> <span class="nav-text">2、格式化日期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、计算日期"><span class="nav-number">3.</span> <span class="nav-text">3、计算日期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、日期时间对象"><span class="nav-number">4.</span> <span class="nav-text">4、日期时间对象</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#property-参数-一"><span class="nav-number">1.</span> <span class="nav-text">@property 参数(一)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#property-参数-二"><span class="nav-number">2.</span> <span class="nav-text">@property 参数(二)</span></a></li></ol></div>
             
           </div>
         </section>

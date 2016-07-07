@@ -1403,8 +1403,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/nsfilemanager/" itemprop="url">
-                  NSFileManager
+                <a class="post-title-link" href="/2016/07/07/nsarrayandfile/" itemprop="url">
+                  NSArray读写文件
                 </a>
               
             
@@ -1447,8 +1447,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/nsfilemanager/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsfilemanager/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsarrayandfile/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsarrayandfile/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1473,12 +1473,14 @@
       
         
           
-            <ol>
-<li>NSFileManager 是用来管理文件系统的</li>
-<li>可以进行常见的文件, 文件夹操作</li>
-<li>使用了单例模式, [NSFileManager defaultManager] 获取单例</li>
-</ol>
-<h2 id="NSFileManager-的常见用法"><a href="#NSFileManager-的常见用法" class="headerlink" title="NSFileManager 的常见用法"></a>NSFileManager 的常见用法</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//判断文件或文件夹是否存在</span></div><div class="line">- (<span class="built_in">BOOL</span>)fileExistsAtPath:(<span class="built_in">NSString</span> *)path;</div><div class="line"></div><div class="line"><span class="comment">//判断文件或文件夹是否存在, 是否为文件夹</span></div><div class="line">- (<span class="built_in">BOOL</span>)fileExistsAtPath:(<span class="built_in">NSString</span> *)path isDirectory:(<span class="keyword">nullable</span> <span class="built_in">BOOL</span> *)isDirectory;</div><div class="line"><span class="comment">//eg:</span></div><div class="line"><span class="built_in">NSFileManager</span> *manage = [<span class="built_in">NSFileManager</span> defaultManager];</div><div class="line"><span class="built_in">BOOL</span> dir = <span class="literal">NO</span>;<span class="comment">//判断时，可以通过dir的地址，去更改dir的值</span></div><div class="line"><span class="built_in">BOOL</span> exist = [manage fileExistsAtPath:<span class="string">@"/Users/yan/Desktop/2.0.png"</span> isDirectory:&amp;dir];</div><div class="line"></div><div class="line"><span class="comment">//path 路径下的文件夹是否可读</span></div><div class="line">- (<span class="built_in">BOOL</span>)isReadableFileAtPath:(<span class="built_in">NSString</span> *)path;</div><div class="line"></div><div class="line"><span class="comment">//path 路径下的文件夹是否可写</span></div><div class="line">- (<span class="built_in">BOOL</span>)isWritableFileAtPath:(<span class="built_in">NSString</span> *)path;</div><div class="line"></div><div class="line"><span class="comment">//path 路径下的文件夹是否可删除</span></div><div class="line">- (<span class="built_in">BOOL</span>)isDeletableFileAtPath:(<span class="built_in">NSString</span> *)path;</div><div class="line"></div><div class="line"><span class="comment">//path 路径下的文件夹是否可执行(不常用)</span></div><div class="line">- (<span class="built_in">BOOL</span>)isExecutableFileAtPath:(<span class="built_in">NSString</span> *)path;</div></pre></td></tr></table></figure>
+            <ul>
+<li>将NSArray数据写入到文件中</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = @[<span class="string">@"a"</span>, <span class="string">@"b"</span>];</div><div class="line"></div><div class="line"><span class="built_in">BOOL</span> res = [array writeToFile:<span class="string">@"/Users/yan/Desktop/test.txt"</span> atomically:<span class="literal">YES</span>];</div></pre></td></tr></table></figure>
+<ul>
+<li>从文件中读取数据到NSArray中</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = [<span class="built_in">NSArray</span> arrayWithContentsOfFile:<span class="string">@"/Users/yan/Desktop/test.txt"</span>];</div></pre></td></tr></table></figure>
 
           
         
@@ -1528,8 +1530,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/nsarrayandnsstring/" itemprop="url">
-                  NSArray与NSString
+                <a class="post-title-link" href="/2016/07/07/nsfilemanagerandfile/" itemprop="url">
+                  NSFileManager的文件访问
                 </a>
               
             
@@ -1572,8 +1574,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/nsarrayandnsstring/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsarrayandnsstring/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsfilemanagerandfile/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsfilemanagerandfile/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1598,14 +1600,10 @@
       
         
           
-            <ul>
-<li>将数组元素连接成字符串</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//NSArray的方法</span></div><div class="line"><span class="comment">//用 separator 作为拼接符将数组元素拼接成一个字符串</span></div><div class="line">- (<span class="built_in">NSString</span>)componentsJoinedByString:(<span class="built_in">NSString</span> *)separator;</div></pre></td></tr></table></figure>
-<ul>
-<li>将字符串分割成一个数组</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//NSString的方法</span></div><div class="line"><span class="comment">// 将字符串用separator作为分隔符切割成数组元素</span></div><div class="line">- (<span class="built_in">NSArray</span> *)componentsSeparatedByString:(<span class="built_in">NSString</span> *)separator;</div></pre></td></tr></table></figure>
+            <h2 id="获取文件-文件夹的属性"><a href="#获取文件-文件夹的属性" class="headerlink" title="获取文件\文件夹的属性"></a>获取文件\文件夹的属性</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取文件\文件夹属性用法</span></div><div class="line">- (<span class="built_in">NSDictionary</span> *)attributesOfItemAtPath:(<span class="built_in">NSString</span> *)path error:(<span class="built_in">NSError</span> **)error;</div><div class="line"><span class="comment">//eg:</span></div><div class="line"><span class="comment">//1.文件地址</span></div><div class="line"><span class="built_in">NSString</span> *filePath = <span class="string">@"/Users/yan/Desktop/test"</span>;</div><div class="line"><span class="comment">//2.获取文件管理者</span></div><div class="line"><span class="built_in">NSFileManager</span> *fileManager = [<span class="built_in">NSFileManager</span> defaultManager];</div><div class="line"><span class="comment">//3.获取文件属性</span></div><div class="line"><span class="built_in">NSDictionary</span> *dic = [fileManager attributesOfItemAtPath:testPath error:<span class="literal">nil</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,dic);</div></pre></td></tr></table></figure>
+<h2 id="获取某一个文件夹下的所有子路径"><a href="#获取某一个文件夹下的所有子路径" class="headerlink" title="获取某一个文件夹下的所有子路径"></a>获取某一个文件夹下的所有子路径</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSArray</span> *)subpathsAtPath:(<span class="built_in">NSString</span> *)path;</div><div class="line">- (<span class="built_in">NSArray</span> *)subpathsOfDirectoryAtPath:(<span class="built_in">NSString</span> *)path error:(<span class="built_in">NSError</span> **)error;</div></pre></td></tr></table></figure>
+<h2 id="获取某一个文件夹下的当前子路径"><a href="#获取某一个文件夹下的当前子路径" class="headerlink" title="获取某一个文件夹下的当前子路径"></a>获取某一个文件夹下的当前子路径</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSArray</span> *)contentsOfDirectoryAtPath:(<span class="built_in">NSString</span> *)path error:(<span class="built_in">NSError</span> **)error;</div></pre></td></tr></table></figure>
+<h2 id="获取文件内容"><a href="#获取文件内容" class="headerlink" title="获取文件内容"></a>获取文件内容</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSData</span> *)contentsAtPath:(<span class="built_in">NSString</span> *)path;</div></pre></td></tr></table></figure>
 
           
         
@@ -1811,7 +1809,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">95</span>
+              <span class="site-state-item-count">96</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1828,7 +1826,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

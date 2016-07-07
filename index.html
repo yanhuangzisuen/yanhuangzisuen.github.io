@@ -296,8 +296,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/nsarrayandfile/" itemprop="url">
-                  NSArray读写文件
+                <a class="post-title-link" href="/2016/07/07/nsarrayandnsstring/" itemprop="url">
+                  NSArray与NSString
                 </a>
               
             
@@ -340,8 +340,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/nsarrayandfile/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsarrayandfile/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsarrayandnsstring/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsarrayandnsstring/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -367,13 +367,206 @@
         
           
             <ul>
-<li>将NSArray数据写入到文件中</li>
+<li>将数组元素连接成字符串</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = @[<span class="string">@"a"</span>, <span class="string">@"b"</span>];</div><div class="line"></div><div class="line"><span class="built_in">BOOL</span> res = [array writeToFile:<span class="string">@"/Users/yan/Desktop/test.txt"</span> atomically:<span class="literal">YES</span>];</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//NSArray的方法</span></div><div class="line"><span class="comment">//用 separator 作为拼接符将数组元素拼接成一个字符串</span></div><div class="line">- (<span class="built_in">NSString</span>)componentsJoinedByString:(<span class="built_in">NSString</span> *)separator;</div></pre></td></tr></table></figure>
 <ul>
-<li>从文件中读取数据到NSArray中</li>
+<li>将字符串分割成一个数组</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = [<span class="built_in">NSArray</span> arrayWithContentsOfFile:<span class="string">@"/Users/yan/Desktop/test.txt"</span>];</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//NSString的方法</span></div><div class="line"><span class="comment">// 将字符串用separator作为分隔符切割成数组元素</span></div><div class="line">- (<span class="built_in">NSArray</span> *)componentsSeparatedByString:(<span class="built_in">NSString</span> *)separator;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/property/" itemprop="url">
+                  property
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/property/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/property/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>@property 4.4前</p>
+<ul>
+<li>1) @property + 手动实现</li>
+<li>2) @property int age; + @synthesize age;//get和set方法的声明和实现都帮我们做了</li>
+<li>3) @property int age + @synthesizes age = _b;</li>
+</ul>
+</li>
+<li><p>@property 4.4增强 .h</p>
+</li>
+<li>@property int age;<ul>
+<li>1) 生成_age</li>
+<li>2) 生成_age的get和set方法的声明</li>
+<li>3) 实现_age的get和set方法</li>
+</ul>
+</li>
+</ul>
+<h4 id="property-参数-一"><a href="#property-参数-一" class="headerlink" title="@property 参数(一)"></a>@property 参数(一)</h4><ul>
+<li>格式:@property (参数1,参数2) 数据类型 方法名<br><img src="/img/10.1.png" alt=""></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 基本数据类型</span></div><div class="line"><span class="keyword">int</span> _age;</div><div class="line"></div><div class="line"><span class="comment">// set方法的写法</span></div><div class="line">-(<span class="keyword">void</span>)setAge:(<span class="keyword">int</span>) age</div><div class="line">&#123;</div><div class="line">_age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 用assign修饰后，仍旧会生成以上标准的set方法</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>) <span class="keyword">int</span> age;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// oc对象类型</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">retain</span>) Car *car ;</div><div class="line"></div><div class="line"><span class="comment">// 用retain修饰后，生成如下内存管理代码</span></div><div class="line">-(<span class="keyword">void</span>)setCar:(<span class="keyword">int</span>) car</div><div class="line">&#123;</div><div class="line">   <span class="keyword">if</span>(_car ! = car)</div><div class="line">   &#123;</div><div class="line">      [_car release];</div><div class="line">      _car = [car <span class="keyword">retain</span>];</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>1.内存管理相关参数<ul>
+<li>retain ： release旧值，retain新值（用于OC对象）</li>
+<li>assign ： 直接赋值，不做任何内存管理(默认，用于非OC对象类型)</li>
+<li>copy   ： release旧值，copy新值（一般用于NSString *）</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>验证assign如果作用在对象上,实际上就是直接赋值</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//使用@property增强型 生成get和set方法</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>)Car *car;</div><div class="line"></div><div class="line"><span class="comment">//.m文件中实际上生成的是</span></div><div class="line">- (<span class="keyword">void</span>)setCar:(Car *)cat</div><div class="line">&#123;</div><div class="line">   _car = car; <span class="comment">//当对象release后,将无法使用该对象</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// main函数</span></div><div class="line"><span class="keyword">int</span> main()</div><div class="line">&#123;</div><div class="line"> Person *p = [Person new];</div><div class="line"> Car *c = [Car new];</div><div class="line"></div><div class="line"> <span class="comment">// 给人一辆车</span></div><div class="line"> p.car = c;</div><div class="line"></div><div class="line"> <span class="comment">// 释放车</span></div><div class="line"> [c release];</div><div class="line"></div><div class="line"> <span class="comment">// 让人开车</span></div><div class="line"> [p drive]; <span class="comment">//此时p指向了僵尸对象</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用@property增强型 生成get和set方法</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//使用@property增强型 生成get和set方法</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">retain</span>)Car *car;</div><div class="line"></div><div class="line"><span class="comment">//.m文件中实际上生成的是</span></div><div class="line">- (<span class="keyword">void</span>)setCar:(Car *)cat</div><div class="line">&#123;</div><div class="line">   <span class="keyword">if</span>(_car != car)</div><div class="line">   &#123;</div><div class="line">     [_car release];</div><div class="line">     _car = [car <span class="keyword">retain</span>];</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// main函数</span></div><div class="line"><span class="keyword">int</span> main()</div><div class="line">&#123;</div><div class="line"> Person *p = [Person new];</div><div class="line"> Car *c = [Car new];</div><div class="line"></div><div class="line"> <span class="comment">// 给人一辆车</span></div><div class="line"> p.car = c;</div><div class="line"></div><div class="line"> <span class="comment">// 释放车</span></div><div class="line"> [c release];</div><div class="line"></div><div class="line"> <span class="comment">// 让人开车</span></div><div class="line"> [p drive];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>此时，会发生内存泄露。</li>
+<li>解决办法</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Person -- dealloc"</span>);</div><div class="line">    [_car release];</div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="property-参数-二"><a href="#property-参数-二" class="headerlink" title="@property 参数(二)"></a>@property 参数(二)</h4><ul>
+<li><p>1、是否要生成set方法(若为只读属性,则不生成)</p>
+<ul>
+<li>readonly:只读,只会生成get的声明和实现</li>
+<li>readwrite:默认的,同时生成set和get的声明和实现</li>
+</ul>
+</li>
+<li><p>2.多线程管理(苹果在一定程度上屏蔽了多线程操作)</p>
+<ul>
+<li>nonatomic:高性能,一般使用这个</li>
+<li><p>atomic:低性能,默认</p>
+</li>
+<li><p>atomic是Objc使用的一种线程保护技术,基本上来讲,是防止在写未完成的时候被另外一个线程读取,造成数据错误。而这种机制是耗费系统资源的,所以在iPhone这种小型设备上,如果没有使用多线程间的通讯编程,那么nonatomic是一个非常好的选择。</p>
+</li>
+</ul>
+</li>
+<li><p>3.set和get方法的名称</p>
+<ul>
+<li><p>修改set和get方法的名称,主要用于布尔类型。因为返回布尔类型的方法名一般以is开头,修改 名称一般用在布尔类型中的getter。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">控制set方法和get方法的名称</div><div class="line"><span class="keyword">setter</span> ： 设置set方法的名称，一定有个冒号:</div><div class="line"><span class="keyword">getter</span> ： 设置get方法的名称</div><div class="line"></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>, <span class="keyword">setter</span>=abc:,<span class="keyword">getter</span>=haha)<span class="keyword">int</span> age</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>可以理解为：</p>
+<ul>
+<li>[p setAge: ]——&gt; [p abc:],</li>
+<li>[p age] ———&gt; [p haha];</li>
+<li>p.age 不会报错(内部优化)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>, <span class="keyword">setter</span>=setVip:,<span class="keyword">getter</span>=isVip) <span class="built_in">BOOL</span> vip;</div></pre></td></tr></table></figure>
 
           
         
@@ -1611,226 +1804,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/object/" itemprop="url">
-                  Objective-C简介
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective-C</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/object/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/object/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
-<p>OC是在C语言的基础上加了一些新的面向对象的语法, 将C语言的复杂的, 比较繁琐的语法封装的更为简单.完全兼容C语言, 也就是说在OC语言中可以写任意的C代码.</p>
-</blockquote>
-<p>##发展史</p>
-<ul>
-<li><p>20世纪80年代初期, <code>Brad Cox</code>结合了C语言和SmallTalk的优势, 设计出了Objective-C语言.</p>
-</li>
-<li><p>1985年, <code>乔布斯</code>创建了NeXT公司, 使用Objective-C开发用户界面包.</p>
-</li>
-<li><p>1995年, NeXT得到Objective-C的全部版权.</p>
-</li>
-<li><p>1996年, 苹果收购NeXT, NextStep更名<code>Cocoa</code>, OC成为开发运行在Mac平台上的软件的主力语言.</p>
-</li>
-</ul>
-<p>在苹果发布iOS系统之后, OC又成为了开发iOS程序的语言</p>
-<p>##OC与C差异</p>
-<ul>
-<li>源文件</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">扩张名</th>
-<th style="text-align:center">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">.h</td>
-<td style="text-align:center">头文件</td>
-</tr>
-<tr>
-<td style="text-align:center">.c</td>
-<td style="text-align:center">C语言源文件</td>
-</tr>
-<tr>
-<td style="text-align:center">.cpp .cc</td>
-<td style="text-align:center">C++语言的源文件</td>
-</tr>
-<tr>
-<td style="text-align:center">.m</td>
-<td style="text-align:center">Objective-C语言源文件</td>
-</tr>
-<tr>
-<td style="text-align:center">.mm</td>
-<td style="text-align:center">Objective-C++语言源文件</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>数据类型</li>
-</ul>
-<p>C中的数据类型:<br><img src="/img/C语言数据类型.jpg" alt="C数据类型"></p>
-<p>OC中的新增的数据类型:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">类型</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">BOOL</td>
-<td style="text-align:center">字面常量值, <code>YES</code>or<code>NO</code></td>
-</tr>
-<tr>
-<td style="text-align:center">NSObject *</td>
-<td style="text-align:center">OC中的对象类型</td>
-</tr>
-<tr>
-<td style="text-align:center">id</td>
-<td style="text-align:center">动态对象类型, 万能指针</td>
-</tr>
-<tr>
-<td style="text-align:center">SEL</td>
-<td style="text-align:center">选择器数据类型</td>
-</tr>
-<tr>
-<td style="text-align:center">block</td>
-<td style="text-align:center">代码块数据类型</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>关键字</p>
-<p>  C语言关键字</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">auto</span> <span class="keyword">double</span> <span class="keyword">int</span> <span class="keyword">struct</span> <span class="keyword">break</span> <span class="keyword">else</span> <span class="keyword">long</span> <span class="keyword">switch</span> <span class="keyword">case</span> <span class="keyword">enum</span></div><div class="line"><span class="keyword">register</span> <span class="keyword">typedef</span> <span class="keyword">char</span> <span class="keyword">extern</span> <span class="keyword">return</span> <span class="keyword">union</span> <span class="keyword">const</span> <span class="keyword">float</span></div><div class="line"><span class="keyword">short</span> <span class="keyword">unsigned</span> <span class="keyword">continue</span> <span class="keyword">for</span> <span class="keyword">signed</span> <span class="keyword">void</span> <span class="keyword">default</span> <span class="keyword">goto</span></div><div class="line"><span class="keyword">sizeof</span> <span class="keyword">volatile</span> <span class="keyword">do</span> <span class="keyword">if</span> <span class="keyword">while</span> <span class="keyword">static</span></div></pre></td></tr></table></figure>
-<p>  OC新增关键字</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> @<span class="title">implementation</span> @<span class="title">end</span> @<span class="title">public</span> @<span class="title">protected</span></span></div><div class="line"><span class="keyword">@private</span> <span class="keyword">@selector</span> <span class="keyword">@try</span> @ catch <span class="keyword">@throw</span> <span class="keyword">@finally</span></div><div class="line"><span class="class"><span class="keyword">@protocol</span> @<span class="title">optional</span> @<span class="title">required</span> @<span class="title">class</span> @<span class="title">property</span> @<span class="title">synthesize</span></span></div><div class="line"><span class="keyword">@dynamic</span> <span class="built_in">BOOL</span> Class SEL <span class="literal">YES</span> <span class="literal">NO</span> <span class="keyword">id</span> <span class="keyword">self</span> <span class="keyword">super</span> <span class="literal">nil</span> atomic</div><div class="line"><span class="keyword">nonatomic</span> <span class="keyword">retain</span> <span class="keyword">assign</span> <span class="keyword">copy</span> block _</div></pre></td></tr></table></figure>
-<p>  OC中新增异常捕捉方法</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@try</span> &#123;</div><div class="line">    <span class="comment">//可能出错的代码</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">@catch</span> (<span class="built_in">NSException</span> *exception) &#123;</div><div class="line">    <span class="comment">//一旦出错可以补救的代码</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">@finally</span> &#123;</div><div class="line">    <span class="comment">//无论出错与否都会执行的代码</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>##OC面向对象编程的四个主要特征</p>
-<ul>
-<li>抽象性</li>
-<li>封装性</li>
-<li>多态性</li>
-<li>继承性</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1876,7 +1849,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">95</span>
+              <span class="site-state-item-count">96</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1893,7 +1866,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
