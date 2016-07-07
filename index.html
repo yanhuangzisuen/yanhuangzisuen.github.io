@@ -428,8 +428,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/nsarrayaction/" itemprop="url">
-                  NSArray常见用法
+                <a class="post-title-link" href="/2016/07/07/nsarrayandfile/" itemprop="url">
+                  NSArray读写文件
                 </a>
               
             
@@ -472,8 +472,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/nsarrayaction/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsarrayaction/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsarrayandfile/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsarrayandfile/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -498,52 +498,14 @@
       
         
           
-            <h2 id="NSArray-的检索"><a href="#NSArray-的检索" class="headerlink" title="NSArray 的检索"></a>NSArray 的检索</h2><ul>
-<li><p>获取集合元素的个数</p>
-<pre><code>- (NSUInteger)count;
-</code></pre></li>
-<li><p>获取 index 位置的元素</p>
-<pre><code>- (id)objectAtIndex:(NSUInteger)index;
-</code></pre></li>
-<li><p>是否包含某一个元素</p>
-<pre><code>- (BOOL)containsObject:(id)anObject;
-</code></pre></li>
-<li><p>返回第一个元素</p>
-<pre><code>- (id)firstObject;
-</code></pre></li>
-<li><p>返回最后一个元素</p>
-<pre><code>- (id)lastObject;
-</code></pre></li>
-<li><p>查找 anObject 元素在数组中的位置(如果找不到, 返回 -1)</p>
-<pre><code>- (NSUInteger)indexOfObject:(id)anObject;
-</code></pre></li>
-<li><p>在 range 范围内查找 anObject 元素在数组中的位置</p>
-<pre><code>- (NSUInteger)indexOfObject:(id)anObject inRange:(NSRange)range;
-</code></pre></li>
-<li><p>返回两个数组第一个相同的元素</p>
-<pre><code>- (nullable ObjectType)firstObjectCommonWithArray:(NSArray&lt;ObjectType&gt; *)otherArray;
-</code></pre></li>
+            <ul>
+<li>将NSArray数据写入到文件中</li>
 </ul>
-<h2 id="数组的简写形式"><a href="#数组的简写形式" class="headerlink" title="数组的简写形式"></a>数组的简写形式</h2><p><strong>自从2012年开始, Xcode的编译器多了很多自动生成代码的功能, 使得OC代码更加精简</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = @[<span class="string">@"a"</span>, <span class="string">@"b"</span>];</div><div class="line"></div><div class="line"><span class="built_in">BOOL</span> res = [array writeToFile:<span class="string">@"/Users/yan/Desktop/test.txt"</span> atomically:<span class="literal">YES</span>];</div></pre></td></tr></table></figure>
 <ul>
-<li><p>数组的创建</p>
-  <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//之前</span></div><div class="line">[<span class="built_in">NSArray</span> arrayWithObjects:<span class="string">@"Jack"</span>, <span class="string">@"Rose"</span>, <span class="string">@"Jim"</span>, <span class="literal">nil</span>];</div><div class="line"><span class="comment">//现在</span></div><div class="line">@[<span class="string">@"Jack"</span>, <span class="string">@"Rose"</span>, <span class="string">@"Jim"</span>];</div></pre></td></tr></table></figure>
-</li>
-<li><p>数组元素的访问</p>
-  <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//之前</span></div><div class="line">[array objectAtIndex:<span class="number">0</span>];</div><div class="line"><span class="comment">//现在</span></div><div class="line">array[<span class="number">0</span>];</div></pre></td></tr></table></figure>
-</li>
+<li>从文件中读取数据到NSArray中</li>
 </ul>
-<h2 id="NSArray-给所有元素发送消息"><a href="#NSArray-给所有元素发送消息" class="headerlink" title="NSArray 给所有元素发送消息"></a>NSArray 给所有元素发送消息</h2><ul>
-<li>让集合中的所有元素都执行 aSelector 这个方法</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)makeObjectsPerformSelector:(SEL)aSelector;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)makeObjectsPerformSelector:(SEL)aSelector withObject:(<span class="keyword">id</span>)argument;</div></pre></td></tr></table></figure>
-<h2 id="数组的排序"><a href="#数组的排序" class="headerlink" title="数组的排序"></a>数组的排序</h2><h4 id="compare"><a href="#compare" class="headerlink" title="compare"></a>compare</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *arr = @[@<span class="number">10</span>, @<span class="number">1</span>, @<span class="number">8</span>, @<span class="number">6</span>, @<span class="number">6</span>, @<span class="number">19</span>];</div><div class="line"><span class="comment">//compare  想使用compare 对数组进行排序,数组元素必须是Foundation 框架中的对象,不能是自定义对象</span></div><div class="line"><span class="built_in">NSArray</span> *newArr = [arr sortedArrayUsingSelector:<span class="keyword">@selector</span>(compare:)];</div></pre></td></tr></table></figure>
-<h4 id="二分排序"><a href="#二分排序" class="headerlink" title="二分排序"></a>二分排序</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">Person *p1 = [[Person alloc] init];</div><div class="line">Person *p2 = [[Person alloc] init];</div><div class="line">Person *p3 = [[Person alloc] init];</div><div class="line">Person *p4 = [[Person alloc] init];</div><div class="line">p1.age = <span class="number">20</span>;</div><div class="line">p2.age = <span class="number">10</span>;</div><div class="line">p3.age = <span class="number">40</span>;</div><div class="line">p4.age = <span class="number">30</span>;</div><div class="line"></div><div class="line"><span class="built_in">NSArray</span> *arr = @[p1, p2, p3, p4];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"排序前%@"</span>, arr);</div><div class="line"><span class="comment">//不能使用 compare 方法对自定义对象进行排序</span></div><div class="line"><span class="comment">//NSArray *newArr = [arr sortedArrayUsingSelector:@selector(compare:)];</span></div><div class="line"></div><div class="line"><span class="comment">//二分排序</span></div><div class="line"><span class="built_in">NSArray</span> *newArr = [arr sortedArrayWithOptions:<span class="built_in">NSSortStable</span> usingComparator:^<span class="built_in">NSComparisonResult</span>(Person *obj1, Person *obj2) &#123;</div><div class="line">    <span class="comment">//每次调用该 block 都会取出数组中的两个元素 id  _Nonnull 可以改成 Person *</span></div><div class="line">    <span class="comment">//NSLog(@"obj1 = %@, obj2 = %@", obj1, obj2);</span></div><div class="line">    <span class="keyword">return</span> obj1.age &gt; obj2.age;<span class="comment">//升序</span></div><div class="line"><span class="comment">//  return obj1.age &lt; obj2.age;//降序</span></div><div class="line"><span class="comment">//如果比较的属性为字符串,</span></div><div class="line"><span class="keyword">return</span> [obj1.name compare: obj2.name];<span class="comment">//升序</span></div><div class="line"><span class="comment">//return [obj2.name compare: obj1.name];//降序</span></div><div class="line">    &#125;];</div></pre></td></tr></table></figure>
-<h4 id="排序描述器"><a href="#排序描述器" class="headerlink" title="排序描述器"></a>排序描述器</h4><ul>
-<li>可以按多个属性排</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Person *p1 = [Person personWithName:<span class="string">@"c"</span> andAge:<span class="number">23</span>];</div><div class="line">Person *p2 = [Person personWithName:<span class="string">@"a"</span> andAge:<span class="number">21</span>];</div><div class="line">Person *p3 = [Person personWithName:<span class="string">@"b"</span> andAge:<span class="number">20</span>];</div><div class="line">Person *p4 = [Person personWithName:<span class="string">@"b"</span> andAge:<span class="number">19</span>];</div><div class="line"></div><div class="line"><span class="built_in">NSMutableArray</span> *arr = [<span class="built_in">NSMutableArray</span> arrayWithObjects:p1, p2, p3, p4, <span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//创建排序描述器, ascending 升序</span></div><div class="line"><span class="built_in">NSSortDescriptor</span> *nameSortDesc = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@"name"</span> ascending:<span class="literal">YES</span>];</div><div class="line"><span class="built_in">NSSortDescriptor</span> *ageSortDesc = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@"age"</span> ascending:<span class="literal">YES</span>];</div><div class="line"></div><div class="line"><span class="comment">//进行排序</span></div><div class="line">[arr sortUsingDescriptors:@[nameSortDesc, ageSortDesc]];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, arr);</div></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">Car *c1 = [[Car alloc] init];</div><div class="line">c1.name = <span class="string">@"BMW"</span>;</div><div class="line"></div><div class="line">Car *c2 = [[Car alloc] init];</div><div class="line">c2.name = <span class="string">@"Benz"</span>;</div><div class="line"></div><div class="line">Car *c3 = [[Car alloc] init];</div><div class="line">c3.name = <span class="string">@"MINI"</span>;</div><div class="line"></div><div class="line">Car *c4 = [[Car alloc] init];</div><div class="line">c4.name = <span class="string">@"BYD"</span>;</div><div class="line"></div><div class="line">Person *p1 = [Person personWithName:<span class="string">@"zhangsan"</span> andAge:<span class="number">21</span> andCar:c1];</div><div class="line">Person *p2 = [Person personWithName:<span class="string">@"zhangsan"</span> andAge:<span class="number">21</span> andCar:c2];</div><div class="line">Person *p3 = [Person personWithName:<span class="string">@"lisi"</span> andAge:<span class="number">19</span> andCar:c3];</div><div class="line">Person *p4 = [Person personWithName:<span class="string">@"wangwu"</span> andAge:<span class="number">18</span> andCar:c4];</div><div class="line"></div><div class="line"><span class="comment">//创建排序描述器</span></div><div class="line"><span class="built_in">NSSortDescriptor</span> *nameSortDesc = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@"name"</span> ascending:<span class="literal">YES</span>];</div><div class="line"><span class="built_in">NSSortDescriptor</span> *ageSortDesc = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@"age"</span> ascending:<span class="literal">YES</span>];</div><div class="line"></div><div class="line"><span class="built_in">NSSortDescriptor</span> *carSortDesc = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@"car.name"</span> ascending:<span class="literal">YES</span>];</div><div class="line"></div><div class="line"><span class="built_in">NSMutableArray</span> *arrM =[<span class="built_in">NSMutableArray</span> arrayWithArray:@[p1, p2, p3, p4]];</div><div class="line"></div><div class="line">[arrM sortUsingDescriptors:@[nameSortDesc, ageSortDesc, carSortDesc]];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, arrM);</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = [<span class="built_in">NSArray</span> arrayWithContentsOfFile:<span class="string">@"/Users/yan/Desktop/test.txt"</span>];</div></pre></td></tr></table></figure>
 
           
         
@@ -2116,7 +2078,7 @@ NSLog(@&quot;%lu&quot;,s.length);
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">93</span>
+              <span class="site-state-item-count">94</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2133,7 +2095,7 @@ NSLog(@&quot;%lu&quot;,s.length);
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

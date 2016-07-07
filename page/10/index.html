@@ -1110,6 +1110,217 @@ NSString *filePath = [docPath stringByAppendingPathComponent:@&quot;person.plist
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/NSOperation/" itemprop="url">
+                  NSOperation
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/NSOperation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/NSOperation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、NSOperation简介"><a href="#一、NSOperation简介" class="headerlink" title="一、NSOperation简介"></a>一、NSOperation简介</h2><h4 id="1、NSOperation的作用"><a href="#1、NSOperation的作用" class="headerlink" title="1、NSOperation的作用"></a>1、NSOperation的作用</h4><ul>
+<li>是OC语言中基于GCD的面向对象的封装</li>
+<li>使用起来比GCD更加简单（面向对象）</li>
+<li>提供了一些用GCD不好实现的功能</li>
+<li>苹果推荐使用，使用NSOperation不用关心线程以及线程的生命周期</li>
+</ul>
+<h4 id="2、查看NSOperation的头文件"><a href="#2、查看NSOperation的头文件" class="headerlink" title="2、查看NSOperation的头文件"></a>2、查看NSOperation的头文件</h4><ul>
+<li>NSOperation是一个抽象类<ol>
+<li>不能直接使用（方法没有实现）</li>
+<li>约束子类都具有共同的属性和方法</li>
+</ol>
+</li>
+<li>NSOperation的子类<ol>
+<li>NSInvocationOperation</li>
+<li>NSBlockOperation</li>
+<li>自定义operation</li>
+</ol>
+</li>
+</ul>
+<h4 id="3、使用步骤"><a href="#3、使用步骤" class="headerlink" title="3、使用步骤"></a>3、使用步骤</h4><h6 id="NSOperation和NSOperationQueue实现多线程的具体步骤"><a href="#NSOperation和NSOperationQueue实现多线程的具体步骤" class="headerlink" title="NSOperation和NSOperationQueue实现多线程的具体步骤"></a>NSOperation和NSOperationQueue实现多线程的具体步骤</h6><ul>
+<li>先将需要执行的操作封装到一个NSOperation对象中</li>
+<li>然后将NSOperation对象添加到NSOperationQueue中</li>
+<li>系统会自动将NSOperationQueue中的NSOperation取出来</li>
+<li>将取出的NSOperation封装的操作放到一条新线程中执行</li>
+</ul>
+<h2 id="二、NSOperation"><a href="#二、NSOperation" class="headerlink" title="二、NSOperation"></a>二、NSOperation</h2><h4 id="1、NSInvocationOperation"><a href="#1、NSInvocationOperation" class="headerlink" title="1、NSInvocationOperation"></a>1、NSInvocationOperation</h4><h6 id="建NSInvocationOperation对象"><a href="#建NSInvocationOperation对象" class="headerlink" title="建NSInvocationOperation对象"></a>建NSInvocationOperation对象</h6><pre><code>- (id)initWithTarget:(id)target selector:(SEL)sel object:(id)arg;
+</code></pre><h6 id="调用start方法开始执行操作"><a href="#调用start方法开始执行操作" class="headerlink" title="调用start方法开始执行操作"></a>调用start方法开始执行操作</h6><pre><code>- (void)start;
+</code></pre><p><strong>一旦执行操作，就会调用target的sel方法</strong></p>
+<h6 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h6><ul>
+<li>默认情况下，调用了start方法后并不会开一条新线程去执行操作，而是在当前线程同步执行操作</li>
+<li>只有将NSOperation放到一个NSOperationQueue中，才会异步执行操作,年代久远，不常用。</li>
+</ul>
+<h4 id="2、NSBlockOperation"><a href="#2、NSBlockOperation" class="headerlink" title="2、NSBlockOperation"></a>2、NSBlockOperation</h4><h6 id="创建NSBlockOperation对象"><a href="#创建NSBlockOperation对象" class="headerlink" title="创建NSBlockOperation对象"></a>创建NSBlockOperation对象</h6><pre><code>+ (id)blockOperationWithBlock:(void (^)(void))block;
+</code></pre><h6 id="通过addExecutionBlock-方法添加更多的操作"><a href="#通过addExecutionBlock-方法添加更多的操作" class="headerlink" title="通过addExecutionBlock:方法添加更多的操作"></a>通过addExecutionBlock:方法添加更多的操作</h6><pre><code>- (void)addExecutionBlock:(void (^)(void))block;
+</code></pre><p><strong>注意：只要NSBlockOperation封装的操作数 &gt; 1，就会异步执行操作</strong></p>
+<h4 id="3、NSOperationQueue"><a href="#3、NSOperationQueue" class="headerlink" title="3、NSOperationQueue"></a>3、NSOperationQueue</h4><h6 id="NSOperationQueue的作用"><a href="#NSOperationQueue的作用" class="headerlink" title="NSOperationQueue的作用"></a>NSOperationQueue的作用</h6><pre><code>NSOperation可以调用start方法来执行任务，但默认是同步执行的
+如果将NSOperation添加到NSOperationQueue（操作队列）中，系统会自动异步执行NSOperation中的操作
+</code></pre><h6 id="添加操作到NSOperationQueue中"><a href="#添加操作到NSOperationQueue中" class="headerlink" title="添加操作到NSOperationQueue中"></a>添加操作到NSOperationQueue中</h6><pre><code>- (void)addOperation:(NSOperation *)op;
+- (void)addOperationWithBlock:(void (^)(void))block;
+</code></pre><h6 id="监听操作完成"><a href="#监听操作完成" class="headerlink" title="监听操作完成"></a>监听操作完成</h6><pre><code>可以监听一个操作的执行完毕
+- (void (^)(void))completionBlock;
+- (void)setCompletionBlock:(void (^)(void))block;
+</code></pre><h4 id="4、最大并发数"><a href="#4、最大并发数" class="headerlink" title="4、最大并发数"></a>4、最大并发数</h4><h6 id="什么是并发数"><a href="#什么是并发数" class="headerlink" title="什么是并发数"></a>什么是并发数</h6><ul>
+<li>同时执行的任务数</li>
+<li>比如，同时开3个线程执行3个任务，并发数就是3</li>
+</ul>
+<h6 id="最大并发数的相关方法"><a href="#最大并发数的相关方法" class="headerlink" title="最大并发数的相关方法"></a>最大并发数的相关方法</h6><pre><code>- (NSInteger)maxConcurrentOperationCount;
+- (void)setMaxConcurrentOperationCount:(NSInteger)cnt;
+</code></pre><h4 id="5、队列的暂停、取消、恢复"><a href="#5、队列的暂停、取消、恢复" class="headerlink" title="5、队列的暂停、取消、恢复"></a>5、队列的暂停、取消、恢复</h4><h6 id="取消队列的所有操作"><a href="#取消队列的所有操作" class="headerlink" title="取消队列的所有操作"></a>取消队列的所有操作</h6><pre><code>- (void)cancelAllOperations;
+提示：也可以调用NSOperation的- (void)cancel方法取消单个操作
+</code></pre><h6 id="暂停和恢复队列"><a href="#暂停和恢复队列" class="headerlink" title="暂停和恢复队列"></a>暂停和恢复队列</h6><pre><code>- (void)setSuspended:(BOOL)b; // YES代表暂停队列，NO代表恢复队列
+- (BOOL)isSuspended;
+</code></pre><h4 id="6、操作的优先级"><a href="#6、操作的优先级" class="headerlink" title="6、操作的优先级"></a>6、操作的优先级</h4><h6 id="设置NSOperation在queue中的优先级，可以改变操作的执行优先级"><a href="#设置NSOperation在queue中的优先级，可以改变操作的执行优先级" class="headerlink" title="设置NSOperation在queue中的优先级，可以改变操作的执行优先级"></a>设置NSOperation在queue中的优先级，可以改变操作的执行优先级</h6><pre><code>- (NSOperationQueuePriority)queuePriority;
+- (void)setQueuePriority:(NSOperationQueuePriority)p;
+</code></pre><h6 id="优先级的取值"><a href="#优先级的取值" class="headerlink" title="优先级的取值"></a>优先级的取值</h6><pre><code>NSOperationQueuePriorityVeryLow = -8L,
+NSOperationQueuePriorityLow = -4L,
+NSOperationQueuePriorityNormal = 0,
+NSOperationQueuePriorityHigh = 4,
+NSOperationQueuePriorityVeryHigh = 8
+
+iOS8 @property NSQualityOfService qualityOfService
+
+NSQualityOfServiceUserInteractive = 0x21,
+NSQualityOfServiceUserInitiated = 0x19,
+NSQualityOfServiceUtility = 0x11,
+NSQualityOfServiceBackground = 0x09,
+NSQualityOfServiceDefault = -1
+</code></pre><h4 id="7、操作依赖"><a href="#7、操作依赖" class="headerlink" title="7、操作依赖"></a>7、操作依赖</h4><h6 id="NSOperation之间可以设置依赖来保证执行顺序"><a href="#NSOperation之间可以设置依赖来保证执行顺序" class="headerlink" title="NSOperation之间可以设置依赖来保证执行顺序"></a>NSOperation之间可以设置依赖来保证执行顺序</h6><pre><code>比如一定要让操作A执行完后，才能执行操作B，可以这么写
+[operationB addDependency:operationA]; // 操作B依赖于操作A
+可以在不同queue的NSOperation之间创建依赖关系
+</code></pre><p><strong>注意不能相符依赖</strong></p>
+<h4 id="8、线程间通信"><a href="#8、线程间通信" class="headerlink" title="8、线程间通信"></a>8、线程间通信</h4><h6 id="子线程-gt-主线程"><a href="#子线程-gt-主线程" class="headerlink" title="子线程-&gt;主线程"></a>子线程-&gt;主线程</h6><pre><code>[self.queue addOperationWithBlock:^{
+        //子线程
+        //do something
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            //主线程的任务,操作UI等
+        }];
+    }];
+</code></pre><h4 id="9、自定义NSOperation"><a href="#9、自定义NSOperation" class="headerlink" title="9、自定义NSOperation"></a>9、自定义NSOperation</h4><h6 id="重写main方法，把我们想要执行的代码放到该方法中去运行。"><a href="#重写main方法，把我们想要执行的代码放到该方法中去运行。" class="headerlink" title="重写main方法，把我们想要执行的代码放到该方法中去运行。"></a>重写main方法，把我们想要执行的代码放到该方法中去运行。</h6><pre><code>- (void)main;
+</code></pre><h2 id="3、NSOperation-VS-GCD"><a href="#3、NSOperation-VS-GCD" class="headerlink" title="3、NSOperation VS GCD"></a>3、NSOperation VS GCD</h2><h4 id="1、GCD"><a href="#1、GCD" class="headerlink" title="1、GCD"></a>1、GCD</h4><pre><code>i.  GCD是iOS4.0 推出的，主要针对多核cpu做了优化，是C语言的技术
+ii. GCD是将任务(block)添加到队列(串行/并行/全局/主队列)，并且以同步/异步的方式执行任务的函数
+iii.GCD提供了一些NSOperation不具备的功能
+1.    一次性执行
+2.    延迟执行
+3.    调度组
+</code></pre><h4 id="2、NSOperation"><a href="#2、NSOperation" class="headerlink" title="2、NSOperation"></a>2、NSOperation</h4><pre><code>i.  NSOperation是iOS2.0推出的，iOS4之后重写了NSOperation
+ii.    NSOperation将操作(异步的任务)添加到队列(并发队列)，就会执行指定操作的函数
+iii.NSOperation里提供的方便的操作
+1.    最大并发数
+2.    队列的暂定/继续
+3.    取消所有的操作
+4.    指定操作之间的依赖关系(GCD可以用同步实现)
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1155,7 +1366,7 @@ NSString *filePath = [docPath stringByAppendingPathComponent:@&quot;person.plist
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">93</span>
+              <span class="site-state-item-count">94</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1172,7 +1383,7 @@ NSString *filePath = [docPath stringByAppendingPathComponent:@&quot;person.plist
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
