@@ -256,7 +256,7 @@
     e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
   })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
 
-  _st('install', 'iRPRT9JgJfvxEsHZRgKm','2.0.0');
+  _st('install', 'JkNMXN1cxKV6zyoyR6Rb','2.0.0');
 </script>
 
 
@@ -296,8 +296,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/other/" itemprop="url">
-                  Other
+                <a class="post-title-link" href="/2016/07/07/storyboardandxib/" itemprop="url">
+                  StoryboardAndXib
                 </a>
               
             
@@ -340,8 +340,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/other/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/other/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/storyboardandxib/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/storyboardandxib/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -366,17 +366,18 @@
       
         
           
-            <h3 id="保存图片-视频"><a href="#保存图片-视频" class="headerlink" title="保存图片, 视频"></a>保存图片, 视频</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//图片</span></div><div class="line"><span class="built_in">UIImageWriteToSavedPhotosAlbum</span>(<span class="keyword">self</span>.imageView.image, <span class="keyword">self</span>, <span class="keyword">@selector</span>(image:didFinishSavingWithError:contextInfo:), <span class="literal">nil</span>);</div><div class="line"></div><div class="line"><span class="comment">//视频</span></div><div class="line"><span class="built_in">UISaveVideoAtPathToSavedPhotosAlbum</span>(&lt;<span class="meta">#NSString * _Nonnull videoPath#&gt;, <span class="meta-string">&lt;#id  _Nullable completionTarget#&gt;</span>, <span class="meta-string">&lt;#SEL  _Nullable completionSelector#&gt;</span>, <span class="meta-string">&lt;#void * _Nullable contextInfo#&gt;</span>)</span></div><div class="line"></div><div class="line"><span class="comment">//图片保存结果的回调</span></div><div class="line"><span class="comment">//方法要有三个参数</span></div><div class="line"><span class="comment">//方法要有三个参数</span></div><div class="line">- (<span class="keyword">void</span>)image:(<span class="built_in">UIImage</span> *)image didFinishSavingWithError:(<span class="built_in">NSError</span> *)error contextInfo:(<span class="keyword">void</span> *)contextInfo</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (error) &#123;</div><div class="line">        [SVProgressHUD showErrorWithStatus:<span class="string">@"保存失败"</span>];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [SVProgressHUD showSuccessWithStatus:<span class="string">@"保存成功"</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">视频保存结果的回调</div><div class="line">- (<span class="keyword">void</span>)video:(<span class="built_in">NSString</span> *)videoPath didFinishSavingWithError:(<span class="built_in">NSError</span> *)error contextInfo:(<span class="keyword">void</span> *)contextInfo</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (error) &#123;</div><div class="line">        [SVProgressHUD showErrorWithStatus:<span class="string">@"保存失败"</span>];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [SVProgressHUD showSuccessWithStatus:<span class="string">@"保存成功"</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="解决TableView-CollectionView加载数据时多次刷新问题"><a href="#解决TableView-CollectionView加载数据时多次刷新问题" class="headerlink" title="解决TableView\CollectionView加载数据时多次刷新问题"></a>解决TableView\CollectionView加载数据时多次刷新问题</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">解决多次刷新问题</div><div class="line">方法<span class="number">1.</span>定义属性parameters, 判读parameters是否相同</div><div class="line">方法<span class="number">2.</span><span class="built_in">NSURLSessionDataTask</span>的cancel方法</div><div class="line">一个任务被取消,AFNetworking 会调用取消任务的 failure 的 block</div><div class="line"></div><div class="line"><span class="comment">//makeObjectsPerformSelector数组中的所有元素都执行Selector方法</span></div><div class="line">    [<span class="keyword">self</span>.manager.tasks makeObjectsPerformSelector:<span class="keyword">@selector</span>(cancel)];</div><div class="line"></div><div class="line"><span class="comment">//控制器销毁时</span></div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="comment">//取消所有的任务</span></div><div class="line">    [<span class="keyword">self</span>.manager invalidateSessionCancelingTasks:<span class="literal">YES</span>];</div><div class="line">    <span class="comment">//or</span></div><div class="line">    <span class="comment">//停止所有操作</span></div><div class="line">    [<span class="keyword">self</span>.manager.operationQueue cancelAllOperations];</div><div class="line"></div><div class="line">    <span class="comment">//取消任务, 还能开起任务</span></div><div class="line">    <span class="comment">//[self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];</span></div><div class="line">    <span class="comment">//invalidateSessionCancelingTasks=yes --&gt; session 都无效,任务不能开启, cancel只是取消任务</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="拦截frame的修改"><a href="#拦截frame的修改" class="headerlink" title="拦截frame的修改"></a>拦截frame的修改</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *  可以拦截所有对frame的修改</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)setFrame:(<span class="built_in">CGRect</span>)frame</div><div class="line">&#123;</div><div class="line">    frame.origin.x = <span class="number">10</span>;</div><div class="line">    frame.size.width -= <span class="number">2</span> * frame.origin.x;</div><div class="line">    frame.size.height -= <span class="number">1</span>;</div><div class="line"></div><div class="line">    [<span class="keyword">super</span> setFrame:frame];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  可以拦截所有对bounds的修改</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)setBounds:(<span class="built_in">CGRect</span>)bounds</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> setBounds:bounds];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="控件无故拉伸问题"><a href="#控件无故拉伸问题" class="headerlink" title="控件无故拉伸问题"></a>控件无故拉伸问题</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//如果设置了尺寸, 但控件的宽高拉伸, 可能就是UIViewAutoresizingNone</span></div><div class="line"><span class="keyword">self</span>.autoresizingMask = <span class="built_in">UIViewAutoresizingNone</span>;</div></pre></td></tr></table></figure>
-<h3 id="图片过大-只全部显示图片头部"><a href="#图片过大-只全部显示图片头部" class="headerlink" title="图片过大, 只全部显示图片头部"></a>图片过大, 只全部显示图片头部</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//开启图形上下文</span></div><div class="line"><span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(post.pictureFrame.size, <span class="literal">YES</span>, <span class="number">0.0</span>);</div><div class="line"></div><div class="line"><span class="comment">//将下载的图片, 画到图像上下文中</span></div><div class="line"><span class="comment">//等比例缩放至宽或高全部显示后, 的图片frame</span></div><div class="line"><span class="built_in">CGFloat</span> imageW = post.pictureFrame.size.width;</div><div class="line"></div><div class="line"><span class="built_in">CGFloat</span> imageH = image.size.height * imageW / image.size.width;</div><div class="line">[image drawInRect:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, imageW, imageH)];</div><div class="line"></div><div class="line"><span class="comment">//获取图片</span></div><div class="line"><span class="keyword">self</span>.imageView.image  = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</div><div class="line"></div><div class="line"><span class="comment">//结束图形上下文</span></div><div class="line"><span class="built_in">UIGraphicsEndImageContext</span>();</div></pre></td></tr></table></figure>
-<h3 id="UI-APPEARANCE-SELECTOR"><a href="#UI-APPEARANCE-SELECTOR" class="headerlink" title="UI_APPEARANCE_SELECTOR"></a>UI_APPEARANCE_SELECTOR</h3><ul>
-<li>属性带有 UI_APPEARANCE_SELECTOR, 可以通过 appearance 统一设置</li>
+            <h3 id="xib-和-storyboard-的异同点"><a href="#xib-和-storyboard-的异同点" class="headerlink" title="xib 和 storyboard 的异同点"></a>xib 和 storyboard 的异同点</h3><pre><code>共同点: 可以设置 UI 界面
+
+不同的: storyboard(描述整个界面) 可以进行界面跳转, 是重量级的
+        xib(描述局部界面) 轻量级
+</code></pre><ul>
+<li>xib</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//eg:</span></div><div class="line"><span class="built_in">UINavigationBar</span> *navigationBar = [<span class="built_in">UINavigationBar</span> appearance];</div><div class="line">[navigationBar setBackgroundImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"navigationbarBackgroundWhite"</span>] forBarMetrics:<span class="built_in">UIBarMetricsDefault</span>];</div><div class="line">[navigationBar setTitleTextAttributes:@&#123;<span class="built_in">NSFontAttributeName</span> : [<span class="built_in">UIFont</span> boldSystemFontOfSize:<span class="number">20</span>]&#125;];</div><div class="line"></div><div class="line"><span class="comment">//注意:</span></div><div class="line"><span class="keyword">self</span>.navigationItem.rightBarButtonItem.enabled = <span class="literal">NO</span>;</div><div class="line"><span class="comment">//使用UI_APPEARANCE_SELECTOR--&gt;appearance时,分样式的设置会导致样式不会改变, 需要强制刷新</span></div><div class="line">[<span class="keyword">self</span>.navigationController.navigationBar layoutIfNeeded];</div></pre></td></tr></table></figure>
-<h3 id="设置状态栏的样式"><a href="#设置状态栏的样式" class="headerlink" title="设置状态栏的样式"></a>设置状态栏的样式</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Info.plist 配置 View controller-based status bar appearance : NO</span></div><div class="line">[<span class="built_in">UIApplication</span> sharedApplication].statusBarStyle = <span class="built_in">UIStatusBarStyleDefault</span>;</div></pre></td></tr></table></figure>
-<h3 id="presentViewController"><a href="#presentViewController" class="headerlink" title="presentViewController"></a>presentViewController</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">当一个控制器 model 出另一个控制器</div><div class="line">[A presentViewController:B animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</div><div class="line">A.presentedViewController --&gt; B</div><div class="line">B.presentingViewController --&gt; A</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回一个数组 按 xib 拖放顺序</span></div><div class="line">[[<span class="built_in">NSBundle</span> mainBundle] loadNidNamed:<span class="string">@"xib的文件名"</span> ower:<span class="literal">nil</span> options: <span class="literal">nil</span>];</div><div class="line"></div><div class="line">loadNibNamed:  xib 的名字 返回数组</div><div class="line">使用 loadNibNamed: 的原因</div><div class="line">在项目文件中, xib 文件是以 .xib 结尾</div><div class="line">安装之后, 就自动的以 .nib 结尾</div><div class="line">执行command+R 相当于在模拟器上安装了应用程序</div></pre></td></tr></table></figure>
+<ul>
+<li>storyboard</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIStoryboard</span> *sb = [<span class="built_in">UIStoryboard</span> storyboardWithName:<span class="string">@"ZXXLoteryHallViewController"</span> bundle:<span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//当前 storyboard 箭头所指的控制器</span></div><div class="line"><span class="built_in">UIViewController</span> = sb.instantiateInitialViewController;</div></pre></td></tr></table></figure>
 
           
         
@@ -426,8 +427,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/README/" itemprop="url">
-                  UI简介
+                <a class="post-title-link" href="/2016/07/07/nsnotificationcenter_and_delegate/" itemprop="url">
+                  NSNotificationCenter And Delegate
                 </a>
               
             
@@ -470,8 +471,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/README/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/README/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsnotificationcenter_and_delegate/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsnotificationcenter_and_delegate/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -496,65 +497,53 @@
       
         
           
-            <p><code>导航控制器的push的控制器的右滑弹出功能, 清空代理, 让导航控制器将功能找回</code><br><code>self.interactivePopGestureRecognizer.delegate = nil;</code></p>
-<h2 id="stroryboard-的认识"><a href="#stroryboard-的认识" class="headerlink" title="stroryboard 的认识"></a>stroryboard 的认识</h2><ul>
-<li>用于描述软件界面</li>
-<li>默认情况下, 程序一启动就会加载 Main.storyboard</li>
-<li>加载 storyboard 时, 会首先创建和显示箭头所指的控制器界面</li>
-</ul>
-<h2 id="IBAction-和-IBOutlet"><a href="#IBAction-和-IBOutlet" class="headerlink" title="IBAction 和 IBOutlet"></a>IBAction 和 IBOutlet</h2><ul>
-<li>IBAction<ul>
-<li>本质就是 void</li>
-<li>能让方法具备连线的功能</li>
-</ul>
-</li>
-<li>IBOutlet<ul>
-<li>能让属性具备连线的功能</li>
-</ul>
-</li>
-</ul>
-<h2 id="storyboard-连线容易出现的问题"><a href="#storyboard-连线容易出现的问题" class="headerlink" title="storyboard 连线容易出现的问题"></a>storyboard 连线容易出现的问题</h2><ul>
-<li>被连接的方法被删除, 但是连线没有去掉<ul>
-<li>可能出现方法找不到的错误</li>
-<li>unrecongnized selecotor sent to instance</li>
-</ul>
-</li>
-<li>连接的属性被删掉, 但是连线没有去掉<ul>
-<li>setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key</li>
-</ul>
-</li>
-</ul>
-<h2 id="UIViewController-控制器-的认识"><a href="#UIViewController-控制器-的认识" class="headerlink" title="UIViewController (控制器) 的认识"></a>UIViewController (控制器) 的认识</h2><ul>
-<li>一个控制器负责管理一个界面</li>
-<li>控制器负责界面的创建, 事件的处理等</li>
-</ul>
-<h2 id="类扩展"><a href="#类扩展" class="headerlink" title="类扩展"></a>类扩展</h2><ul>
-<li><p>格式<br>-</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">className</span>()</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> *   属性, 方法的声明</div><div class="line"> */</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>作用</p>
+            <h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><ul>
+<li><p>代理设计模式的作用:</p>
 <ul>
-<li>为某个类添加额外的属性和方法的声明</li>
-<li>可以写在 .h 和 .m 文件中</li>
+<li>1.A对象监听B对象的一些行为，A成为B的代理</li>
+<li>2.B对象想告诉A对象一些事情，A成为B的代理</li>
+</ul>
+</li>
+<li><p>代理设计模式的总结：</p>
+<ul>
+<li>如果你想监听别人的一些行为，那么你就要成为别人的代理</li>
+<li>如果你想告诉别人一些事情，那么就让别人成为你的代理</li>
+</ul>
+</li>
+<li><p>代理设计模式的开发步骤</p>
+<ul>
+<li>1.拟一份协议（协议名字的格式：控件名 + Delegate），在协议里面声明一些代理方法（一般代理方法都是@optional）</li>
+<li>2.声明一个代理属性：@property (nonatomic, weak) id&lt;代理协议&gt; delegate;</li>
+<li>3.在内部发生某些行为时，调用代理对应的代理方法，通知代理内部发生什么事</li>
+<li>4.设置代理：xxx.delegate = yyy;</li>
+<li>5.yyy对象遵守协议，实现代理方法</li>
 </ul>
 </li>
 </ul>
-<h2 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h2><ul>
-<li>Product Name<ul>
-<li>软件名称、产品名称、项目名称</li>
+<h3 id="代理和通知的区别"><a href="#代理和通知的区别" class="headerlink" title="代理和通知的区别"></a>代理和通知的区别</h3><ul>
+<li>代理：1个对象只能告诉另1个对象发生了什么事</li>
+<li>通知：1个对象可以告诉N个对象发生了什么事</li>
+</ul>
+<h3 id="KVC-KVO"><a href="#KVC-KVO" class="headerlink" title="KVC\KVO"></a>KVC\KVO</h3><ul>
+<li>KVC(Key Value Coding)常见作用：给模型属性赋值</li>
+<li>KVO(Key Value Observing)常用作用：监听模型属性值的改变</li>
+<li>KVO的使用步骤<br></li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// cc监听了aa的name属性的改变</span></div><div class="line">[aa addObserver:cc forKeyPath:<span class="string">@"name"</span> options: <span class="built_in">NSKeyValueObservingOptionOld</span> context:<span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">// cc得实现监听方法</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 当监听到object的keyPath属性发生了改变</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span> *)change context:(<span class="keyword">void</span> *)context</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"监听到%@对象的%@属性发生了改变， %@"</span>, object, keyPath, change);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###通知<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//到通知中心添加监听者</span></div><div class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:&lt;<span class="meta">#(non null id)#&gt; selector:<span class="meta-string">&lt;#(non null SEL)#&gt;</span> name:<span class="meta-string">&lt;#(nullable NSString *)#&gt;</span> object:<span class="meta-string">&lt;#(nullable id)#&gt;</span>]</span></div><div class="line"><span class="comment">//发布通知</span></div><div class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:&lt;<span class="meta">#(non null NSString *)#&gt; object:<span class="meta-string">&lt;#(nullable id)#&gt;</span> userInfo:<span class="meta-string">&lt;#(nullable NSDictionary *)#&gt;</span>]</span></div><div class="line"><span class="comment">//监听者对象被销毁的时候, 把监听者从通知中心移除</span></div><div class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] removeObserver:&lt;<span class="meta">#(non null id)#&gt;]</span></div></pre></td></tr></table></figure></p>
+<p>###代理和通知</p>
+<ul>
+<li>共同点<ul>
+<li>发送消息</li>
 </ul>
 </li>
-<li>Drganization Identifier<ul>
-<li>公司的唯一标识</li>
-<li>一般是公司域名的反写, 比如 com.baidu</li>
-</ul>
-</li>
-<li>Bundle Identifier<ul>
-<li>软件的唯一标识</li>
-<li>一般是 Drganization Identifier + Product Name</li>
+<li>不同点<ul>
+<li>代理: 一对一</li>
+<li>通知:多对多</li>
 </ul>
 </li>
 </ul>
+<p>###日期转换<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取当前时间</span></div><div class="line"><span class="built_in">NSDate</span> *nowDate = [<span class="built_in">NSDate</span> date];</div><div class="line"><span class="comment">//设置时间的格式</span></div><div class="line"><span class="built_in">NSDateFormatter</span> *formatter = [[<span class="built_in">NSDateFormatter</span> alloc] init]</div><div class="line">formatter.dateFormat = @“yyyy-MM-dd HH:mm:ss”;</div><div class="line"><span class="comment">//NSDate 转 NSString</span></div><div class="line"><span class="built_in">NSString</span> *str = [formatter stringFromDate:nowDate];</div></pre></td></tr></table></figure></p>
 
           
         
@@ -604,8 +593,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/autolayout/" itemprop="url">
-                  Autolayout
+                <a class="post-title-link" href="/2016/07/07/launch/" itemprop="url">
+                  Launch
                 </a>
               
             
@@ -648,8 +637,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/autolayout/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/autolayout/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/launch/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/launch/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -674,197 +663,32 @@
       
         
           
-            <h2 id="使用代码实现Autolayout的方法1"><a href="#使用代码实现Autolayout的方法1" class="headerlink" title="使用代码实现Autolayout的方法1"></a>使用代码实现Autolayout的方法1</h2><ul>
-<li>创建约束</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+(<span class="keyword">id</span>)constraintWithItem:(<span class="keyword">id</span>)view1</div><div class="line">attribute:(<span class="built_in">NSLayoutAttribute</span>)attr1</div><div class="line">relatedBy:(<span class="built_in">NSLayoutRelation</span>)relation</div><div class="line">toItem:(<span class="keyword">id</span>)view2</div><div class="line">attribute:(<span class="built_in">NSLayoutAttribute</span>)attr2</div><div class="line">multiplier:(<span class="built_in">CGFloat</span>)multiplier</div><div class="line">constant:(<span class="built_in">CGFloat</span>)c;</div><div class="line">* view1 ：要约束的控件</div><div class="line">* attr1 ：约束的类型（做怎样的约束）</div><div class="line">* relation ：与参照控件之间的关系</div><div class="line">* view2 ：参照的控件</div><div class="line">* attr2 ：约束的类型（做怎样的约束）</div><div class="line">* multiplier ：乘数</div><div class="line">* c ：常量</div></pre></td></tr></table></figure>
+            <p>###1.应用图标<br>    Launch Image Source</p>
+<p>###2.启动图片<br>    Launch Screen</p>
+<p>###3.修改状态栏的样式</p>
+<pre><code>- (UIStatusBarStyle)preferredStatusBarStyle
+</code></pre><p>###4.隐藏状态栏</p>
+<pre><code>- (BOOL)prefersStatusBarHidden
+</code></pre><p>###5.使用 KVC 的方式赋值<br>    [self setValuesForKeysWithDictionary:dict];</p>
+<p>###6.让数组中的对象都执行一个方法</p>
 <ul>
-<li>添加约束</li>
+<li><p>makeObjectsPerformSelector</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[_answerView.subviews  makeObjectsPerformSelector:<span class="keyword">@selector</span>(removeFromSuperview)];</div></pre></td></tr></table></figure>
+</li>
+<li><p>makeObjectsPerformSelector: 让数组中的对象都执行这个 removeFromSuperview 方法</p>
+</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)addConstraint:(<span class="built_in">NSLayoutConstraint</span> *)constraint;</div><div class="line">- (<span class="keyword">void</span>)addConstraints:(<span class="built_in">NSArray</span> *)constraints;</div></pre></td></tr></table></figure>
+<p>###7.block 遍历数组</p>
 <ul>
-<li>注意<ul>
-<li>一定要在拥有父控件之后再添加约束</li>
-<li>关闭Autoresizing功能<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">view.translatesAutoresizingMaskIntoConstraints = <span class="literal">NO</span>;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="使用代码实现Autolayout的方法2-VFL"><a href="#使用代码实现Autolayout的方法2-VFL" class="headerlink" title="使用代码实现Autolayout的方法2 - VFL"></a>使用代码实现Autolayout的方法2 - VFL</h2><ul>
-<li>使用VFL创建约束数组</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">NSArray</span> *)constraintsWithVisualFormat:(<span class="built_in">NSString</span> *)format</div><div class="line">options:(<span class="built_in">NSLayoutFormatOptions</span>)opts</div><div class="line">metrics:(<span class="built_in">NSDictionary</span> *)metrics</div><div class="line">views:(<span class="built_in">NSDictionary</span> *)views;</div><div class="line">* format ：VFL语句</div><div class="line">* opts ：约束类型</div><div class="line">* metrics ：VFL语句中用到的具体数值</div><div class="line">* views ：VFL语句中用到的控件</div></pre></td></tr></table></figure>
+<li><p>enumerateObjectsUsingBlock:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">   [_optionView.subviews enumerateObjectsUsingBlock:^(__kindof <span class="built_in">UIView</span> * _Nonnull obj, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> * _Nonnull stop) &#123;</div><div class="line"><span class="comment">// obj 数组中对象 UIView *类型的对象, 根据实际更改</span></div><div class="line"><span class="comment">// idx 数组的下标</span></div><div class="line"><span class="comment">// *stop = YES, 立即跳出遍历</span></div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p>###8.用户交互功能</p>
 <ul>
-<li>使用下面的宏来自动生成views和metrics参数</li>
+<li>userInteractionEnabled –&gt; NO 禁止用户交互, 如果父View 设置了, 子view 也将不接受用户交互</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSDictionaryOfVariableBindings</span>(...)</div></pre></td></tr></table></figure>
-<h2 id="使用代码实现Autolayout的方法3-Masonry"><a href="#使用代码实现Autolayout的方法3-Masonry" class="headerlink" title="使用代码实现Autolayout的方法3 - Masonry"></a>使用代码实现Autolayout的方法3 - Masonry</h2><ul>
-<li><p>使用步骤</p>
-<ul>
-<li>添加Masonry文件夹的所有源代码到项目中</li>
-<li>添加2个宏、导入主头文件<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">// 只要添加了这个宏，就不用带mas_前缀</span></div><div class="line">    <span class="meta">#define MAS_SHORTHAND</span></div><div class="line"><span class="comment">// 只要添加了这个宏，equalTo就等价于mas_equalTo</span></div><div class="line"><span class="meta">#define MAS_SHORTHAND_GLOBALS</span></div><div class="line"><span class="comment">// 这个头文件一定要放在上面两个宏的后面</span></div><div class="line"><span class="meta">#import <span class="meta-string">"Masonry.h"</span></span></div></pre></td></tr></table></figure>
+<p>###9.前置view</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">   [<span class="keyword">self</span>.view bringSubviewToFront:_imageButton];</div><div class="line"><span class="keyword">self</span>.view 必须是 _imageButton 的父view</div></pre></td></tr></table></figure>
 </li>
-</ul>
-</li>
-<li><p>添加约束的方法</p>
-</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 这个方法只会添加新的约束</span></div><div class="line"> [view makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line"></div><div class="line"> &#125;];</div><div class="line"></div><div class="line"><span class="comment">// 这个方法会将以前的所有约束删掉，添加新的约束</span></div><div class="line"> [view remakeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line"></div><div class="line"> &#125;];</div><div class="line"></div><div class="line"> <span class="comment">// 这个方法将会覆盖以前的某些特定的约束</span></div><div class="line"> [view updateConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line"></div><div class="line"> &#125;];</div></pre></td></tr></table></figure>
-<ul>
-<li>约束的类型<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span>尺寸：width\height\size</div><div class="line"><span class="number">2.</span>边界：left\leading\right\trailing\top\bottom</div><div class="line"><span class="number">3.</span>中心点：center\centerX\centerY</div><div class="line"><span class="number">4.</span>边界：edges</div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/autoresizing/" itemprop="url">
-                  Autoresizing
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/autoresizing/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/autoresizing/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>##autoresizing<br>    外部的四根线: 保持与父 view 的距离不变<br>    内部的两根线: 保持宽度和高度随着父 view 的改变而改变<br>    局限: 只能设置子 view 和父 view 之间的约束</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIViewAutoresizingNone</span>                     外部四根线都都选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleLeftMargin</span>       左侧灵活, 即右侧勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleWidth</span>            宽度灵活, 即宽度勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleRightMargin</span>      右侧灵活, 即左侧勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleTopMargin</span>        上侧灵活, 即下侧勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleHeight</span>           高度灵活, 即高度勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleBottomMargin</span>     下侧灵活, 即上侧勾选</div><div class="line"></div><div class="line"><span class="comment">//eg:</span></div><div class="line">blueView.autoresizingMask = <span class="built_in">UIViewAutoresizingFlexibleTopMargin</span> | <span class="built_in">UIViewAutoresizingFlexibleLeftMargin</span>;</div></pre></td></tr></table></figure>
-<p>###autolayout</p>
-<ul>
-<li>约束</li>
-<li>参照</li>
-<li>核心公式: 宽度<ul>
-<li>被约束 view 的宽度 = 参照 view 的宽度 * 系数 + 常量 constant</li>
-</ul>
-</li>
-</ul>
-<p>###NSLayoutConstraint</p>
-<ul>
-<li>VFL<ul>
-<li>可视化格式语言</li>
-</ul>
-</li>
-<li>Masonry<ul>
-<li>第三方框架</li>
-<li>两个宏定义, 要放在导入头文件之前</li>
-<li>mas_</li>
-<li>自动装箱</li>
-</ul>
-</li>
-</ul>
-<p>###sizeClass</p>
-<ul>
-<li>把屏幕划分为九种</li>
-<li>any          任意       *</li>
-<li>compact   紧凑型  -</li>
-<li>regular     宽松型  +</li>
-<li>installed 属性 : 在不同类型的屏幕上面可以添加或取消控件</li>
 </ul>
 
           
@@ -915,8 +739,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/cellidentifier/" itemprop="url">
-                  CellIdentifier
+                <a class="post-title-link" href="/2016/07/07/layoutsubviews/" itemprop="url">
+                  LayoutSubViews
                 </a>
               
             
@@ -959,8 +783,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/cellidentifier/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/cellidentifier/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/layoutsubviews/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/layoutsubviews/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -985,135 +809,286 @@
       
         
           
-            <h2 id="tableView性能优化-cell的循环利用方式1"><a href="#tableView性能优化-cell的循环利用方式1" class="headerlink" title="tableView性能优化 - cell的循环利用方式1"></a>tableView性能优化 - cell的循环利用方式1</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *  什么时候调用：每当有一个cell进入视野范围内就会调用</div><div class="line"> */</div><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 0.重用标识</span></div><div class="line">    <span class="comment">// 被static修饰的局部变量：只会初始化一次，在整个程序运行过程中，只有一份内存</span></div><div class="line">    <span class="keyword">static</span> <span class="built_in">NSString</span> *ID = <span class="string">@"cell"</span>;</div><div class="line"></div><div class="line">    <span class="comment">// 1.先根据cell的标识去缓存池中查找可循环利用的cell</span></div><div class="line">    <span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:ID];</div><div class="line"></div><div class="line">    <span class="comment">// 2.如果cell为nil（缓存池找不到对应的cell）</span></div><div class="line">    <span class="keyword">if</span> (cell == <span class="literal">nil</span>) &#123;</div><div class="line">        cell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:ID];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 3.覆盖数据</span></div><div class="line">    cell.textLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"testdata - %zd"</span>, indexPath.row];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> cell;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="tableView性能优化-cell的循环利用方式2"><a href="#tableView性能优化-cell的循环利用方式2" class="headerlink" title="tableView性能优化 - cell的循环利用方式2"></a>tableView性能优化 - cell的循环利用方式2</h2><ul>
-<li>定义一个全局变量</li>
+            <h2 id="layoutSubviews总结"><a href="#layoutSubviews总结" class="headerlink" title="layoutSubviews总结"></a>layoutSubviews总结</h2><ul>
+<li><p>1.iOS layout机制相关方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">CGSize</span>)sizeThatFits:(<span class="built_in">CGSize</span>)size</div><div class="line">- (<span class="keyword">void</span>)sizeToFit</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)layoutSubviews</div><div class="line">- (<span class="keyword">void</span>)layoutIfNeeded</div><div class="line">- (<span class="keyword">void</span>)setNeedsLayout</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setNeedsDisplay</div><div class="line">- (<span class="keyword">void</span>)drawRect</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.layoutSubviews 被调用的情况</p>
+</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义重用标识</span></div><div class="line"><span class="built_in">NSString</span> *ID = <span class="string">@"cell"</span>;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span>init 初始化时不会触发 layoutSubview, 但是使用 initWithFrame: 进行初始化时, 当 rect 的值不为 <span class="built_in">CGRectZero</span> 时, 会触发</div><div class="line"><span class="number">2.</span>addSubview 会触发 layoutSubviews</div><div class="line"><span class="number">3.</span>设置 view 的Frame 会触发 layoutSubviews, 前提是 Fraame的值前后发生变化</div><div class="line"><span class="number">4.</span>滚动一个 <span class="built_in">UIScrollView</span> 会触发 layoutSubviews</div><div class="line"><span class="number">5.</span>旋转 Screen 会触发 父View 上的 layoutSubviews 事件</div><div class="line"><span class="number">6.</span>改变一个 <span class="built_in">UIView</span> 大小的时候, 也会触发 父View 上的 layoutSubviews 事件</div><div class="line">在苹果的官方文档中强调:</div><div class="line">   You should override <span class="keyword">this</span> method only <span class="keyword">if</span> the autoresizing and constraint-based behaviors of the subviews <span class="keyword">do</span> not offer the behavior you want.</div><div class="line">   只要调整尺寸和基于约束的行为的子视图不提供你想要的行为时, 你应重写此方法</div></pre></td></tr></table></figure>
 <ul>
-<li>注册某个标识对应的cell类型</li>
+<li>3.刷新子对象布局</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 在这个方法中注册cell</span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line"></div><div class="line">    <span class="comment">// 注册某个标识对应的cell类型</span></div><div class="line">    [<span class="keyword">self</span>.tableView registerClass:[<span class="built_in">UITableViewCell</span> <span class="keyword">class</span>] forCellReuseIdentifier:ID];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- layoutSubviews: 这个方法默认没有做任何事情, 需要子类进行重写</div><div class="line">- setNeedsLayout: 标记为需要重新布局, 异步调用 layoutIfNeeded 刷新布局, 不立即刷新, 但 layoutSubviews 一定会调用</div><div class="line">- layoutIfNeeded: 如果有需要刷新的标记, 立即调用 layoutSubviews 进行布局, 如果没有标记, 不会调用 layoutSubviews</div><div class="line">对于 layoutSubviews 文档中还指出:</div><div class="line">    You should not call <span class="keyword">this</span> method directly. If you want to force a layout update, call the setNeedsLayout method instead to <span class="keyword">do</span> so prior to the next drawing update. If you want to update the layout of your views immediately, call the layoutIfNeeded method</div><div class="line">    你不应该直接调用该方法, 如果你想更新布局, 在更新布局之前调用 [view setNeedsLayout] 方法. 如果你想立即更新你的视图, 则调用 [view layoutIfNeeded] 方法.</div><div class="line">在视图第一次显示之前, 标记总是 <span class="string">"需要刷新"</span> 的, 可以直接调用 [view layoutIfNeeded]</div></pre></td></tr></table></figure>
 <ul>
-<li>在数据源方法中返回cell</li>
+<li>4.重绘</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 1.去缓存池中查找cell</span></div><div class="line">    <span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:ID];</div><div class="line"></div><div class="line">    <span class="comment">// 2.覆盖数据</span></div><div class="line">    cell.textLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"testdata - %zd"</span>, indexPath.row];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> cell;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="tableView性能优化-cell的循环利用方式3"><a href="#tableView性能优化-cell的循环利用方式3" class="headerlink" title="tableView性能优化 - cell的循环利用方式3"></a>tableView性能优化 - cell的循环利用方式3</h2><ul>
-<li><p>在storyboard中设置UITableView的Dynamic Prototypes Cell<br><img src="/img/Snip20150602_152.png" alt=""></p>
-</li>
-<li><p>设置cell的重用标识<br><img src="/img/Snip20150602_153.png" alt=""></p>
-</li>
-<li><p>在代码中利用重用标识获取cell</p>
-</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 0.重用标识</span></div><div class="line"><span class="comment">// 被static修饰的局部变量：只会初始化一次，在整个程序运行过程中，只有一份内存</span></div><div class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *ID = <span class="string">@"cell"</span>;</div><div class="line"></div><div class="line"><span class="comment">// 1.先根据cell的标识去缓存池中查找可循环利用的cell</span></div><div class="line"><span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:ID];</div><div class="line"></div><div class="line"><span class="comment">// 2.覆盖数据</span></div><div class="line">cell.textLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"cell - %zd"</span>, indexPath.row];</div><div class="line"></div><div class="line"><span class="keyword">return</span> cell;</div></pre></td></tr></table></figure>
-<h2 id="错误将UIViewController当做UITableViewController来用"><a href="#错误将UIViewController当做UITableViewController来用" class="headerlink" title="错误将UIViewController当做UITableViewController来用"></a>错误将UIViewController当做UITableViewController来用</h2><p><img src="/img/Snip20150602_110.png" alt=""></p>
-<h2 id="UITableView的常见设置"><a href="#UITableView的常见设置" class="headerlink" title="UITableView的常见设置"></a>UITableView的常见设置</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 分割线颜色</span></div><div class="line"><span class="keyword">self</span>.tableView.separatorColor = [<span class="built_in">UIColor</span> redColor];</div><div class="line"></div><div class="line"><span class="comment">// 隐藏分割线</span></div><div class="line"><span class="keyword">self</span>.tableView.separatorStyle = <span class="built_in">UITableViewCellSeparatorStyleNone</span>;</div><div class="line"></div><div class="line"><span class="comment">// tableView有数据的时候才需要分割线</span></div><div class="line"><span class="comment">// 开发小技巧:快速取消分割线</span></div><div class="line"> <span class="keyword">self</span>.tableView.tableFooterView = [[<span class="built_in">UIView</span> alloc] init];</div></pre></td></tr></table></figure>
-<h2 id="UITableViewCell的常见设置"><a href="#UITableViewCell的常见设置" class="headerlink" title="UITableViewCell的常见设置"></a>UITableViewCell的常见设置</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 取消选中的样式(常用) 让当前 cell 按下无反应</span></div><div class="line">cell.selectionStyle = <span class="built_in">UITableViewCellSelectionStyleNone</span>;</div><div class="line"></div><div class="line"><span class="comment">// 设置选中的背景色</span></div><div class="line"><span class="built_in">UIView</span> *selectedBackgroundView = [[<span class="built_in">UIView</span> alloc] init];</div><div class="line">selectedBackgroundView.backgroundColor = [<span class="built_in">UIColor</span> redColor];</div><div class="line">cell.selectedBackgroundView = selectedBackgroundView;</div><div class="line"></div><div class="line"><span class="comment">// 设置默认的背景色</span></div><div class="line">cell.backgroundColor = [<span class="built_in">UIColor</span> blueColor];</div><div class="line"></div><div class="line"><span class="comment">// 设置默认的背景色</span></div><div class="line"><span class="built_in">UIView</span> *backgroundView = [[<span class="built_in">UIView</span> alloc] init];</div><div class="line">backgroundView.backgroundColor = [<span class="built_in">UIColor</span> greenColor];</div><div class="line">cell.backgroundView = backgroundView;</div><div class="line"></div><div class="line"><span class="comment">// backgroundView的优先级 &gt; backgroundColor</span></div><div class="line"><span class="comment">// 设置指示器</span></div><div class="line"><span class="comment">//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;</span></div><div class="line">cell.accessoryView = [[<span class="built_in">UISwitch</span> alloc] init];</div></pre></td></tr></table></figure>
-<h2 id="自定义cell"><a href="#自定义cell" class="headerlink" title="自定义cell"></a>自定义cell</h2><ul>
-<li><p><code>等高的cell</code></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- drawRect:(<span class="built_in">CGRect</span>)rect: 重写此方法, 执行重绘任务</div><div class="line">- setNeedsDisplay: 标记为需要重绘, 异步调用 drawRect: 方法</div><div class="line">- setNeedsDisolayInRect:(<span class="built_in">CGRect</span>)invalidRect: 标记需要局部重绘</div></pre></td></tr></table></figure>
 <ul>
-<li><p><code>storyboard自定义cell</code></p>
+<li>5.sizeToFit 与 sizeThatFits:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)sizeToFit</div><div class="line">sizeToFit 可以被手动直接调用</div><div class="line">调用 sizeToFit 会自动调用 sizeThatFits: 方法</div><div class="line">sizeToFit 不应该在子类中被重写, 应该重写 - (<span class="built_in">CGSize</span>)sizeThatFits:(<span class="built_in">CGSize</span>)size</div><div class="line"><span class="comment">/**</span></div><div class="line"> *  调整尺寸</div><div class="line"> *</div><div class="line"> *  @param size receiver当前的尺寸</div><div class="line"> *</div><div class="line"> *  @return 返回一个合适的尺寸</div><div class="line"> */</div><div class="line">- (<span class="built_in">CGSize</span>)sizeThatFits:(<span class="built_in">CGSize</span>)size</div></pre></td></tr></table></figure>
 <ul>
-<li>1.创建一个继承自UITableViewCell的子类，比如XMGDealCell<br><br><img src="/img/Snip20150602_305.png" alt=""></li>
-<li>2.在storyboard中<ul>
-<li>往cell里面增加需要用到的子控件<br><br><img src="/img/Snip20150602_302.png" alt=""></li>
-<li>设置cell的重用标识<br><br><img src="/img/Snip20150602_303.png" alt=""></li>
-<li>设置cell的class为XMGDealCell<br><br><img src="/img/Snip20150602_304.png" alt=""></li>
+<li>6.layoutSubviews 与 drawRect</li>
 </ul>
-</li>
-<li>3.在控制器中<ul>
-<li>利用重用标识找到cell</li>
-<li>给cell传递模型数据<br><br><img src="/img/Snip20150602_301.png" alt=""></li>
-</ul>
-</li>
-<li>4.在XMGDealCell中<ul>
-<li>将storyboard中的子控件连线到类扩展中<br><br><img src="/img/Snip20150602_299.png" alt=""></li>
-<li>需要提供一个模型属性，重写模型的set方法，在这个方法中设置模型数据到子控件上<br><br><img src="/img/Snip20150602_298.png" alt=""><br><img src="/img/Snip20150602_300.png" alt=""></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><code>xib自定义cell</code></p>
-<ul>
-<li>1.创建一个继承自UITableViewCell的子类，比如XMGDealCell<br></li>
-<li>2.创建一个xib文件（文件名建议跟cell的类名一样），比如XMGDealCell.xib<ul>
-<li>拖拽一个UITableViewCell出来</li>
-<li>修改cell的class为XMGDealCell</li>
-<li><strong>设置cell的重用标识</strong></li>
-<li>往cell中添加需要用到的子控件</li>
-</ul>
-</li>
-<li>3.在控制器中<ul>
-<li><strong>利用registerNib…方法注册xib文件</strong></li>
-<li>利用重用标识找到cell（如果没有注册xib文件，就需要手动去加载xib文件）</li>
-<li>给cell传递模型数据<br></li>
-</ul>
-</li>
-<li>4.在XMGDealCell中<ul>
-<li>将xib中的子控件连线到类扩展中</li>
-<li>需要提供一个模型属性，重写模型的set方法，在这个方法中设置模型数据到子控件上</li>
-<li>也可以将创建获得cell的代码封装起来（比如cellWithTableView:方法）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><code>代码自定义cell(使用frame)</code></p>
-<ul>
-<li>1.创建一个继承自UITableViewCell的子类，比如XMGDealCell<ul>
-<li>在initWithStyle:reuseIdentifier:方法中<ul>
-<li>添加子控件</li>
-<li>设置子控件的初始化属性（比如文字颜色、字体）</li>
-</ul>
-</li>
-<li>在layoutSubviews方法中设置子控件的frame</li>
-<li>需要提供一个模型属性，重写模型的set方法，在这个方法中设置模型数据到子控件</li>
-</ul>
-</li>
-<li>2.在控制器中<ul>
-<li>利用registerClass…方法注册XMGDealCell类</li>
-<li>利用重用标识找到cell（如果没有注册类，就需要手动创建cell）</li>
-<li>给cell传递模型数据</li>
-<li>也可以将创建获得cell的代码封装起来（比如cellWithTableView:方法）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><code>代码自定义cell(使用autolayout)</code></p>
-<ul>
-<li>1.创建一个继承自UITableViewCell的子类，比如XMGDealCell<ul>
-<li>在initWithStyle:reuseIdentifier:方法中<ul>
-<li>添加子控件</li>
-<li>添加子控件的约束（建议使用<code>Masonry</code>）</li>
-<li>设置子控件的初始化属性（比如文字颜色、字体）</li>
-</ul>
-</li>
-<li>需要提供一个模型属性，重写模型的set方法，在这个方法中设置模型数据到子控件</li>
-</ul>
-</li>
-<li>2.在控制器中<ul>
-<li>利用registerClass…方法注册XMGDealCell类</li>
-<li>利用重用标识找到cell（如果没有注册类，就需要手动创建cell）</li>
-<li>给cell传递模型数据</li>
-<li>也可以将创建获得cell的代码封装起来（比如cellWithTableView:方法）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>非等高的cell</p>
-<ul>
-<li><p>xib自定义cell</p>
-</li>
-<li><p>storyboard自定义cell</p>
-</li>
-<li>代码自定义cell（frame）</li>
-<li>代码自定义cell（Autolayout）</li>
-</ul>
-</li>
-</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">layoutSubviews 对 subviews 重新布局</div><div class="line"></div><div class="line">layoutSubviews 方法调用先于 drawRect</div><div class="line"></div><div class="line">setNeedsLayout 在receiver标上一个需要被重新布局的标记，在系统 runloop 的下一个周期自动调用 layoutSubviews</div><div class="line"></div><div class="line">layoutIfNeeded 方法如其名，<span class="built_in">UIKit</span> 会判断该receiver是否需要 layout.根据Apple官方文档, layoutIfNeeded 方法应该是这样的</div><div class="line"></div><div class="line">layoutIfNeeded 遍历的不是 superview 链，应该是 subviews 链</div><div class="line"></div><div class="line">drawRect 是对receiver的重绘，能获得 context</div><div class="line"></div><div class="line">setNeedDisplay 在receiver标上一个需要被重新绘图的标记，在下一个draw周期自动重绘，iphone device的刷新频率是<span class="number">60</span>hz，也就是<span class="number">1</span>/<span class="number">60</span>秒后重绘</div></pre></td></tr></table></figure>
 
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/hexo常用命令笔记/" itemprop="url">
+                  hexo常用命令笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/hexo常用命令笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/hexo常用命令笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><pre><code>npm install hexo -g #安装  
+npm update hexo -g #升级  
+hexo init #初始化
+</code></pre><h3 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h3><pre><code>hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot; #新建文章
+hexo p == hexo publish
+hexo g == hexo generate#生成
+hexo s == hexo server #启动服务预览
+hexo d == hexo deploy#部署
+</code></pre><h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><pre><code>hexo server #Hexo 会监视文件变动并自动更新，您无须重启服务器。
+hexo server -s #静态模式
+hexo server -p 5000 #更改端口
+hexo server -i 192.168.1.1 #自定义 IP
+
+hexo clean #清除缓存 网页正常情况下可以忽略此条命令
+hexo g #生成静态网页
+hexo d #开始部署
+</code></pre><h3 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h3><pre><code>hexo generate #使用 Hexo 生成静态文件快速而且简单
+hexo generate --watch #监视文件变动
+</code></pre><h3 id="完成后部署"><a href="#完成后部署" class="headerlink" title="完成后部署"></a>完成后部署</h3><pre><code>两个命令的作用是相同的
+hexo generate --deploy
+hexo deploy --generate
+</code></pre><p><code>hexo deploy -g</code><br><code>hexo server -g</code></p>
+<h3 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h3><p><code>hexo publish [layout] &lt;title&gt;</code></p>
+<h3 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h3><p><code>hexo new &quot;postName&quot;</code> #新建文章</p>
+<p><code>hexo new page &quot;pageName&quot;</code> #新建页面<br><code>hexo generate</code> #生成静态页面至public目录<br><code>hexo server</code> #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）<br><code>hexo deploy</code> #将.deploy目录部署到GitHub</p>
+<p><code>hexo new [layout] &lt;title&gt;</code><br><code>hexo new photo &quot;My Gallery&quot;</code><br><code>hexo new &quot;Hello World&quot; --lang tw</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">变量</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">layout</td>
+<td style="text-align:left">布局</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">title</td>
+<td style="text-align:left">标题</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">date</td>
+<td style="text-align:left">文件建立日期</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">title: 使用Hexo搭建个人博客</div><div class="line">layout: post</div><div class="line">date: 2014-03-03 19:07:43</div><div class="line">comments: true</div><div class="line">categories: Blog</div><div class="line">tags: [Hexo]</div><div class="line">keywords: Hexo, Blog</div><div class="line">description: 生命在于折腾，又把博客折腾到Hexo了。给Hexo点赞。</div></pre></td></tr></table></figure>
+<h3 id="模版（Scaffold）"><a href="#模版（Scaffold）" class="headerlink" title="模版（Scaffold）"></a>模版（Scaffold）</h3><p><code>hexo new photo &quot;My Gallery&quot;</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">变量</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">layout</td>
+<td style="text-align:left">布局</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">title</td>
+<td style="text-align:left">标题</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">date</td>
+<td style="text-align:left">文件建立日期</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="设置文章摘要"><a href="#设置文章摘要" class="headerlink" title="设置文章摘要"></a>设置文章摘要</h3><pre><code>以上是文章摘要 &lt;!--more--&gt; 以下是余下全文
+</code></pre><h3 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h3><p><code>hexo new page &lt;title&gt;</code><br><code>hexo new post &lt;title&gt;</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">变量</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">:title</td>
+<td style="text-align:left">标题</td>
+</tr>
+<tr>
+<td style="text-align:left">:year</td>
+<td style="text-align:left">建立的年份（4 位数）</td>
+</tr>
+<tr>
+<td style="text-align:left">:month</td>
+<td style="text-align:left">建立的月份（2 位数）</td>
+</tr>
+<tr>
+<td style="text-align:left">:i_month</td>
+<td style="text-align:left">建立的月份（去掉开头的零）</td>
+</tr>
+<tr>
+<td style="text-align:left">:day</td>
+<td style="text-align:left">建立的日期（2 位数）</td>
+</tr>
+<tr>
+<td style="text-align:left">:i_day</td>
+<td style="text-align:left">建立的日期（去掉开头的零</td>
+</tr>
+</tbody>
+</table>
+<h3 id="推送到服务器上"><a href="#推送到服务器上" class="headerlink" title="推送到服务器上"></a>推送到服务器上</h3><p><code>hexo n</code> #写文章<br><code>hexo g</code> #生成<br><code>hexo d</code> #部署 #可与 <code>hexo g</code> 合并为 <code>hexo d -g</code></p>
+<h3 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h3><h4 id="1-找不到git部署"><a href="#1-找不到git部署" class="headerlink" title="1.找不到git部署"></a>1.找不到git部署</h4><pre><code>ERROR Deployer not found: git
+</code></pre><p><strong>解决方法:</strong></p>
+<p><code>npm install hexo-deployer-git --save</code></p>
+<h4 id="2-部署类型设置git"><a href="#2-部署类型设置git" class="headerlink" title="2.部署类型设置git"></a>2.部署类型设置git</h4><p>hexo 3.0 部署类型不再是<code>github</code>，<code>_config.yml</code> 中修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># Deployment</div><div class="line">## Docs: http://hexo.io/docs/deployment.html</div><div class="line">deploy:</div><div class="line">  type: git</div><div class="line">  repository: git@***.github.com:***/***.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+<h4 id="3-Xcodebuild"><a href="#3-Xcodebuild" class="headerlink" title="3.Xcodebuild"></a>3.Xcodebuild</h4><p>xcode-select: error: tool ‘xcodebuild’ requires Xcode, but active developer directory ‘/Library/Developer/CommandLineTools’ is a command line tools instance</p>
+<p><code>npm install bcrypt</code></p>
+<h4 id="4-RSS不显示"><a href="#4-RSS不显示" class="headerlink" title="4.RSS不显示"></a>4.RSS不显示</h4><p><strong>安装RSS插件</strong></p>
+<p><code>npm install hexo-generator-feed --save</code></p>
+<p><strong>开启RSS功能</strong></p>
+<p>编辑hexo/_config.yml，添加如下代码：</p>
+<pre><code>rss: /atom.xml #rss地址  默认即可
+</code></pre><h4 id="5-开启评论"><a href="#5-开启评论" class="headerlink" title="5.开启评论"></a>5.开启评论</h4><p>1.我使用多说代替自带的评论，在多说 网站注册 &gt; 后台管理 &gt; 添加新站点 &gt; 工具 === 复制通用代码 里面有 short_name</p>
+<ol>
+<li>在根目录 _config.yml 添加一行 disqus_shortname: jslite 是在多说注册时产生的</li>
+<li>复制到 themes\landscape\layout_partial\article.ejs<br>把</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;% if (!index &amp;&amp; post.comments &amp;&amp; config.disqus_shortname)&#123; %&gt;</div><div class="line">&lt;section id="comments"&gt;</div><div class="line">&lt;div id="disqus_thread"&gt;</div><div class="line">  &lt;noscript&gt;Please enable JavaScript to view the &lt;a href="//disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/section&gt;</div><div class="line">&lt;% &#125; %&gt;</div></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;% if (!index &amp;&amp; post.comments &amp;&amp; config.disqus_shortname)&#123; %&gt;</div><div class="line">  &lt;section id="comments"&gt;</div><div class="line">    &lt;!-- 多说评论框 start --&gt;</div><div class="line">    &lt;div class="ds-thread" data-thread-key="&lt;%= post.layout %&gt;-&lt;%= post.slug %&gt;" data-title="&lt;%= post.title %&gt;" data-url="&lt;%= page.permalink %&gt;"&gt;&lt;/div&gt;</div><div class="line">    &lt;!-- 多说评论框 end --&gt;</div><div class="line">    &lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;</div><div class="line">    &lt;script type="text/javascript"&gt;</div><div class="line">    var duoshuoQuery = &#123;short_name:'&lt;%= config.disqus_shortname %&gt;'&#125;;</div><div class="line">      (function() &#123;</div><div class="line">        var ds = document.createElement('script');</div><div class="line">        ds.type = 'text/javascript';ds.async = true;</div><div class="line">        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';</div><div class="line">        ds.charset = 'UTF-8';</div><div class="line">        (document.getElementsByTagName('head')[0] </div><div class="line">         || document.getElementsByTagName('body')[0]).appendChild(ds);</div><div class="line">      &#125;)();</div><div class="line">      &lt;/script&gt;</div><div class="line">    &lt;!-- 多说公共JS代码 end --&gt;</div><div class="line">  &lt;/section&gt;</div><div class="line">&lt;% &#125; %&gt;</div></pre></td></tr></table></figure>
           
         
       
@@ -1440,8 +1415,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/UICollectionview补充/" itemprop="url">
-                  UICollectionView方法
+                <a class="post-title-link" href="/2016/07/07/other/" itemprop="url">
+                  Other
                 </a>
               
             
@@ -1484,8 +1459,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/UICollectionview补充/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/UICollectionview补充/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/other/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/other/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1510,324 +1485,17 @@
       
         
           
-            <ul>
-<li>基础要点<ol>
-<li>UICollectionView的dataSource、delegate</li>
-<li>UICollectionView多组数据和单组数据的展示</li>
-<li>UICollectionView、UICollectionViewFlowLayout的常见属性</li>
-<li>UICollectionViewCell三种注册方式（Class、Nib、storyboard）</li>
-<li>自定义UICollectionViewFlowLayout布局<h2 id="1、数据源和代理方法"><a href="#1、数据源和代理方法" class="headerlink" title="1、数据源和代理方法"></a>1、数据源和代理方法</h2><h4 id="1、UICollectionViewDataSource（数据源）"><a href="#1、UICollectionViewDataSource（数据源）" class="headerlink" title="1、UICollectionViewDataSource（数据源）"></a>1、UICollectionViewDataSource（数据源）</h4></li>
-</ol>
-</li>
-<li><p>有多少组</p>
-<pre><code>- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-</code></pre></li>
-<li><p>有多少行（@required）</p>
-<pre><code>- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
-</code></pre></li>
-<li><p>cell（@required）</p>
-<pre><code>- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
-</code></pre></li>
-<li><p>返回collecctionView的头尾部视图</p>
-<pre><code>- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
-
-- (nullable UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
-</code></pre><p><code>当自定义loyout布局对象时，需重写方法2设置布局属性，否则无法显示</code></p>
-</li>
-<li><p>Move</p>
-<pre><code>- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(9_0);
-
-- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath NS_AVAILABLE_IOS(9_0);
-</code></pre></li>
+            <h3 id="保存图片-视频"><a href="#保存图片-视频" class="headerlink" title="保存图片, 视频"></a>保存图片, 视频</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//图片</span></div><div class="line"><span class="built_in">UIImageWriteToSavedPhotosAlbum</span>(<span class="keyword">self</span>.imageView.image, <span class="keyword">self</span>, <span class="keyword">@selector</span>(image:didFinishSavingWithError:contextInfo:), <span class="literal">nil</span>);</div><div class="line"></div><div class="line"><span class="comment">//视频</span></div><div class="line"><span class="built_in">UISaveVideoAtPathToSavedPhotosAlbum</span>(&lt;<span class="meta">#NSString * _Nonnull videoPath#&gt;, <span class="meta-string">&lt;#id  _Nullable completionTarget#&gt;</span>, <span class="meta-string">&lt;#SEL  _Nullable completionSelector#&gt;</span>, <span class="meta-string">&lt;#void * _Nullable contextInfo#&gt;</span>)</span></div><div class="line"></div><div class="line"><span class="comment">//图片保存结果的回调</span></div><div class="line"><span class="comment">//方法要有三个参数</span></div><div class="line"><span class="comment">//方法要有三个参数</span></div><div class="line">- (<span class="keyword">void</span>)image:(<span class="built_in">UIImage</span> *)image didFinishSavingWithError:(<span class="built_in">NSError</span> *)error contextInfo:(<span class="keyword">void</span> *)contextInfo</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (error) &#123;</div><div class="line">        [SVProgressHUD showErrorWithStatus:<span class="string">@"保存失败"</span>];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [SVProgressHUD showSuccessWithStatus:<span class="string">@"保存成功"</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">视频保存结果的回调</div><div class="line">- (<span class="keyword">void</span>)video:(<span class="built_in">NSString</span> *)videoPath didFinishSavingWithError:(<span class="built_in">NSError</span> *)error contextInfo:(<span class="keyword">void</span> *)contextInfo</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (error) &#123;</div><div class="line">        [SVProgressHUD showErrorWithStatus:<span class="string">@"保存失败"</span>];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [SVProgressHUD showSuccessWithStatus:<span class="string">@"保存成功"</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="解决TableView-CollectionView加载数据时多次刷新问题"><a href="#解决TableView-CollectionView加载数据时多次刷新问题" class="headerlink" title="解决TableView\CollectionView加载数据时多次刷新问题"></a>解决TableView\CollectionView加载数据时多次刷新问题</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">解决多次刷新问题</div><div class="line">方法<span class="number">1.</span>定义属性parameters, 判读parameters是否相同</div><div class="line">方法<span class="number">2.</span><span class="built_in">NSURLSessionDataTask</span>的cancel方法</div><div class="line">一个任务被取消,AFNetworking 会调用取消任务的 failure 的 block</div><div class="line"></div><div class="line"><span class="comment">//makeObjectsPerformSelector数组中的所有元素都执行Selector方法</span></div><div class="line">    [<span class="keyword">self</span>.manager.tasks makeObjectsPerformSelector:<span class="keyword">@selector</span>(cancel)];</div><div class="line"></div><div class="line"><span class="comment">//控制器销毁时</span></div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="comment">//取消所有的任务</span></div><div class="line">    [<span class="keyword">self</span>.manager invalidateSessionCancelingTasks:<span class="literal">YES</span>];</div><div class="line">    <span class="comment">//or</span></div><div class="line">    <span class="comment">//停止所有操作</span></div><div class="line">    [<span class="keyword">self</span>.manager.operationQueue cancelAllOperations];</div><div class="line"></div><div class="line">    <span class="comment">//取消任务, 还能开起任务</span></div><div class="line">    <span class="comment">//[self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];</span></div><div class="line">    <span class="comment">//invalidateSessionCancelingTasks=yes --&gt; session 都无效,任务不能开启, cancel只是取消任务</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="拦截frame的修改"><a href="#拦截frame的修改" class="headerlink" title="拦截frame的修改"></a>拦截frame的修改</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *  可以拦截所有对frame的修改</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)setFrame:(<span class="built_in">CGRect</span>)frame</div><div class="line">&#123;</div><div class="line">    frame.origin.x = <span class="number">10</span>;</div><div class="line">    frame.size.width -= <span class="number">2</span> * frame.origin.x;</div><div class="line">    frame.size.height -= <span class="number">1</span>;</div><div class="line"></div><div class="line">    [<span class="keyword">super</span> setFrame:frame];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  可以拦截所有对bounds的修改</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)setBounds:(<span class="built_in">CGRect</span>)bounds</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> setBounds:bounds];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="控件无故拉伸问题"><a href="#控件无故拉伸问题" class="headerlink" title="控件无故拉伸问题"></a>控件无故拉伸问题</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//如果设置了尺寸, 但控件的宽高拉伸, 可能就是UIViewAutoresizingNone</span></div><div class="line"><span class="keyword">self</span>.autoresizingMask = <span class="built_in">UIViewAutoresizingNone</span>;</div></pre></td></tr></table></figure>
+<h3 id="图片过大-只全部显示图片头部"><a href="#图片过大-只全部显示图片头部" class="headerlink" title="图片过大, 只全部显示图片头部"></a>图片过大, 只全部显示图片头部</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//开启图形上下文</span></div><div class="line"><span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(post.pictureFrame.size, <span class="literal">YES</span>, <span class="number">0.0</span>);</div><div class="line"></div><div class="line"><span class="comment">//将下载的图片, 画到图像上下文中</span></div><div class="line"><span class="comment">//等比例缩放至宽或高全部显示后, 的图片frame</span></div><div class="line"><span class="built_in">CGFloat</span> imageW = post.pictureFrame.size.width;</div><div class="line"></div><div class="line"><span class="built_in">CGFloat</span> imageH = image.size.height * imageW / image.size.width;</div><div class="line">[image drawInRect:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, imageW, imageH)];</div><div class="line"></div><div class="line"><span class="comment">//获取图片</span></div><div class="line"><span class="keyword">self</span>.imageView.image  = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</div><div class="line"></div><div class="line"><span class="comment">//结束图形上下文</span></div><div class="line"><span class="built_in">UIGraphicsEndImageContext</span>();</div></pre></td></tr></table></figure>
+<h3 id="UI-APPEARANCE-SELECTOR"><a href="#UI-APPEARANCE-SELECTOR" class="headerlink" title="UI_APPEARANCE_SELECTOR"></a>UI_APPEARANCE_SELECTOR</h3><ul>
+<li>属性带有 UI_APPEARANCE_SELECTOR, 可以通过 appearance 统一设置</li>
 </ul>
-<h4 id="2、UICollectionViewDelegate（代理）"><a href="#2、UICollectionViewDelegate（代理）" class="headerlink" title="2、UICollectionViewDelegate（代理）"></a>2、UICollectionViewDelegate（代理）</h4><ul>
-<li><p>Selected</p>
-<pre><code>- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
-</code></pre><h4 id="3、UICollectionViewFlowLayout"><a href="#3、UICollectionViewFlowLayout" class="headerlink" title="3、UICollectionViewFlowLayout"></a>3、UICollectionViewFlowLayout</h4></li>
-</ul>
-<h2 id="2、UICollectionViewController"><a href="#2、UICollectionViewController" class="headerlink" title="2、UICollectionViewController"></a>2、UICollectionViewController</h2><h4 id="要点把握"><a href="#要点把握" class="headerlink" title="要点把握"></a>要点把握</h4><pre><code>self.view 和 self.collectionView 代表的是不同类型的, self.collectionView 才是  collectionView
-
-self.collectionViewLayout  只读的
-self.collectionView.collectionViewLayout 如果使用需要进行一次强转
-</code></pre><ul>
-<li>组头组尾的时候, 必须通过数据源方法</li>
-<li><p>如果在storyboard 中拖拽 组头的话,  必须设置重用标识符, 不然数据源方法不会执行</p>
-</li>
-<li><p>必须通过这个方法返回 </p>
-<pre><code>- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-</code></pre></li>
-<li><p>kind类型</p>
-<pre><code>UICollectionElementKindSectionHeader  页眉
-UICollectionElementKindSectionFooter  页脚
-</code></pre></li>
-<li><p>悬浮效果</p>
-<pre><code>flowLayout.sectionHeadersPinToVisibleBounds = YES;
-flowLayout.sectionFootersPinToVisibleBounds = YES;
-</code></pre></li>
-<li><p>设置组头/尾 的size</p>
-<pre><code>flowLayout.headerReferenceSize = CGSizeMake(10, 10);
-flowLayout.footerReferenceSize = CGSizeMake(10, 20);
-</code></pre><h2 id="3、案例：自定义collectionViewFlowLayout多组数据，自定义头尾部视图"><a href="#3、案例：自定义collectionViewFlowLayout多组数据，自定义头尾部视图" class="headerlink" title="3、案例：自定义collectionViewFlowLayout多组数据，自定义头尾部视图"></a>3、案例：自定义collectionViewFlowLayout多组数据，自定义头尾部视图</h2><h4 id="FlowLayout"><a href="#FlowLayout" class="headerlink" title="FlowLayout"></a>FlowLayout</h4><pre><code>#import &quot;ZCFlowLayout.h&quot;
-/** 列数 */
-#define KColumnCount 5
-/** 当item为图片是，一张图片行列方法正好盖住几个文字item */
-#define KChangeCount 2
-
-@interface ZCFlowLayout ()
-/** 保存所有item属性的数组 */
-@property (nonatomic, strong) NSMutableArray *itemsArray;
-//保存每次计算的最大Y值
-@property (nonatomic, assign) CGFloat maxY;
-@end
-
-@implementation ZCFlowLayout
-
-- (void)prepareLayout {
-    [super prepareLayout];
-    UIEdgeInsets insets = UIEdgeInsetsMake(0, ZCFoodSectionInset, ZCFoodSectionInset, ZCFoodSectionInset);
-    self.sectionInset = insets;
-    //起始头部View有个间距
-    CGFloat viewH = ZCFoodHeaderViewH;
-    CGFloat viewW = ZC_SCREEN_WIDTH;
-    CGFloat bottomViewH = ZCFoodBottomViewH;
-    CGFloat viewX = 0;
-    CGFloat viewY = 0;
-    CGFloat startY = viewH;
-    //行列间距
-    CGFloat rowMargin = self.minimumLineSpacing;
-    CGFloat colMargin = self.minimumInteritemSpacing;
-    //计算item的宽高
-    CGFloat itemW = (ZC_SCREEN_WIDTH - insets.left - insets.right - colMargin * (KColumnCount - 1)) / KColumnCount;
-    CGFloat itemH = ZCFoodHeaderViewH;
-    //计算图片宽高
-    CGFloat imageW = KChangeCount * itemW + rowMargin * (KChangeCount - 1);
-    CGFloat imageH = KChangeCount * itemH + colMargin * (KChangeCount - 1);
-    NSInteger sectionCount = [self.collectionView numberOfSections];
-    for (int i = 0; i &lt; sectionCount; i++) {
-        //组头部View属性
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:i];
-        UICollectionViewLayoutAttributes *viewAttrs = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:indexPath];
-        viewAttrs.frame = CGRectMake(viewX, viewY, viewW, viewH);
-        [self.itemsArray addObject:viewAttrs];
-
-        NSInteger itemCount = [self.collectionView numberOfItemsInSection:i];
-        for (int j = 0; j &lt; itemCount; j++) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:j inSection:i];
-            UICollectionViewLayoutAttributes *itemAttribute =[UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-            //计算行列索引
-            NSInteger num = (KColumnCount - KChangeCount) * KChangeCount;
-            NSInteger row = (j - num - 1) / KColumnCount + KChangeCount;
-            NSInteger col = (j - num - 1) % KColumnCount;
-            //计算item的X/Y值
-            CGFloat itemX = insets.left + (itemW + rowMargin) * col;
-            CGFloat itemY = startY + insets.top + (itemH + colMargin) * row;
-            //图片
-            if (j == 0) {
-                itemX = insets.left;
-                itemY = startY + insets.top;
-                itemAttribute.frame = CGRectMake(itemX, itemY, imageW, imageH);
-                [self.itemsArray addObject:itemAttribute];
-                continue;
-            }
-            if (j &lt;= num) {
-                //重新计算行列索引
-                row = (j - 1) / (KColumnCount - KChangeCount);
-                col = (j - 1) % (KColumnCount - KChangeCount);
-                //计算item的X/Y值
-                itemX = insets.left + imageW + rowMargin + (itemW + rowMargin) * col;
-                itemY = startY + insets.top + (itemH + colMargin) * row;
-            }
-            itemAttribute.frame = CGRectMake(itemX, itemY, itemW , itemH);
-            [self.itemsArray addObject:itemAttribute];
-            _maxY = CGRectGetMaxY(itemAttribute.frame);
-        }
-        indexPath = [NSIndexPath indexPathForItem:itemCount inSection:i];
-        viewAttrs = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:indexPath];
-        viewAttrs.frame = CGRectMake(0, _maxY + insets.bottom, viewW, bottomViewH);
-        [self.itemsArray addObject:viewAttrs];
-        _maxY = _maxY + insets.bottom + bottomViewH;
-        viewY = _maxY;
-        startY = _maxY + viewH + insets.top;
-    }
-    self.collectionView.contentSize = CGSizeMake(0, _maxY);
-}
-
-- (CGSize)collectionViewContentSize {
-    return self.collectionView.contentSize;
-}
-
-- (NSArray&lt;UICollectionViewLayoutAttributes *&gt; *)layoutAttributesForElementsInRect:(CGRect)rect {
-    return self.itemsArray;
-}
-
-- (NSMutableArray *)itemsArray {
-    if (!_itemsArray) {
-        _itemsArray = [NSMutableArray array];
-    }
-    return _itemsArray;
-}
-@end
-</code></pre><h4 id="ViewController"><a href="#ViewController" class="headerlink" title="ViewController"></a>ViewController</h4><pre><code>#import &quot;ZCFoodViewController.h&quot;
-#import &quot;ZCFlowLayout.h&quot;
-#import &quot;ZCCategoryModel.h&quot;
-#import &quot;ZCCollectionHeaderView.h&quot;
-#import &quot;ZCImageCell.h&quot;
-#import &quot;ZCWordCell.h&quot;
-#import &quot;ZCMaterialDescriptionViewController.h&quot;
-#import &quot;ZCFavoriteViewController.h&quot;
-#import &quot;ZCFoodTherapyViewController.h&quot;
-
-#import &quot;ZCCategoryModel.h&quot;
-#import &quot;ZCFoodModel.h&quot;
-
-@interface ZCFoodViewController ()&lt;UICollectionViewDelegateFlowLayout&gt;
-@property (nonatomic, weak) ZCFlowLayout *flowLayout;
-@property (nonatomic, strong) NSArray *dataArray;
-@end
-static NSString *const headerIdentifier = @&quot;header&quot;;
-static NSString *const footerIdentifier = @&quot;footer&quot;;
-static NSString *imageId = @&quot;imageCell&quot;;
-static NSString *wordId = @&quot;wordCell&quot;;
-@implementation ZCFoodViewController
-// 初始化自动设置流水布局
-- (instancetype)init
-{
-    ZCFlowLayout *flowLayout = [[ZCFlowLayout alloc] init];
-    self.flowLayout = flowLayout;
-    self = [super initWithCollectionViewLayout:flowLayout];
-    if (self) {}
-    return self;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // 设置CollectionView
-    [self setupCollectionView];
-    //添加刷新控件
-    [self addRefresh];
-}
-// 设置CollectionView
-- (void)setupCollectionView {
-    self.collectionView.backgroundColor = [UIColor whiteColor];
-    // 注册cell
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ZCImageCell class]) bundle:nil] forCellWithReuseIdentifier:imageId];
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ZCWordCell class]) bundle:nil] forCellWithReuseIdentifier:wordId];
-    // 注册section头／尾
-    [self.collectionView registerClass:[ZCCollectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerIdentifier];
-    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footerIdentifier];
-    self.collectionView.contentInset = UIEdgeInsetsMake(64, 0, 49, 0);
-    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 49, 0);
-    self.flowLayout.minimumInteritemSpacing = 10;
-    self.flowLayout.minimumLineSpacing = 10;
-}
-//添加刷新控件
-- (void)addRefresh {
-    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-    //加载数据
-    [self.collectionView.mj_header beginRefreshing];
-}
-// 获取数据
-- (void)loadNewData {
-    // 设置请求参数
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    parameters[@&quot;methodName&quot;] = self.methodName;
-    parameters[@&quot;version&quot;] = @4.4;
-    [[ZCNetWorking sharedInstance] postWithUrlString:@&quot;http://api.izhangchu.com/?appVersion=4.4&amp;sysVersion=9.3.2&amp;devModel=iPhone&quot; withParameter:parameters withComplection:^(NSDictionary *responseObject) {
-        self.dataArray = [ZCCategoryModel mj_objectArrayWithKeyValuesArray:responseObject[@&quot;data&quot;][@&quot;data&quot;]];
-        [self.collectionView reloadData];
-        [self.collectionView.mj_header endRefreshing];
-    } withFailure:^(NSError *error) {
-        [self.collectionView.mj_header endRefreshing];
-        [SVProgressHUD showErrorWithStatus:@&quot;加载失败&quot;];
-    }];
-}
-#pragma mark - UICollectionViewDataSource
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return self.dataArray.count;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSInteger count = [[self.dataArray[section] foodArray] count];
-    return  count ? count + 1 : 0 ;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.item) {
-        ZCWordCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:wordId forIndexPath:indexPath];
-        ZCFoodModel *model = [self.dataArray[indexPath.section] foodArray][indexPath.item - 1];
-        cell.textLabel.text = model.text;
-        return cell;
-    }
-    ZCImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:imageId forIndexPath:indexPath];
-    ZCCategoryModel *model = self.dataArray[indexPath.section];
-    [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.image]];
-    return cell;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.item) {
-        ZCFoodModel *model = [self.dataArray[indexPath.section] foodArray][indexPath.item - 1];
-        if ([self.methodName  isEqual: @&quot;MaterialSubtype&quot;]) {
-            //食疗
-            ZCMaterialDescriptionViewController *descVc = [[ZCMaterialDescriptionViewController alloc] init];
-            descVc.title = model.text;
-            descVc.ID = model.ID;
-            [self.navigationController pushViewController:descVc animated:YES];
-            return;
-        }
-        if ([self.methodName  isEqual: @&quot;CategoryIndex&quot;]) {
-            //分类
-            if (model.type == 1) {
-                ZCFavoriteViewController *favoriteVc = [[ZCFavoriteViewController alloc] init];
-                favoriteVc.title = model.text;
-                NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-                parameters[@&quot;size&quot;] = @20;
-                parameters[@&quot;page&quot;] = @1;
-                parameters[@&quot;methodName&quot;] = @&quot;CategorySearch&quot;;
-                parameters[@&quot;cat_id&quot;] = model.ID;
-                parameters[@&quot;type&quot;] = @1;
-                parameters[@&quot;version&quot;] = @4.4;
-                favoriteVc.parameters = parameters;
-                [self.navigationController pushViewController:favoriteVc animated:YES];
-                return;
-            }
-            if (model.type == 2) {
-                //食疗
-                ZCFoodTherapyViewController *thrapyVc = [[ZCFoodTherapyViewController alloc] init];
-                thrapyVc.department_id = model.ID;
-                [self.navigationController pushViewController:thrapyVc animated:YES];
-            }
-        }
-    }
-}
-
-//设置头部/尾部视图
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        ZCCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerIdentifier forIndexPath:indexPath];
-        ZCCategoryModel *model = self.dataArray[indexPath.section];
-        headerView.titleLabel.text = model.text;
-        return headerView;
-    } else {
-        UICollectionReusableView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:footerIdentifier forIndexPath:indexPath];
-        footerView.backgroundColor = ZC_GLOBAL_COLOR;
-        return footerView;
-    }
-}
-
-#pragma mark - UICollectionViewDelegateFlowLayout
-//sectionHeaderSize
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(0, ZCFoodHeaderViewH);
-}
-//sectionFooterSize
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return CGSizeMake(0, ZCFoodBottomViewH);
-}
-
-@end
-</code></pre></li>
-</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//eg:</span></div><div class="line"><span class="built_in">UINavigationBar</span> *navigationBar = [<span class="built_in">UINavigationBar</span> appearance];</div><div class="line">[navigationBar setBackgroundImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"navigationbarBackgroundWhite"</span>] forBarMetrics:<span class="built_in">UIBarMetricsDefault</span>];</div><div class="line">[navigationBar setTitleTextAttributes:@&#123;<span class="built_in">NSFontAttributeName</span> : [<span class="built_in">UIFont</span> boldSystemFontOfSize:<span class="number">20</span>]&#125;];</div><div class="line"></div><div class="line"><span class="comment">//注意:</span></div><div class="line"><span class="keyword">self</span>.navigationItem.rightBarButtonItem.enabled = <span class="literal">NO</span>;</div><div class="line"><span class="comment">//使用UI_APPEARANCE_SELECTOR--&gt;appearance时,分样式的设置会导致样式不会改变, 需要强制刷新</span></div><div class="line">[<span class="keyword">self</span>.navigationController.navigationBar layoutIfNeeded];</div></pre></td></tr></table></figure>
+<h3 id="设置状态栏的样式"><a href="#设置状态栏的样式" class="headerlink" title="设置状态栏的样式"></a>设置状态栏的样式</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Info.plist 配置 View controller-based status bar appearance : NO</span></div><div class="line">[<span class="built_in">UIApplication</span> sharedApplication].statusBarStyle = <span class="built_in">UIStatusBarStyleDefault</span>;</div></pre></td></tr></table></figure>
+<h3 id="presentViewController"><a href="#presentViewController" class="headerlink" title="presentViewController"></a>presentViewController</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">当一个控制器 model 出另一个控制器</div><div class="line">[A presentViewController:B animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</div><div class="line">A.presentedViewController --&gt; B</div><div class="line">B.presentingViewController --&gt; A</div></pre></td></tr></table></figure>
 
           
         
@@ -2575,7 +2243,7 @@ self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">97</span>
+              <span class="site-state-item-count">98</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
