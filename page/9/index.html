@@ -118,12 +118,12 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
+    sidebar: {"position":"left","display":"always"},
     fancybox: true,
     motion: true,
     duoshuo: {
       userId: 0,
-      author: 'Author'
+      author: '博主'
     }
   };
 </script>
@@ -136,7 +136,7 @@
   <title> 颜文字 </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -193,7 +193,17 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Accueil
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -203,7 +213,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            归档
           </a>
         </li>
       
@@ -213,15 +223,45 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
           </a>
         </li>
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'iRPRT9JgJfvxEsHZRgKm','2.0.0');
+</script>
+
+
+
+    </div>
   
 </nav>
 
@@ -256,8 +296,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/03/SUMMARY/" itemprop="url">
-                  Non titré
+                <a class="post-title-link" href="/2016/07/07/HTTP请求和数据安全/" itemprop="url">
+                  HTTP请求和数据安全
                 </a>
               
             
@@ -269,15 +309,41 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posté le</span>
-            <time itemprop="dateCreated" datetime="2016-07-03T14:54:28+08:00" content="2016-07-03">
-              2016-07-03
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
             </time>
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/HTTP请求和数据安全/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/HTTP请求和数据安全/" itemprop="commentsCount"></span>
+                </a>
+              </span>
             
           
 
@@ -300,111 +366,1697 @@
       
         
           
-            <h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul>
-<li><a href="README.md">Introduction</a></li>
-<li><a href="c/README.md">C语言</a></li>
-<li><a href="oc/README.md">Objective-C</a><ul>
-<li><a href="oc/classandobject.md">类与对象</a></li>
-<li><a href="oc/nsstring.md">NSString</a><ul>
-<li><a href="oc/nsstringandnsurl.md">使用NSURL读写字符串</a></li>
-<li><a href="oc/nsstringcompare.md">字符串的比较</a></li>
-<li><a href="oc/nsstringsearch.md">字符串搜索与NSRange</a></li>
-<li><a href="oc/nsstringinterceptionandreplacement.md">字符串的截取和替换</a></li>
-<li><a href="oc/nsstringother.md">NSString的其他用法</a></li>
-<li><a href="oc/nsmutablestring.md">NSMutableString</a></li>
+            <h2 id="一、HTTP请求"><a href="#一、HTTP请求" class="headerlink" title="一、HTTP请求"></a>一、HTTP请求</h2><h4 id="1、http协议-超文本传输协议-Hypertext-Transfer-Protocol"><a href="#1、http协议-超文本传输协议-Hypertext-Transfer-Protocol" class="headerlink" title="1、http协议: 超文本传输协议(Hypertext Transfer Protocol)"></a>1、http协议: 超文本传输协议(Hypertext Transfer Protocol)</h4><pre><code>http协议规定了客户端和服务器之间的数据传输格式.
+http协议是在网络开发中最常用的协议.不管是移动客户端还是PC端,访问网络资源经常使用http协议.
+http优点:
+&lt;1&gt; 简单快速:
+    http协议简单,通信速度很快.
+&lt;2&gt; 灵活:
+    http协议允许传输任意类型的数据.
+&lt;3&gt; http协议是短连接(非持续性连接)
+    http协议限制每次连接只处理一个请求,服务器对客户端的请求作出响应后,马上断开连接.这种方式可以节省传输时间.
+</code></pre><h4 id="2、http协议的使用"><a href="#2、http协议的使用" class="headerlink" title="2、http协议的使用"></a>2、http协议的使用</h4><p><strong>完整的http通信分为两步:</strong></p>
+<h6 id="1、请求-客户端向服务器索要数据"><a href="#1、请求-客户端向服务器索要数据" class="headerlink" title="1、请求:客户端向服务器索要数据."></a>1、请求:客户端向服务器索要数据.</h6><pre><code>http协议规定:一个完整的http请求包含&apos;请求行&apos;,&apos;请求头&apos;,&apos;请求体&apos;三个部分;
+
+&apos;请求行&apos;:包含了请求方法,请求资源路径,http协议版本.
+
+&quot;GET /resources/images/ HTTP/1.1&quot;
+
+&apos;请求头&apos;:包含了对客户端的环境描述,客户端请求的主机地址等信息.
+
+Accept: text/html // 客户端所能接收的数据类型
+Accept-Language: zh-cn // 客户端的语言环境
+Accept-Encoding: gzip // 客户端支持的数据压缩格式
+Host: m.baidu.com // 客户端想访问的服务器主机地址
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:37.0) Gecko/20100101 Firefox/37.0 // 客户端的类型,客户端的软件环境
+
+&apos;请求体&apos;:客户端发给服务器的具体数据,比如文件/图片等.
+</code></pre><h6 id="2、响应-服务器返回客户端想要的数据"><a href="#2、响应-服务器返回客户端想要的数据" class="headerlink" title="2、响应:服务器返回客户端想要的数据"></a>2、响应:服务器返回客户端想要的数据</h6><pre><code>http协议规定:一个完整的http响应包含&apos;状态行&apos;,&apos;响应头&apos;,&apos;实体内容&apos;三个部分;
+
+&apos;状态行&apos;:包含了http协议版本,状态吗,状态英文名称.
+
+&quot;HTTP/1.1 200 OK&quot;
+
+&apos;响应头&apos;:包含了对服务器的描述,对返回数据的描述.
+
+Content-Encoding: gzip // 服务器支持的数据压缩格式
+Content-Length:  1528 // 返回数据的长度
+Content-Type:  application/xhtml+xml;charset=utf-8 // 返回数据的类型
+Date: Mon, 15 Jun 2015 09:06:46 GMT // 响应的时间
+Server: apache  // 服务器类型
+
+&apos;实体内容&apos;:服务器返回给客户端的具体数据(图片/html/文件...).
+</code></pre><h4 id="3、发送http请求"><a href="#3、发送http请求" class="headerlink" title="3、发送http请求:"></a>3、发送http请求:</h4><pre><code>在iOS开发中,发送http请求的方案有很多,常见的有如下几种:
+&lt;1&gt; 苹果原生:
+{
+    * NSURLConnection:用法简单,古老经典的一种方案.
+
+    * NSURLSession:iOS7以后推出的技术,功能比NSURLConnection更加强大.
+
+    * CFNetWork:NSURL 的底层,纯C语言,一般不用.
+}
+
+&lt;2&gt; 第三方框架:
+{
+    * ASIHttpRequest:http终结者,功能很强大,可惜作者已停止更新.
+
+    * AFNetWorking:简单易用,提供了基本够用的常用功能,维护和使用者多.
+
+    * MKNetWorkKit:简单易用,产自印度,维护和使用者少.
+}
+</code></pre><h2 id="二、GET-和-POST"><a href="#二、GET-和-POST" class="headerlink" title="二、GET 和 POST"></a>二、GET 和 POST</h2><h4 id="1、http方法"><a href="#1、http方法" class="headerlink" title="1、http方法:"></a>1、http方法:</h4><pre><code>http协议定义了很多方法对应不同的资源操作,其中最常用的是GET 和 POST 方法.
+{
+    { GET、POST、OPTIONS、HEAD、PUT、DELETE、TRACE、CONNECT、PATCH }
+
+    增:PUT
+    删:DELETE
+    改:POST
+    查:GET
+}
+</code></pre><h4 id="2、参数"><a href="#2、参数" class="headerlink" title="2、参数"></a>2、参数</h4><pre><code>因为 GET 和 POST 可以实现上述所有操作,所以,在现实开发中,我们只要会用GET 和 POST 方法就可以了.
+在与服务器交互时,有时候需要给服务器发送一些数据,比如登录时需要发送用户名和密码.
+参数:就是指传递给服务器的具体数据.
+</code></pre><h4 id="3、GET-和-POST-的主要区别表现在参数的传递上"><a href="#3、GET-和-POST-的主要区别表现在参数的传递上" class="headerlink" title="3、GET 和 POST 的主要区别表现在参数的传递上"></a>3、GET 和 POST 的主要区别表现在参数的传递上</h4><h6 id="1、GET"><a href="#1、GET" class="headerlink" title="1、GET"></a>1、GET</h6><pre><code>GET的本质是从服务器得到数据,效率更高.并且GET请求可以被缓存.
+
+&apos;注意&apos;: 网络缓存数据,保存在SQLite的数据库中(路径:NSHomeDirectory()).
+查看缓存数据命令行:
+&apos;cd 文件目录&apos;   (打开文件目录)
+&apos;ls&apos;   查看当前文件下目录
+&apos;sqlite3 Cache.db&apos;   打开数据库
+&apos;.tables&apos;    查看数据库中的表单
+&apos;select * from cfurl_cache_response;&apos;   查看服务器响应缓存
+&apos;select * from cfurl_cache_receiver_data;&apos;   查看服务器返回的数据缓存
+
+在请求 URL 后面以 ? 的形式跟上发给服务器的参数,参数以 &quot;参数名&quot;=&quot;参数值&quot;的形式拼接,多个参数之间用 &amp; 分隔.
+
+注意:GET的长度是有限制的,不同的浏览器有不同的长度限制,一般在2~8K之间
+</code></pre><h6 id="2、POST"><a href="#2、POST" class="headerlink" title="2、POST"></a>2、POST</h6><pre><code>POST的本质是向服务器发送数据,也可以获得服务器处理之后的结果,效率不如GET.POST请求不可以被缓存,每次刷新之后都需要重新提交表单.
+
+发送给服务器的参数全部放在&apos;请求体&apos;中;
+
+理论上,POST传递的数据量没有限制.
+
+注意:所有涉及到用户隐私的数据(密码/银行卡号等...)都要用POST的方式传递.
+</code></pre><h4 id="4、注意-URL中不能出现空格以及中文等特殊符号"><a href="#4、注意-URL中不能出现空格以及中文等特殊符号" class="headerlink" title="4、注意:URL中不能出现空格以及中文等特殊符号"></a>4、注意:URL中不能出现空格以及中文等特殊符号</h4><pre><code>1&gt;URL中,所有的字符都必须是 ASCII 码;
+
+2&gt;URL中不能出现中文和特殊符号(如空格);
+
+所以,如果 URL 中出现了中文,需要添加百分号转译.
+urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+</code></pre><h4 id="5、POST-发送登陆请求"><a href="#5、POST-发送登陆请求" class="headerlink" title="5、POST 发送登陆请求"></a>5、POST 发送登陆请求</h4><pre><code>1&gt; 用可变请求: NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+2&gt; 指定请求方法: request.HTTPMethod = @&quot;POST&quot;;
+3&gt; 设置请求体数据: request.HTTPBody = data;
+// 实例化请求体字符串
+NSString *body = [NSString stringWithFormat:@&quot;username=%@&amp;password=%@&quot;,self.userName.text,self.password.text];
+// 将字符串转换成二进制数据
+NSData *data = [body dataUsingEncoding:NSUTF8StringEncoding];
+4&gt; 发送异步网络请求.
+[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+    // NSURLResponse *response: 服务器响应
+    // NSData *data: 服务器返回的数据
+    // NSError *connectionError: 连接错误处理
+    // 网络请求的回调.
+}]
+</code></pre><h2 id="三、保存用户信息"><a href="#三、保存用户信息" class="headerlink" title="三、保存用户信息"></a>三、保存用户信息</h2><h4 id="1、偏好设置保存用户信息"><a href="#1、偏好设置保存用户信息" class="headerlink" title="1、偏好设置保存用户信息"></a>1、偏好设置保存用户信息</h4><pre><code>&lt;1&gt;如果用户登陆成功,就保存用户信息.下次直接从偏好设置中读取用户信息,以此做到用户只需要输入一次账号和密码,以后登陆就可以不用再次输入.
+
+1&gt;.登陆成功,保存用户信息(偏好设置)
+2&gt;.再次进入,直接显示用户之前保存的信息.避免用户重复输入.
+
+// 偏好设置存储用户信息
+-(void)savaUserInfo
+{
+    // 实例化偏好设置对象(单例)
+    NSUserDefaults *User = [NSUserDefaults standardUserDefaults];
+    // 保存用户名
+    [User setObject:self.userName.text forKey:kITUSERNAMEKEY];
+    // 保存用户密码
+    [User setObject:pass forKey:kITUSERPASSKEY];
+    // 同步保存用户信息
+    [User synchronize];
+}
+
+// 加载偏好设置中的用户信息
+- (void)loadUserInfo
+{
+    NSUserDefaults *User = [NSUserDefaults standardUserDefaults];
+
+    if ([User objectForKey:ITUSERNAMEKEY]) {
+
+        self.userName.text = [User objectForKey:ITUSERNAMEKEY];
+
+    }if ([User objectForKey:ITUSERPASSKEY]) {
+
+        self.password.text = [User objectForKey:ITUSERPASSKEY];
+
+    };
+}
+
+&lt;2&gt; 用户登陆业务逻辑
+{
+    // &lt;1&gt; 用户登陆需要一个单独的控制器,因为只需要登陆一次(Login.storyboard). 应用程序需要有一个入口:main.storyboard: app 主页面
+
+    // &lt;2&gt; 判断用户是否登陆成功过(通过偏好设置中存储的用户信息判断)
+    // 1&gt; 如果偏好设置中存有用户信息(说明之前登陆成功过),直接进入 app 主页面 :main.storyboard
+    // 2&gt; 如果偏好设置中不存在用户信息(第一次登陆或者之前注销了用户信息),进入登陆界面 :Login.storyboard
+
+    // &lt;3&gt; 如果用户登陆成功,跳转到 app 主页面:main.storyboard.并且在偏好设置中保存用户信息.
+
+    // &lt;4&gt; 如果用户点击注销按钮,注销用户信息,返回到登陆页面.
+}
+
+
+&lt;3&gt; 问题: 用户密码不能以明文的形式保存,需要对用户密码加密之后再保存!
+
+密码的安全原则:
+
+1&gt; 本地和服务器都不允许保存用户的密码明文.
+
+2&gt; 在网络上,不允许传输用户的密码明文.
+
+现代密码学趣闻! 中途岛海战(AF)
+
+&lt;4&gt; 数据加密算法:
+
+1&gt; 对称加密算法:加密和解密使用同一密钥.加密解密速度快,要保证密钥安全.适合给大数据加密.
+
+2&gt; 非对称加密算法:使用公钥加密,私钥解密.或者使用私钥加密,公钥解密.更加安全,但是加密解密速度慢,适合给小数据加密.
+
+&lt;5&gt; 小技巧:
+
+openssl :是一个强大的安全套接字层密码库,囊括主要的密码算法,常用的密钥和证书封装管理功能以及 SSL 协议.提供丰富的应用程序测试功能.
+
+终端命令:
+
+    echo hello |openssl md5
+    echo hello |openssl sha1
+    echo hello |openssl sha -sha256
+    echo hello |openssl sha -sha512
+</code></pre><h2 id="四、信息安全加密"><a href="#四、信息安全加密" class="headerlink" title="四、信息安全加密"></a>四、信息安全加密</h2><p><strong>了解:常用加密方法: 1&gt; base64  2&gt; MD5  3&gt; MD5加盐  4&gt; HMAC  5&gt; 时间戳密码(用户密码动态变化)</strong></p>
+<h4 id="1、base64"><a href="#1、base64" class="headerlink" title="1、base64"></a>1、base64</h4><pre><code>base64 编码是现代密码学的基础.
+
+原本是 8个bit 一组表示数据,改为 6个bit一组表示数据,不足的部分补零,每 两个0 用 一个 = 表示.
+用base64 编码之后,数据长度会变大,增加了大约 1/3 左右.
+
+base64 基本能够达到安全要求,但是,base64能够逆运算,非常不安全!
+base64 编码有个非常显著的特点,末尾有个 &apos;=&apos; 号.
+
+利用终端命令进行base64运算:
+
+    // 将文件 meinv.jpg 进行 base64运算之后存储为 meinv.txt
+    base64 meinv.jpg -o meinv.txt
+
+    // 讲meinv.txt 解码生成 meinv.png
+    base64 -D meinv.txt -o meinv.png
+
+    // 将字符串 &quot;hello&quot; 进行 base 64 编码 结果:aGVsbG8=
+    echo &quot;hello&quot; | base64
+
+    // 将 base64编码之后的结果 aGVsbG8= 反编码为字符串
+    echo aGVsbG8= | base64 -D
+</code></pre><h4 id="2、MD5-–-信息-摘要算法-哈希算法之一"><a href="#2、MD5-–-信息-摘要算法-哈希算法之一" class="headerlink" title="2、MD5 – (信息-摘要算法) 哈希算法之一"></a>2、MD5 – (信息-摘要算法) 哈希算法之一</h4><pre><code>把一个任意长度的字节串变换成一定长度的十六进制的大整数. 注意,字符串的转换过程是不可逆的.
+
+用于确保&apos;信息传输&apos;完整一致.
+
+MD5特点:
+
+*1.压缩性:   任意长度的数据,算出的 MD5 值长度都是固定的.
+*2.容易计算: 从原数据计算出 MD5 值很容易.
+*3.抗修改性: 对原数据进行任何改动,哪怕只修改一个字节,所得到的 MD5 值都有很大区别.
+*4.弱抗碰撞: 已知原数据和其 MD5 值,想找到一个具有相同 MD5 值的数据(即伪造数据)是非常困难的.
+*5.强抗碰撞: 想找到两个不同数据,使他们具有相同的 MD5 值,是非常困难的.
+
+MD5 应用:
+
+*1. 一致性验证: MD5 将整个文件当做一个大文本信息,通过不可逆的字符串变换算法,产生一个唯一的 MD5 信息摘要.就像每个人都有自己独一无二的指纹,MD5 对任何文件产生一个独一无二的&quot;数字指纹&quot;.
+
+    利用 MD5 来进行文件校验, 被大量应用在软件下载站,论坛数据库,系统文件安全等方面.
+
+*2. 数字签名;
+
+*3. 安全访问认证;
+</code></pre><h4 id="3、MD5加盐"><a href="#3、MD5加盐" class="headerlink" title="3、MD5加盐"></a>3、MD5加盐</h4><pre><code>MD5 本身是不可逆运算,但是,目前网络上有很多数据库支持反查询.
+MD5加盐 就是在密码哈希过程中添加的额外的随机值.
+注意:加盐要足够长,足够复杂.
+</code></pre><h4 id="4、HMAC"><a href="#4、HMAC" class="headerlink" title="4、HMAC"></a>4、HMAC</h4><pre><code>HMAC 利用哈希算法,以一个密钥和一个消息为输入,生成一个消息摘要作为输出.
+
+HMAC 主要使用在身份认证中;
+
+认证流程:
+
+    *1. 客户端向服务器发送一个请求.
+    *2. 服务器接收到请求后,生成一个&apos;随机数&apos;并通过网络传输给客户端.
+    *3. 客户端将接收到的&apos;随机数&apos;和&apos;密钥&apos;进行 HMAC-MD5 运算,将得到的结构作为认证数据传递给服务器.
+    (实际是将随机数提供给 ePass,密钥也是存储在 ePass中的)
+    *4. 与此同时,服务器也使用该&apos;随机数&apos;与存储在服务器数据库中的该客户&apos;密钥&apos;进行 HMAC-MD5 运算,如果
+    服务器的运算结果与客户端传回的认证数据相同,则认为客户端是一个合法用法.
+</code></pre><h4 id="5、时间戳密码-用户密码动态变化"><a href="#5、时间戳密码-用户密码动态变化" class="headerlink" title="5、时间戳密码(用户密码动态变化)"></a>5、时间戳密码(用户密码动态变化)</h4><pre><code>相同的密码明文 + 相同的加密算法 ===》 每次计算都得出不同的结果.可以充分保证密码的安全性.
+
+原理:将当前时间加入到密码中;
+
+因为每次登陆时间都不同,所以每次计算出的结果也都不相同.
+
+服务器也需要采用相同的算法.这就需要服务器和客户端时间一致.
+
+注意:服务器端时间和客户端时间,可以有一分钟的误差(比如:第59S发送的网络请求,一秒钟后服务器收到并作出响应,这时服务器当前时间比客户端发送时间晚一分钟).
+
+这就意味着,服务器需要计算两次（当前时间和一分钟之前两个时间点各计算一次）.只要有一个结果是正确的,就可以验证成功!
+</code></pre><h2 id="五、钥匙串访问"><a href="#五、钥匙串访问" class="headerlink" title="五、钥匙串访问"></a>五、钥匙串访问</h2><h4 id="1、钥匙串访问"><a href="#1、钥匙串访问" class="headerlink" title="1、钥匙串访问"></a>1、钥匙串访问</h4><pre><code>苹果在 iOS 7.0.3 版本以后公布钥匙串访问的SDK. 钥匙串访问接口是纯C语言的.
+
+钥匙串使用 AES 256加密算法,能够保证用户密码的安全.
+
+钥匙串访问的第三方框架(SSKeychain),是对 C语言框架 的封装.注意:不需要看源码.
+
+钥匙串访问的密码保存在哪里?只有苹果才知道.这样进一步保障了用户的密码安全.
+
+使用步骤:
+{
+    // 获取应用程序唯一标识.
+
+    NSString *bundleId = [NSBundle mainBundle].bundleIdentifier;
+
+    // 1.利用第三方框架,将用户密码保存在钥匙串
+
+    [SSKeychain setPassword:self.pwdText.text forService:bundleId account:self.usernameText.text];
+
+    &quot;注意&quot;三个参数:
+
+    1.密码:可以直接使用明文.钥匙串访问本身是使用 AES 256加密,就是安全的.所以使用的时候,直接传递密码明文就可以了.
+
+    2.服务名:可以随便乱写,建议唯一! 建议使用 bundleId.
+
+    bundleId是应用程序的唯一标识,每一个上架的应用程序都有一个唯一的 bundleId
+
+    3.账户名:直接用用户名称就可以.
+
+    // 2.从钥匙串加载密码
+
+    self.pwdText.text = [SSKeychain passwordForService:bundleId account:self.usernameText.text];
+}
+</code></pre><h2 id="六、指纹识别"><a href="#六、指纹识别" class="headerlink" title="六、指纹识别"></a>六、指纹识别</h2><pre><code>指纹识别功能是 iphone 5S之后推出的.SDK是 iOS 8.0 推出!
+
+推出指纹识别功能的目的,是为了简化移动支付环节,占领移动支付市场.
+
+使用步骤:
+{
+    1&gt; 导入框架;
+#import &lt;LocalAuthentication/LocalAuthentication.h&gt;
+
+    2&gt; 指纹识别的实现:
+    {
+        1. 需要判断手机系统版本是否是 iOS 8.0 以上的版本.只有 iOS 8.0 以上才支持.
+
+        // 获得当前系统版本号
+        float version = [UIDevice currentDevice].systemVersion.floatValue;
+
+        if (version &lt; 8.0 ) // 判断当前系统版本
+        {
+            NSLog(@&quot;系统版本太低,请升级至最新系统&quot;);
+            return;
+        }
+
+        2. 实例化指纹识别对象,判断当前设备是否支持指纹识别功能(是否带有TouchID).
+
+        // 1&gt; 实例化指纹识别对象
+        LAContext *laCtx = [[LAContext alloc] init];
+
+        // 2&gt; 判断当前设备是否支持指纹识别功能.
+        if (![laCtx canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:NULL])
+        { // 如果设备不支持指纹识别功能
+
+            NSLog(@&quot;该设备不支持指纹识别功能&quot;);
+
+            return;
+        };
+
+        3.指纹登陆(默认是异步方法)
+        // 指纹登陆
+        [laCtx evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:@&quot;指纹登陆&quot; reply:^(BOOL success, NSError *error)
+         {
+             // 如果成功,表示指纹输入正确.
+             if (success) {
+                 NSLog(@&quot;指纹识别成功!&quot;);
+
+             }else
+             {
+                 NSLog(@&quot;指纹识别错误,请再次尝试&quot;);
+             }
+         }];
+    }
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/UIWindow和控制器/" itemprop="url">
+                  UIWindow和控制器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/UIWindow和控制器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/UIWindow和控制器/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>UIWindow是一种特殊的UIView,通常在一个app中只有一个UIWindow</li>
+<li>iOS程序启动完毕后，创建的第一个视图控件就是UIWindow，接着创建控制器的view，最后将控制器的view添加到UIWindow上，于是控制器的view就显示在屏幕上了。</li>
+<li>-个iOS程序之所以能显示在屏幕上，完全是因为他有UIWindow的存在,也就是说，没有UIWindow,就看不见任何UI界面。</li>
+<li>可以自己手动创建UIWindow</li>
+</ul>
+<h2 id="1、手动创建控制器"><a href="#1、手动创建控制器" class="headerlink" title="1、手动创建控制器"></a>1、手动创建控制器</h2><ul>
+<li>不适用Xcode自动生成的ViewController及storyboard文件</li>
+<li>自己手动实现加载控制器</li>
+<li>实现步骤<ul>
+<li>在应用程序加载完毕后，手动创建UIWindow及应用程序代理里面的UIWindow</li>
+<li>创建要加载的控制器</li>
+<li>设置为窗口的根控制器</li>
+<li>设置窗口为主窗口并可见，或者设置为主窗口，然后设置窗口的hidden属性为NO</li>
 </ul>
 </li>
-<li><a href="oc/nsarray.md">NSArray</a><ul>
-<li><a href="oc/nsarrayaction.md">NSArray常见用法</a></li>
-<li><a href="oc/nsarraytraverse.md">NSArray的遍历</a></li>
-<li><a href="oc/nsarrayandfile.md">NSArray读写文件</a></li>
-<li><a href="oc/nsarrayandnsstring.md">NSArray与NSString</a></li>
-<li><a href="oc/nsmutablearray.md">NSMutableArray</a></li>
 </ul>
+<h6 id="注意：创建的窗口默认是不可见，隐藏的。"><a href="#注意：创建的窗口默认是不可见，隐藏的。" class="headerlink" title="注意：创建的窗口默认是不可见，隐藏的。"></a>注意：创建的窗口默认是不可见，隐藏的。</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 1.创建窗口</div><div class="line">self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];</div><div class="line">self.window.windowLevel = UIWindowLevelStatusBar;</div><div class="line">NSLog(@&quot;%p&quot;, self.window);</div><div class="line"></div><div class="line">// 2.创建自定义的控制器</div><div class="line">CZViewController *vc = [[CZViewController alloc] init];</div><div class="line"></div><div class="line">// 3.设置窗口的根控制器为自定义的控制器</div><div class="line">self.window.rootViewController = vc;</div><div class="line"></div><div class="line">// 4.设置窗口为主窗口并可见</div><div class="line">[self.window makeKeyAndVisible];</div></pre></td></tr></table></figure>
+<h2 id="2、创建控制器的方法介绍"><a href="#2、创建控制器的方法介绍" class="headerlink" title="2、创建控制器的方法介绍"></a>2、创建控制器的方法介绍</h2><ul>
+<li><p>纯代码创建控制器</p>
 </li>
-<li><a href="oc/nsdictionary.md">NSDictionary</a><ul>
-<li><a href="oc/nsdictionaryaction.md">NSDictionary常见用法</a></li>
-<li><a href="oc/nsdictionaryandfile.md">NSDictionary简写与文件操作</a></li>
-<li><a href="oc/nsmutabledictionary.md">NSMutableDictionary</a></li>
-</ul>
+<li><p>通过storyboard文件创建控制器</p>
 </li>
-<li><a href="oc/nsfilemanager.md">NSFileManager</a><ul>
-<li><a href="oc/nsfilemanagerandfile.md">NSFileManager的文件访问</a></li>
-<li><a href="oc/nsfilemanagerfileoperation.md">NSFileManager的文件或文件夹操作</a></li>
-<li><a href="oc/iossanbox.md">iOS沙盒(sanbox)机制</a></li>
-</ul>
-</li>
-<li><a href="oc/struct.md">Struct结构体</a></li>
-<li><a href="oc/nsnumber.md">NSNumber</a></li>
-<li><a href="oc/nsvalue.md">NSValue</a></li>
-<li><a href="oc/nsdate.md">NSDate</a></li>
-<li><a href="oc/gathermemorymanagement.md">集合对象的内存管理</a></li>
-<li><a href="oc/copy.md">Copy</a><ul>
-<li><a href="oc/copyandmemorymanagement.md">Copy与内存管理</a></li>
-<li><a href="oc/copyaction.md">为自定义的类实现copy操作</a></li>
-</ul>
-</li>
-<li><a href="oc/singletonpattern.md">单例模式</a></li>
-<li><a href="oc/memorymanagement.md">内存管理</a><ul>
-<li><a href="oc/principle.md">内存管理的原理及分类</a></li>
-<li><a href="oc/mrc.md">MRC</a></li>
-<li><a href="oc/mrcprinciple.md">手动管理内存的原则</a></li>
-<li><a href="oc/moreobject.md">多个对象的内存管理</a></li>
-<li><a href="oc/setmemorymanagement.md">set方法的内存管理</a></li>
-<li><a href="oc/property.md">@property</a></li>
-<li><a href="oc/class.md">@class</a></li>
-<li><a href="oc/loopretain.md">循环retain</a></li>
-<li><a href="oc/nsstringandmrc.md">NSString类的内存管理</a></li>
-<li><a href="oc/autorelease.md">Autorelease</a><ul>
-<li><a href="oc/autoreleaseattention.md">Autorelease注意事项</a></li>
-</ul>
-</li>
-<li><a href="oc/arc.md">ARC</a><ul>
-<li><a href="oc/arcloop.md">ARC循环引用</a></li>
-</ul>
+<li><p>通过xib的方式创建控制器</p>
 </li>
 </ul>
-</li>
-<li><a href="oc/category.md">Category</a><ul>
-<li><a href="oc/extension.md">Extension</a></li>
+<h4 id="1、纯代码创建控制器"><a href="#1、纯代码创建控制器" class="headerlink" title="1、纯代码创建控制器"></a>1、纯代码创建控制器</h4><ul>
+<li><p>1.创建窗口</p>
+<pre><code>self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+</code></pre></li>
+<li><p>2.创建控制器作为窗口的根控制器</p>
+<pre><code>CZViewController *vc = [[CZViewController alloc] init];
+self.window.rootViewController = vc;
+</code></pre></li>
+<li><p>3.设置窗口为主窗口并可见</p>
+<pre><code>[self.window makeKeyAndVisible];
+</code></pre><h4 id="2、通过storyboard文件创建控制器"><a href="#2、通过storyboard文件创建控制器" class="headerlink" title="2、通过storyboard文件创建控制器"></a>2、通过storyboard文件创建控制器</h4></li>
+<li><p>1.创建窗口</p>
+<pre><code>self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+</code></pre></li>
+<li><p>2.创建控制器作为窗口的根控制器</p>
+<ul>
+<li><p>2.1加载storyboard文件</p>
+<pre><code>UIStoryboard *sb = [UIStoryboard storyboardWithName:@&quot;CZStoryboard&quot; bundle:nil];
+</code></pre></li>
+<li><p>2.2作为初始化控制器  【文件中只有一个storyboard】</p>
+<pre><code>UIViewController *vc = [sb instantiateInitialViewController];
+</code></pre><p>   <strong>注：有多个storyboard，就需要根据标记去加载 【文件中又多个storyboard】</strong></p>
+<pre><code>UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@&quot;green&quot;];
+</code></pre></li>
+<li><p>2.3设置为窗口的根控制器</p>
+<pre><code>self.window.rootViewController = vc;
+</code></pre></li>
 </ul>
 </li>
-<li><a href="oc/block.md">Block</a></li>
-<li><a href="oc/protocol.md">Protocol</a><ul>
-<li><a href="oc/idandinstancetype.md">protocol类型限制</a></li>
-<li><a href="oc/delegate.md">delegate</a></li>
+<li><p>3.设置窗口为主窗口并可见</p>
+<pre><code>[self.window makeKeyAndVisible];
+</code></pre></li>
+</ul>
+<h4 id="3、通过xib的方式创建控制器"><a href="#3、通过xib的方式创建控制器" class="headerlink" title="3、通过xib的方式创建控制器"></a>3、通过xib的方式创建控制器</h4><ul>
+<li><p>1.创建窗口</p>
+<pre><code>self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+</code></pre></li>
+<li><p>2.创建控制器作为窗口的根控制器</p>
+<ul>
+<li><p>2.1直接根据xib文件去加载</p>
+<pre><code>xib文件名称与控制器名称完全不同
+1.修改xib文件的File&apos;s Owner类型为自定义控制器类型
+2.选中File&apos;s Owner，右键将view连线到xib文件中的view上
+3.在alloc+init的时候指定要加载的xib文件名称
+
+CZViewController *vc = [[CZViewController alloc] initWithNibName:@&quot;Empty&quot; bundle:nil];
+</code></pre></li>
+<li><p>2.2xib文件名称与控制器名称类似但是少了Controller</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">1.同上</div><div class="line">2.同上</div><div class="line">3.直接alloc + init，不需要指定要加载的文件名称，系统会自动寻找名称与控制器名称类似【少了类型的后缀（如controller）】的xib文件	    </div><div class="line">CZViewController *vc = [[CZViewController alloc] init];</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.3.xib文件名称与控制器名称完全相同</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">    1.同上</div><div class="line">    2.同上</div><div class="line">    3.系统会优先去寻找与控制器名称完全相同的xib文件</div><div class="line">CZViewController *vc = [[CZViewController alloc] init];</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.3设置为窗口的根控制器</p>
+<pre><code>self.window.rootViewController = vc;
+</code></pre></li>
+<li><p>3.设置窗口为主窗口并可见</p>
+<pre><code>[self.window makeKeyAndVisible];
+</code></pre></li>
 </ul>
 </li>
-<li><a href="oc/foundation.md">Foundation</a></li>
 </ul>
-</li>
-<li><a href="ui/README.md">UI</a><ul>
-<li><a href="ui/uiview.md">UIView</a></li>
-<li><a href="ui/uiimageview.md">UIImageView</a></li>
-<li><a href="ui/launch.md">Launch启动图片</a></li>
-<li><a href="ui/uiscrollview.md">UIScrollView</a></li>
-<li><a href="ui/uitableview.md">UITableView</a></li>
-<li><a href="ui/uitableviewcell.md">UITableViewCell</a></li>
-<li><a href="ui/uicollectionview.md">UICollectionView</a></li>
-<li><a href="ui/cellidentifier.md">CellIdentifier</a></li>
-<li><a href="ui/nsnotificationcenter_and_delegate.md">NSNotificationCenter And Delegate</a></li>
-<li><a href="ui/autoresizing.md">Autoresizing</a></li>
-<li><a href="ui/autolayout.md">Autolayout</a></li>
-<li><a href="ui/uipickerview.md">UIPickerView</a></li>
-<li><a href="ui/uiapplication.md">UIApplication</a></li>
-<li><a href="ui/uitextfield.md">UITextField</a></li>
-<li><a href="ui/persistence_data.md">Persistence Data</a></li>
-<li><a href="ui/layoutsubviews.md">LayoutSubViews</a></li>
-<li><a href="ui/transform.md">Transform</a></li>
-<li><a href="ui/uibutton.md">UIButton</a></li>
-<li><a href="ui/storyboardandxib.md">StoryboardAndXib</a></li>
-<li><a href="ui/uilabel.md">UILabel</a></li>
-<li><a href="ui/other.md">Other</a></li>
-<li><a href="ui/uimenucontroller.md">UIMenuController</a></li>
-</ul>
-</li>
+<h2 id="3、控制器的view是懒加载的方式创建的"><a href="#3、控制器的view是懒加载的方式创建的" class="headerlink" title="3、控制器的view是懒加载的方式创建的"></a>3、控制器的view是懒加载的方式创建的</h2><ul>
+<li>控制器的view是延迟加载(懒加载)的：用到时再加载</li>
+<li>控制器的view加载完毕就会调用viewDidLoad方法</li>
+<li>用isViewLoaded方法判断UIViewController的view是否已经被加载</li>
+<li>重写loadView方法，如果在窗口显示之前如果没有用到控制器的view就不会调用loadView方法，在窗口显示的时候就会调用loadView方法。</li>
+<li>如果在窗口显示之前用到了控制器的view，就会直接调用loadView方法。</li>
+<li>loadView方法仅在用代码创建视图控制器的界面时使用</li>
+<li>在loadView方法中实现加载自定义的view的时候，不需要调用super。</li>
 </ul>
 
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/web服务器安装笔记/" itemprop="url">
+                  web服务器安装笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/web服务器安装笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/web服务器安装笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>安装Apache</strong></p>
+<h2 id="一、目的："><a href="#一、目的：" class="headerlink" title="一、目的："></a>一、目的：</h2><ol>
+<li>能够有一个测试的服务器，不是所有的特殊网络服务都能找到免费的！</li>
+</ol>
+<h2 id="二、为什么是-“Apache”"><a href="#二、为什么是-“Apache”" class="headerlink" title="二、为什么是 “Apache”"></a>二、为什么是 “Apache”</h2><ol>
+<li>使用最广的 Web 服务器</li>
+<li>Mac自带，只需要修改几个配置就可以，简单，快捷</li>
+<li>有些特殊的服务器功能，Apache都能很好的支持</li>
+</ol>
+<p><strong>例如：HTTP PUT/DELETE 操作，知识补充涉及的 HTTPS 服务</strong></p>
+<h2 id="三、-准备工作"><a href="#三、-准备工作" class="headerlink" title="三、    准备工作"></a>三、    准备工作</h2><ul>
+<li>设置用户密码</li>
+</ul>
+<h2 id="四、-配置服务器"><a href="#四、-配置服务器" class="headerlink" title="四、 配置服务器"></a>四、 配置服务器</h2><h4 id="1、配置服务器的工作"><a href="#1、配置服务器的工作" class="headerlink" title="1、配置服务器的工作"></a>1、配置服务器的工作</h4><ul>
+<li>1、在Finder中创建一个”Sites”的文件夹，直接创建在/Users/apple(当前用户名)目录下</li>
+<li>2、修改配置文件中的”两个路径”，指向刚刚创建的文件夹</li>
+<li>3、拷贝一个文件</li>
+</ul>
+<h4 id="2、配置服务器注意事项"><a href="#2、配置服务器注意事项" class="headerlink" title="2、配置服务器注意事项"></a>2、配置服务器注意事项</h4><ul>
+<li>1、关闭中文输入法</li>
+<li>2、命令和参数之间需要有”空格”</li>
+<li>3、修改系统文件一定记住”sudo”，否则会没有权限</li>
+<li>4、目录要在/Users/apple(当前用户名)</li>
+</ul>
+<h4 id="3、配置服务器"><a href="#3、配置服务器" class="headerlink" title="3、配置服务器"></a>3、配置服务器</h4><p><strong>提示：$开头的，可以拷贝，但是不要拷贝$</strong></p>
+<ul>
+<li>切换工作目录<ul>
+<li>$cd /etc/apache2</li>
+</ul>
+</li>
+<li>常用命令<ol>
+<li>cd 切换目录</li>
+<li>pwd 确认当前目录</li>
+<li>ls 列表显示当前目录的内容</li>
+</ol>
+</li>
+</ul>
+<h6 id="vim命令"><a href="#vim命令" class="headerlink" title="vim命令"></a>vim命令</h6><pre><code>// *** 备份文件，以防不测，只需要执行一次就可以了
+$sudo cp httpd.conf httpd.conf.bak
+
+格式 cp (copy 的缩写) httpd.conf (源文件) httpd.conf.bak (目标文件)
+
+// 提示：如果后续操作出现错误！可以使用以下命令，恢复备份过的 httpd.conf 文件
+$ sudo cp httpd.conf.bak httpd.conf
+
+// vim里面只能用键盘，不能用鼠标
+// 用vim编辑httpd.conf
+$sudo vim httpd.conf
+// 查找DocumentRoot
+* /DocumentRoot
+&quot;将光标移动到首行&quot;
+// 进入编辑模式
+* i
+&quot;修改引号中的路径&quot;
+// 进入命令模式
+* ESC
+// 查找DocumentRoot
+* n
+&quot;将光标移动到首行&quot;
+// 进入编辑模式
+* i
+&quot;修改括号中的路径&quot;
+// 进入命令模式
+* ESC
+// 查找php
+* /php
+&quot;将光标移动到首行&quot;
+// 删除行首注释#
+* x
+// 保存并退出
+* :wq
+// 不保存退出!!!!!!!!!
+* :q!
+// 切换工作目录
+$cd /etc
+</code></pre><h4 id="4、etc-目录有点类似于-windows-system32，存放配置文件的目录"><a href="#4、etc-目录有点类似于-windows-system32，存放配置文件的目录" class="headerlink" title="4、etc 目录有点类似于 windows/system32，存放配置文件的目录"></a>4、etc 目录有点类似于 windows/system32，存放配置文件的目录</h4><pre><code>// 拷贝php.ini文件
+$sudo cp php.ini.default php.ini
+// 重新启动apache服务器
+$sudo apachectl -k restart
+</code></pre><p>如果提示以下错误是正常的：</p>
+<pre><code>httpd: Could not reliably determine the server&apos;s fully qualified domain name, using teacher.local for ServerName
+httpd not running, trying to start
+</code></pre><p>================================================================================</p>
+<h6 id="常见问题："><a href="#常见问题：" class="headerlink" title="常见问题："></a>常见问题：</h6><h6 id="1-如果点击info-php文件，出现下载，或者只是显示一小段文字"><a href="#1-如果点击info-php文件，出现下载，或者只是显示一小段文字" class="headerlink" title="1. 如果点击info.php文件，出现下载，或者只是显示一小段文字"></a>1. 如果点击info.php文件，出现下载，或者只是显示一小段文字</h6><p><strong>解决办法：</strong></p>
+<pre><code>在终端中输入以下两个命令：
+// 关闭 apache 服务器
+$sudo apachectl -k stop
+
+// 重新再次启动 apache
+$sudo apachectl -k start
+</code></pre><h6 id="2-每次启动计算机，Apache服务器默认是不会自动启动的！"><a href="#2-每次启动计算机，Apache服务器默认是不会自动启动的！" class="headerlink" title="2. 每次启动计算机，Apache服务器默认是不会自动启动的！"></a>2. 每次启动计算机，Apache服务器默认是不会自动启动的！</h6><p>可以启动计算机之后，打开终端，输入以下命令：</p>
+<pre><code>// 启动 apache
+$sudo apachectl -k start
+</code></pre><h6 id="3-最常见的问题"><a href="#3-最常见的问题" class="headerlink" title="3. 最常见的问题"></a>3. 最常见的问题</h6><pre><code>交换文件已经存在，直接按字母 &quot;d&quot;，可以删除交换文件！
+</code></pre><h6 id="4-Mac-10-10-的-Apache-配置略微有一些不一样！"><a href="#4-Mac-10-10-的-Apache-配置略微有一些不一样！" class="headerlink" title="4. Mac 10.10 的 Apache 配置略微有一些不一样！"></a>4. Mac 10.10 的 Apache 配置略微有一些不一样！</h6><pre><code>看&quot;服务器配置视频\02-Mac10.10 Apache配置.mp4&quot;
+
+在 httpd.conf 中找到
+
+&quot;Options FollowSymLinks Multiviews&quot;
+
+加一个单词 Indexes，修改后的结果如下：
+
+&quot;Options Indexes FollowSymLinks Multiviews&quot;
+
+提示：目前不要花一分钟去学习vim。
+</code></pre><h6 id="5-执行脚本的时候，显示没有拒绝访问！大家用-NTFS-格式的-U-盘拷贝网络素材！会把文件本身的权限过滤掉！"><a href="#5-执行脚本的时候，显示没有拒绝访问！大家用-NTFS-格式的-U-盘拷贝网络素材！会把文件本身的权限过滤掉！" class="headerlink" title="5. 执行脚本的时候，显示没有拒绝访问！大家用 NTFS 格式的 U 盘拷贝网络素材！会把文件本身的权限过滤掉！"></a>5. 执行脚本的时候，显示没有拒绝访问！大家用 NTFS 格式的 U 盘拷贝网络素材！会把文件本身的权限过滤掉！</h6><pre><code>以下是在终端中修改文件权限的指令！
+
+/**
+ *  查看当前文件夹中的文件访问权限
+ */
+$ ls -la
+$ chmod 644 info.php（没有权限的文件名）
+$ chmod 644 *.*
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/服务器配置笔记/" itemprop="url">
+                  服务器配置
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/服务器配置笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/服务器配置笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="服务器配置步骤"><a href="#服务器配置步骤" class="headerlink" title="服务器配置步骤:"></a>服务器配置步骤:</h2><h4 id="1、打开服务器配置目录"><a href="#1、打开服务器配置目录" class="headerlink" title="1、打开服务器配置目录"></a>1、打开服务器配置目录</h4><pre><code>cd /etc/apache2/
+</code></pre><h4 id="2、查看当前目录下内容"><a href="#2、查看当前目录下内容" class="headerlink" title="2、查看当前目录下内容"></a>2、查看当前目录下内容</h4><pre><code>ls
+</code></pre><h4 id="3、修改服务器根路径"><a href="#3、修改服务器根路径" class="headerlink" title="3、修改服务器根路径"></a>3、修改服务器根路径</h4><pre><code>{
+    sudo vim httpd.conf  //进入服务器配置文件
+
+    /DocumentRoot 回车 //查找服务器默认根路径
+
+    将默认根路径 DocumentRoot &quot;/Library/WebServer/Documents&quot; 注释掉;
+
+    在注释掉的根路径下面一行增加新的根路径
+    DocumentRoot &quot;/Users/likaining/Sites&quot;
+
+    将 &lt;Directory &quot;/Library/WebServer/Documents&quot;&gt; 注释掉;
+    增加新的 &lt;Directory &quot;/Users/likaining/Sites&quot;&gt;
+
+    注意: Mac 10.10 的 Apache 增加如下操作！
+
+    (看&quot;服务器配置视频\02-Mac10.10 Apache配置.mp4&quot;)
+
+    在 httpd.conf 中找到
+
+    &quot;Options FollowSymLinks Multiviews&quot;
+
+    加一个单词 Indexes，修改后的结果如下：
+
+    &quot;Options Indexes FollowSymLinks Multiviews&quot;
+}
+</code></pre><h4 id="4、保存退出"><a href="#4、保存退出" class="headerlink" title="4、保存退出"></a>4、保存退出</h4><pre><code>:wq 回车
+
+&quot;注意&quot;:如果感觉修改错误了,想重新进入修改,就做不保存退出的操作
+不保存退出
+:q! 回车
+
+启动服务器
+sudo apachectl -k start 或者 sudo apachectl start
+
+关闭服务器:
+sudo apachectl -k stop 或者 sudo apachectl stop
+
+重新启动服务器
+sudo apachectl -k restart 或者 $sudo apachectl restart
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/数据解析/" itemprop="url">
+                  数据解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/数据解析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/数据解析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、JSON数据"><a href="#一、JSON数据" class="headerlink" title="一、JSON数据"></a>一、JSON数据</h2><h4 id="1、什么是JSON数据"><a href="#1、什么是JSON数据" class="headerlink" title="1、什么是JSON数据"></a>1、什么是JSON数据</h4><h6 id="1、JSON-是一种轻量级的传输数据格式-用于数据交互"><a href="#1、JSON-是一种轻量级的传输数据格式-用于数据交互" class="headerlink" title="1、JSON:是一种轻量级的传输数据格式,用于数据交互"></a>1、JSON:是一种轻量级的传输数据格式,用于数据交互</h6><ul>
+<li>JSON是javascript语言的一个子集.javascript是个脚本语言(不需要编译),用来给HTML增加动态功能.</li>
+<li>javascript和java没有半毛钱的关系!</li>
+<li>服务器返回给客户端的数据,一般都是JSON格式或者XML格式(文件下载除外).</li>
+<li><p>语法规则: </p>
+<ul>
+<li><p><1> 数据以键值的方式保存;</1></p>
+<p>  键(key)必须用双引号(“key”),与键值之间* 以’:’分隔; {“name”:”小明”}</p>
+</li>
+<li><p><2> 数据和数据之间以逗号(,)分隔. {“name”:”小明”,”age”:13}</2></p>
+</li>
+<li><p><3> {}表示对象. “person”:{“name”:”小明”,”age”:13}</3></p>
+</li>
+<li><p><4> []表示数组. “persons”:[</4></p>
+<pre><code>{&quot;name&quot;:&quot;小明&quot;,&quot;age&quot;:13},
+{&quot;name&quot;:&quot;小红&quot;,&quot;age&quot;:14},
+{&quot;name&quot;:&quot;小花&quot;,&quot;age&quot;:15}
+</code></pre><p>  ]</p>
+</li>
+</ul>
+</li>
+</ul>
+<h6 id="2、JSON与OC转换对照"><a href="#2、JSON与OC转换对照" class="headerlink" title="2、JSON与OC转换对照:"></a>2、JSON与OC转换对照:</h6><pre><code>   大括号 {} == NSDictionary;
+中括号 [] == NSArray;
+双引号&quot; &quot; == NSString;
+数字13,13.5 == NSNumber;
+</code></pre><h6 id="3、数据传输过程"><a href="#3、数据传输过程" class="headerlink" title="3、数据传输过程:"></a>3、数据传输过程:</h6><ul>
+<li>客户端发送请求给服务器,服务器接收到客户端的请求之后,返回给客户端JSON数据.</li>
+<li>客户端需要把服务器返回的JSON数据转换为OC的数据格式(数组/字典等).</li>
+</ul>
+<h4 id="2、JSON数据解析"><a href="#2、JSON数据解析" class="headerlink" title="2、JSON数据解析"></a>2、JSON数据解析</h4><h6 id="1、JSON数据解析方法"><a href="#1、JSON数据解析方法" class="headerlink" title="1、JSON数据解析方法:"></a>1、JSON数据解析方法:</h6><ul>
+<li>在iOS中,常见的JSON数据解析方案有4种:   </li>
+<li>第三方框架:JSONKit, SBJson, TouchJson.性能从左到右,依次变差.(iOS 5(2011年)以前)</li>
+<li>苹果原生(自带):NSJSONSerialization (性能是最好的.iOS5以后推出).</li>
+</ul>
+<h6 id="2、解析JSON数据"><a href="#2、解析JSON数据" class="headerlink" title="2、解析JSON数据"></a>2、解析JSON数据</h6><p><strong>反序列化(解析):</strong></p>
+<ul>
+<li><p>将从服务器接收到的JSON数据(二进制数据)转换成OC数据类型(NSArray,NSDictionary等.)的过程.</p>
+</li>
+<li><p>目的: JSON数据 –&gt; OC对象; 得到数据字典或者数据数组</p>
+</li>
+<li><p>好处: 简化程序的开发,方便后续的字典转模型.</p>
+</li>
+<li><p>方法:</p>
+<pre><code>+(id)JSONObjectWithData:(NSData *)data options:(NSJSONReadingOptions)opt error:(NSError **)error;
+</code></pre></li>
+</ul>
+<p><strong>序列化:</strong></p>
+<ul>
+<li>将数组或者字典发送给服务器之前,转换成二进制数据.</li>
+<li>目的:OC对象 –&gt; JSON数据;得到二进制JSON数据 NSData.</li>
+<li>好处:方便网络传输,提高传输速度.</li>
+<li><p>方法:</p>
+<pre><code>+(NSData *)dataWithJSONObject:(id)obj options:(NSJSONWritingOptions)opt error:(NSError **)error;
+</code></pre></li>
+</ul>
+<p><strong>需要注意的是,在做序列化之前,一定要检测一下对象是否能够被序列化.（使用 isValidJSONObject 检测一下要序列化的对象，是否能够正确被序列化）</strong></p>
+<h2 id="二、XML数据"><a href="#二、XML数据" class="headerlink" title="二、XML数据"></a>二、XML数据</h2><h4 id="1、什么是XML"><a href="#1、什么是XML" class="headerlink" title="1、什么是XML"></a>1、什么是XML</h4><h6 id="1、XML-eXtensible-Markup-Language-’可扩展标记语言’"><a href="#1、XML-eXtensible-Markup-Language-’可扩展标记语言’" class="headerlink" title="1、XML(eXtensible Markup Language)’可扩展标记语言’"></a>1、XML(eXtensible Markup Language)’可扩展标记语言’</h6><ul>
+<li>XML跟JSON一样,也是用来数据交互.</li>
+<li>HTML是超文本标记语言.用来表示网页页面.<h6 id="2、XML语法简介"><a href="#2、XML语法简介" class="headerlink" title="2、XML语法简介"></a>2、XML语法简介</h6></li>
+<li><p>一个完整的XML文件叫XML文档(XML Document).一个XML文档一般由以下几部分组成:</p>
+<ul>
+<li><p><1> 文档声明:</1></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+</code></pre></li>
+<li><p><2> 元素(Element)</2></p>
+<pre><code>1&gt; 一个元素包括开始标签和结束标签.
+    &lt;name&gt;小红&lt;/name&gt;
+
+    一个元素可以没有元素内容,没有元素内容可以简写.
+    &lt;/person&gt;
+
+    XML中所有的空格和换行,都会当做具体的内容处理.
+
+2&gt; 一个元素可以嵌套若干个子元素(不能出现交叉嵌套).
+    &lt;person&gt;
+    &lt;name&gt;小花&lt;/name&gt;
+    &lt;age&gt;16&lt;/age&gt;
+    &lt;/person&gt;
+
+3&gt; 规范的XML文档最多只能有一个根元素,其他元素都是根元素的子元素.
+</code></pre></li>
+<li><p><3> 属性(Attribute)</3></p>
+<pre><code>1&gt; 一个元素可以拥有多个属性.
+&lt;person name = &quot;小明&quot; age = &quot;18&quot;/&gt;
+2&gt; 属性值必须用双引号&quot;&quot;或者单引号&apos;&apos;括住.
+3&gt; 属性信息可以用元素内容来表示.
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<h4 id="2、XML两种解析方式"><a href="#2、XML两种解析方式" class="headerlink" title="2、XML两种解析方式"></a>2、XML两种解析方式</h4><ul>
+<li>XML 解析有两种不同的思路:  SAX 解析  DOM 解析.</li>
+<li>SAX 解析: 从 XML 文档的根元素开始,一行一行的逐行解析XML元素中的内容!  在移动端使用比较多!可以较小内存开销!</li>
+<li>DOM 解析: 将整个 XML 文档加载到内存中,然后在解析! 占用内存比较多,在 PC(电脑) 中使用比较多</li>
+</ul>
+<p>######<br>    {<br>        XML解析:</p>
+<pre><code>        所谓XML解析,指的就是将XML中元素的内容取出来或者将元素中的属性值提取出来.
+
+    XML解析方式: 1.SAX 2.DOM
+
+    1.SAX解析:
+
+        从根元素开始,一个元素一个元素的按顺序往下解析.
+
+        比较适合大文件的解析.
+
+    * 解析方法:
+
+        苹果原生: NSXMLParser ,使用简单.设置代理就可以了.
+
+        NSXMLParser 采用SAX方式逐行往下解析,当扫描到下面的情况都会通知代理.
+
+            &lt;1&gt; 扫描到文档(Doucument)的开始与结束的时候,会通知代理.
+
+            &lt;2&gt; 扫描到元素(Element)的开始与结束的时候,会通知代理.
+
+            &lt;3&gt; 扫描到元素中的内容的时候,会通知代理.
+
+    * 使用步骤:
+    {
+        // 1.传入XML,创建解析器
+        NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
+
+        // 2.设置代理,监听解析过程
+        parser.delegate = self;
+
+        // 3.开始解析
+        [parser parse];
+
+        // 4.解析完毕之后刷新表格数据
+        [self.tableView reloadData];
+
+        // 4.实现代理方法
+        {
+            // 1.当扫描到文档的开始时调用（开始解析）
+            - (void)parserDidStartDocument:(NSXMLParser *)parser;
+
+            // 2.当扫描到元素的开始时调用（attributeDict存放着元素的属性）
+            - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict;
+
+            // 3.发现元素中的内容的时候开始调用
+            - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string;
+
+            // 4.当扫描到元素结束时调用
+            - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName;
+
+            // 5.当扫描到文档的结束时调用（解析完毕）
+            - (void)parserDidEndDocument:(NSXMLParser *)parser;
+
+        }
+    }
+
+    2.DOM解析:
+
+        一次性将整个XML文档加载进内存,内存消耗比较大.
+
+        比较适合小文件.更加适用于Mac.
+
+    * 解析方法:
+
+        第三方框架:
+
+        * libxml2: 纯C语言,默认包含在iOS SDK中,同时支持SAX和DOM方式解析.
+
+        * GDateXML: DOM方式解析,由Google开发,基于libxml2.
+
+    * GDataXML使用步骤:
+    {
+        &lt;1&gt; 导入第三方框架 GDateXML;
+
+        &lt;2&gt; 注意修改三个地方:
+
+            1&gt; Header Search Paths : /usr/include/libxml2
+
+            2&gt; Other Linker Flags : -lxml2
+
+            3&gt; 添加非ARC :-fno-objc-arc
+
+        &lt;3&gt; 使用方法:
+        {
+            // 1.加载整个XML文档
+            GDataXMLDocument *dom = [[GDataXMLDocument alloc] initWithData:data options:0 error:NULL];
+
+            // 2.获得文档的根元素
+            GDataXMLElement *element = dom.rootElement;
+
+            // 3.得到根元素中包含的元素(vedio元素)
+            [element.children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+                GDataXMLElement *vedio = obj;
+
+                ITVedio *ITvedio = [[ITVedio alloc] init];
+                // 4.得到vedio元素中包含的元素内容
+                [vedio.children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+                    GDataXMLElement *ele = obj;
+
+                    // 5.将元素内容取出赋值.
+                    [ITvedio setValue:ele.stringValue forKeyPath:ele.name];
+
+                }];
+
+                // 将数据模型放在数据源中.
+                [self.vedios addObject:ITvedio];
+
+            }];
+
+        }
+    }
+
+}
+</code></pre><h2 id="补充知识点"><a href="#补充知识点" class="headerlink" title="补充知识点"></a>补充知识点</h2><pre><code>{
+    注意:播放视频
+
+    1. 导入: MediaPlayer/MediaPlayer.h
+    #import &lt;MediaPlayer/MediaPlayer.h&gt;
+
+    2. 创建视频播放控制器
+    MPMoviePlayerViewController *mv = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+
+    3. 跳转到控制器播放视频
+    [self presentMoviePlayerViewControllerAnimated:mv];
+
+
+    NSNumber 替代 int,防止 null 错误.
+
+    NSArray + Log 分类,打印汉字,方便调试.
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/文件上传/" itemprop="url">
+                  文件上传
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/文件上传/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/文件上传/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、POST上传单个文件"><a href="#一、POST上传单个文件" class="headerlink" title="一、POST上传单个文件"></a>一、POST上传单个文件</h2><p><strong>重点:1.单个文件上传(四个步骤) 2.设置请求体格式</strong></p>
+<h4 id="1、为什么要上传文件"><a href="#1、为什么要上传文件" class="headerlink" title="1、为什么要上传文件:"></a>1、为什么要上传文件:</h4><ul>
+<li>以前很多服务器对上传文件的大小有限制,PHP 限制是 2M</li>
+<li>目前很多服务器不仅不限制大小,而且鼓励上传多个文件!</li>
+<li>云服务器的普及!</li>
+<li>软件商希望获得更多的用户数据!</li>
+</ul>
+<p><strong>提示:abc 的目录是用来保存上传文件的,需要设置访问权限!</strong></p>
+<h4 id="2、步骤"><a href="#2、步骤" class="headerlink" title="2、步骤"></a>2、步骤</h4><h6 id="1、文件上传使用-POST-方法"><a href="#1、文件上传使用-POST-方法" class="headerlink" title="1、文件上传使用 POST 方法"></a>1、文件上传使用 POST 方法</h6><pre><code>// 请求为可变请求
+NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+// 制定请求方法为 POST
+request.HTTPMethod = @&quot;POST&quot;;
+</code></pre><h6 id="2、设置请求头-告诉服务器请求体中的内容包含文件参数"><a href="#2、设置请求头-告诉服务器请求体中的内容包含文件参数" class="headerlink" title="2、设置请求头,告诉服务器请求体中的内容包含文件参数"></a>2、设置请求头,告诉服务器请求体中的内容包含文件参数</h6><pre><code>[request setValue:@&quot;multipart/form-data; boundary=kBoundary&quot; forHTTPHeaderField:@&quot;Content-Type&quot;];
+</code></pre><h6 id="3、设置请求体-注意-必须严格按照格式设置"><a href="#3、设置请求体-注意-必须严格按照格式设置" class="headerlink" title="3、设置请求体(注意:必须严格按照格式设置)"></a>3、设置请求体(注意:必须严格按照格式设置)</h6><pre><code>// 上边界
+--boundary\r\n
+Content-Disposition: form-data; name=userfile; filename=555\r\n
+Content-Type: application/json\r\n\r\n
+文件内容的二进制数据
+// 下边界
+\r\n--boundary--
+注意1:请求体内容分为三个部分:
+* 上边界部分,告诉服务器要做数据上传,包含了服务器的接收字段name=userfile,文件在服务器中保存的名称filename=555,以及上传文件的数据类型 application/json(需要严格按照字符串格式来设置)
+* 上传文件的数据部分(二进制数据)
+* 下边界部分,严格按照字符串格式来设置.
+上边界部分和下边界部分的字符串,最后都要转换成二进制数据,和文件部分的二进制数据拼接在一起,作为请求体发送给服务器.
+注意2:
+* userfile =&gt; 负责上传文件脚本中的 字段名,开发的时候,可以咨询后端程序员
+* filename =&gt; 将文件保存在服务器上的文件名称
+* Content-Type: 客户端告诉服务器上传文件的文件类型
+注意3:
+* 每一行末尾需要有一定的 \r\n
+* 提示：有些服务器可以直接使用 \n，但是新浪微博如果使用 \n 上传文件，服务器会返回“没有权限”的错误！
+</code></pre><h6 id="4、发送请求-用-NSURLConnection异步发送请求"><a href="#4、发送请求-用-NSURLConnection异步发送请求" class="headerlink" title="4、发送请求(用 NSURLConnection异步发送请求)"></a>4、发送请求(用 NSURLConnection异步发送请求)</h6><pre><code>[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+    //
+    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+    NSLog(@&quot;%@&quot;,string);
+}];
+</code></pre><h2 id="二、多文件上传"><a href="#二、多文件上传" class="headerlink" title="二、多文件上传"></a>二、多文件上传</h2><p><strong>重点:1.掌握多文件上传的数据格式 2.学会封装多文件上传的方法</strong></p>
+<pre><code>多文件上传和单文件上传的基本思路是一样的,唯一的区别在于对请求体的封装.
+多文件的请求体部分格式1
+{
+    // 第一个文件参数的上边界
+    \r\n--boundary\r\n
+    Content-Disposition: form-data; name=userfile[]; filename=美女\r\n
+    Content-Type:image/jpeg\r\n\r\n
+    上传文件的二进制数据部分
+    // 第一个文件参数的下边界
+    \r\n--boundary--
+    // 第二个文件参数的上边界
+    \r\n--boundary\r\n
+    Content-Disposition: form-data; name=userfile[]; filename=JSON\r\n
+    Content-Type:text/plain\r\n\r\n
+    上传文件的二进制数据部分
+    // 第二个文件参数的下边界
+    \r\n--boundary--
+}
+
+{
+    多文件上传的请求体格式2
+    // 上边界
+    // 第一个文件参数
+    \r\n--boundary\r\n
+    Content-Disposition: form-data; name=userfile[]; filename=美女\r\n
+    Content-Type:image/jpeg\r\n\r\n
+    上传文件的二进制数据部分
+    // 第二个文件参数
+    \r\n--boundary\r\n
+    Content-Disposition: form-data; name=userfile[]; filename=JSON\r\n
+    Content-Type:text/plain\r\n\r\n
+    上传文件的二进制数据部分
+    // 下边界
+    \r\n--boundary--
+}
+</code></pre><h2 id="三、获取文件的-MIMEType"><a href="#三、获取文件的-MIMEType" class="headerlink" title="三、获取文件的 MIMEType"></a>三、获取文件的 MIMEType</h2><pre><code>上传文件的时候,需要告诉服务器文件类型(即Content-Type),这时,需要获取文件的 MIMEType.
+
+获取文件的 MIMEType 方法:加载文件时,通过 response 获得
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+
+    NSURLResponse *response = nil;
+
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&amp;response error:NULL];
+
+    NSLog(@&quot;%@&quot;,response.MIMEType);
+
+}
+response.MIMEType 即为 Content-Type 的类型.
+
+如果不想告诉服务器具体的文件类型,可以使用这个 Content-Type : application/octet-stream(8进制流)
+
+常见的 Content-Type 类型:
+{
+    - 大类型/小类型
+    - text/plain
+    - image/jpg
+    - image/png
+    - image/gif
+    - text/html
+    - application/json
+}
+</code></pre><h2 id="四、多文件-普通文本上传"><a href="#四、多文件-普通文本上传" class="headerlink" title="四、多文件 + 普通文本上传"></a>四、多文件 + 普通文本上传</h2><ul>
+<li>有些服务器可以在上传文件的同时,提交一些文本内容给服务器</li>
+<li>典型应用:<ul>
+<li><1>新浪微博: 上传图片的同时,发送一条微博信息!</1></li>
+<li><2>购物评论: 购买商品之后发表评论的时候图片+评论内容!</2></li>
+</ul>
+</li>
+<li><p>多文件上传的数据格式：</p>
+<pre><code>Content-Type: multipart/form-data; boundary=boundary
+// ------ 以下内容，是提供给服务器的二进制数据格式
+--boundary\r\n
+Content-Disposition: form-data; name=&quot;userfile[]&quot;; filename=&quot;aaa.txt&quot;\r\n
+Content-Type: application/octet-stream\r\n\r\n
+
+文件二进制数据
+\r\n
+--boundary\r\n
+Content-Disposition: form-data; name=&quot;userfile[]&quot;; filename=&quot;aaa副本.txt&quot;\r\n
+Content-Type: application/octet-stream\r\n\r\n
+
+文件二进制数据
+\r\n
+--boundary\r\n
+// username 是脚本文件接收参数的名称
+Content-Disposition: form-data; name=&quot;username&quot;\r\n\r\n
+
+普通文本二进制数据
+\r\n
+--boundary--
+// ------
+
+以上部分，是发送给服务器的二进制数据的组成格式(示例)
+</code></pre></li>
+<li><p>如果在 iOS 中,要实现POST上传文件,需要按照上述格式,拼接数据!</p>
+</li>
+<li>因为:格式是 W3C 指定的标准格式,苹果没有做任何封装!其他语言,都做了封装!</li>
+<li>以上三种数据拼接格式,需要大家了解并且能够自己会拼接一种!</li>
+<li>“第三方框架做文件上传:<ul>
+<li>AFN 能够同时实现上传”一个文件”,有些格式的文件,用 AFN 无法上传!</li>
+<li>ASI 能够同时实现上传多个文件,MRC的,2012年就停止更新了,设计的目标平台, iOS 2.0/iOS 3.0 !</li>
+</ul>
+</li>
+</ul>
+<h2 id="五、RESTful设计风格"><a href="#五、RESTful设计风格" class="headerlink" title="五、RESTful设计风格"></a>五、RESTful设计风格</h2><pre><code>为了简化开发流程,使开发更加直观,解读更加容易,现在有一种非常流行的程序设计风格----&gt;RESTful设计风格
+
+RESTful设计风格:
+
+    主要用于后端开发,主要的表现形式为使用同一个 URL,不同的 HTTP 访问方法,表达不同的语义.
+{
+    示例: http:/\/\www.xxx.com/product/123
+
+    -GET http:/\/\www.xxx.com/product/123   语义:从服务器&quot;获取&quot;产品ID 为123的产品信息.
+
+    -POST http:/\/\www.xxx.com/product/123   语义:在服务器&quot;新增&quot;产品ID 为123的产品信息.
+
+    * 提交二进制数据,需要提交一个 JSON 格式的二进制数据,后端程序员可以直接反序列化,得到 JSON 中得字典信息.
+    * POST JSON
+
+    -PUT http:/\/\www.xxx.com/product/123   语义:在服务器&quot;修改&quot;产品ID 为123的产品信息.
+
+    -DELETE http:/\/\www.xxx.com/product/123   语义:从服务器&quot;删除&quot;产品ID 为123的产品信息.
+
+    RESTful设计风格目前在国际上非常流行,国内也逐渐开始普及.
+
+    作为前端程序员,只需要知道有这种设计风格就可以.
+}
+</code></pre><h2 id="六、AFN-上传文件"><a href="#六、AFN-上传文件" class="headerlink" title="六、AFN 上传文件"></a>六、AFN 上传文件</h2><pre><code>{
+    // 1. 创建管理者
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+
+    // 2. 发送请求
+    [mgr POST:@&quot;http://localhost/upload/upload.php&quot; parameters:nil constructingBodyWithBlock:^(id&lt;AFMultipartFormData&gt; formData) {
+
+        // formData :设置上传文件所需要的参数,两种上传方法:
+        // &lt;1&gt; 通过本地文件的 url 上传
+        {
+            NSString *fromFile = @&quot;/Users/likaining/Desktop/meinv.jpg&quot;;
+
+            NSURL *url = [NSURL URLWithString:@&quot;file:///Users/likaining/Desktop/meinv.jpg&quot;];
+            // url :需要上传文件的文件路径
+            // name :服务器接收的文件名.
+            // fileName: 文件在服务器中保存的名字
+            // mimeType : 文件类型
+            [formData appendPartWithFileURL:url name:@&quot;userfile&quot; fileName:@&quot;meinv&quot; mimeType:@&quot;image/jpg&quot; error:NULL];
+        }
+        // &lt;2&gt; 通过文件的 二进制数据 上传
+        {
+            NSData *data = [NSData dataWithContentsOfFile:zipFile];
+
+            [formData appendPartWithFileData:data name:@&quot;userfile&quot; fileName:@&quot;meinv.zip&quot; mimeType:@&quot;gzip&quot;];
+        }
+
+        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            // 上传成功之后的回调
+            NSLog(@&quot;%@&quot;,responseObject);
+
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            //  上传失败之后的回调
+            NSLog(@&quot;失败&quot;);
+    }];
+
+}
+</code></pre><h2 id="八、监测网络状态"><a href="#八、监测网络状态" class="headerlink" title="八、监测网络状态"></a>八、监测网络状态</h2><pre><code>{
+    1. AFN 监测网络状态
+    {
+        // 创建 网络状态管理者
+        AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
+
+        // 监测网络状态的改变
+        [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            // 当网络状态发生改变的时候调用这个block
+            switch (status) {
+                case AFNetworkReachabilityStatusReachableViaWiFi:
+                    NSLog(@&quot;WIFI网络&quot;);
+                    break;
+
+                case AFNetworkReachabilityStatusReachableViaWWAN:
+                    NSLog(@&quot;蜂窝网络&quot;);
+                    break;
+
+                case AFNetworkReachabilityStatusNotReachable:
+                    NSLog(@&quot;没有网络&quot;);
+                    break;
+
+                case AFNetworkReachabilityStatusUnknown:
+                    NSLog(@&quot;未知网络&quot;);
+                    break;
+                default:
+                    break;
+            }
+        }];
+        // 开始监控
+        [mgr startMonitoring];
+    }
+    2.Reachability 监测网络状态
+    {
+        // 注册通知观察者,网络状态改变时,接收通知!
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(InternetStatusChanged) name:kReachabilityChangedNotification object:nil];
+
+        // 控制器销毁时,移除通知观察者.
+        -(void)dealloc
+        {
+            [[NSNotificationCenter defaultCenter] removeObserver:self];
+        }
+
+        // 根据当前网络状态,做出不同的响应.
+        - (void)InternetStatusChanged
+        {
+            NSLog(@&quot;网络状态改变了&quot;);
+
+            if ([Reachability reachabilityForLocalWiFi].currentReachabilityStatus == ReachableViaWiFi) {
+                NSLog(@&quot;Wifi 网络&quot;);
+            }
+            if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus == ReachableViaWWAN) {
+                NSLog(@&quot;蜂窝移动网络&quot;);
+            }
+            if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus == NotReachable)
+            {
+                NSLog(@&quot;没有网络&quot;);
+            }
+        }
+        // 创建 Reachability 对象,开始监测网络状态的改变
+        - (void)MonitorInternetStatus
+        {
+            Reachability *CZReachability = [Reachability reachabilityForInternetConnection];
+
+            [CZReachability startNotifier];
+
+            self.reachability = CZReachability;
+        }
+
+        - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+        {
+            [self MonitorInternetStatus];
+        }
+    }
+}
+</code></pre>
           
         
       
@@ -477,13 +2129,27 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">81</span>
-              <span class="site-state-item-name">articles</span>
+              <span class="site-state-item-count">86</span>
+              <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
@@ -545,17 +2211,33 @@
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  Thème -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Pisces
   </a>
 </div>
 
         
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
 
         
       </div>
@@ -635,9 +2317,30 @@
 
   
 
+  
+    
+  
 
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yancode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
 
   
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
 
 
 

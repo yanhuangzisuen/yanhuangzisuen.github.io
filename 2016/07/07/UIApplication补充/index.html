@@ -1,0 +1,937 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="UIApplication," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="1、UIApplication
+一个UIApplication代表是一个应用程序，而且是单例的。
+
+用来封装整个应用程序的一个对象,比如当应用程序执行到某个时期要做什么, 生命周期等。
+
+获取UIApplication对象： [UIApplication sharedApplication];（单例的）
+
+
+
+设置消息数量及联网状态指示器
+通过应用程序打开一些资源
+如打电话、发短信、发邮件、打开别">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UIApplication对象介绍">
+<meta property="og:url" content="http://yoursite.com/2016/07/07/UIApplication补充/index.html">
+<meta property="og:site_name" content="颜文字">
+<meta property="og:description" content="1、UIApplication
+一个UIApplication代表是一个应用程序，而且是单例的。
+
+用来封装整个应用程序的一个对象,比如当应用程序执行到某个时期要做什么, 生命周期等。
+
+获取UIApplication对象： [UIApplication sharedApplication];（单例的）
+
+
+
+设置消息数量及联网状态指示器
+通过应用程序打开一些资源
+如打电话、发短信、发邮件、打开别">
+<meta property="og:updated_time" content="2016-07-07T08:14:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UIApplication对象介绍">
+<meta name="twitter:description" content="1、UIApplication
+一个UIApplication代表是一个应用程序，而且是单例的。
+
+用来封装整个应用程序的一个对象,比如当应用程序执行到某个时期要做什么, 生命周期等。
+
+获取UIApplication对象： [UIApplication sharedApplication];（单例的）
+
+
+
+设置消息数量及联网状态指示器
+通过应用程序打开一些资源
+如打电话、发短信、发邮件、打开别">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/07/UIApplication补充/"/>
+
+  <title> UIApplication对象介绍 | 颜文字 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">颜文字</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'iRPRT9JgJfvxEsHZRgKm','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                UIApplication对象介绍
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/UIApplication补充/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/UIApplication补充/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1、UIApplication"><a href="#1、UIApplication" class="headerlink" title="1、UIApplication"></a>1、UIApplication</h2><ul>
+<li><p>一个UIApplication代表是一个应用程序，而且是<strong>单例</strong>的。</p>
+<ul>
+<li><p>用来封装整个应用程序的一个对象,比如当应用程序执行到某个时期要做什么, 生命周期等。</p>
+</li>
+<li><p>获取UIApplication对象： [UIApplication sharedApplication];（单例的）</p>
+</li>
+</ul>
+</li>
+<li>设置消息数量及联网状态指示器</li>
+<li>通过应用程序打开一些资源<ul>
+<li>如打电话、发短信、发邮件、打开别的应用等</li>
+</ul>
+</li>
+<li>状态栏的管理<ul>
+<li>默认情况下，状态栏的管理都是交给控制器的</li>
+<li>可以修改配置文件将状态栏的管理权限交给应用程序统一来管理</li>
+<li>在info.plist文件中增加一个key，设置为NO。（最后一个<br>）</li>
+</ul>
+</li>
+</ul>
+<h2 id="2、应用程序代理对象"><a href="#2、应用程序代理对象" class="headerlink" title="2、应用程序代理对象"></a>2、应用程序代理对象</h2><ul>
+<li><p>应用序代理对象，用来监听应用程序的执行过程</p>
+</li>
+<li><p>常用监听方法</p>
+<ul>
+<li>应用程序加载完毕<ul>
+<li>可执行自定义操作</li>
+</ul>
+</li>
+<li>应用程序失去焦点<ul>
+<li>不接受用户交互</li>
+</ul>
+</li>
+<li>应用程序进入后台<ul>
+<li>双击home键课查看</li>
+</ul>
+</li>
+<li>应用程序进入前台<ul>
+<li>双击home键，选中程序的时候进入前台</li>
+</ul>
+</li>
+<li>应用程序获取焦点<ul>
+<li>接受用户交互</li>
+</ul>
+</li>
+<li>应用程序销毁<ul>
+<li>只有在直接双击home，销毁程序时在会调用</li>
+</ul>
+</li>
+<li>应用程序接收到内存警告<ul>
+<li>当内存不足时，会收到系统的内存警告</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="常用代理方法解释"><a href="#常用代理方法解释" class="headerlink" title="常用代理方法解释"></a>常用代理方法解释</h4><ul>
+<li><p>应用程序已经加载完成时调用</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123;</div><div class="line">重写这个方法可以在程序加载完成后进行自定义操作</div><div class="line">return YES;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>应用即将辞去激活状态，失去焦点</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (void)applicationWillResignActive:(UIApplication *)application &#123;</div><div class="line">当应用从激活状态变为非激活状态的时会执行这个方法</div><div class="line">在某些情况下会暂时中断（如收到电话或短信）或者当用户退出应用程序并且应用程序进入后台的时候</div><div class="line"></div><div class="line">使用这个方法去暂停正在执行的任务，停止定时器操作，并且节流OpenGL ES的帧率。游戏应用应该在这个方法中暂停游戏</div><div class="line">OpenGL（全写Open Graphics Library）是个定义了一个跨编程语言、跨平台的编程接口规格的专业的图形程序接口。它用于三维图像（二维的亦可），是一个功能强大，调用方便的底层图形库。</div><div class="line">OpenGL ES (OpenGL for Embedded Systems) 是 OpenGL 三维图形 API 的子集，针对手机、PDA和游戏主机等嵌入式设备而设计。该API由Khronos集团定义推广，Khronos是一个图形软硬件行业协会，该协会主要关注图形和多媒体方面的开放标准</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>应用程序已经进入后台</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)applicationDidEnterBackground:(UIApplication *)application &#123;	</div><div class="line">使用这个方法去释放共享的资源，保存用户数据，销毁定时器，并且保存足够的应用程序状态信息，防止用户稍后将程序销毁而无法恢复到应用当前的状态。</div><div class="line">如果你的应用支持后台执行，当用户退出销毁应用程序的时候，会调用这个方法，而不是applicationWillTerminate:方法</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>应用程序即将进入前台</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)applicationWillEnterForeground:(UIApplication *)application &#123;	</div><div class="line"></div><div class="line">作为应用程序从后台到非活跃状态的一个过渡，在这里可以撤销许多在程序进入后台时做出的改变。</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>应用程序已经变为活跃状态</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)applicationDidBecomeActive:(UIApplication *)application &#123;</div><div class="line">重新启动任何在应用程序为非活跃状态时暂停的任务，如果应用程序在后太执行，那么界面是否刷新都是可以的</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>程序即将被销毁</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)applicationWillTerminate:(UIApplication *)application &#123;</div><div class="line">	在应用程序即将被销毁时调用，如果合适，保存数据</div><div class="line">   	另请参阅“应用程序进入后台”的方法</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3、应用启动方法执行过程"><a href="#3、应用启动方法执行过程" class="headerlink" title="3、应用启动方法执行过程"></a>3、应用启动方法执行过程</h2><ul>
+<li>当应用程序启动后：<ul>
+<li>didFinishLaunchingWithOptions</li>
+<li>applicationDidBecomeActive</li>
+</ul>
+</li>
+<li>当应用程序进入后台：<ul>
+<li>applicationWillResignActive</li>
+<li>applicationDidEnterBackground</li>
+</ul>
+</li>
+<li>当应用程序从后台进入前台：<ul>
+<li>applicationWillEnterForeground</li>
+<li>applicationDidBecomeActive</li>
+</ul>
+</li>
+<li>当应用被销毁时：<ul>
+<li>[在应用程序打开时，直接通过双击”home”键，模拟器command+shift+双击”h”]</li>
+<li>applicationWillResignActive</li>
+<li>applicationDidEnterBackground</li>
+<li>applicationWillTerminate</li>
+<li>[先按一下”home”键，模拟器command+shift+”h”键，先让程序进入后台]</li>
+<li>applicationWillResignActive</li>
+<li>applicationDidEnterBackground</li>
+<li>之后再销毁程序的时候不会执行任何方法，程序崩溃</li>
+</ul>
+</li>
+</ul>
+<h2 id="4、设置消息数量及联网状态指示器"><a href="#4、设置消息数量及联网状态指示器" class="headerlink" title="4、设置消息数量及联网状态指示器"></a>4、设置消息数量及联网状态指示器</h2><ul>
+<li>当一个iOS程序启动后，首先创建的第一个对象就是UIApplication对象。</li>
+<li><p>利用UIApplication可以做一些应用级别的操作。</p>
+<ul>
+<li><p>应用级别操作：</p>
+<ul>
+<li><p>QQ有消息的时候右上角的消息条数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 获取UIApplication对象。</div><div class="line">UIApplication *app = [UIApplication sharedApplication];</div><div class="line"></div><div class="line">// 设置右上角, 有10条消息</div><div class="line">app.applicationIconBadgeNumber = 10;</div><div class="line"></div><div class="line">// 取消显示消息</div><div class="line">app.applicationIconBadgeNumber = 0;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// 当点击按钮时, 设置右上角消息</div><div class="line">- (IBAction)click:(id)sender &#123;</div><div class="line"></div><div class="line">// 获取UIApplication对象</div><div class="line">UIApplication *app = [UIApplication sharedApplication];</div><div class="line"></div><div class="line">// iOS 8 系统要求设置通知的时候必须经过用户许可。</div><div class="line">UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];</div><div class="line"></div><div class="line">[app registerUserNotificationSettings:settings];</div><div class="line"></div><div class="line">app.applicationIconBadgeNumber = 10; // 有10条消息</div><div class="line"></div><div class="line">//  app.applicationIconBadgeNumber = app.applicationIconBadgeNumber &gt; 0 ? 0 : 10; // 有10条消息</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>联网操作时，状态栏上的等待图标指示器。waiting图标。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UIApplication *app = [UIApplication sharedApplication]; app.networkActivityIndicatorVisible = YES;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="5、打开一些资源"><a href="#5、打开一些资源" class="headerlink" title="5、打开一些资源"></a>5、打开一些资源</h2><ul>
+<li><p>利用UIApplication打开某个资源：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 系统会自动根据协议识别使用某个app打开。</div><div class="line">UIApplication *app = [UIApplication sharedApplication];</div><div class="line">// 打开一个网页:</div><div class="line">[app openURL:[NSURL URLWithString:@&quot;http://ios.icast.cn&quot;]];</div><div class="line"></div><div class="line">// 打电话</div><div class="line">[app openURL:[NSURL URLWithString:@&quot;tel://10086&quot;]];</div><div class="line"></div><div class="line">// 发短信</div><div class="line">[app openURL:[NSURL URLWithString:@&quot;sms://10086&quot;]];</div><div class="line"></div><div class="line">// 发邮件</div><div class="line">[app openURL:[NSURL URLWithString:@&quot;mailto://12345@qq.com&quot;]];</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用openURL方法也可以打开其他应用，在不同应用之间互相调用对方。</p>
+<ul>
+<li>美图秀秀, 点击分享到”新浪微博”, 打开”新浪微博”选择账号, 跳转回”美图秀秀”, 开始分享</li>
+<li>喜马拉雅, 使用微博、QQ 账号 登录。都需要应用程序间跳转。<h2 id="6、状态栏的管理"><a href="#6、状态栏的管理" class="headerlink" title="6、状态栏的管理"></a>6、状态栏的管理</h2></li>
+</ul>
+</li>
+<li><p>理状态栏的管理：</p>
+<ul>
+<li><p>自从iOS7开始可以通过两种方式来控制状态栏</p>
+<ul>
+<li>控制器</li>
+<li>通过UIViewController管理（每一个UIViewController都可以拥有自己不同的状态栏）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#pragma mark - 通过控制器来管理状态栏是否显示及显示类型</div><div class="line">// 是否隐藏&quot;状态栏&quot;</div><div class="line">- (BOOL)prefersStatusBarHidden &#123;</div><div class="line">    return NO;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 状态栏的样式</div><div class="line">- (UIStatusBarStyle)preferredStatusBarStyle</div><div class="line">&#123;</div><div class="line">    // 白色</div><div class="line">    return UIStatusBarStyleLightContent;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>UIApplication</p>
+<ul>
+<li><p>通过UIApplication管理（一个应用程序的状态栏都由它统一管理）</p>
+</li>
+<li><p>iOS7开始状态栏默认交给了控制器来管理，如果希望通过UIApplication来管理，步骤如下:</p>
+</li>
+<li><p>在Info.plist文件中增加一个配置项</p>
+<ul>
+<li>View controller-based status bar appearance = NO</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#pragma mark - 通过应用程序来管理状态栏</div><div class="line">-  (IBAction)click:(id)sender &#123;</div><div class="line"></div><div class="line">    UIApplication *app = [UIApplication sharedApplication];</div><div class="line">    // 设置状态栏是否隐藏                                    //app.statusBarHidden = YES;</div><div class="line">    // 动画的方式</div><div class="line">    [app setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];</div><div class="line"></div><div class="line">    // 设置状态栏显示为白色</div><div class="line">    // app.statusBarStyle = UIStatusBarStyleLightContent;</div><div class="line">    // 动画的方式</div><div class="line">    [app setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/UIApplication/" rel="tag">#UIApplication</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/07/UICollectionview补充/" rel="next" title="UICollectionView方法">
+                <i class="fa fa-chevron-left"></i> UICollectionView方法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/07/cellidentifier/" rel="prev" title="CellIdentifier">
+                CellIdentifier <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/07/UIApplication补充/"
+           data-title="UIApplication对象介绍" data-url="http://yoursite.com/2016/07/07/UIApplication补充/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=697890588,3646918970&fm=116&gp=0.jpg"
+               alt="颜文字" />
+          <p class="site-author-name" itemprop="name">颜文字</p>
+          <p class="site-description motion-element" itemprop="description">颜貌岁岁改，波澜誓不起。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">86</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuangzisuen" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/yanyan767006743" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、UIApplication"><span class="nav-number">1.</span> <span class="nav-text">1、UIApplication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、应用程序代理对象"><span class="nav-number">2.</span> <span class="nav-text">2、应用程序代理对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用代理方法解释"><span class="nav-number">2.0.1.</span> <span class="nav-text">常用代理方法解释</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、应用启动方法执行过程"><span class="nav-number">3.</span> <span class="nav-text">3、应用启动方法执行过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、设置消息数量及联网状态指示器"><span class="nav-number">4.</span> <span class="nav-text">4、设置消息数量及联网状态指示器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、打开一些资源"><span class="nav-number">5.</span> <span class="nav-text">5、打开一些资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、状态栏的管理"><span class="nav-number">6.</span> <span class="nav-text">6、状态栏的管理</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">颜文字</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yancode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

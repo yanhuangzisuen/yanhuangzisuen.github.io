@@ -1,0 +1,1046 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Net," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="一、POST上传单个文件重点:1.单个文件上传(四个步骤) 2.设置请求体格式
+1、为什么要上传文件:
+以前很多服务器对上传文件的大小有限制,PHP 限制是 2M
+目前很多服务器不仅不限制大小,而且鼓励上传多个文件!
+云服务器的普及!
+软件商希望获得更多的用户数据!
+
+提示:abc 的目录是用来保存上传文件的,需要设置访问权限!
+2、步骤1、文件上传使用 POST 方法// 请求为可变请求
+NSM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件上传">
+<meta property="og:url" content="http://yoursite.com/2016/07/07/文件上传/index.html">
+<meta property="og:site_name" content="颜文字">
+<meta property="og:description" content="一、POST上传单个文件重点:1.单个文件上传(四个步骤) 2.设置请求体格式
+1、为什么要上传文件:
+以前很多服务器对上传文件的大小有限制,PHP 限制是 2M
+目前很多服务器不仅不限制大小,而且鼓励上传多个文件!
+云服务器的普及!
+软件商希望获得更多的用户数据!
+
+提示:abc 的目录是用来保存上传文件的,需要设置访问权限!
+2、步骤1、文件上传使用 POST 方法// 请求为可变请求
+NSM">
+<meta property="og:updated_time" content="2016-07-07T08:20:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文件上传">
+<meta name="twitter:description" content="一、POST上传单个文件重点:1.单个文件上传(四个步骤) 2.设置请求体格式
+1、为什么要上传文件:
+以前很多服务器对上传文件的大小有限制,PHP 限制是 2M
+目前很多服务器不仅不限制大小,而且鼓励上传多个文件!
+云服务器的普及!
+软件商希望获得更多的用户数据!
+
+提示:abc 的目录是用来保存上传文件的,需要设置访问权限!
+2、步骤1、文件上传使用 POST 方法// 请求为可变请求
+NSM">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/07/文件上传/"/>
+
+  <title> 文件上传 | 颜文字 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">颜文字</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'iRPRT9JgJfvxEsHZRgKm','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                文件上传
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/文件上传/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/文件上传/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、POST上传单个文件"><a href="#一、POST上传单个文件" class="headerlink" title="一、POST上传单个文件"></a>一、POST上传单个文件</h2><p><strong>重点:1.单个文件上传(四个步骤) 2.设置请求体格式</strong></p>
+<h4 id="1、为什么要上传文件"><a href="#1、为什么要上传文件" class="headerlink" title="1、为什么要上传文件:"></a>1、为什么要上传文件:</h4><ul>
+<li>以前很多服务器对上传文件的大小有限制,PHP 限制是 2M</li>
+<li>目前很多服务器不仅不限制大小,而且鼓励上传多个文件!</li>
+<li>云服务器的普及!</li>
+<li>软件商希望获得更多的用户数据!</li>
+</ul>
+<p><strong>提示:abc 的目录是用来保存上传文件的,需要设置访问权限!</strong></p>
+<h4 id="2、步骤"><a href="#2、步骤" class="headerlink" title="2、步骤"></a>2、步骤</h4><h6 id="1、文件上传使用-POST-方法"><a href="#1、文件上传使用-POST-方法" class="headerlink" title="1、文件上传使用 POST 方法"></a>1、文件上传使用 POST 方法</h6><pre><code>// 请求为可变请求
+NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+// 制定请求方法为 POST
+request.HTTPMethod = @&quot;POST&quot;;
+</code></pre><h6 id="2、设置请求头-告诉服务器请求体中的内容包含文件参数"><a href="#2、设置请求头-告诉服务器请求体中的内容包含文件参数" class="headerlink" title="2、设置请求头,告诉服务器请求体中的内容包含文件参数"></a>2、设置请求头,告诉服务器请求体中的内容包含文件参数</h6><pre><code>[request setValue:@&quot;multipart/form-data; boundary=kBoundary&quot; forHTTPHeaderField:@&quot;Content-Type&quot;];
+</code></pre><h6 id="3、设置请求体-注意-必须严格按照格式设置"><a href="#3、设置请求体-注意-必须严格按照格式设置" class="headerlink" title="3、设置请求体(注意:必须严格按照格式设置)"></a>3、设置请求体(注意:必须严格按照格式设置)</h6><pre><code>// 上边界
+--boundary\r\n
+Content-Disposition: form-data; name=userfile; filename=555\r\n
+Content-Type: application/json\r\n\r\n
+文件内容的二进制数据
+// 下边界
+\r\n--boundary--
+注意1:请求体内容分为三个部分:
+* 上边界部分,告诉服务器要做数据上传,包含了服务器的接收字段name=userfile,文件在服务器中保存的名称filename=555,以及上传文件的数据类型 application/json(需要严格按照字符串格式来设置)
+* 上传文件的数据部分(二进制数据)
+* 下边界部分,严格按照字符串格式来设置.
+上边界部分和下边界部分的字符串,最后都要转换成二进制数据,和文件部分的二进制数据拼接在一起,作为请求体发送给服务器.
+注意2:
+* userfile =&gt; 负责上传文件脚本中的 字段名,开发的时候,可以咨询后端程序员
+* filename =&gt; 将文件保存在服务器上的文件名称
+* Content-Type: 客户端告诉服务器上传文件的文件类型
+注意3:
+* 每一行末尾需要有一定的 \r\n
+* 提示：有些服务器可以直接使用 \n，但是新浪微博如果使用 \n 上传文件，服务器会返回“没有权限”的错误！
+</code></pre><h6 id="4、发送请求-用-NSURLConnection异步发送请求"><a href="#4、发送请求-用-NSURLConnection异步发送请求" class="headerlink" title="4、发送请求(用 NSURLConnection异步发送请求)"></a>4、发送请求(用 NSURLConnection异步发送请求)</h6><pre><code>[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+    //
+    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+    NSLog(@&quot;%@&quot;,string);
+}];
+</code></pre><h2 id="二、多文件上传"><a href="#二、多文件上传" class="headerlink" title="二、多文件上传"></a>二、多文件上传</h2><p><strong>重点:1.掌握多文件上传的数据格式 2.学会封装多文件上传的方法</strong></p>
+<pre><code>多文件上传和单文件上传的基本思路是一样的,唯一的区别在于对请求体的封装.
+多文件的请求体部分格式1
+{
+    // 第一个文件参数的上边界
+    \r\n--boundary\r\n
+    Content-Disposition: form-data; name=userfile[]; filename=美女\r\n
+    Content-Type:image/jpeg\r\n\r\n
+    上传文件的二进制数据部分
+    // 第一个文件参数的下边界
+    \r\n--boundary--
+    // 第二个文件参数的上边界
+    \r\n--boundary\r\n
+    Content-Disposition: form-data; name=userfile[]; filename=JSON\r\n
+    Content-Type:text/plain\r\n\r\n
+    上传文件的二进制数据部分
+    // 第二个文件参数的下边界
+    \r\n--boundary--
+}
+
+{
+    多文件上传的请求体格式2
+    // 上边界
+    // 第一个文件参数
+    \r\n--boundary\r\n
+    Content-Disposition: form-data; name=userfile[]; filename=美女\r\n
+    Content-Type:image/jpeg\r\n\r\n
+    上传文件的二进制数据部分
+    // 第二个文件参数
+    \r\n--boundary\r\n
+    Content-Disposition: form-data; name=userfile[]; filename=JSON\r\n
+    Content-Type:text/plain\r\n\r\n
+    上传文件的二进制数据部分
+    // 下边界
+    \r\n--boundary--
+}
+</code></pre><h2 id="三、获取文件的-MIMEType"><a href="#三、获取文件的-MIMEType" class="headerlink" title="三、获取文件的 MIMEType"></a>三、获取文件的 MIMEType</h2><pre><code>上传文件的时候,需要告诉服务器文件类型(即Content-Type),这时,需要获取文件的 MIMEType.
+
+获取文件的 MIMEType 方法:加载文件时,通过 response 获得
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+
+    NSURLResponse *response = nil;
+
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&amp;response error:NULL];
+
+    NSLog(@&quot;%@&quot;,response.MIMEType);
+
+}
+response.MIMEType 即为 Content-Type 的类型.
+
+如果不想告诉服务器具体的文件类型,可以使用这个 Content-Type : application/octet-stream(8进制流)
+
+常见的 Content-Type 类型:
+{
+    - 大类型/小类型
+    - text/plain
+    - image/jpg
+    - image/png
+    - image/gif
+    - text/html
+    - application/json
+}
+</code></pre><h2 id="四、多文件-普通文本上传"><a href="#四、多文件-普通文本上传" class="headerlink" title="四、多文件 + 普通文本上传"></a>四、多文件 + 普通文本上传</h2><ul>
+<li>有些服务器可以在上传文件的同时,提交一些文本内容给服务器</li>
+<li>典型应用:<ul>
+<li><1>新浪微博: 上传图片的同时,发送一条微博信息!</1></li>
+<li><2>购物评论: 购买商品之后发表评论的时候图片+评论内容!</2></li>
+</ul>
+</li>
+<li><p>多文件上传的数据格式：</p>
+<pre><code>Content-Type: multipart/form-data; boundary=boundary
+// ------ 以下内容，是提供给服务器的二进制数据格式
+--boundary\r\n
+Content-Disposition: form-data; name=&quot;userfile[]&quot;; filename=&quot;aaa.txt&quot;\r\n
+Content-Type: application/octet-stream\r\n\r\n
+
+文件二进制数据
+\r\n
+--boundary\r\n
+Content-Disposition: form-data; name=&quot;userfile[]&quot;; filename=&quot;aaa副本.txt&quot;\r\n
+Content-Type: application/octet-stream\r\n\r\n
+
+文件二进制数据
+\r\n
+--boundary\r\n
+// username 是脚本文件接收参数的名称
+Content-Disposition: form-data; name=&quot;username&quot;\r\n\r\n
+
+普通文本二进制数据
+\r\n
+--boundary--
+// ------
+
+以上部分，是发送给服务器的二进制数据的组成格式(示例)
+</code></pre></li>
+<li><p>如果在 iOS 中,要实现POST上传文件,需要按照上述格式,拼接数据!</p>
+</li>
+<li>因为:格式是 W3C 指定的标准格式,苹果没有做任何封装!其他语言,都做了封装!</li>
+<li>以上三种数据拼接格式,需要大家了解并且能够自己会拼接一种!</li>
+<li>“第三方框架做文件上传:<ul>
+<li>AFN 能够同时实现上传”一个文件”,有些格式的文件,用 AFN 无法上传!</li>
+<li>ASI 能够同时实现上传多个文件,MRC的,2012年就停止更新了,设计的目标平台, iOS 2.0/iOS 3.0 !</li>
+</ul>
+</li>
+</ul>
+<h2 id="五、RESTful设计风格"><a href="#五、RESTful设计风格" class="headerlink" title="五、RESTful设计风格"></a>五、RESTful设计风格</h2><pre><code>为了简化开发流程,使开发更加直观,解读更加容易,现在有一种非常流行的程序设计风格----&gt;RESTful设计风格
+
+RESTful设计风格:
+
+    主要用于后端开发,主要的表现形式为使用同一个 URL,不同的 HTTP 访问方法,表达不同的语义.
+{
+    示例: http:/\/\www.xxx.com/product/123
+
+    -GET http:/\/\www.xxx.com/product/123   语义:从服务器&quot;获取&quot;产品ID 为123的产品信息.
+
+    -POST http:/\/\www.xxx.com/product/123   语义:在服务器&quot;新增&quot;产品ID 为123的产品信息.
+
+    * 提交二进制数据,需要提交一个 JSON 格式的二进制数据,后端程序员可以直接反序列化,得到 JSON 中得字典信息.
+    * POST JSON
+
+    -PUT http:/\/\www.xxx.com/product/123   语义:在服务器&quot;修改&quot;产品ID 为123的产品信息.
+
+    -DELETE http:/\/\www.xxx.com/product/123   语义:从服务器&quot;删除&quot;产品ID 为123的产品信息.
+
+    RESTful设计风格目前在国际上非常流行,国内也逐渐开始普及.
+
+    作为前端程序员,只需要知道有这种设计风格就可以.
+}
+</code></pre><h2 id="六、AFN-上传文件"><a href="#六、AFN-上传文件" class="headerlink" title="六、AFN 上传文件"></a>六、AFN 上传文件</h2><pre><code>{
+    // 1. 创建管理者
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+
+    // 2. 发送请求
+    [mgr POST:@&quot;http://localhost/upload/upload.php&quot; parameters:nil constructingBodyWithBlock:^(id&lt;AFMultipartFormData&gt; formData) {
+
+        // formData :设置上传文件所需要的参数,两种上传方法:
+        // &lt;1&gt; 通过本地文件的 url 上传
+        {
+            NSString *fromFile = @&quot;/Users/likaining/Desktop/meinv.jpg&quot;;
+
+            NSURL *url = [NSURL URLWithString:@&quot;file:///Users/likaining/Desktop/meinv.jpg&quot;];
+            // url :需要上传文件的文件路径
+            // name :服务器接收的文件名.
+            // fileName: 文件在服务器中保存的名字
+            // mimeType : 文件类型
+            [formData appendPartWithFileURL:url name:@&quot;userfile&quot; fileName:@&quot;meinv&quot; mimeType:@&quot;image/jpg&quot; error:NULL];
+        }
+        // &lt;2&gt; 通过文件的 二进制数据 上传
+        {
+            NSData *data = [NSData dataWithContentsOfFile:zipFile];
+
+            [formData appendPartWithFileData:data name:@&quot;userfile&quot; fileName:@&quot;meinv.zip&quot; mimeType:@&quot;gzip&quot;];
+        }
+
+        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            // 上传成功之后的回调
+            NSLog(@&quot;%@&quot;,responseObject);
+
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            //  上传失败之后的回调
+            NSLog(@&quot;失败&quot;);
+    }];
+
+}
+</code></pre><h2 id="八、监测网络状态"><a href="#八、监测网络状态" class="headerlink" title="八、监测网络状态"></a>八、监测网络状态</h2><pre><code>{
+    1. AFN 监测网络状态
+    {
+        // 创建 网络状态管理者
+        AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
+
+        // 监测网络状态的改变
+        [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            // 当网络状态发生改变的时候调用这个block
+            switch (status) {
+                case AFNetworkReachabilityStatusReachableViaWiFi:
+                    NSLog(@&quot;WIFI网络&quot;);
+                    break;
+
+                case AFNetworkReachabilityStatusReachableViaWWAN:
+                    NSLog(@&quot;蜂窝网络&quot;);
+                    break;
+
+                case AFNetworkReachabilityStatusNotReachable:
+                    NSLog(@&quot;没有网络&quot;);
+                    break;
+
+                case AFNetworkReachabilityStatusUnknown:
+                    NSLog(@&quot;未知网络&quot;);
+                    break;
+                default:
+                    break;
+            }
+        }];
+        // 开始监控
+        [mgr startMonitoring];
+    }
+    2.Reachability 监测网络状态
+    {
+        // 注册通知观察者,网络状态改变时,接收通知!
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(InternetStatusChanged) name:kReachabilityChangedNotification object:nil];
+
+        // 控制器销毁时,移除通知观察者.
+        -(void)dealloc
+        {
+            [[NSNotificationCenter defaultCenter] removeObserver:self];
+        }
+
+        // 根据当前网络状态,做出不同的响应.
+        - (void)InternetStatusChanged
+        {
+            NSLog(@&quot;网络状态改变了&quot;);
+
+            if ([Reachability reachabilityForLocalWiFi].currentReachabilityStatus == ReachableViaWiFi) {
+                NSLog(@&quot;Wifi 网络&quot;);
+            }
+            if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus == ReachableViaWWAN) {
+                NSLog(@&quot;蜂窝移动网络&quot;);
+            }
+            if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus == NotReachable)
+            {
+                NSLog(@&quot;没有网络&quot;);
+            }
+        }
+        // 创建 Reachability 对象,开始监测网络状态的改变
+        - (void)MonitorInternetStatus
+        {
+            Reachability *CZReachability = [Reachability reachabilityForInternetConnection];
+
+            [CZReachability startNotifier];
+
+            self.reachability = CZReachability;
+        }
+
+        - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+        {
+            [self MonitorInternetStatus];
+        }
+    }
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Net/" rel="tag">#Net</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/07/数据解析/" rel="prev" title="数据解析">
+                数据解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/07/文件上传/"
+           data-title="文件上传" data-url="http://yoursite.com/2016/07/07/文件上传/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=697890588,3646918970&fm=116&gp=0.jpg"
+               alt="颜文字" />
+          <p class="site-author-name" itemprop="name">颜文字</p>
+          <p class="site-description motion-element" itemprop="description">颜貌岁岁改，波澜誓不起。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">86</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuangzisuen" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/yanyan767006743" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、POST上传单个文件"><span class="nav-number">1.</span> <span class="nav-text">一、POST上传单个文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、为什么要上传文件"><span class="nav-number">1.0.1.</span> <span class="nav-text">1、为什么要上传文件:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、步骤"><span class="nav-number">1.0.2.</span> <span class="nav-text">2、步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1、文件上传使用-POST-方法"><span class="nav-number">1.0.2.0.1.</span> <span class="nav-text">1、文件上传使用 POST 方法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2、设置请求头-告诉服务器请求体中的内容包含文件参数"><span class="nav-number">1.0.2.0.2.</span> <span class="nav-text">2、设置请求头,告诉服务器请求体中的内容包含文件参数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3、设置请求体-注意-必须严格按照格式设置"><span class="nav-number">1.0.2.0.3.</span> <span class="nav-text">3、设置请求体(注意:必须严格按照格式设置)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4、发送请求-用-NSURLConnection异步发送请求"><span class="nav-number">1.0.2.0.4.</span> <span class="nav-text">4、发送请求(用 NSURLConnection异步发送请求)</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、多文件上传"><span class="nav-number">2.</span> <span class="nav-text">二、多文件上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、获取文件的-MIMEType"><span class="nav-number">3.</span> <span class="nav-text">三、获取文件的 MIMEType</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、多文件-普通文本上传"><span class="nav-number">4.</span> <span class="nav-text">四、多文件 + 普通文本上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、RESTful设计风格"><span class="nav-number">5.</span> <span class="nav-text">五、RESTful设计风格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、AFN-上传文件"><span class="nav-number">6.</span> <span class="nav-text">六、AFN 上传文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、监测网络状态"><span class="nav-number">7.</span> <span class="nav-text">八、监测网络状态</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">颜文字</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yancode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

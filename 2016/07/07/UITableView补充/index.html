@@ -1,0 +1,909 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="UITableView," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="一、数据源和代理方法UITableView有两种风格：UITableViewStylePlain和UITableViewStyleGrouped
+1、UITableViewDataSource(数据源)
+1、有多少组
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+
+2、有多少行（required）
+- (NSI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UITableView方法">
+<meta property="og:url" content="http://yoursite.com/2016/07/07/UITableView补充/index.html">
+<meta property="og:site_name" content="颜文字">
+<meta property="og:description" content="一、数据源和代理方法UITableView有两种风格：UITableViewStylePlain和UITableViewStyleGrouped
+1、UITableViewDataSource(数据源)
+1、有多少组
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+
+2、有多少行（required）
+- (NSI">
+<meta property="og:updated_time" content="2016-07-07T08:16:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UITableView方法">
+<meta name="twitter:description" content="一、数据源和代理方法UITableView有两种风格：UITableViewStylePlain和UITableViewStyleGrouped
+1、UITableViewDataSource(数据源)
+1、有多少组
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+
+2、有多少行（required）
+- (NSI">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/07/UITableView补充/"/>
+
+  <title> UITableView方法 | 颜文字 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">颜文字</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'iRPRT9JgJfvxEsHZRgKm','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                UITableView方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/UITableView补充/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/UITableView补充/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、数据源和代理方法"><a href="#一、数据源和代理方法" class="headerlink" title="一、数据源和代理方法"></a>一、数据源和代理方法</h2><p><strong>UITableView有两种风格：UITableViewStylePlain和UITableViewStyleGrouped</strong></p>
+<h4 id="1、UITableViewDataSource-数据源"><a href="#1、UITableViewDataSource-数据源" class="headerlink" title="1、UITableViewDataSource(数据源)"></a>1、UITableViewDataSource(数据源)</h4><ul>
+<li><p>1、有多少组</p>
+<pre><code>- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+</code></pre></li>
+<li><p>2、有多少行（required）</p>
+<pre><code>- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+</code></pre></li>
+<li><p>3、cell（required）</p>
+<pre><code>- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+</code></pre></li>
+<li><p>4、SectionHeaderView/SectionFooterView Title</p>
+<pre><code>- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+
+- (nullable NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section;
+</code></pre></li>
+<li><p>5、Editing（对应indexPath的cell是否可编辑）</p>
+<pre><code>[TableView setEditing:YES animated:YES];
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
+</code></pre></li>
+<li><p>6、Moving/reordering</p>
+<pre><code>- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath;
+</code></pre><p>  <code>By default, the reorder control will be shown only if the datasource implements -tableView:moveRowAtIndexPath:toIndexPath:</code></p>
+</li>
+<li><p>7、Index</p>
+<pre><code>返回tableView的SectionTitle的数组
+- (nullable NSArray&lt;NSString *&gt; *)sectionIndexTitlesForTableView:(UITableView *)tableView 
+</code></pre><p>  <code>return list of section titles to display in section index view (e.g. &quot;ABCD...Z#&quot;)</code></p>
+<pre><code>返回具体title在tableView的哪组
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index`
+</code></pre></li>
+</ul>
+<h4 id="2、UITableViewDelegate（代理）"><a href="#2、UITableViewDelegate（代理）" class="headerlink" title="2、UITableViewDelegate（代理）"></a>2、UITableViewDelegate（代理）</h4><ul>
+<li><p>1、height</p>
+<pre><code>- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section;
+
+预估高度
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(7_0);
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0);
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0);
+</code></pre></li>
+<li><p>2、SectionHeaderView/SectionFooterView</p>
+<pre><code>- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section;
+
+UITableViewMethod（不是代理方法，当需要重用时使用以下方法设置）
+- (nullable UITableViewHeaderFooterView *)headerViewForSection:(NSInteger)section NS_AVAILABLE_IOS(6_0);
+
+- (nullable UITableViewHeaderFooterView *)footerViewForSection:(NSInteger)section NS_AVAILABLE_IOS(6_0);
+</code></pre></li>
+<li><p>3、selected</p>
+<pre><code>- (nullable NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(3_0);
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(3_0);
+</code></pre></li>
+<li><p>4、用户点击cell 右边的 箭头</p>
+<pre><code>- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+</code></pre></li>
+</ul>
+<h4 id="3、UITableViewCell"><a href="#3、UITableViewCell" class="headerlink" title="3、UITableViewCell"></a>3、UITableViewCell</h4><ul>
+<li><p>1、UITableViewCellStyle</p>
+<pre><code>typedef NS_ENUM(NSInteger, UITableViewCellStyle) {
+UITableViewCellStyleDefault,    // 左侧显示textLabel（不显示detailTextLabel），imageView可选（显示在最左边）
+
+UITableViewCellStyleValue1,     // 左侧显示textLabel、右侧显示detailTextLabel（默认蓝色），imageView可选（显示在最左边）
+
+UITableViewCellStyleValue2,     // 左侧依次显示textLabel(默认蓝色)和detailTextLabel，imageView可选（显示在最左边）
+
+UITableViewCellStyleSubtitle    // 左上方显示textLabel，左下方显示detailTextLabel（默认灰色）,imageView可选（显示在最左边）
+};
+</code></pre></li>
+<li><p>2、UITableViewCell的accesoryTyp</p>
+<pre><code>typedef NS_ENUM(NSInteger, UITableViewCellAccessoryType) {
+UITableViewCellAccessoryNone,                   // 不显示任何图标
+UITableViewCellAccessoryDisclosureIndicator,    // 跳转指示图标
+UITableViewCellAccessoryDetailDisclosureButton, // 内容详情图标和跳转指示图标
+UITableViewCellAccessoryCheckmark,              // 勾选图标
+UITableViewCellAccessoryDetailButton    // 内容详情图标
+};
+</code></pre></li>
+<li><p>3、如果不希望响应select，那么就可以用下面的代码设置属性</p>
+<pre><code>TableView.allowsSelection = NO;
+</code></pre></li>
+<li><p>4/如何让cell 能够响应 select，但是选中后的颜色又不发生改变呢，那么就设置</p>
+<pre><code>cell.selectionStyle = UITableViewCellSelectionStyleNone;
+</code></pre></li>
+<li><p>5、如何获得 某一行的CELL对象</p>
+<pre><code>- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+</code></pre></li>
+</ul>
+<h4 id="4、UITableView的刷新方法"><a href="#4、UITableView的刷新方法" class="headerlink" title="4、UITableView的刷新方法"></a>4、UITableView的刷新方法</h4><ul>
+<li><p>1、刷新整个表格</p>
+<pre><code>- (void)reloadData;
+</code></pre></li>
+<li><p>2、刷新指定的分组和行</p>
+<pre><code>- (void)reloadRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation NS_AVAILABLE_IOS(3_0);
+</code></pre></li>
+<li><p>3、刷新指定的分组</p>
+<pre><code>- (void)reloadSections:(NSIndexSet *)sections withRowAnimation:(UITableViewRowAnimation)animation NS_AVAILABLE_IOS(3_0);
+</code></pre></li>
+<li><p>4、删除时刷新指定的行数据</p>
+<pre><code>- (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation;。
+</code></pre></li>
+<li><p>5、添加时刷新指定的行数据。</p>
+<pre><code>- (void)insertRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation;
+</code></pre></li>
+</ul>
+<h4 id="5、TableView的SectionHeader-SectionFooterView高度设置"><a href="#5、TableView的SectionHeader-SectionFooterView高度设置" class="headerlink" title="5、TableView的SectionHeader/SectionFooterView高度设置"></a>5、TableView的SectionHeader/SectionFooterView高度设置</h4><pre><code>//当需要设置TableView的SectionHeaderView和FooterView的高度为0时
+
+//方式一：通过代理方法设置（注：返回值为0表示使用属性sectionHeaderHeight的默认值）
+//优先使用代理方法设置高度，若未重写或返回值为0则通过属性设置
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return section == CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
+}
+
+//方式二：通过属性赋值(可以直接设置为0，但当各组头尾的高度不一致时，需使用代理方法)
+
+self.tableView.sectionHeaderHeight = CGFLOAT_MIN;
+
+self.tableView.sectionFooterHeight = CGFLOAT_MIN;
+</code></pre><h4 id="6、隐藏TableView的tableHeaderView-tableFooterView设置"><a href="#6、隐藏TableView的tableHeaderView-tableFooterView设置" class="headerlink" title="6、隐藏TableView的tableHeaderView/tableFooterView设置"></a>6、隐藏TableView的tableHeaderView/tableFooterView设置</h4><pre><code>//不能直接设置tableHeaderView/tableFooterView的frame为0（无效，此时系统会使用tableHeaderView/tableFooterView的默认frame）
+
+self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
+
+self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
+</code></pre><h4 id="7、折叠所有section-header"><a href="#7、折叠所有section-header" class="headerlink" title="7、折叠所有section header"></a>7、折叠所有section header</h4><pre><code>numberOfRowsInSection: 如果反回的行数为0 那么 cellForRowAtIndexPath： 是不会调用的
+
+为 **Model** 添加一个**bool**属性， 用来记录该组是否折叠 ， 默认是 NO
+@property (nonatomic, assign,getter=isExplain) BOOL explain;
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/UITableView/" rel="tag">#UITableView</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/07/HTTP请求和数据安全/" rel="next" title="HTTP请求和数据安全">
+                <i class="fa fa-chevron-left"></i> HTTP请求和数据安全
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/07/UIGestureRecognizer/" rel="prev" title="UIGestureRecognizer">
+                UIGestureRecognizer <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/07/UITableView补充/"
+           data-title="UITableView方法" data-url="http://yoursite.com/2016/07/07/UITableView补充/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=697890588,3646918970&fm=116&gp=0.jpg"
+               alt="颜文字" />
+          <p class="site-author-name" itemprop="name">颜文字</p>
+          <p class="site-description motion-element" itemprop="description">颜貌岁岁改，波澜誓不起。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">86</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuangzisuen" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/yanyan767006743" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、数据源和代理方法"><span class="nav-number">1.</span> <span class="nav-text">一、数据源和代理方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、UITableViewDataSource-数据源"><span class="nav-number">1.0.1.</span> <span class="nav-text">1、UITableViewDataSource(数据源)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、UITableViewDelegate（代理）"><span class="nav-number">1.0.2.</span> <span class="nav-text">2、UITableViewDelegate（代理）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、UITableViewCell"><span class="nav-number">1.0.3.</span> <span class="nav-text">3、UITableViewCell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、UITableView的刷新方法"><span class="nav-number">1.0.4.</span> <span class="nav-text">4、UITableView的刷新方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、TableView的SectionHeader-SectionFooterView高度设置"><span class="nav-number">1.0.5.</span> <span class="nav-text">5、TableView的SectionHeader/SectionFooterView高度设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、隐藏TableView的tableHeaderView-tableFooterView设置"><span class="nav-number">1.0.6.</span> <span class="nav-text">6、隐藏TableView的tableHeaderView/tableFooterView设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、折叠所有section-header"><span class="nav-number">1.0.7.</span> <span class="nav-text">7、折叠所有section header</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">颜文字</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yancode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,776 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="UIGestureRecognizer," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="为了完成手势识别，必须借助于手势识别器——UIGestureRecognizer
+利用UIGestureRecognizer，能轻松识别用户在某个view上面做的一些常见手势
+UIGestureRecognizer是一个抽象类，定义了所有手势的基本行为，使用它的子类才能处理具体的手势
+  123456UITapGestureRecognizer(点按)UIPinchGestureRecogniz">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UIGestureRecognizer">
+<meta property="og:url" content="http://yoursite.com/2016/07/07/UIGestureRecognizer/index.html">
+<meta property="og:site_name" content="颜文字">
+<meta property="og:description" content="为了完成手势识别，必须借助于手势识别器——UIGestureRecognizer
+利用UIGestureRecognizer，能轻松识别用户在某个view上面做的一些常见手势
+UIGestureRecognizer是一个抽象类，定义了所有手势的基本行为，使用它的子类才能处理具体的手势
+  123456UITapGestureRecognizer(点按)UIPinchGestureRecogniz">
+<meta property="og:updated_time" content="2016-07-07T08:15:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UIGestureRecognizer">
+<meta name="twitter:description" content="为了完成手势识别，必须借助于手势识别器——UIGestureRecognizer
+利用UIGestureRecognizer，能轻松识别用户在某个view上面做的一些常见手势
+UIGestureRecognizer是一个抽象类，定义了所有手势的基本行为，使用它的子类才能处理具体的手势
+  123456UITapGestureRecognizer(点按)UIPinchGestureRecogniz">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/07/UIGestureRecognizer/"/>
+
+  <title> UIGestureRecognizer | 颜文字 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">颜文字</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'iRPRT9JgJfvxEsHZRgKm','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                UIGestureRecognizer
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/UIGestureRecognizer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/UIGestureRecognizer/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>为了完成手势识别，必须借助于手势识别器——UIGestureRecognizer</li>
+<li>利用UIGestureRecognizer，能轻松识别用户在某个view上面做的一些常见手势</li>
+<li><p>UIGestureRecognizer是一个抽象类，定义了所有手势的基本行为，使用它的子类才能处理具体的手势</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">UITapGestureRecognizer(点按)</div><div class="line">UIPinchGestureRecognizer(捏合，用于缩放)</div><div class="line">UIPanGestureRecognizer(平移)</div><div class="line">UISwipeGestureRecognizer(轻扫)</div><div class="line">UIRotationGestureRecognizer(旋转)</div><div class="line">UILongPressGestureRecognizer(长按)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="1、UITapGestureRecognizer（点击）"><a href="#1、UITapGestureRecognizer（点击）" class="headerlink" title="1、UITapGestureRecognizer（点击）"></a>1、UITapGestureRecognizer（点击）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)];</div><div class="line">    //设置当前需要点击的次数</div><div class="line">    [tap setNumberOfTapsRequired:1];</div><div class="line">    //设置当前需要触发事件的手指数量</div><div class="line">	[tap setNumberOfTouchesRequired:2];</div><div class="line">	//设置当前代理</div><div class="line">	tap.delegate=self;</div><div class="line">	[_view addGestureRecognizer:tap];</div><div class="line">	</div><div class="line">//触发方法</div><div class="line">- (void) click&#123;</div><div class="line">    NSLog(@&quot;当前视图被点击了！ &quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2、UILongPressGestureRecognizer-长按"><a href="#2、UILongPressGestureRecognizer-长按" class="headerlink" title="2、UILongPressGestureRecognizer(长按)"></a>2、UILongPressGestureRecognizer(长按)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">UILongPressGestureRecognizer * longPress=[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress)];</div><div class="line">//设置当前长按最小的时长</div><div class="line">longPress.minimumPressDuration=2;</div><div class="line">//设置允许的移动范围</div><div class="line"> [longPress setAllowableMovement:2];</div><div class="line">[_view addGestureRecognizer:longPress];</div><div class="line"></div><div class="line">//触发方法</div><div class="line">- (void) longPress&#123;</div><div class="line">    NSLog(@&quot;长按事件触发！ &quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3、UISwipeGestureRecognizer-轻扫"><a href="#3、UISwipeGestureRecognizer-轻扫" class="headerlink" title="3、UISwipeGestureRecognizer(轻扫)"></a>3、UISwipeGestureRecognizer(轻扫)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">UISwipeGestureRecognizer * swip=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipMethod)];</div><div class="line">//往左边方向</div><div class="line">swip.direction=UISwipeGestureRecognizerDirectionLeft;</div><div class="line">//往右边方向</div><div class="line">swip.direction=UISwipeGestureRecognizerDirectionRight;</div><div class="line">//往上面方向</div><div class="line">swip.direction=UISwipeGestureRecognizerDirectionUp;</div><div class="line">//往下面方向</div><div class="line">swip.direction=UISwipeGestureRecognizerDirectionDown;</div><div class="line">    [_view addGestureRecognizer:swip];</div><div class="line">    </div><div class="line">//触发方法</div><div class="line">- (void) swipMethod&#123;</div><div class="line">    NSLog(@&quot;轻扫事件触发！ &quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>如果涉及到2个以上方向的手势最好添加多个UISwipeGestureRecognizer 对象并设置不同的方向，不要通过下面方式用符号|来连接:</strong></p>
+<pre><code>swip.direction=UISwipeGestureRecognizerDirectionLeft  | UISwipeGestureRecognizerDirectionRight  
+</code></pre><h2 id="4、UIPanGestureRecognizer-平移"><a href="#4、UIPanGestureRecognizer-平移" class="headerlink" title="4、UIPanGestureRecognizer(平移)"></a>4、UIPanGestureRecognizer(平移)</h2><h4 id="第一步：添加视图"><a href="#第一步：添加视图" class="headerlink" title="第一步：添加视图"></a>第一步：添加视图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">_view=[[UIView alloc] initWithFrame:CGRectMake(50, 250, 300, 200)];</div><div class="line">[_view setBackgroundColor:[UIColor redColor]];</div><div class="line">[self.view addSubview:_view];</div></pre></td></tr></table></figure>
+<h4 id="第二步：添加手势"><a href="#第二步：添加手势" class="headerlink" title="第二步：添加手势"></a>第二步：添加手势</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">UIPanGestureRecognizer *pan=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(paned:)];</div><div class="line">[_view addGestureRecognizer:pan];</div></pre></td></tr></table></figure>
+<h4 id="第三步：实现方法"><a href="#第三步：实现方法" class="headerlink" title="第三步：实现方法"></a>第三步：实现方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (void) paned:(UIPanGestureRecognizer *) pan&#123;</div><div class="line">    </div><div class="line">    //获取移动的大小</div><div class="line">    CGPoint point= [pan translationInView:pan.view];</div><div class="line">    //更改视图的中心点坐标</div><div class="line">    CGPoint points=_view.center;</div><div class="line">    points.x+=point.x;</div><div class="line">    points.y+=point.y;</div><div class="line">    _view.center=points;</div><div class="line">    //每次都清空一下消除坐标叠加</div><div class="line">    [pan setTranslation:CGPointZero inView:pan.view];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="UIRotationGestureRecognizer-旋转"><a href="#UIRotationGestureRecognizer-旋转" class="headerlink" title="UIRotationGestureRecognizer(旋转)"></a>UIRotationGestureRecognizer(旋转)</h2><h4 id="第一步：添加视图-1"><a href="#第一步：添加视图-1" class="headerlink" title="第一步：添加视图"></a>第一步：添加视图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">_view=[[UIView alloc] initWithFrame:CGRectMake(50, 250, 300, 200)];</div><div class="line">[_view setBackgroundColor:[UIColor redColor]];</div><div class="line">[self.view addSubview:_view];</div></pre></td></tr></table></figure>
+<h4 id="第二步：添加手势-1"><a href="#第二步：添加手势-1" class="headerlink" title="第二步：添加手势"></a>第二步：添加手势</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UIRotationGestureRecognizer * roate=[[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotate:)];</div><div class="line">    [_view addGestureRecognizer:roate];</div><div class="line">roate.delegate=self;</div></pre></td></tr></table></figure>
+<h4 id="第三步：实现方法-1"><a href="#第三步：实现方法-1" class="headerlink" title="第三步：实现方法"></a>第三步：实现方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (void) rotate:(UIRotationGestureRecognizer *) rote&#123;</div><div class="line">   //获取当前旋转的度数</div><div class="line">   CGFloat rotation= rote.rotation;</div><div class="line">    //通过仿射变换实现旋转</div><div class="line">  _view.transform=CGAffineTransformRotate(_view.transform, rotation);</div><div class="line">    //防止旋转叠加需要清零</div><div class="line">    rote.rotation=0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="UIPinchGestureRecognizer-捏合"><a href="#UIPinchGestureRecognizer-捏合" class="headerlink" title="UIPinchGestureRecognizer(捏合)"></a>UIPinchGestureRecognizer(捏合)</h2><h4 id="第一步：添加视图-2"><a href="#第一步：添加视图-2" class="headerlink" title="第一步：添加视图"></a>第一步：添加视图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">_view=[[UIView alloc] initWithFrame:CGRectMake(50, 250, 300, 200)];</div><div class="line">[_view setBackgroundColor:[UIColor redColor]];</div><div class="line">[self.view addSubview:_view];</div></pre></td></tr></table></figure>
+<h4 id="第二步：添加手势-2"><a href="#第二步：添加手势-2" class="headerlink" title="第二步：添加手势"></a>第二步：添加手势</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UIPinchGestureRecognizer * pich=[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(piches:)];</div><div class="line">[_view addGestureRecognizer:pich];</div><div class="line">pich.delegate=self;</div></pre></td></tr></table></figure>
+<h4 id="第三步：实现方法-2"><a href="#第三步：实现方法-2" class="headerlink" title="第三步：实现方法"></a>第三步：实现方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (void) piches:(UIPinchGestureRecognizer *) pich&#123;</div><div class="line">    //获取比例</div><div class="line">    CGFloat scale=pich.scale;</div><div class="line">    //通过仿射变换实现缩放</div><div class="line">    _view.transform=CGAffineTransformScale(_view.transform, scale, scale);</div><div class="line">    //防止比例叠加需要置为1</div><div class="line">    pich.scale=1;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h2 id="补充：如果需要同时响应多个手势需要重写代理方法"><a href="#补充：如果需要同时响应多个手势需要重写代理方法" class="headerlink" title="补充：如果需要同时响应多个手势需要重写代理方法"></a>补充：如果需要同时响应多个手势需要重写代理方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer&#123;</div><div class="line">    return YES;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/UIGestureRecognizer/" rel="tag">#UIGestureRecognizer</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/07/UITableView补充/" rel="next" title="UITableView方法">
+                <i class="fa fa-chevron-left"></i> UITableView方法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/07/UINavigationcontroller/" rel="prev" title="UINavigationController">
+                UINavigationController <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/07/UIGestureRecognizer/"
+           data-title="UIGestureRecognizer" data-url="http://yoursite.com/2016/07/07/UIGestureRecognizer/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=697890588,3646918970&fm=116&gp=0.jpg"
+               alt="颜文字" />
+          <p class="site-author-name" itemprop="name">颜文字</p>
+          <p class="site-description motion-element" itemprop="description">颜貌岁岁改，波澜誓不起。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">86</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuangzisuen" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/yanyan767006743" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、UITapGestureRecognizer（点击）"><span class="nav-number">1.</span> <span class="nav-text">1、UITapGestureRecognizer（点击）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、UILongPressGestureRecognizer-长按"><span class="nav-number">2.</span> <span class="nav-text">2、UILongPressGestureRecognizer(长按)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、UISwipeGestureRecognizer-轻扫"><span class="nav-number">3.</span> <span class="nav-text">3、UISwipeGestureRecognizer(轻扫)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、UIPanGestureRecognizer-平移"><span class="nav-number">4.</span> <span class="nav-text">4、UIPanGestureRecognizer(平移)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步：添加视图"><span class="nav-number">4.0.1.</span> <span class="nav-text">第一步：添加视图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步：添加手势"><span class="nav-number">4.0.2.</span> <span class="nav-text">第二步：添加手势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三步：实现方法"><span class="nav-number">4.0.3.</span> <span class="nav-text">第三步：实现方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIRotationGestureRecognizer-旋转"><span class="nav-number">5.</span> <span class="nav-text">UIRotationGestureRecognizer(旋转)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步：添加视图-1"><span class="nav-number">5.0.1.</span> <span class="nav-text">第一步：添加视图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步：添加手势-1"><span class="nav-number">5.0.2.</span> <span class="nav-text">第二步：添加手势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三步：实现方法-1"><span class="nav-number">5.0.3.</span> <span class="nav-text">第三步：实现方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIPinchGestureRecognizer-捏合"><span class="nav-number">6.</span> <span class="nav-text">UIPinchGestureRecognizer(捏合)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步：添加视图-2"><span class="nav-number">6.0.1.</span> <span class="nav-text">第一步：添加视图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步：添加手势-2"><span class="nav-number">6.0.2.</span> <span class="nav-text">第二步：添加手势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三步：实现方法-2"><span class="nav-number">6.0.3.</span> <span class="nav-text">第三步：实现方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充：如果需要同时响应多个手势需要重写代理方法"><span class="nav-number">7.</span> <span class="nav-text">补充：如果需要同时响应多个手势需要重写代理方法</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">颜文字</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yancode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

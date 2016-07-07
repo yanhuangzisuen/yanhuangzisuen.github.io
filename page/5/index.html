@@ -296,8 +296,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/loopretain/" itemprop="url">
-                  循环retain
+                <a class="post-title-link" href="/2016/07/07/nsstringother/" itemprop="url">
+                  NSString的其他用法
                 </a>
               
             
@@ -340,434 +340,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/loopretain/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/loopretain/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>####循环retain的使用</p>
-<ul>
-<li>问题：人有一只狗，狗有一个主人。</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> <span class="string">"Dog.h"</span>;</div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> :<span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">retain</span>)Dog *dog;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@class</span> "<span class="title">Person</span>.<span class="title">h</span>";</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Dog</span>:<span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">retain</span>)Person *owner;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">//main.m</span></div><div class="line"></div><div class="line"><span class="comment">//创建对象</span></div><div class="line">Dog *d = [Dog new];</div><div class="line">Person *p = [Person new];</div><div class="line"></div><div class="line"><span class="comment">//循环引用</span></div><div class="line">p.dog = d;</div><div class="line">d.owner = p;</div><div class="line"></div><div class="line"><span class="comment">//看似正确的释放代码</span></div><div class="line">[d release];</div><div class="line">[p release];</div></pre></td></tr></table></figure>
-<ul>
-<li><p>程序执行结果: p和d都没有被释放掉</p>
-</li>
-<li><p>原理分析:</p>
-</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">p.dog  = d; <span class="comment">//因为dog的set方法中是 进行了 [dog retain];dog2</span></div><div class="line">d.owner = p;<span class="comment">//会让p的引用计数+1  owner2</span></div><div class="line"></div><div class="line">当执行了</div><div class="line">[d release];</div><div class="line">[p release];</div><div class="line"></div><div class="line">dog和owner 的引用计数变成<span class="number">1</span></div></pre></td></tr></table></figure>
-<ul>
-<li><p><strong>循环retain的场景</strong></p>
-<ul>
-<li>比如A对象retain了B对象,B对象retain了A对象</li>
-<li>循环retain的弊端</li>
-<li>这样会导致A对象和B对象永远无法释放</li>
-</ul>
-</li>
-<li><p><strong>循环retain的解决方案</strong></p>
-<ul>
-<li>当两端互相引用时,应该一端用retain、一端用assign</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/memorymanagement/" itemprop="url">
-                  内存管理
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective-C</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/memorymanagement/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/memorymanagement/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="1、为什么要进行内存管理？"><a href="#1、为什么要进行内存管理？" class="headerlink" title="1、为什么要进行内存管理？"></a>1、为什么要进行内存管理？</h4><ul>
-<li>在程序开发中，应该及时将不用的数据回收，合理分配和管理内存 ，以提高程序的运行效率。</li>
-<li>哪些行为会增加内存占用？<ul>
-<li>创建1个OC对象</li>
-<li>定义1个变量</li>
-<li>调用1个函数或者方法</li>
-</ul>
-</li>
-</ul>
-<p>####2、OC内存管理的范围</p>
-<ul>
-<li>管理范围：</li>
-<li><code>管理任何继承NSObject的对象，对其他的基本数据类型无效。</code></li>
-<li>本质原因：是因为对象和其他数据类型在系统中的存储空间不一样，其他局部变量主要存放于栈中，而对象存储于堆中。当代码块结束时，这个代码块中涉及的所有局部变量会被回收，指向对象的指针也被回收，此时，对象已经没有指针指向，但依然存在于内存中，造成内存泄露。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/mrc/" itemprop="url">
-                  MRC
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective-C</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/mrc/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/mrc/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="1、关闭ARC的方法"><a href="#1、关闭ARC的方法" class="headerlink" title="1、关闭ARC的方法"></a>1、关闭ARC的方法</h4><ul>
-<li>1.设置项目信息<br><img src="/img/3.1.png" alt=""></li>
-</ul>
-<h4 id="2、手动管理（MRC）快速入门"><a href="#2、手动管理（MRC）快速入门" class="headerlink" title="2、手动管理（MRC）快速入门"></a>2、手动管理（MRC）快速入门</h4><ul>
-<li><p>内存管理的关键：如何判断对象被回收？</p>
-</li>
-<li><p>重写dealloc方法,代码规范</p>
-<ul>
-<li>一定要[super dealloc],而且要放到最后,意义是:你所创建的每个类都是从父类, 基类继承来的,有很多实例变量也会继承过来,这部分变量有时候会在你的程序内使用,它们不会自动释放内存,你需要调用父类的dealloc方法来释放,然而在此之前你需要先把自己所写类中的变量内存先释放掉,否则就会造成你本类中的内存积压,造成泄漏。</li>
-</ul>
-</li>
-<li><p>注意</p>
-<ul>
-<li>永远不要直接通过对象调用dealloc方法(实际上调用并不会出错)</li>
-<li>一旦对象被回收了,它占用的内存就不再可用,坚持使用会导致程序崩溃(野指针错误)为了防止调用出错,可以将“野指针”指向nil(0)。<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1.创建学生</span></div><div class="line"> Student *s = [[Student alloc] init];</div><div class="line"></div><div class="line"> <span class="comment">// 2.查看学生引用计数器</span></div><div class="line"> <span class="built_in">NSUInteger</span> count = [s retainCount];</div><div class="line"></div><div class="line"> <span class="comment">// 3、输出学生的引用计数器值</span></div><div class="line"> <span class="built_in">NSLog</span>(<span class="string">@"%lu"</span>,count);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>重写dealloc</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"Student.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span></span></div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">  <span class="built_in">NSLog</span>(<span class="string">@"对象即将被释放---"</span>);</div><div class="line">  [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>dealloc是NSObject提供的对象方法，只能由系统自动调用。</p>
-</li>
-<li><p>当对象的引用计数器值为 0 时，系统会自动调用dealloc方法。</p>
-</li>
-<li><p>总结：程序人员可以通过操纵引用计数器的值来控制对象是否被回收。这是MRC内存管理的核心内容。</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/moreobject/" itemprop="url">
-                  多个对象的内存管理
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective-C</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/moreobject/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/moreobject/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsstringother/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsstringother/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -793,47 +367,21 @@
         
           
             <ul>
-<li>单个对象的内存管理，看起来非常简单。</li>
-<li>如果对多个对象进行内存管理，并且对象之间是有联系的，那么管理就会变得比较复杂。</li>
+<li>获取字符串的长度</li>
 </ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSUIntrger</span>)length;</div></pre></td></tr></table></figure>
 <ul>
-<li>其实，多个对象的内存管理思路，跟管理游戏房间类似：</li>
-<li><p>如：劲舞团，LOL</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1、创建玩家对象</span></div><div class="line">Gamer *game = [[Gamer alloc] init];</div><div class="line"></div><div class="line"><span class="comment">// 2、创建房间对象</span></div><div class="line">Room *room = [[Room alloc] init];</div><div class="line"></div><div class="line"><span class="comment">// 3、让玩家进入房间</span></div><div class="line">game.room = room;</div><div class="line"></div><div class="line"><span class="comment">// 4、释放房间对象</span></div><div class="line">[room release];</div><div class="line"></div><div class="line"><span class="comment">// 5、输出玩家的房间</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"玩家的房间是：%@"</span>,game.room);</div></pre></td></tr></table></figure>
-</li>
-<li><p>此时，会报野指针错误。</p>
-</li>
+<li>获取具体位置的字符</li>
 </ul>
-<h3 id="多个对象内存管理原则"><a href="#多个对象内存管理原则" class="headerlink" title="多个对象内存管理原则"></a>多个对象内存管理原则</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 声明类</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Gamer</span> : <span class="title">NSObject</span></span></div><div class="line">&#123;</div><div class="line">    Room *_room;</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room;</div><div class="line">- (Room *)room;</div><div class="line"></div><div class="line"><span class="comment">// 实现类</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Gamer</span></span></div><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line"></div><div class="line">    [room <span class="keyword">retain</span>];</div><div class="line">    _room = room;</div><div class="line">&#125;</div><div class="line">- (Room *)room&#123;</div><div class="line">    <span class="keyword">return</span> _room;</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"玩家被释放"</span>);</div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">// main函数实现</span></div><div class="line">  <span class="comment">// 1、创建玩家对象</span></div><div class="line">    Gamer *game = [[Gamer alloc] init];</div><div class="line"></div><div class="line">    <span class="comment">// 2、创建房间对象</span></div><div class="line">    Room *room = [[Room alloc] init];</div><div class="line"></div><div class="line">    <span class="comment">// 3、让玩家进入房间</span></div><div class="line">    game.room = room;</div><div class="line"></div><div class="line">    <span class="comment">// 4、释放房间对象</span></div><div class="line">    [room release];</div><div class="line"></div><div class="line">    <span class="comment">// 5、输出玩家的房间</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"玩家的房间是：%@"</span>,game.room);</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">unichar</span>)characterAtIndex:(<span class="built_in">NSUInteger</span>)index;</div><div class="line"><span class="comment">//返回 index 位置对应的字符, %c 输出</span></div></pre></td></tr></table></figure>
 <ul>
-<li><p>问题：房间无法被释放了怎么办？</p>
-</li>
-<li><p>解决方法：</p>
+<li>字符串和其他数据类型转换</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//转为基本数据类型</span></div><div class="line">- (<span class="keyword">double</span>)doubleValue;</div><div class="line">- (<span class="keyword">float</span>)floatValue;</div><div class="line">- (<span class="keyword">int</span>)intValue;</div><div class="line">...</div><div class="line"><span class="comment">//转为C语言字符串</span></div><div class="line">- (<span class="keyword">char</span> *)UTF8String;</div></pre></td></tr></table></figure>
 <ul>
-<li>在对象被释放时，要把该对象的所有对象类型的成员变量在dealloc当中进行释放:</li>
+<li>NSString去除空格</li>
 </ul>
-</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Gamer</span></span></div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    [_room release];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"玩家被释放"</span>);</div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<ul>
-<li>需求：让玩家反复进入这个房间。</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        Gamer *g = [Gamer new];</div><div class="line"></div><div class="line">        Room *r = [Room new];</div><div class="line"></div><div class="line">        g.room = r;</div><div class="line">        g.room = r;</div><div class="line">        g.room = r;</div><div class="line"></div><div class="line">        [g release];</div><div class="line">        [r release];</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>问题：房间对象无法被释放，怎么办？</p>
-</li>
-<li><p>解决方案：判断新进房间与之前是否是同一个房间。</p>
-</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_room != room) &#123;</div><div class="line">        [room <span class="keyword">retain</span>];</div><div class="line">        _room = room;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>总的来说，有以下几点规律：<ul>
-<li>1）只要还有人使用某对象，那么这个对象就不会被回收。</li>
-<li>2）只要想要使用1个对象，那么就让对象的引用计数器+1。</li>
-<li>3）当不再使用这个对象时，就让对象的引用计数器-1。</li>
-</ul>
-</li>
-</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//去除所有空格, 字符串替换</span></div><div class="line">[str strByReplaceingOccurrencesOfString:<span class="string">@" "</span> withString:<span class="string">@""</span>];</div><div class="line"></div><div class="line"><span class="comment">//去除首位空格</span></div><div class="line">[str stringByTrimmingCharactersInSet:[<span class="built_in">NSCharacterSet</span> whitespaceCharacterSet]];</div></pre></td></tr></table></figure>
 
           
         
@@ -883,8 +431,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/nsarray/" itemprop="url">
-                  NSArray
+                <a class="post-title-link" href="/2016/07/07/nsstringsearch/" itemprop="url">
+                  字符串搜索
                 </a>
               
             
@@ -927,8 +475,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/nsarray/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsarray/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsstringsearch/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsstringsearch/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -953,11 +501,24 @@
       
         
           
-            <h2 id="常见的创建方法"><a href="#常见的创建方法" class="headerlink" title="常见的创建方法"></a>常见的创建方法</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">instancetype</span>)array;</div><div class="line">+ (<span class="keyword">instancetype</span>)arrayWithObject:(ObjectType)anObject;</div><div class="line">+ (<span class="keyword">instancetype</span>)arrayWithObjects:(ObjectType)firstObj, ... ;</div><div class="line">+ (<span class="keyword">instancetype</span>)arrayWithArray:(<span class="built_in">NSArray</span>&lt;ObjectType&gt; *)array;</div><div class="line">+ (<span class="keyword">id</span>)arrayWithContentsOfFile:(<span class="built_in">NSString</span> *)path;</div><div class="line">+ (<span class="keyword">id</span>)arrayWithContentsOfURL:(<span class="built_in">NSURL</span> *)url;</div><div class="line"></div><div class="line"><span class="comment">//将 NSArray 保存到文件中</span></div><div class="line">- (<span class="built_in">BOOL</span>)writeToFile:(<span class="built_in">NSString</span> *)path  atomically:(<span class="built_in">BOOL</span>)useAuxiliaryFile;</div><div class="line">- (<span class="built_in">BOOL</span>)writeToURL:(<span class="built_in">NSURL</span> *)url atomically:(<span class="built_in">BOOL</span>)atomically;</div></pre></td></tr></table></figure>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项:"></a>注意事项:</h2><ul>
-<li>只能存放任意对象, 并且是有序的</li>
-<li>不能存放非OC对象, 比如int\float\double\char\enum\struct等</li>
-<li>它是不可变, 一旦初始化完毕后, 它里面的内容就永远是固定的, 不能删除里面的元素, 也不能再往里面添加元素</li>
+            <h2 id="前后缀检查"><a href="#前后缀检查" class="headerlink" title="前后缀检查"></a>前后缀检查</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1.是否以 aString 开头</span></div><div class="line">- (<span class="built_in">BOOL</span>)hasPrefix:(<span class="built_in">NSString</span> *)aString;</div><div class="line"></div><div class="line"><span class="comment">//2.是否以 aString 结尾</span></div><div class="line">- (<span class="built_in">BOOL</span>)hasSuffix:(<span class="built_in">NSString</span> *)aString;</div></pre></td></tr></table></figure>
+<h2 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用于检查字符串内容是否包含 aString</span></div><div class="line"><span class="comment">//如果包含, 返回 aString 的范围</span></div><div class="line"><span class="comment">//如果不包含, NSRange 的 location 为 NSNotFound, length为0</span></div><div class="line">- (<span class="built_in">NSRange</span>)rangeOfString:(<span class="built_in">NSString</span> *)aString;</div></pre></td></tr></table></figure>
+<h2 id="NSRange"><a href="#NSRange" class="headerlink" title="NSRange"></a>NSRange</h2><ul>
+<li>常见结构体, 定义:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _NSRange &#123;</div><div class="line">    <span class="built_in">NSUInteger</span> location;</div><div class="line">    <span class="built_in">NSUInteger</span> length;</div><div class="line">&#125;</div><div class="line"><span class="comment">//NSUInteger 的定义:无符号的整型</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="built_in">NSUInteger</span>;</div><div class="line"><span class="built_in">NSUInteger</span> location : 表示该范围的起始位置</div><div class="line"><span class="built_in">NSUInteger</span> length : 表示该范围内的长度</div></pre></td></tr></table></figure>
+<ul>
+<li><p>NSRange创建的几种方式</p>
+</li>
+<li><p>方式1:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSRange</span> range;</div><div class="line">range.location = <span class="number">7</span>;</div><div class="line">range.length = <span class="number">3</span>;</div></pre></td></tr></table></figure>
+</li>
+<li><p>方式2:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSRange</span> range = &#123;<span class="number">7</span>, <span class="number">3</span>&#125;;</div><div class="line"><span class="comment">// or</span></div><div class="line"><span class="built_in">NSRange</span> range = &#123;.locatin = <span class="number">7</span>, .length = <span class="number">3</span>&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>方式3:使用 NSMake 函数 OC中的结构体一般都有对应的 NSMake 函数</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSRange</span> range = <span class="built_in">NSMakeRange</span>(<span class="number">7</span>, <span class="number">3</span>);</div></pre></td></tr></table></figure>
+</li>
 </ul>
 
           
@@ -1008,8 +569,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/mrcprinciple/" itemprop="url">
-                  手动管理内存的原则
+                <a class="post-title-link" href="/2016/07/07/nsvalue/" itemprop="url">
+                  NSValue
                 </a>
               
             
@@ -1052,8 +613,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/mrcprinciple/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/mrcprinciple/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsvalue/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsvalue/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1078,117 +639,27 @@
       
         
           
-            <h4 id="1、内存管理的原则"><a href="#1、内存管理的原则" class="headerlink" title="1、内存管理的原则"></a>1、内存管理的原则</h4><ul>
-<li><p>1.原则</p>
+            <h4 id="1、NSNumber是NSValue的子类-但NSNumber只能包装数字类型"><a href="#1、NSNumber是NSValue的子类-但NSNumber只能包装数字类型" class="headerlink" title="1、NSNumber是NSValue的子类, 但NSNumber只能包装数字类型"></a>1、NSNumber是NSValue的子类, 但NSNumber只能包装数字类型</h4><h4 id="2、NSValue可以包装任意值，因此-可以用NSValue将结构体包装后-加入NSArray-NSDictionary中。"><a href="#2、NSValue可以包装任意值，因此-可以用NSValue将结构体包装后-加入NSArray-NSDictionary中。" class="headerlink" title="2、NSValue可以包装任意值，因此,可以用NSValue将结构体包装后, 加入NSArray\NSDictionary中。"></a>2、NSValue可以包装任意值，因此,可以用NSValue将结构体包装后, 加入NSArray\NSDictionary中。</h4><h4 id="3、常见结构体包装"><a href="#3、常见结构体包装" class="headerlink" title="3、常见结构体包装"></a>3、常见结构体包装</h4><ul>
+<li>为了方便 结构体 和NSValue的转换,Foundation提供了以下方法：</li>
+<li>将结构体包装成NSValue对象</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">NSValue</span> *)valueWithPoint:(<span class="built_in">NSPoint</span>)point;</div><div class="line">+ (<span class="built_in">NSValue</span> *)valueWithSize:(<span class="built_in">NSSize</span>)size;</div><div class="line">+ (<span class="built_in">NSValue</span> *)valueWithRect:(<span class="built_in">NSRect</span>)rect;</div></pre></td></tr></table></figure>
 <ul>
-<li>只要还有人在使用某个对象,那么这个对象就不会被回收;</li>
-<li>只要你想使用这个对象,那么就应该让这个对象的引用计数器+1;</li>
-<li>当你不想使用这个对象时,应该让对象的引用计数器-1;</li>
+<li>从NSValue对象取出之前包装的结构体</li>
 </ul>
-</li>
-<li><p>2.谁创建,谁release</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSPoint</span>)pointValue;</div><div class="line">- (<span class="built_in">NSSize</span>)sizeValue;</div><div class="line">- (<span class="built_in">NSRect</span>)rectValue;</div></pre></td></tr></table></figure>
+<h4 id="4、任意数据的包装"><a href="#4、任意数据的包装" class="headerlink" title="4、任意数据的包装"></a>4、任意数据的包装</h4><ul>
+<li>NSValue提供了下列方法来包装任意数据</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">NSValue</span> *)valueWithBytes:(<span class="keyword">const</span> <span class="keyword">void</span> *)value objCType:(<span class="keyword">const</span> <span class="keyword">char</span> *)type;</div><div class="line"><span class="comment">//value参数 : 所包装数据的地址</span></div><div class="line"><span class="comment">//type 参数 : 用来描述这个数据类型的字符串,用@encode指令来生成。</span></div></pre></td></tr></table></figure>
 <ul>
-<li>1)如果你通过alloc,new,copy来创建了一个对象,那么你就必须调用release或者 autorelease方法.</li>
-<li>2)不是你创建的就不用你去负责</li>
+<li>从NSValue中取出所包装的数据</li>
 </ul>
-</li>
-<li><p>3.谁retain,谁release</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)getValue:(<span class="keyword">void</span> *)value;</div></pre></td></tr></table></figure>
 <ul>
-<li>只要你调用了retain,无论这个对象时如何生成的,你都要调用release</li>
+<li>eg:</li>
 </ul>
-</li>
-<li><p>4.总结</p>
-<ul>
-<li>有始有终,有加就应该有减。曾经让某个对象计数器加1,就应该让其在最后-1.</li>
-</ul>
-</li>
-</ul>
-<h4 id="2、内存管理研究内容"><a href="#2、内存管理研究内容" class="headerlink" title="2、内存管理研究内容"></a>2、内存管理研究内容</h4><ul>
-<li>1.野指针(僵尸对象)<ul>
-<li>僵尸对象: 已经被销毁的对象(不能再使用的对象).</li>
-<li>野指针:指向僵尸对象(不可用内存)的指针.</li>
-<li>空指针: 没有指向存储空间的指针(里面存的是nil, 也就是0)</li>
-</ul>
-</li>
-<li>2.内存泄露<ul>
-<li>如果在程序结束后，对象没有被释放，此时称为内存泄露。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Student *s = [[Student alloc] init];</div><div class="line">Student *s1 = [s retain];</div></pre></td></tr></table></figure>
-<ul>
-<li>那么，问题来了，最后由谁释放？</li>
-<li><p>1&gt; 由s释放</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Student *s = [[Student alloc] init];</div><div class="line">Student *s1 = [s retain];</div><div class="line"></div><div class="line">[s release];</div><div class="line">[s release];</div></pre></td></tr></table></figure>
-</li>
-<li><p>2&gt; 由s1释放</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Student *s = [[Student alloc] init];</div><div class="line">Student *s1 = [s <span class="keyword">retain</span>];</div><div class="line"></div><div class="line">[s1 release];</div><div class="line">[s1 release];</div></pre></td></tr></table></figure>
-<ul>
-<li>两种方式都可以释放内存。</li>
-<li>但是，如果没有一种统一的释放原则，那么就会造成代码的混乱，舍都可以释放, 好比一个公司所有的领导没有分工一样, 任何事儿, 任何一个领导都可以插一嘴，很显然这样就没法干了， 因此需要有一个规范去约束使用。</li>
-</ul>
-</li>
-</ul>
-<h4 id="单个对象的野指针问题"><a href="#单个对象的野指针问题" class="headerlink" title="单个对象的野指针问题"></a>单个对象的野指针问题</h4><ul>
-<li><p>思考：对象在堆区的空间已经释放了,还能再使用p吗?</p>
- <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Person *p = [[Person alloc] init];</div><div class="line">[p release];</div><div class="line"></div><div class="line"><span class="comment">// 因为P已经被释放，此时调用p的run方法，此时会报错。</span></div><div class="line"><span class="comment">// 我们把p叫做野指针，把p指向的对象叫做僵尸对象。</span></div><div class="line">[p run];</div></pre></td></tr></table></figure>
-</li>
-<li><p>野指针错误:访问了一块坏的内存(已经被回收的,不可用的内存)。</p>
-</li>
-<li><p>僵尸对象:所占内存已经被回收的对象,僵尸对象不能再被使用。</p>
-</li>
-<li><p>注意:</p>
-<ul>
-<li><p><strong>1&gt; 空指针:没有指向任何东西的指针,给空指针发送消息不会报错.</strong></p>
-</li>
-<li><p>关于nil和Nil及NULL的区别:</p>
-<ul>
-<li><p>1.nil: A null pointer to an Objective-C object. ( #define nil ((id)0) )</p>
-<ul>
-<li>nil 是一个对象值。</li>
-<li>Person *p = [Person new];</li>
-<li>p = nil;</li>
-</ul>
-</li>
-<li><p>2.Nil: A null pointer to an Objective-C class.</p>
-<ul>
-<li>如:Class someClass = Nil;给类对象赋值</li>
-</ul>
-</li>
-<li><p>3.NULL: A null pointer to anything else. ( #define NULL ((void *)0) )</p>
-<ul>
-<li>NULL是一个通用指针(泛型指针)。</li>
-</ul>
-</li>
-<li><p>4.NSNull: A class defines a singleton object used to represent null values in collection objects (which don’t allow nil values).</p>
-<ul>
-<li>[NSNull null]: The singleton instance of NSNull。</li>
-<li>[NSNull null]是一个对象,他用在不能使用nil的场合。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>2&gt; 不能使用[p retain]让僵尸对象起死复生。</strong></p>
-</li>
-<li><strong>3&gt; 不能对野指针进行操作</strong></li>
-</ul>
-</li>
-</ul>
-<h4 id="避免使用僵尸对象的方法"><a href="#避免使用僵尸对象的方法" class="headerlink" title="避免使用僵尸对象的方法"></a>避免使用僵尸对象的方法</h4><ul>
-<li>为了防止不小心调用了僵尸对象,可以将对象赋值nil(对象的空值)<ul>
-<li>给空指针发消息是没有任何反应的。<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">  Student *s = [[Student alloc] init];</div><div class="line"></div><div class="line">  [s release];</div><div class="line"></div><div class="line">  s = <span class="literal">nil</span>;</div><div class="line"></div><div class="line">  <span class="comment">// 打印对象的引用计数器值</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%lu"</span>,[s retainCount]);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="对象的内存泄露"><a href="#对象的内存泄露" class="headerlink" title="对象的内存泄露"></a>对象的内存泄露</h4><ul>
-<li><p>1.retain和release的个数不匹配，导致内存泄露。</p>
-</li>
-<li><p>2.对象使用的过程中被赋值了nil,导致内存泄露<br><img src="/img/5.7.png" alt=""></p>
-</li>
-<li><p>3.在函数或者方法中不当的使用retain 或者 release 造成的问题<br><img src="/img/5.8.png" alt=""></p>
-</li>
-</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//    包装自定义结构体</span></div><div class="line">    <span class="keyword">typedef</span> <span class="keyword">struct</span>&#123;</div><div class="line">        <span class="keyword">char</span> *name;</div><div class="line">        <span class="keyword">int</span> age;</div><div class="line">        <span class="keyword">double</span> height;</div><div class="line">    &#125; Perosn;</div><div class="line">    Perosn p = &#123;<span class="string">"zhangsan"</span>, <span class="number">18</span>, <span class="number">175.2</span>&#125;;</div><div class="line"><span class="comment">//    2.1.valueWithBytes 接收一个指针,需要传递 需要包装的结构体变量的地址</span></div><div class="line"><span class="comment">//    2.2.objCType 需要传递需要包装的数据类型 需要  @encode 生成</span></div><div class="line">    <span class="built_in">NSValue</span> *pValue = [<span class="built_in">NSValue</span> valueWithBytes:&amp;p objCType:<span class="keyword">@encode</span>(Perosn)];</div><div class="line">    <span class="built_in">NSArray</span> *arr = @[pValue];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, arr);</div><div class="line"><span class="comment">//    2.3从NSArray中取出保存的结构体变量</span></div><div class="line">    Perosn res;</div><div class="line">    [pValue getValue:&amp;res];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"name = %s, age = %i, height = %.2f"</span>, res.name, res.age, res.height);</div></pre></td></tr></table></figure>
 
           
         
@@ -1238,8 +709,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/nsarrayaction/" itemprop="url">
-                  NSArray常见用法
+                <a class="post-title-link" href="/2016/07/07/object/" itemprop="url">
+                  Objective-C简介
                 </a>
               
             
@@ -1282,8 +753,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/nsarrayaction/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsarrayaction/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/object/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/object/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1308,52 +779,107 @@
       
         
           
-            <h2 id="NSArray-的检索"><a href="#NSArray-的检索" class="headerlink" title="NSArray 的检索"></a>NSArray 的检索</h2><ul>
-<li><p>获取集合元素的个数</p>
-<pre><code>- (NSUInteger)count;
-</code></pre></li>
-<li><p>获取 index 位置的元素</p>
-<pre><code>- (id)objectAtIndex:(NSUInteger)index;
-</code></pre></li>
-<li><p>是否包含某一个元素</p>
-<pre><code>- (BOOL)containsObject:(id)anObject;
-</code></pre></li>
-<li><p>返回第一个元素</p>
-<pre><code>- (id)firstObject;
-</code></pre></li>
-<li><p>返回最后一个元素</p>
-<pre><code>- (id)lastObject;
-</code></pre></li>
-<li><p>查找 anObject 元素在数组中的位置(如果找不到, 返回 -1)</p>
-<pre><code>- (NSUInteger)indexOfObject:(id)anObject;
-</code></pre></li>
-<li><p>在 range 范围内查找 anObject 元素在数组中的位置</p>
-<pre><code>- (NSUInteger)indexOfObject:(id)anObject inRange:(NSRange)range;
-</code></pre></li>
-<li><p>返回两个数组第一个相同的元素</p>
-<pre><code>- (nullable ObjectType)firstObjectCommonWithArray:(NSArray&lt;ObjectType&gt; *)otherArray;
-</code></pre></li>
-</ul>
-<h2 id="数组的简写形式"><a href="#数组的简写形式" class="headerlink" title="数组的简写形式"></a>数组的简写形式</h2><p><strong>自从2012年开始, Xcode的编译器多了很多自动生成代码的功能, 使得OC代码更加精简</strong></p>
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>OC是在C语言的基础上加了一些新的面向对象的语法, 将C语言的复杂的, 比较繁琐的语法封装的更为简单.完全兼容C语言, 也就是说在OC语言中可以写任意的C代码.</p>
+</blockquote>
+<p>##发展史</p>
 <ul>
-<li><p>数组的创建</p>
-  <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//之前</span></div><div class="line">[<span class="built_in">NSArray</span> arrayWithObjects:<span class="string">@"Jack"</span>, <span class="string">@"Rose"</span>, <span class="string">@"Jim"</span>, <span class="literal">nil</span>];</div><div class="line"><span class="comment">//现在</span></div><div class="line">@[<span class="string">@"Jack"</span>, <span class="string">@"Rose"</span>, <span class="string">@"Jim"</span>];</div></pre></td></tr></table></figure>
+<li><p>20世纪80年代初期, <code>Brad Cox</code>结合了C语言和SmallTalk的优势, 设计出了Objective-C语言.</p>
 </li>
-<li><p>数组元素的访问</p>
-  <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//之前</span></div><div class="line">[array objectAtIndex:<span class="number">0</span>];</div><div class="line"><span class="comment">//现在</span></div><div class="line">array[<span class="number">0</span>];</div></pre></td></tr></table></figure>
+<li><p>1985年, <code>乔布斯</code>创建了NeXT公司, 使用Objective-C开发用户界面包.</p>
+</li>
+<li><p>1995年, NeXT得到Objective-C的全部版权.</p>
+</li>
+<li><p>1996年, 苹果收购NeXT, NextStep更名<code>Cocoa</code>, OC成为开发运行在Mac平台上的软件的主力语言.</p>
 </li>
 </ul>
-<h2 id="NSArray-给所有元素发送消息"><a href="#NSArray-给所有元素发送消息" class="headerlink" title="NSArray 给所有元素发送消息"></a>NSArray 给所有元素发送消息</h2><ul>
-<li>让集合中的所有元素都执行 aSelector 这个方法</li>
+<p>在苹果发布iOS系统之后, OC又成为了开发iOS程序的语言</p>
+<p>##OC与C差异</p>
+<ul>
+<li>源文件</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)makeObjectsPerformSelector:(SEL)aSelector;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)makeObjectsPerformSelector:(SEL)aSelector withObject:(<span class="keyword">id</span>)argument;</div></pre></td></tr></table></figure>
-<h2 id="数组的排序"><a href="#数组的排序" class="headerlink" title="数组的排序"></a>数组的排序</h2><h4 id="compare"><a href="#compare" class="headerlink" title="compare"></a>compare</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *arr = @[@<span class="number">10</span>, @<span class="number">1</span>, @<span class="number">8</span>, @<span class="number">6</span>, @<span class="number">6</span>, @<span class="number">19</span>];</div><div class="line"><span class="comment">//compare  想使用compare 对数组进行排序,数组元素必须是Foundation 框架中的对象,不能是自定义对象</span></div><div class="line"><span class="built_in">NSArray</span> *newArr = [arr sortedArrayUsingSelector:<span class="keyword">@selector</span>(compare:)];</div></pre></td></tr></table></figure>
-<h4 id="二分排序"><a href="#二分排序" class="headerlink" title="二分排序"></a>二分排序</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">Person *p1 = [[Person alloc] init];</div><div class="line">Person *p2 = [[Person alloc] init];</div><div class="line">Person *p3 = [[Person alloc] init];</div><div class="line">Person *p4 = [[Person alloc] init];</div><div class="line">p1.age = <span class="number">20</span>;</div><div class="line">p2.age = <span class="number">10</span>;</div><div class="line">p3.age = <span class="number">40</span>;</div><div class="line">p4.age = <span class="number">30</span>;</div><div class="line"></div><div class="line"><span class="built_in">NSArray</span> *arr = @[p1, p2, p3, p4];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"排序前%@"</span>, arr);</div><div class="line"><span class="comment">//不能使用 compare 方法对自定义对象进行排序</span></div><div class="line"><span class="comment">//NSArray *newArr = [arr sortedArrayUsingSelector:@selector(compare:)];</span></div><div class="line"></div><div class="line"><span class="comment">//二分排序</span></div><div class="line"><span class="built_in">NSArray</span> *newArr = [arr sortedArrayWithOptions:<span class="built_in">NSSortStable</span> usingComparator:^<span class="built_in">NSComparisonResult</span>(Person *obj1, Person *obj2) &#123;</div><div class="line">    <span class="comment">//每次调用该 block 都会取出数组中的两个元素 id  _Nonnull 可以改成 Person *</span></div><div class="line">    <span class="comment">//NSLog(@"obj1 = %@, obj2 = %@", obj1, obj2);</span></div><div class="line">    <span class="keyword">return</span> obj1.age &gt; obj2.age;<span class="comment">//升序</span></div><div class="line"><span class="comment">//  return obj1.age &lt; obj2.age;//降序</span></div><div class="line"><span class="comment">//如果比较的属性为字符串,</span></div><div class="line"><span class="keyword">return</span> [obj1.name compare: obj2.name];<span class="comment">//升序</span></div><div class="line"><span class="comment">//return [obj2.name compare: obj1.name];//降序</span></div><div class="line">    &#125;];</div></pre></td></tr></table></figure>
-<h4 id="排序描述器"><a href="#排序描述器" class="headerlink" title="排序描述器"></a>排序描述器</h4><ul>
-<li>可以按多个属性排</li>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">扩张名</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">.h</td>
+<td style="text-align:center">头文件</td>
+</tr>
+<tr>
+<td style="text-align:center">.c</td>
+<td style="text-align:center">C语言源文件</td>
+</tr>
+<tr>
+<td style="text-align:center">.cpp .cc</td>
+<td style="text-align:center">C++语言的源文件</td>
+</tr>
+<tr>
+<td style="text-align:center">.m</td>
+<td style="text-align:center">Objective-C语言源文件</td>
+</tr>
+<tr>
+<td style="text-align:center">.mm</td>
+<td style="text-align:center">Objective-C++语言源文件</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>数据类型</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Person *p1 = [Person personWithName:<span class="string">@"c"</span> andAge:<span class="number">23</span>];</div><div class="line">Person *p2 = [Person personWithName:<span class="string">@"a"</span> andAge:<span class="number">21</span>];</div><div class="line">Person *p3 = [Person personWithName:<span class="string">@"b"</span> andAge:<span class="number">20</span>];</div><div class="line">Person *p4 = [Person personWithName:<span class="string">@"b"</span> andAge:<span class="number">19</span>];</div><div class="line"></div><div class="line"><span class="built_in">NSMutableArray</span> *arr = [<span class="built_in">NSMutableArray</span> arrayWithObjects:p1, p2, p3, p4, <span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//创建排序描述器, ascending 升序</span></div><div class="line"><span class="built_in">NSSortDescriptor</span> *nameSortDesc = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@"name"</span> ascending:<span class="literal">YES</span>];</div><div class="line"><span class="built_in">NSSortDescriptor</span> *ageSortDesc = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@"age"</span> ascending:<span class="literal">YES</span>];</div><div class="line"></div><div class="line"><span class="comment">//进行排序</span></div><div class="line">[arr sortUsingDescriptors:@[nameSortDesc, ageSortDesc]];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, arr);</div></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">Car *c1 = [[Car alloc] init];</div><div class="line">c1.name = <span class="string">@"BMW"</span>;</div><div class="line"></div><div class="line">Car *c2 = [[Car alloc] init];</div><div class="line">c2.name = <span class="string">@"Benz"</span>;</div><div class="line"></div><div class="line">Car *c3 = [[Car alloc] init];</div><div class="line">c3.name = <span class="string">@"MINI"</span>;</div><div class="line"></div><div class="line">Car *c4 = [[Car alloc] init];</div><div class="line">c4.name = <span class="string">@"BYD"</span>;</div><div class="line"></div><div class="line">Person *p1 = [Person personWithName:<span class="string">@"zhangsan"</span> andAge:<span class="number">21</span> andCar:c1];</div><div class="line">Person *p2 = [Person personWithName:<span class="string">@"zhangsan"</span> andAge:<span class="number">21</span> andCar:c2];</div><div class="line">Person *p3 = [Person personWithName:<span class="string">@"lisi"</span> andAge:<span class="number">19</span> andCar:c3];</div><div class="line">Person *p4 = [Person personWithName:<span class="string">@"wangwu"</span> andAge:<span class="number">18</span> andCar:c4];</div><div class="line"></div><div class="line"><span class="comment">//创建排序描述器</span></div><div class="line"><span class="built_in">NSSortDescriptor</span> *nameSortDesc = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@"name"</span> ascending:<span class="literal">YES</span>];</div><div class="line"><span class="built_in">NSSortDescriptor</span> *ageSortDesc = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@"age"</span> ascending:<span class="literal">YES</span>];</div><div class="line"></div><div class="line"><span class="built_in">NSSortDescriptor</span> *carSortDesc = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@"car.name"</span> ascending:<span class="literal">YES</span>];</div><div class="line"></div><div class="line"><span class="built_in">NSMutableArray</span> *arrM =[<span class="built_in">NSMutableArray</span> arrayWithArray:@[p1, p2, p3, p4]];</div><div class="line"></div><div class="line">[arrM sortUsingDescriptors:@[nameSortDesc, ageSortDesc, carSortDesc]];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, arrM);</div></pre></td></tr></table></figure>
+<p>C中的数据类型:<br><img src="/img/C语言数据类型.jpg" alt="C数据类型"></p>
+<p>OC中的新增的数据类型:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">BOOL</td>
+<td style="text-align:center">字面常量值, <code>YES</code>or<code>NO</code></td>
+</tr>
+<tr>
+<td style="text-align:center">NSObject *</td>
+<td style="text-align:center">OC中的对象类型</td>
+</tr>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">动态对象类型, 万能指针</td>
+</tr>
+<tr>
+<td style="text-align:center">SEL</td>
+<td style="text-align:center">选择器数据类型</td>
+</tr>
+<tr>
+<td style="text-align:center">block</td>
+<td style="text-align:center">代码块数据类型</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>关键字</p>
+<p>  C语言关键字</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">auto</span> <span class="keyword">double</span> <span class="keyword">int</span> <span class="keyword">struct</span> <span class="keyword">break</span> <span class="keyword">else</span> <span class="keyword">long</span> <span class="keyword">switch</span> <span class="keyword">case</span> <span class="keyword">enum</span></div><div class="line"><span class="keyword">register</span> <span class="keyword">typedef</span> <span class="keyword">char</span> <span class="keyword">extern</span> <span class="keyword">return</span> <span class="keyword">union</span> <span class="keyword">const</span> <span class="keyword">float</span></div><div class="line"><span class="keyword">short</span> <span class="keyword">unsigned</span> <span class="keyword">continue</span> <span class="keyword">for</span> <span class="keyword">signed</span> <span class="keyword">void</span> <span class="keyword">default</span> <span class="keyword">goto</span></div><div class="line"><span class="keyword">sizeof</span> <span class="keyword">volatile</span> <span class="keyword">do</span> <span class="keyword">if</span> <span class="keyword">while</span> <span class="keyword">static</span></div></pre></td></tr></table></figure>
+<p>  OC新增关键字</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> @<span class="title">implementation</span> @<span class="title">end</span> @<span class="title">public</span> @<span class="title">protected</span></span></div><div class="line"><span class="keyword">@private</span> <span class="keyword">@selector</span> <span class="keyword">@try</span> @ catch <span class="keyword">@throw</span> <span class="keyword">@finally</span></div><div class="line"><span class="class"><span class="keyword">@protocol</span> @<span class="title">optional</span> @<span class="title">required</span> @<span class="title">class</span> @<span class="title">property</span> @<span class="title">synthesize</span></span></div><div class="line"><span class="keyword">@dynamic</span> <span class="built_in">BOOL</span> Class SEL <span class="literal">YES</span> <span class="literal">NO</span> <span class="keyword">id</span> <span class="keyword">self</span> <span class="keyword">super</span> <span class="literal">nil</span> atomic</div><div class="line"><span class="keyword">nonatomic</span> <span class="keyword">retain</span> <span class="keyword">assign</span> <span class="keyword">copy</span> block _</div></pre></td></tr></table></figure>
+<p>  OC中新增异常捕捉方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@try</span> &#123;</div><div class="line">    <span class="comment">//可能出错的代码</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">@catch</span> (<span class="built_in">NSException</span> *exception) &#123;</div><div class="line">    <span class="comment">//一旦出错可以补救的代码</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">@finally</span> &#123;</div><div class="line">    <span class="comment">//无论出错与否都会执行的代码</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>##OC面向对象编程的四个主要特征</p>
+<ul>
+<li>抽象性</li>
+<li>封装性</li>
+<li>多态性</li>
+<li>继承性</li>
+</ul>
 
           
         
@@ -1403,8 +929,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/nsarrayandfile/" itemprop="url">
-                  NSArray读写文件
+                <a class="post-title-link" href="/2016/07/07/principle/" itemprop="url">
+                  内存管理的原理及分类
                 </a>
               
             
@@ -1447,8 +973,356 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/nsarrayandfile/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsarrayandfile/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/principle/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/principle/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>####1、内存管理的原理</p>
+<ul>
+<li>理解内存管理的原理，要清楚两个概念：<ul>
+<li>1）对象的所有权</li>
+<li>2）引用计数器</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>1）对象的所有权</p>
+<ul>
+<li>任何对象都可能拥有一个或多个所有者。只要一个对象至少还拥有一个所有者,它就会继续存在。</li>
+</ul>
+<ul>
+<li>同时, 一个对象允许有多个所有者, 就好比:</li>
+</ul>
+</li>
+<li><p>Cocoa所有权策略</p>
+<ul>
+<li>任何自己创建的对象都归自己所有,可以使用名字以“alloc”或“new”开头或名字中包含“copy”的方法创建对象,可以使用retain来获得一个对象的所有权。</li>
+</ul>
+</li>
+<li><p>2）对象的引用计数器</p>
+</li>
+<li>每个OC对象都有自己的引用计数器,是一个整数表示对象被引用的次数(有多少个所有者),即现在有多少东西在使用这个对象。对象刚被创建时,默认计数器值为1,当计数器的值变为0时,则对象销毁。</li>
+<li>对象的结构:</li>
+</ul>
+<ul>
+<li><p>在每个OC对象内部,都专门有8个字节的存储空间来存储引用计数器。</p>
+</li>
+<li><p>3）引用计数器的作用</p>
+<ul>
+<li>引用计数器是判断对象要不要回收的依据(存在一种例外:对象值为nil时,引用计数为0,但不回收空间)就是计数器是否为0,若不为0则存在。</li>
+</ul>
+</li>
+<li><p>4）对引用计数器的操作</p>
+<ul>
+<li><p>想要管理对象占用的内存，就要学会操作引用计数器。</p>
+</li>
+<li><p>引用计数器的常见操作</p>
+<ul>
+<li>retain消息：使计数器 +1（该方法返回对象本身）</li>
+<li>release消息：使计数器 -1（不代表释放对象）</li>
+<li>retainCount：获得对象当前的应用计数器值，输出：%ld %lu</li>
+<li><code>注意：release不代表销毁对象，仅仅是引用计数器-1</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>5）对象的销毁</p>
+<ul>
+<li>当1个对象的应用计数器为0时，那么它将被销毁，其占用的内存被系统回收。</li>
+<li>当对象被销毁时，系统会自动向对象发送一条dealloc消息。一般会重写dealloc方法，在这里释放相关的资源，dealloc就像是对象的“临终遗言”。</li>
+<li>一旦重写了dealloc方法，就必须调用[super dealloc]，并且放在代码块的最后调用。</li>
+<li><code>注意：不能直接调用dealloc方法</code>。</li>
+<li>一旦对象被回收了，那么他所占用的存储空间就不再可用，坚持使用会导致程序崩溃（野指针错误）</li>
+</ul>
+</li>
+<li><p>注意;</p>
+<ul>
+<li>1) 如果对象的计数器不为0,那么在整个程序运行过程,它占用的内存就不可能被回收(除 非整个程序已经退出 )</li>
+<li>2)任何一个对象,刚生下来的时候,引用计数器都为1。(对象一旦创建好,默认引用计数器就是1)当使用alloc、new或者copy创建一个对象时,对象的引用计数器默认就是1.</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、内存管理的分类"><a href="#2、内存管理的分类" class="headerlink" title="2、内存管理的分类"></a>2、内存管理的分类</h4><ul>
+<li><p>Objective-C提供了三种内存管理方式:</p>
+<ul>
+<li>1.MannulReference-Counting(MRC,手动管理,在开发iOS4.1之前的版本的项目时我们要自己负责使用引用计数来管理内存,比如要手动 retain、release、autorelease 等,而在其后 的版本可以使用 ARC,让系统自己管理内存。)</li>
+<li>2.Automatic Reference-Counting(ARC,自动引用计数,iOS4.1之后推出的)</li>
+<li><p>3.garbage collection(垃圾回收)。iOS不支持垃圾回收;</p>
+</li>
+<li><p>ARC作为苹果新提供的技术,苹果推荐开发者使用ARC技术来管理内存;</p>
+</li>
+<li><p>开发中如何使用:需要理解MRC,但实际使用时尽量用ARC。</p>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/protocol/" itemprop="url">
+                  Protocol
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/protocol/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/protocol/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1、什么是Protocol"><a href="#1、什么是Protocol" class="headerlink" title="1、什么是Protocol?"></a>1、什么是Protocol?</h2><ul>
+<li>1）Protocol中文意思：协议。</li>
+<li>2）协议中只能声明一些方法。</li>
+<li>3）遵守了协议，就等于拥有了协议中的所有方法。</li>
+</ul>
+<h2 id="2、协议的基本用法："><a href="#2、协议的基本用法：" class="headerlink" title="2、协议的基本用法："></a>2、协议的基本用法：</h2><ul>
+<li><p>1、协议的定义格式：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@protocol</span> 协议名称</span></div><div class="line"><span class="comment">// 各种方法；</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>2、协议的使用格式：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> 类名 : <span class="title">NSObject</span> &lt;协议名1，协议名2，...&gt;</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="protocol的使用注意"><a href="#protocol的使用注意" class="headerlink" title="protocol的使用注意"></a>protocol的使用注意</h2><ul>
+<li>1）把同一类方法，放到1个协议当中</li>
+<li>2）1个类可以同时遵守多个协议。</li>
+<li>3）父类遵守了某个协议，子类也遵守了该协议。</li>
+<li>4）协议遵守协议：1个协议可以遵守多个协议。</li>
+</ul>
+<h2 id="protocol基协议介绍"><a href="#protocol基协议介绍" class="headerlink" title="protocol基协议介绍"></a>protocol基协议介绍</h2> <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">SportProtocol</span> &lt;<span class="title">NSObject</span>&gt;</span></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"> * 此处的<span class="built_in">NSObject</span>就是基协议，意义等同于继承<span class="built_in">NSObject</span>。</div><div class="line"> * 继承基协议的好处：能够拥有基协议当中所声明的所有方法。</div></pre></td></tr></table></figure>
+<ul>
+<li>总结：</li>
+<li>1、需要添加成员变量和方法时，建议使用继承</li>
+<li>2、只需要添加方法时，建议使用分类</li>
+<li>3、当很多不同类中，有共同的方法可以抽取时，类之间不存在继承关系，建议使用协议。</li>
+</ul>
+<h2 id="protocol中-required和-optional"><a href="#protocol中-required和-optional" class="headerlink" title="protocol中@required和@optional"></a>protocol中@required和@optional</h2><ul>
+<li>@required：用@required修饰的方法，必须实现。</li>
+<li>@optional：用@optional修饰的方法，可实现，可不实现。</li>
+<li>@required 和 @optional的主要意义:一般用于序员交流用。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/setmemorymanagement/" itemprop="url">
+                  set方法的内存管理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/setmemorymanagement/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/setmemorymanagement/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1474,13 +1348,31 @@
         
           
             <ul>
-<li>将NSArray数据写入到文件中</li>
+<li>需求：<ul>
+<li>1、让玩家换房间，进入1号房间后，再进入2号房间</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = @[<span class="string">@"a"</span>, <span class="string">@"b"</span>];</div><div class="line"></div><div class="line"><span class="built_in">BOOL</span> res = [array writeToFile:<span class="string">@"/Users/yan/Desktop/test.txt"</span> atomically:<span class="literal">YES</span>];</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 实现玩家类</span></div><div class="line"> <span class="class"><span class="keyword">@implementation</span> <span class="title">Gamer</span></span></div><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line">    [_room release];</div><div class="line">    _room = [room <span class="keyword">retain</span>];</div><div class="line">&#125;</div><div class="line">- (Room *)room&#123;</div><div class="line">    <span class="keyword">return</span> _room;</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    [_room dealloc];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"玩家被释放"</span>);</div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="keyword">int</span> main()&#123;</div><div class="line">    <span class="comment">// 1、创建玩家对象</span></div><div class="line">    Gamer *game = [[Gamer alloc] init];</div><div class="line"></div><div class="line">    <span class="comment">// 2、创建房间对象</span></div><div class="line">    Room *room = [[Room alloc] init];</div><div class="line">    room.no = <span class="number">1</span>;</div><div class="line"></div><div class="line">    Room *room1 = [[room alloc] init];</div><div class="line">    room.no = <span class="number">2</span>;</div><div class="line"></div><div class="line">    <span class="comment">// 3、让玩家进入房间</span></div><div class="line">    game.room = room;</div><div class="line">    game.room = room1;</div><div class="line"></div><div class="line">    <span class="comment">// 4、释放房间对象</span></div><div class="line">    [room release];</div><div class="line"></div><div class="line">    <span class="comment">// 5、释放玩家对象</span></div><div class="line">    [game release];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
-<li>从文件中读取数据到NSArray中</li>
+<li>问题：房间对象再次无法被释放</li>
+<li>解决方案：</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = [<span class="built_in">NSArray</span> arrayWithContentsOfFile:<span class="string">@"/Users/yan/Desktop/test.txt"</span>];</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_room != room) &#123;</div><div class="line">        <span class="comment">// 释放旧房间</span></div><div class="line">        [_room release];</div><div class="line">        [room <span class="keyword">retain</span>];</div><div class="line">        _room = room;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>总结：</li>
+<li>1、set方法的内存管理</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setRoom:(Room *)room</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_room != room) &#123;</div><div class="line">    [_room release];</div><div class="line">    _room = [room <span class="keyword">retain</span>];</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>2、dealloc方法内存管理</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 当玩家不在了，代表不用房间了</span></div><div class="line">    <span class="comment">// 对房间进行一次release</span></div><div class="line">    [_room release];</div><div class="line"></div><div class="line">    <span class="comment">// 重写dealloc方法，必须在最后调用父类的dealloc方法</span></div><div class="line">    [<span class="keyword">super</span> dealloc];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>常见错误写法</li>
+<li>会引发内存泄露<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gamer.room = [[Room alloc] init];</div><div class="line">[[Room alloc] init].no= <span class="number">10</span>;</div></pre></td></tr></table></figure>
+</li>
+</ul>
 
           
         
@@ -1530,8 +1422,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/nsarrayandnsstring/" itemprop="url">
-                  NSArray与NSString
+                <a class="post-title-link" href="/2016/07/07/singletonpattern/" itemprop="url">
+                  单例模式
                 </a>
               
             
@@ -1574,8 +1466,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/nsarrayandnsstring/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsarrayandnsstring/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/singletonpattern/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/singletonpattern/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1600,14 +1492,35 @@
       
         
           
-            <ul>
-<li>将数组元素连接成字符串</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//NSArray的方法</span></div><div class="line"><span class="comment">//用 separator 作为拼接符将数组元素拼接成一个字符串</span></div><div class="line">- (<span class="built_in">NSString</span>)componentsJoinedByString:(<span class="built_in">NSString</span> *)separator;</div></pre></td></tr></table></figure>
+            <h4 id="1、单例模式概念"><a href="#1、单例模式概念" class="headerlink" title="1、单例模式概念"></a>1、单例模式概念</h4><ul>
+<li><p>1、 什么是单例模式:(Singleton)</p>
 <ul>
-<li>将字符串分割成一个数组</li>
+<li>单例模式的意图是的类的对象成为系统中唯一的实例,提供一个访问点,供客户类共享资源。</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//NSString的方法</span></div><div class="line"><span class="comment">// 将字符串用separator作为分隔符切割成数组元素</span></div><div class="line">- (<span class="built_in">NSArray</span> *)componentsSeparatedByString:(<span class="built_in">NSString</span> *)separator;</div></pre></td></tr></table></figure>
+</li>
+<li><p>2、 什么情况下使用单例?</p>
+<ul>
+<li>1）类只能有一个实例,而且必须从一个为人熟知的访问点对其进行访问,比如工厂方法。</li>
+<li>2）这个唯一的实例只能通过子类化进行扩展,而且扩展的对象不会破坏客户端代码。</li>
+</ul>
+</li>
+<li><p>3、 单例设计模式的要点:</p>
+<ul>
+<li>1）某个类只能有一个实例。</li>
+<li>2）他必须自行创建这个对象</li>
+<li>3）必须自行向整个系统提供这个实例;</li>
+<li><p>4）为了保证实例的唯一性,我们必须将如下方法实现进行覆盖</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone +(<span class="keyword">id</span>)allocWithZone:(<span class="built_in">NSZone</span> *)zone -(<span class="keyword">id</span>)<span class="keyword">retain</span> -(<span class="built_in">NSUInteger</span>)retainCount</div><div class="line">-(<span class="keyword">oneway</span> <span class="keyword">void</span>)release</div><div class="line">-(<span class="keyword">id</span>)autorelease 。</div></pre></td></tr></table></figure>
+</li>
+<li><p>5）这个方法必须是一个静态类。</p>
+</li>
+</ul>
+</li>
+<li>4、 在OC中实现单例模式:<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">先创建一个单例类,即:</div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Bee</span> : <span class="title">NSObject</span>&lt;<span class="title">NSCopying</span>&gt;//注意此处调用了<span class="title">NScoping</span>协议</span></div><div class="line">+ (Bee *)shareIsrance;<span class="comment">//此处定义了一个工厂方法,用工厂方法来限制实例化过程</span></div><div class="line"><span class="keyword">@end</span> <span class="comment">//调用NScoping协议,从而在实现文件中覆盖</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="简单的单例模式实现"><a href="#简单的单例模式实现" class="headerlink" title="简单的单例模式实现"></a>简单的单例模式实现</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Tools.h文件</span></div><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Tools</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>, <span class="title">NSMutableCopying</span>&gt;</span></div><div class="line"><span class="comment">//一般情况下,创建一个单例对象都会提供一个类工厂方法</span></div><div class="line"><span class="comment">//一般情况下,用于创建单例对象的方法名都以 share 开头或 default 开头</span></div><div class="line"><span class="comment">// share + 当前的类名</span></div><div class="line">+ (<span class="keyword">instancetype</span>)shareTools;<span class="comment">//仅仅是提供一个 share 的类方法,无其他意义</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Tools.m文件</span></div><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">"Tools.h"</span></span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Tools</span></span></div><div class="line"></div><div class="line">+ (<span class="keyword">instancetype</span>)shareTools</div><div class="line">&#123;</div><div class="line">    Tools *instance = [[<span class="keyword">self</span> alloc] init];</div><div class="line">    <span class="keyword">return</span> instance;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">static</span> Tools *_instance = <span class="literal">nil</span>;<span class="comment">//1.定义一个全局变量</span></div><div class="line"></div><div class="line">+ (<span class="keyword">instancetype</span>)allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone</div><div class="line">&#123;</div><div class="line"><span class="comment">//    多线程可能有问题</span></div><div class="line"><span class="comment">//    2.由于所有的创建方法都会调用该方法,所以只需要在该方法中控制当前对象只创建一次</span></div><div class="line">    <span class="comment">/*</span></div><div class="line">    if (_instance == nil) &#123;</div><div class="line">        _instance = [[super allocWithZone:zone] init];</div><div class="line">    &#125;</div><div class="line">    return _instance;</div><div class="line">     */</div><div class="line"><span class="comment">//    以下在多线程也没有问题 保证在多线程也执行一次  GCD</span></div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        _instance = [[<span class="keyword">super</span> allocWithZone:zone] init];</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> _instance;</div><div class="line">&#125;</div><div class="line"><span class="comment">//  3.重写 copy</span></div><div class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> _instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="built_in">NSZone</span> *)zone</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> _instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// MRC 中的单例要重写以下方法</span></div><div class="line">- (<span class="keyword">oneway</span> <span class="keyword">void</span>)release</div><div class="line">&#123;</div><div class="line"><span class="comment">//    为了保证整个程序过程中只有一份实例,在这个方法中什么都不做</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span>)<span class="keyword">retain</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> _instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">NSUInteger</span>)retainCount</div><div class="line">&#123;</div><div class="line"><span class="comment">//    return 1;</span></div><div class="line"><span class="comment">//    注意:为了方便沟通,一般情况下,单例中不会返回 retainCount = 1;</span></div><div class="line"><span class="comment">//    一般返回比较大的值</span></div><div class="line">    <span class="keyword">return</span> <span class="built_in">NSUIntegerMax</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
           
         
@@ -1657,8 +1570,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/nsarraytraverse/" itemprop="url">
-                  NSArray的遍历
+                <a class="post-title-link" href="/2016/07/07/struct/" itemprop="url">
+                  Struct结构体
                 </a>
               
             
@@ -1701,8 +1614,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/nsarraytraverse/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsarraytraverse/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/struct/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/struct/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1727,19 +1640,148 @@
       
         
           
-            <p><strong>遍历, 就是将 NSArray 里面的所有元素一个一个取出来查看</strong></p>
-<ul>
-<li>普通 for 循环</li>
+            <h4 id="1、【理解】NSPoint和CGPoint的使用"><a href="#1、【理解】NSPoint和CGPoint的使用" class="headerlink" title="1、【理解】NSPoint和CGPoint的使用"></a>1、【理解】NSPoint和CGPoint的使用</h4><ul>
+<li>CGPoint和NSPoint是同义的</li>
+<li><code>typedef CGPoint NSPoint;</code><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CGPoint</span>的定义</div><div class="line"><span class="keyword">struct</span> <span class="built_in">CGPoint</span> &#123;</div><div class="line">  <span class="built_in">CGFloat</span> x;</div><div class="line">  <span class="built_in">CGFloat</span> y;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="built_in">CGPoint</span> <span class="built_in">CGPoint</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">double</span> <span class="built_in">CGFloat</span>;</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; array.count; i++) &#123;</div><div class="line">    <span class="comment">//对应 i 下标的元素</span></div><div class="line">    <span class="keyword">id</span> = array[i];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>增强 for 循环</li>
+<p><code>CGPoint代表的是二维平面中的一个点,可以使用CGPointMake和NSMakePoint函数创建CGPoint.</code></p>
+<h4 id="2、【理解】NSSize和CGSize的使用"><a href="#2、【理解】NSSize和CGSize的使用" class="headerlink" title="2、【理解】NSSize和CGSize的使用"></a>2、【理解】NSSize和CGSize的使用</h4><ul>
+<li>CGSize和NSSize是同义的</li>
+<li><code>typedef CGSize NSSize;</code><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CGSize</span>的定义</div><div class="line"><span class="keyword">struct</span> <span class="built_in">CGSize</span> &#123;</div><div class="line">  <span class="built_in">CGFloat</span> width;</div><div class="line">  <span class="built_in">CGFloat</span> height;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="built_in">CGSize</span> <span class="built_in">CGSize</span>;</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">id</span> obj <span class="keyword">in</span> array) &#123;</div><div class="line">    <span class="comment">//obj 数组中的元素</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>block进行遍历(迭代器)</li>
+<p><code>CGSize代表的是二维平面中的某个物体的尺寸(宽度和高度)
+可以使用CGSizeMake和NSMakeSize函数创建CGSize</code></p>
+<h4 id="3、【理解】NSRect和CGRect的使用"><a href="#3、【理解】NSRect和CGRect的使用" class="headerlink" title="3、【理解】NSRect和CGRect的使用"></a>3、【理解】NSRect和CGRect的使用</h4><ul>
+<li>CGRect和NSRect是同义的</li>
+<li><code>typedef CGRect NSRect;</code><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CGRect</span>的定义</div><div class="line"><span class="keyword">struct</span> <span class="built_in">CGRect</span> &#123;</div><div class="line">  <span class="built_in">CGPoint</span> origin;</div><div class="line">  <span class="built_in">CGSize</span> size;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="built_in">CGRect</span> <span class="built_in">CGRect</span>;</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[array enumerateObjectsUsingBlock:^(<span class="keyword">id</span> obj, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) &#123;</div><div class="line">    <span class="comment">//obj 对应下标 idx 的数组中的元素</span></div><div class="line">    <span class="comment">// stop 控制循环的终止</span></div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p><code>CGRect代表的是二维平面中的某个物体的位置和尺寸
+可以使用CGRectMake和NSMakeRect函数创建CGRect</code></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/nsdictionary/" itemprop="url">
+                  NSDictionary
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/nsdictionary/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsdictionary/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>1. 字典, 通过一个 key 可以找到对应的 value
+2. NSDictionary 是不可变的, 一旦初始化完毕, 里面的内容就无法改变
+</code></pre><h2 id="NSDictionary-的创建"><a href="#NSDictionary-的创建" class="headerlink" title="NSDictionary 的创建"></a>NSDictionary 的创建</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">instancetype</span>)dictionary;</div><div class="line">+ (<span class="keyword">instancetype</span>)dictionaryWithObject:(<span class="keyword">id</span>)object forKey:(<span class="keyword">id</span> &lt;<span class="built_in">NSCopying</span>&gt;)key;</div><div class="line">+ (<span class="keyword">instancetype</span>)dictionaryWithObjectsAndKeys:(<span class="keyword">id</span>)firstObject, ...;</div><div class="line">+ (<span class="keyword">id</span>)dictionaryWithContentsOfFile:(<span class="built_in">NSString</span> *)path;</div><div class="line">+ (<span class="keyword">id</span>)dictionaryWithContentsOfURL:(<span class="built_in">NSURL</span> *)url;</div></pre></td></tr></table></figure>
 
           
         
@@ -1772,7 +1814,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1813,7 +1855,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-count">86</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1821,7 +1863,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1830,7 +1872,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">49</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
