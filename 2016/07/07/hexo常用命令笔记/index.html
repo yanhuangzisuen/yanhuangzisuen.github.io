@@ -104,20 +104,32 @@
 
 <meta name="description" content="hexonpm install hexo -g #安装  
 npm update hexo -g #升级  
-hexo init #初始化">
+hexo init #初始化
+简写hexo n &amp;quot;我的博客&amp;quot; == hexo new &amp;quot;我的博客&amp;quot; #新建文章
+hexo p == hexo publish
+hexo g == hexo generate#生成
+hexo s == hexo serv">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo常用命令笔记">
 <meta property="og:url" content="http://yoursite.com/2016/07/07/hexo常用命令笔记/index.html">
 <meta property="og:site_name" content="颜文字">
 <meta property="og:description" content="hexonpm install hexo -g #安装  
 npm update hexo -g #升级  
-hexo init #初始化">
-<meta property="og:updated_time" content="2016-07-07T03:42:40.000Z">
+hexo init #初始化
+简写hexo n &amp;quot;我的博客&amp;quot; == hexo new &amp;quot;我的博客&amp;quot; #新建文章
+hexo p == hexo publish
+hexo g == hexo generate#生成
+hexo s == hexo serv">
+<meta property="og:updated_time" content="2016-07-07T04:00:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo常用命令笔记">
 <meta name="twitter:description" content="hexonpm install hexo -g #安装  
 npm update hexo -g #升级  
-hexo init #初始化">
+hexo init #初始化
+简写hexo n &amp;quot;我的博客&amp;quot; == hexo new &amp;quot;我的博客&amp;quot; #新建文章
+hexo p == hexo publish
+hexo g == hexo generate#生成
+hexo s == hexo serv">
 
 
 
@@ -318,6 +330,25 @@ hexo init #初始化">
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -355,7 +386,31 @@ hexo init #初始化">
         <h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><pre><code>npm install hexo -g #安装  
 npm update hexo -g #升级  
 hexo init #初始化
-</code></pre>
+</code></pre><h3 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h3><pre><code>hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot; #新建文章
+hexo p == hexo publish
+hexo g == hexo generate#生成
+hexo s == hexo server #启动服务预览
+hexo d == hexo deploy#部署
+</code></pre><h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><pre><code>hexo server #Hexo 会监视文件变动并自动更新，您无须重启服务器。
+hexo server -s #静态模式
+hexo server -p 5000 #更改端口
+hexo server -i 192.168.1.1 #自定义 IP
+
+hexo clean #清除缓存 网页正常情况下可以忽略此条命令
+hexo g #生成静态网页
+hexo d #开始部署
+</code></pre><h3 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h3><pre><code>hexo generate #使用 Hexo 生成静态文件快速而且简单
+hexo generate --watch #监视文件变动
+</code></pre><h3 id="完成后部署"><a href="#完成后部署" class="headerlink" title="完成后部署"></a>完成后部署</h3><pre><code>两个命令的作用是相同的
+hexo generate --deploy
+hexo deploy --generate
+</code></pre><p><code>hexo deploy -g</code></p>
+<p><code>hexo server -g</code></p>
+<h3 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h3><p><code>hexo publish [layout] &lt;title&gt;</code></p>
+<h3 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h3><p><code>hexo new &quot;postName&quot;</code> #新建文章</p>
+<p>hexo new page “pageName” #新建页面<br>hexo generate #生成静态页面至public目录<br>hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）<br>hexo deploy #将.deploy目录部署到GitHub</p>
+<p>hexo new [layout] <title><br>hexo new photo “My Gallery”<br>hexo new “Hello World” –lang tw</title></p>
+
       
     </div>
 
@@ -473,6 +528,13 @@ hexo init #初始化
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
 
@@ -519,7 +581,7 @@ hexo init #初始化
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo"><span class="nav-number">1.</span> <span class="nav-text">hexo</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo"><span class="nav-number">1.</span> <span class="nav-text">hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简写"><span class="nav-number">2.</span> <span class="nav-text">简写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器"><span class="nav-number">3.</span> <span class="nav-text">服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监视文件变动"><span class="nav-number">4.</span> <span class="nav-text">监视文件变动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完成后部署"><span class="nav-number">5.</span> <span class="nav-text">完成后部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#草稿"><span class="nav-number">6.</span> <span class="nav-text">草稿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模版"><span class="nav-number">7.</span> <span class="nav-text">模版</span></a></li></ol></div>
             
           </div>
         </section>
