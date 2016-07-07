@@ -1,0 +1,865 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="多线程," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="一、多线程的基本概念1、多线程的基本概念
+同步:顺序执行
+异步:同时运行
+进程:正在运行的程序,一个或多个线程组成
+线程:最基本的执行单元
+
+2、特征
+(单核CPU)同一时间,cpu只能处理1个线程,只有1个线程在执行 
+多线程同时执行:是CPU快速的在多个线程之间的切换
+cpu调度线程的时间足够快,就造成了多线程的“同时”执行
+如果线程数非常多,cpu会在n个线程之间切换,消耗大量的cpu资源">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程概念和NSThread">
+<meta property="og:url" content="http://yoursite.com/2016/07/07/多线程的基本概念/index.html">
+<meta property="og:site_name" content="颜文字">
+<meta property="og:description" content="一、多线程的基本概念1、多线程的基本概念
+同步:顺序执行
+异步:同时运行
+进程:正在运行的程序,一个或多个线程组成
+线程:最基本的执行单元
+
+2、特征
+(单核CPU)同一时间,cpu只能处理1个线程,只有1个线程在执行 
+多线程同时执行:是CPU快速的在多个线程之间的切换
+cpu调度线程的时间足够快,就造成了多线程的“同时”执行
+如果线程数非常多,cpu会在n个线程之间切换,消耗大量的cpu资源">
+<meta property="og:updated_time" content="2016-07-07T08:46:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多线程概念和NSThread">
+<meta name="twitter:description" content="一、多线程的基本概念1、多线程的基本概念
+同步:顺序执行
+异步:同时运行
+进程:正在运行的程序,一个或多个线程组成
+线程:最基本的执行单元
+
+2、特征
+(单核CPU)同一时间,cpu只能处理1个线程,只有1个线程在执行 
+多线程同时执行:是CPU快速的在多个线程之间的切换
+cpu调度线程的时间足够快,就造成了多线程的“同时”执行
+如果线程数非常多,cpu会在n个线程之间切换,消耗大量的cpu资源">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/07/多线程的基本概念/"/>
+
+  <title> 多线程概念和NSThread | 颜文字 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">颜文字</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'iRPRT9JgJfvxEsHZRgKm','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                多线程概念和NSThread
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/多线程的基本概念/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/多线程的基本概念/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、多线程的基本概念"><a href="#一、多线程的基本概念" class="headerlink" title="一、多线程的基本概念"></a>一、多线程的基本概念</h2><h4 id="1、多线程的基本概念"><a href="#1、多线程的基本概念" class="headerlink" title="1、多线程的基本概念"></a>1、多线程的基本概念</h4><ol>
+<li>同步:顺序执行</li>
+<li>异步:同时运行</li>
+<li>进程:正在运行的程序,一个或多个线程组成</li>
+<li>线程:最基本的执行单元</li>
+</ol>
+<h4 id="2、特征"><a href="#2、特征" class="headerlink" title="2、特征"></a>2、特征</h4><ul>
+<li>(单核CPU)同一时间,cpu只能处理1个线程,只有1个线程在执行 </li>
+<li>多线程同时执行:是CPU快速的在多个线程之间的切换</li>
+<li>cpu调度线程的时间足够快,就造成了多线程的“同时”执行</li>
+<li>如果线程数非常多,cpu会在n个线程之间切换,消耗大量的cpu资源 </li>
+<li>每个线程被调度的次数会降低,线程的执行效率降低 </li>
+</ul>
+<h6 id="多线程的优点"><a href="#多线程的优点" class="headerlink" title="多线程的优点"></a>多线程的优点</h6><ul>
+<li>能<strong>适当</strong>提高程序的执行效率</li>
+<li>能<strong>适当</strong>提高资源的利用率（CPU&amp;内存）</li>
+<li>线程上得任务执行完后自动销毁</li>
+</ul>
+<h6 id="多线程的缺点"><a href="#多线程的缺点" class="headerlink" title="多线程的缺点"></a>多线程的缺点</h6><ul>
+<li>开启线程需要占用一定的内存空间(默认情况下,每一个线程都占512KB) </li>
+<li>如果开启大量的线程,会占用大量的内存空间,降低程序的性能</li>
+<li>线程越多,cpu在调用线程上的开销就越大</li>
+<li>程序设计更加复杂,比如线程间的通信、多线程的数据共享 </li>
+<li><strong>时间成本和空间成本</strong></li>
+</ul>
+<h6 id="主线程"><a href="#主线程" class="headerlink" title="主线程"></a>主线程</h6><ul>
+<li>一个程序运行后,默认会开启1个线程,称为“主线程”或“UI线程”</li>
+<li>主线程一般用来 刷新UI界面 ,处理UI事件(比如:点击、滚动、拖拽等事件) </li>
+<li>主线程使用注意 <ul>
+<li>别将耗时的操作放到主线程中</li>
+<li>耗时操作会卡住主线程,严重影响UI的流畅度,给用户一种卡的坏体验</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、NSThread"><a href="#二、NSThread" class="headerlink" title="二、NSThread"></a>二、NSThread</h2><h4 id="1、创建和启动线程"><a href="#1、创建和启动线程" class="headerlink" title="1、创建和启动线程"></a>1、创建和启动线程</h4><p><strong>一个NSThread对象就代表一条线程</strong></p>
+<h6 id="创建、启动线程"><a href="#创建、启动线程" class="headerlink" title="创建、启动线程"></a>创建、启动线程</h6><pre><code>NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run) object:nil];
+[thread start];
+// 线程一启动，就会在线程thread中执行self的run方法
+</code></pre><h6 id="其他创建线程方式"><a href="#其他创建线程方式" class="headerlink" title="其他创建线程方式"></a>其他创建线程方式</h6><p>1、创建线程后自动启动线程</p>
+<pre><code>[NSThread detachNewThreadSelector:@selector(run) toTarget:self withObject:nil];
+</code></pre><p>2、隐式创建并启动线程</p>
+<pre><code>[self performSelectorInBackground:@selector(run) withObject:nil];
+</code></pre><p>3、上述2种创建线程方式的优缺点</p>
+<pre><code>优点：简单快捷
+缺点：无法对线程进行更详细的设置
+</code></pre><h4 id="2、控制线程状态"><a href="#2、控制线程状态" class="headerlink" title="2、控制线程状态"></a>2、控制线程状态</h4><h6 id="启动线程"><a href="#启动线程" class="headerlink" title="启动线程"></a>启动线程</h6><pre><code>- (void)start; 
+</code></pre><p>// 进入就绪状态 -&gt; 运行状态。当线程任务执行完毕，自动进入死亡状态</p>
+<h6 id="阻塞（暂停）线程"><a href="#阻塞（暂停）线程" class="headerlink" title="阻塞（暂停）线程"></a>阻塞（暂停）线程</h6><pre><code>+ (void)sleepUntilDate:(NSDate *)date;
++ (void)sleepForTimeInterval:(NSTimeInterval)ti;
+</code></pre><p>// 进入阻塞状态</p>
+<h6 id="强制停止线程"><a href="#强制停止线程" class="headerlink" title="强制停止线程"></a>强制停止线程</h6><pre><code>+ (void)exit;
+</code></pre><p>// 进入死亡状态</p>
+<p><strong>注意：一旦线程停止（死亡）了，就不能再次开启任务</strong></p>
+<h4 id="3、常用属性方法"><a href="#3、常用属性方法" class="headerlink" title="3、常用属性方法"></a>3、常用属性方法</h4><h6 id="获得当前线程"><a href="#获得当前线程" class="headerlink" title="获得当前线程"></a>获得当前线程</h6><pre><code>NSThread *current = [NSThread currentThread];
+</code></pre><h6 id="线程的调度优先级"><a href="#线程的调度优先级" class="headerlink" title="线程的调度优先级"></a>线程的调度优先级</h6><pre><code>+ (double)threadPriority;
+</code></pre><p>调度优先级的取值范围是0.0 ~ 1.0，默认0.5，值越大，优先级越高</p>
+<h6 id="线程的名字"><a href="#线程的名字" class="headerlink" title="线程的名字"></a>线程的名字</h6><pre><code>- (void)setName:(NSString *)n;
+- (NSString *)name;
+</code></pre><h6 id="主线程相关用法"><a href="#主线程相关用法" class="headerlink" title="主线程相关用法"></a>主线程相关用法</h6><pre><code>+ (NSThread *)mainThread; // 获得主线程
+- (BOOL)isMainThread; // 是否为主线程
+</code></pre><h4 id="4、多线程的安全隐患"><a href="#4、多线程的安全隐患" class="headerlink" title="4、多线程的安全隐患"></a>4、多线程的安全隐患</h4><h6 id="资源共享"><a href="#资源共享" class="headerlink" title="资源共享"></a>资源共享</h6><ul>
+<li>1块资源可能会被多个线程共享，也就是多个线程可能会访问同一块资源</li>
+<li>比如多个线程访问同一个对象、同一个变量、同一个文件</li>
+<li>当多个线程访问同一块资源时，很容易引发数据错乱和数据安全问题</li>
+</ul>
+<h4 id="5、安全隐患解决-–-互斥锁"><a href="#5、安全隐患解决-–-互斥锁" class="headerlink" title="5、安全隐患解决 – 互斥锁"></a>5、安全隐患解决 – 互斥锁</h4><h6 id="互斥锁使用格式"><a href="#互斥锁使用格式" class="headerlink" title="互斥锁使用格式"></a>互斥锁使用格式</h6><pre><code>@synchronized(锁对象) { // 需要锁定的代码  }
+</code></pre><p><strong>注意：锁定1份代码只用1把锁，用多把锁是无效的</strong></p>
+<h6 id="互斥锁的优缺点"><a href="#互斥锁的优缺点" class="headerlink" title="互斥锁的优缺点"></a>互斥锁的优缺点</h6><pre><code>优点：能有效防止因多线程抢夺资源造成的数据安全问题
+缺点：需要消耗大量的CPU资源
+</code></pre><p><strong>互斥锁的使用前提：多条线程抢夺同一块资源</strong></p>
+<h6 id="相关专业术语：线程同步"><a href="#相关专业术语：线程同步" class="headerlink" title="相关专业术语：线程同步"></a>相关专业术语：线程同步</h6><pre><code>线程同步的意思是：多条线程按顺序地执行任务
+互斥锁，就是使用了线程同步技术
+</code></pre><h4 id="6、原子和非原子属性"><a href="#6、原子和非原子属性" class="headerlink" title="6、原子和非原子属性"></a>6、原子和非原子属性</h4><h6 id="OC在定义属性时有nonatomic和atomic两种选择"><a href="#OC在定义属性时有nonatomic和atomic两种选择" class="headerlink" title="OC在定义属性时有nonatomic和atomic两种选择"></a>OC在定义属性时有nonatomic和atomic两种选择</h6><ul>
+<li>atomic：原子属性，为setter方法加锁（默认就是atomic）</li>
+<li>nonatomic：非原子属性，不会为setter方法加锁</li>
+</ul>
+<h4 id="7、线程间通信"><a href="#7、线程间通信" class="headerlink" title="7、线程间通信"></a>7、线程间通信</h4><h6 id="什么叫做线程间通信"><a href="#什么叫做线程间通信" class="headerlink" title="什么叫做线程间通信"></a>什么叫做线程间通信</h6><p>在1个进程中，线程往往不是孤立存在的，多个线程之间需要经常进行通信</p>
+<h6 id="线程间通信的体现"><a href="#线程间通信的体现" class="headerlink" title="线程间通信的体现"></a>线程间通信的体现</h6><ul>
+<li>1个线程传递数据给另1个线程</li>
+<li>在1个线程中执行完特定任务后，转到另1个线程继续执行任务</li>
+</ul>
+<h6 id="线程间通信常用方法"><a href="#线程间通信常用方法" class="headerlink" title="线程间通信常用方法"></a>线程间通信常用方法</h6><pre><code>- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(id)arg waitUntilDone:(BOOL)wait;
+- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(id)arg waitUntilDone:(BOOL)wait;
+</code></pre><h4 id="8、什么时候使用自动释放池"><a href="#8、什么时候使用自动释放池" class="headerlink" title="8、什么时候使用自动释放池"></a>8、什么时候使用自动释放池</h4><p><strong>If you write a loop that creates many temporary objects.</strong><br>You may use an autorelease pool block inside the loop to dispose of those objects before the next iteration. Using an autorelease pool block in the loop helps to reduce the maximum memory footprint of the application. </p>
+<p>循环中创建了许多临时对象，在循环里面使用自动释放池，用来减少高内存占用。</p>
+<p><strong>If you spawn a secondary thread.</strong><br>You must create your own autorelease pool block as soon as the thread begins executing; otherwise, your application will leak objects. (See Autorelease Pool Blocks and Threads for details.) </p>
+<p>开启子线程的时候要自己创建自动释放池，否则可能会发生内存泄露</p>
+<h6 id="自动释放池常见面试代码"><a href="#自动释放池常见面试代码" class="headerlink" title="自动释放池常见面试代码"></a>自动释放池常见面试代码</h6><pre><code>for (int i = 0; i &lt; largeNumber; ++i) {
+    NSString *str = @&quot;Hello World&quot;;
+    str = [str stringByAppendingFormat:@&quot; - %d&quot;, i];
+    str = [str uppercaseString];
+    NSLog(@&quot;%@&quot;, str);
+}
+</code></pre><p><strong>在for循环内部加入一个自动释放池</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/多线程/" rel="tag">#多线程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/07/layoutsubviews/" rel="prev" title="LayoutSubViews">
+                LayoutSubViews <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/07/多线程的基本概念/"
+           data-title="多线程概念和NSThread" data-url="http://yoursite.com/2016/07/07/多线程的基本概念/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=697890588,3646918970&fm=116&gp=0.jpg"
+               alt="颜文字" />
+          <p class="site-author-name" itemprop="name">颜文字</p>
+          <p class="site-description motion-element" itemprop="description">颜貌岁岁改，波澜誓不起。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">97</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yanhuangzisuen" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/yanyan767006743" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、多线程的基本概念"><span class="nav-number">1.</span> <span class="nav-text">一、多线程的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、多线程的基本概念"><span class="nav-number">1.0.1.</span> <span class="nav-text">1、多线程的基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、特征"><span class="nav-number">1.0.2.</span> <span class="nav-text">2、特征</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#多线程的优点"><span class="nav-number">1.0.2.0.1.</span> <span class="nav-text">多线程的优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#多线程的缺点"><span class="nav-number">1.0.2.0.2.</span> <span class="nav-text">多线程的缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#主线程"><span class="nav-number">1.0.2.0.3.</span> <span class="nav-text">主线程</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、NSThread"><span class="nav-number">2.</span> <span class="nav-text">二、NSThread</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、创建和启动线程"><span class="nav-number">2.0.1.</span> <span class="nav-text">1、创建和启动线程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#创建、启动线程"><span class="nav-number">2.0.1.0.1.</span> <span class="nav-text">创建、启动线程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#其他创建线程方式"><span class="nav-number">2.0.1.0.2.</span> <span class="nav-text">其他创建线程方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、控制线程状态"><span class="nav-number">2.0.2.</span> <span class="nav-text">2、控制线程状态</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#启动线程"><span class="nav-number">2.0.2.0.1.</span> <span class="nav-text">启动线程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#阻塞（暂停）线程"><span class="nav-number">2.0.2.0.2.</span> <span class="nav-text">阻塞（暂停）线程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#强制停止线程"><span class="nav-number">2.0.2.0.3.</span> <span class="nav-text">强制停止线程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、常用属性方法"><span class="nav-number">2.0.3.</span> <span class="nav-text">3、常用属性方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#获得当前线程"><span class="nav-number">2.0.3.0.1.</span> <span class="nav-text">获得当前线程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#线程的调度优先级"><span class="nav-number">2.0.3.0.2.</span> <span class="nav-text">线程的调度优先级</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#线程的名字"><span class="nav-number">2.0.3.0.3.</span> <span class="nav-text">线程的名字</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#主线程相关用法"><span class="nav-number">2.0.3.0.4.</span> <span class="nav-text">主线程相关用法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、多线程的安全隐患"><span class="nav-number">2.0.4.</span> <span class="nav-text">4、多线程的安全隐患</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#资源共享"><span class="nav-number">2.0.4.0.1.</span> <span class="nav-text">资源共享</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、安全隐患解决-–-互斥锁"><span class="nav-number">2.0.5.</span> <span class="nav-text">5、安全隐患解决 – 互斥锁</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#互斥锁使用格式"><span class="nav-number">2.0.5.0.1.</span> <span class="nav-text">互斥锁使用格式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#互斥锁的优缺点"><span class="nav-number">2.0.5.0.2.</span> <span class="nav-text">互斥锁的优缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#相关专业术语：线程同步"><span class="nav-number">2.0.5.0.3.</span> <span class="nav-text">相关专业术语：线程同步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、原子和非原子属性"><span class="nav-number">2.0.6.</span> <span class="nav-text">6、原子和非原子属性</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#OC在定义属性时有nonatomic和atomic两种选择"><span class="nav-number">2.0.6.0.1.</span> <span class="nav-text">OC在定义属性时有nonatomic和atomic两种选择</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、线程间通信"><span class="nav-number">2.0.7.</span> <span class="nav-text">7、线程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#什么叫做线程间通信"><span class="nav-number">2.0.7.0.1.</span> <span class="nav-text">什么叫做线程间通信</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#线程间通信的体现"><span class="nav-number">2.0.7.0.2.</span> <span class="nav-text">线程间通信的体现</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#线程间通信常用方法"><span class="nav-number">2.0.7.0.3.</span> <span class="nav-text">线程间通信常用方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8、什么时候使用自动释放池"><span class="nav-number">2.0.8.</span> <span class="nav-text">8、什么时候使用自动释放池</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#自动释放池常见面试代码"><span class="nav-number">2.0.8.0.1.</span> <span class="nav-text">自动释放池常见面试代码</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">颜文字</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yancode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

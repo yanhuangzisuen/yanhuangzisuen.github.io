@@ -1342,8 +1342,261 @@ iii.NSOperation里提供的方便的操作
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/autoresizing/" itemprop="url">
-                  Autoresizing
+                <a class="post-title-link" href="/2016/07/07/hexo常用命令笔记/" itemprop="url">
+                  hexo常用命令笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/hexo常用命令笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/hexo常用命令笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><pre><code>npm install hexo -g #安装  
+npm update hexo -g #升级  
+hexo init #初始化
+</code></pre><h3 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h3><pre><code>hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot; #新建文章
+hexo p == hexo publish
+hexo g == hexo generate#生成
+hexo s == hexo server #启动服务预览
+hexo d == hexo deploy#部署
+</code></pre><h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><pre><code>hexo server #Hexo 会监视文件变动并自动更新，您无须重启服务器。
+hexo server -s #静态模式
+hexo server -p 5000 #更改端口
+hexo server -i 192.168.1.1 #自定义 IP
+
+hexo clean #清除缓存 网页正常情况下可以忽略此条命令
+hexo g #生成静态网页
+hexo d #开始部署
+</code></pre><h3 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h3><pre><code>hexo generate #使用 Hexo 生成静态文件快速而且简单
+hexo generate --watch #监视文件变动
+</code></pre><h3 id="完成后部署"><a href="#完成后部署" class="headerlink" title="完成后部署"></a>完成后部署</h3><pre><code>两个命令的作用是相同的
+hexo generate --deploy
+hexo deploy --generate
+</code></pre><p><code>hexo deploy -g</code><br><code>hexo server -g</code></p>
+<h3 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h3><p><code>hexo publish [layout] &lt;title&gt;</code></p>
+<h3 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h3><p><code>hexo new &quot;postName&quot;</code> #新建文章</p>
+<p><code>hexo new page &quot;pageName&quot;</code> #新建页面<br><code>hexo generate</code> #生成静态页面至public目录<br><code>hexo server</code> #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）<br><code>hexo deploy</code> #将.deploy目录部署到GitHub</p>
+<p><code>hexo new [layout] &lt;title&gt;</code><br><code>hexo new photo &quot;My Gallery&quot;</code><br><code>hexo new &quot;Hello World&quot; --lang tw</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">变量</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">layout</td>
+<td style="text-align:left">布局</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">title</td>
+<td style="text-align:left">标题</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">date</td>
+<td style="text-align:left">文件建立日期</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">title: 使用Hexo搭建个人博客</div><div class="line">layout: post</div><div class="line">date: 2014-03-03 19:07:43</div><div class="line">comments: true</div><div class="line">categories: Blog</div><div class="line">tags: [Hexo]</div><div class="line">keywords: Hexo, Blog</div><div class="line">description: 生命在于折腾，又把博客折腾到Hexo了。给Hexo点赞。</div></pre></td></tr></table></figure>
+<h3 id="模版（Scaffold）"><a href="#模版（Scaffold）" class="headerlink" title="模版（Scaffold）"></a>模版（Scaffold）</h3><p><code>hexo new photo &quot;My Gallery&quot;</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">变量</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">layout</td>
+<td style="text-align:left">布局</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">title</td>
+<td style="text-align:left">标题</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">date</td>
+<td style="text-align:left">文件建立日期</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="设置文章摘要"><a href="#设置文章摘要" class="headerlink" title="设置文章摘要"></a>设置文章摘要</h3><pre><code>以上是文章摘要 &lt;!--more--&gt; 以下是余下全文
+</code></pre><h3 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h3><p><code>hexo new page &lt;title&gt;</code><br><code>hexo new post &lt;title&gt;</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">变量</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">:title</td>
+<td style="text-align:left">标题</td>
+</tr>
+<tr>
+<td style="text-align:left">:year</td>
+<td style="text-align:left">建立的年份（4 位数）</td>
+</tr>
+<tr>
+<td style="text-align:left">:month</td>
+<td style="text-align:left">建立的月份（2 位数）</td>
+</tr>
+<tr>
+<td style="text-align:left">:i_month</td>
+<td style="text-align:left">建立的月份（去掉开头的零）</td>
+</tr>
+<tr>
+<td style="text-align:left">:day</td>
+<td style="text-align:left">建立的日期（2 位数）</td>
+</tr>
+<tr>
+<td style="text-align:left">:i_day</td>
+<td style="text-align:left">建立的日期（去掉开头的零</td>
+</tr>
+</tbody>
+</table>
+<h3 id="推送到服务器上"><a href="#推送到服务器上" class="headerlink" title="推送到服务器上"></a>推送到服务器上</h3><p><code>hexo n</code> #写文章<br><code>hexo g</code> #生成<br><code>hexo d</code> #部署 #可与 <code>hexo g</code> 合并为 <code>hexo d -g</code></p>
+<h3 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h3><h4 id="1-找不到git部署"><a href="#1-找不到git部署" class="headerlink" title="1.找不到git部署"></a>1.找不到git部署</h4><pre><code>ERROR Deployer not found: git
+</code></pre><p><strong>解决方法:</strong></p>
+<p><code>npm install hexo-deployer-git --save</code></p>
+<h4 id="2-部署类型设置git"><a href="#2-部署类型设置git" class="headerlink" title="2.部署类型设置git"></a>2.部署类型设置git</h4><p>hexo 3.0 部署类型不再是<code>github</code>，<code>_config.yml</code> 中修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># Deployment</div><div class="line">## Docs: http://hexo.io/docs/deployment.html</div><div class="line">deploy:</div><div class="line">  type: git</div><div class="line">  repository: git@***.github.com:***/***.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+<h4 id="3-Xcodebuild"><a href="#3-Xcodebuild" class="headerlink" title="3.Xcodebuild"></a>3.Xcodebuild</h4><p>xcode-select: error: tool ‘xcodebuild’ requires Xcode, but active developer directory ‘/Library/Developer/CommandLineTools’ is a command line tools instance</p>
+<p><code>npm install bcrypt</code></p>
+<h4 id="4-RSS不显示"><a href="#4-RSS不显示" class="headerlink" title="4.RSS不显示"></a>4.RSS不显示</h4><p><strong>安装RSS插件</strong></p>
+<p><code>npm install hexo-generator-feed --save</code></p>
+<p><strong>开启RSS功能</strong></p>
+<p>编辑hexo/_config.yml，添加如下代码：</p>
+<pre><code>rss: /atom.xml #rss地址  默认即可
+</code></pre><h4 id="5-开启评论"><a href="#5-开启评论" class="headerlink" title="5.开启评论"></a>5.开启评论</h4><p>1.我使用多说代替自带的评论，在多说 网站注册 &gt; 后台管理 &gt; 添加新站点 &gt; 工具 === 复制通用代码 里面有 short_name</p>
+<ol>
+<li>在根目录 _config.yml 添加一行 disqus_shortname: jslite 是在多说注册时产生的</li>
+<li>复制到 themes\landscape\layout_partial\article.ejs<br>把</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;% if (!index &amp;&amp; post.comments &amp;&amp; config.disqus_shortname)&#123; %&gt;</div><div class="line">&lt;section id="comments"&gt;</div><div class="line">&lt;div id="disqus_thread"&gt;</div><div class="line">  &lt;noscript&gt;Please enable JavaScript to view the &lt;a href="//disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/section&gt;</div><div class="line">&lt;% &#125; %&gt;</div></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;% if (!index &amp;&amp; post.comments &amp;&amp; config.disqus_shortname)&#123; %&gt;</div><div class="line">  &lt;section id="comments"&gt;</div><div class="line">    &lt;!-- 多说评论框 start --&gt;</div><div class="line">    &lt;div class="ds-thread" data-thread-key="&lt;%= post.layout %&gt;-&lt;%= post.slug %&gt;" data-title="&lt;%= post.title %&gt;" data-url="&lt;%= page.permalink %&gt;"&gt;&lt;/div&gt;</div><div class="line">    &lt;!-- 多说评论框 end --&gt;</div><div class="line">    &lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;</div><div class="line">    &lt;script type="text/javascript"&gt;</div><div class="line">    var duoshuoQuery = &#123;short_name:'&lt;%= config.disqus_shortname %&gt;'&#125;;</div><div class="line">      (function() &#123;</div><div class="line">        var ds = document.createElement('script');</div><div class="line">        ds.type = 'text/javascript';ds.async = true;</div><div class="line">        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';</div><div class="line">        ds.charset = 'UTF-8';</div><div class="line">        (document.getElementsByTagName('head')[0] </div><div class="line">         || document.getElementsByTagName('body')[0]).appendChild(ds);</div><div class="line">      &#125;)();</div><div class="line">      &lt;/script&gt;</div><div class="line">    &lt;!-- 多说公共JS代码 end --&gt;</div><div class="line">  &lt;/section&gt;</div><div class="line">&lt;% &#125; %&gt;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/layoutsubviews/" itemprop="url">
+                  LayoutSubViews
                 </a>
               
             
@@ -1386,8 +1639,8 @@ iii.NSOperation里提供的方便的操作
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/autoresizing/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/autoresizing/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/layoutsubviews/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/layoutsubviews/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1412,39 +1665,32 @@ iii.NSOperation里提供的方便的操作
       
         
           
-            <p>##autoresizing<br>    外部的四根线: 保持与父 view 的距离不变<br>    内部的两根线: 保持宽度和高度随着父 view 的改变而改变<br>    局限: 只能设置子 view 和父 view 之间的约束</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIViewAutoresizingNone</span>                     外部四根线都都选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleLeftMargin</span>       左侧灵活, 即右侧勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleWidth</span>            宽度灵活, 即宽度勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleRightMargin</span>      右侧灵活, 即左侧勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleTopMargin</span>        上侧灵活, 即下侧勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleHeight</span>           高度灵活, 即高度勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleBottomMargin</span>     下侧灵活, 即上侧勾选</div><div class="line"></div><div class="line"><span class="comment">//eg:</span></div><div class="line">blueView.autoresizingMask = <span class="built_in">UIViewAutoresizingFlexibleTopMargin</span> | <span class="built_in">UIViewAutoresizingFlexibleLeftMargin</span>;</div></pre></td></tr></table></figure>
-<p>###autolayout</p>
-<ul>
-<li>约束</li>
-<li>参照</li>
-<li>核心公式: 宽度<ul>
-<li>被约束 view 的宽度 = 参照 view 的宽度 * 系数 + 常量 constant</li>
-</ul>
+            <h2 id="layoutSubviews总结"><a href="#layoutSubviews总结" class="headerlink" title="layoutSubviews总结"></a>layoutSubviews总结</h2><ul>
+<li><p>1.iOS layout机制相关方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">CGSize</span>)sizeThatFits:(<span class="built_in">CGSize</span>)size</div><div class="line">- (<span class="keyword">void</span>)sizeToFit</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)layoutSubviews</div><div class="line">- (<span class="keyword">void</span>)layoutIfNeeded</div><div class="line">- (<span class="keyword">void</span>)setNeedsLayout</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setNeedsDisplay</div><div class="line">- (<span class="keyword">void</span>)drawRect</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.layoutSubviews 被调用的情况</p>
 </li>
 </ul>
-<p>###NSLayoutConstraint</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span>init 初始化时不会触发 layoutSubview, 但是使用 initWithFrame: 进行初始化时, 当 rect 的值不为 <span class="built_in">CGRectZero</span> 时, 会触发</div><div class="line"><span class="number">2.</span>addSubview 会触发 layoutSubviews</div><div class="line"><span class="number">3.</span>设置 view 的Frame 会触发 layoutSubviews, 前提是 Fraame的值前后发生变化</div><div class="line"><span class="number">4.</span>滚动一个 <span class="built_in">UIScrollView</span> 会触发 layoutSubviews</div><div class="line"><span class="number">5.</span>旋转 Screen 会触发 父View 上的 layoutSubviews 事件</div><div class="line"><span class="number">6.</span>改变一个 <span class="built_in">UIView</span> 大小的时候, 也会触发 父View 上的 layoutSubviews 事件</div><div class="line">在苹果的官方文档中强调:</div><div class="line">   You should override <span class="keyword">this</span> method only <span class="keyword">if</span> the autoresizing and constraint-based behaviors of the subviews <span class="keyword">do</span> not offer the behavior you want.</div><div class="line">   只要调整尺寸和基于约束的行为的子视图不提供你想要的行为时, 你应重写此方法</div></pre></td></tr></table></figure>
 <ul>
-<li>VFL<ul>
-<li>可视化格式语言</li>
+<li>3.刷新子对象布局</li>
 </ul>
-</li>
-<li>Masonry<ul>
-<li>第三方框架</li>
-<li>两个宏定义, 要放在导入头文件之前</li>
-<li>mas_</li>
-<li>自动装箱</li>
-</ul>
-</li>
-</ul>
-<p>###sizeClass</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- layoutSubviews: 这个方法默认没有做任何事情, 需要子类进行重写</div><div class="line">- setNeedsLayout: 标记为需要重新布局, 异步调用 layoutIfNeeded 刷新布局, 不立即刷新, 但 layoutSubviews 一定会调用</div><div class="line">- layoutIfNeeded: 如果有需要刷新的标记, 立即调用 layoutSubviews 进行布局, 如果没有标记, 不会调用 layoutSubviews</div><div class="line">对于 layoutSubviews 文档中还指出:</div><div class="line">    You should not call <span class="keyword">this</span> method directly. If you want to force a layout update, call the setNeedsLayout method instead to <span class="keyword">do</span> so prior to the next drawing update. If you want to update the layout of your views immediately, call the layoutIfNeeded method</div><div class="line">    你不应该直接调用该方法, 如果你想更新布局, 在更新布局之前调用 [view setNeedsLayout] 方法. 如果你想立即更新你的视图, 则调用 [view layoutIfNeeded] 方法.</div><div class="line">在视图第一次显示之前, 标记总是 <span class="string">"需要刷新"</span> 的, 可以直接调用 [view layoutIfNeeded]</div></pre></td></tr></table></figure>
 <ul>
-<li>把屏幕划分为九种</li>
-<li>any          任意       *</li>
-<li>compact   紧凑型  -</li>
-<li>regular     宽松型  +</li>
-<li>installed 属性 : 在不同类型的屏幕上面可以添加或取消控件</li>
+<li>4.重绘</li>
 </ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- drawRect:(<span class="built_in">CGRect</span>)rect: 重写此方法, 执行重绘任务</div><div class="line">- setNeedsDisplay: 标记为需要重绘, 异步调用 drawRect: 方法</div><div class="line">- setNeedsDisolayInRect:(<span class="built_in">CGRect</span>)invalidRect: 标记需要局部重绘</div></pre></td></tr></table></figure>
+<ul>
+<li>5.sizeToFit 与 sizeThatFits:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)sizeToFit</div><div class="line">sizeToFit 可以被手动直接调用</div><div class="line">调用 sizeToFit 会自动调用 sizeThatFits: 方法</div><div class="line">sizeToFit 不应该在子类中被重写, 应该重写 - (<span class="built_in">CGSize</span>)sizeThatFits:(<span class="built_in">CGSize</span>)size</div><div class="line"><span class="comment">/**</span></div><div class="line"> *  调整尺寸</div><div class="line"> *</div><div class="line"> *  @param size receiver当前的尺寸</div><div class="line"> *</div><div class="line"> *  @return 返回一个合适的尺寸</div><div class="line"> */</div><div class="line">- (<span class="built_in">CGSize</span>)sizeThatFits:(<span class="built_in">CGSize</span>)size</div></pre></td></tr></table></figure>
+<ul>
+<li>6.layoutSubviews 与 drawRect</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">layoutSubviews 对 subviews 重新布局</div><div class="line"></div><div class="line">layoutSubviews 方法调用先于 drawRect</div><div class="line"></div><div class="line">setNeedsLayout 在receiver标上一个需要被重新布局的标记，在系统 runloop 的下一个周期自动调用 layoutSubviews</div><div class="line"></div><div class="line">layoutIfNeeded 方法如其名，<span class="built_in">UIKit</span> 会判断该receiver是否需要 layout.根据Apple官方文档, layoutIfNeeded 方法应该是这样的</div><div class="line"></div><div class="line">layoutIfNeeded 遍历的不是 superview 链，应该是 subviews 链</div><div class="line"></div><div class="line">drawRect 是对receiver的重绘，能获得 context</div><div class="line"></div><div class="line">setNeedDisplay 在receiver标上一个需要被重新绘图的标记，在下一个draw周期自动重绘，iphone device的刷新频率是<span class="number">60</span>hz，也就是<span class="number">1</span>/<span class="number">60</span>秒后重绘</div></pre></td></tr></table></figure>
 
           
         
@@ -1494,8 +1740,8 @@ iii.NSOperation里提供的方便的操作
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/README/" itemprop="url">
-                  UI简介
+                <a class="post-title-link" href="/2016/07/07/多线程的基本概念/" itemprop="url">
+                  多线程概念和NSThread
                 </a>
               
             
@@ -1522,8 +1768,8 @@ iii.NSOperation里提供的方便的操作
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
                   </a>
                 </span>
 
@@ -1538,8 +1784,8 @@ iii.NSOperation里提供的方便的操作
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/README/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/README/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/多线程的基本概念/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/多线程的基本概念/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1564,65 +1810,100 @@ iii.NSOperation里提供的方便的操作
       
         
           
-            <p><code>导航控制器的push的控制器的右滑弹出功能, 清空代理, 让导航控制器将功能找回</code><br><code>self.interactivePopGestureRecognizer.delegate = nil;</code></p>
-<h2 id="stroryboard-的认识"><a href="#stroryboard-的认识" class="headerlink" title="stroryboard 的认识"></a>stroryboard 的认识</h2><ul>
-<li>用于描述软件界面</li>
-<li>默认情况下, 程序一启动就会加载 Main.storyboard</li>
-<li>加载 storyboard 时, 会首先创建和显示箭头所指的控制器界面</li>
+            <h2 id="一、多线程的基本概念"><a href="#一、多线程的基本概念" class="headerlink" title="一、多线程的基本概念"></a>一、多线程的基本概念</h2><h4 id="1、多线程的基本概念"><a href="#1、多线程的基本概念" class="headerlink" title="1、多线程的基本概念"></a>1、多线程的基本概念</h4><ol>
+<li>同步:顺序执行</li>
+<li>异步:同时运行</li>
+<li>进程:正在运行的程序,一个或多个线程组成</li>
+<li>线程:最基本的执行单元</li>
+</ol>
+<h4 id="2、特征"><a href="#2、特征" class="headerlink" title="2、特征"></a>2、特征</h4><ul>
+<li>(单核CPU)同一时间,cpu只能处理1个线程,只有1个线程在执行 </li>
+<li>多线程同时执行:是CPU快速的在多个线程之间的切换</li>
+<li>cpu调度线程的时间足够快,就造成了多线程的“同时”执行</li>
+<li>如果线程数非常多,cpu会在n个线程之间切换,消耗大量的cpu资源 </li>
+<li>每个线程被调度的次数会降低,线程的执行效率降低 </li>
 </ul>
-<h2 id="IBAction-和-IBOutlet"><a href="#IBAction-和-IBOutlet" class="headerlink" title="IBAction 和 IBOutlet"></a>IBAction 和 IBOutlet</h2><ul>
-<li>IBAction<ul>
-<li>本质就是 void</li>
-<li>能让方法具备连线的功能</li>
+<h6 id="多线程的优点"><a href="#多线程的优点" class="headerlink" title="多线程的优点"></a>多线程的优点</h6><ul>
+<li>能<strong>适当</strong>提高程序的执行效率</li>
+<li>能<strong>适当</strong>提高资源的利用率（CPU&amp;内存）</li>
+<li>线程上得任务执行完后自动销毁</li>
 </ul>
-</li>
-<li>IBOutlet<ul>
-<li>能让属性具备连线的功能</li>
+<h6 id="多线程的缺点"><a href="#多线程的缺点" class="headerlink" title="多线程的缺点"></a>多线程的缺点</h6><ul>
+<li>开启线程需要占用一定的内存空间(默认情况下,每一个线程都占512KB) </li>
+<li>如果开启大量的线程,会占用大量的内存空间,降低程序的性能</li>
+<li>线程越多,cpu在调用线程上的开销就越大</li>
+<li>程序设计更加复杂,比如线程间的通信、多线程的数据共享 </li>
+<li><strong>时间成本和空间成本</strong></li>
 </ul>
-</li>
-</ul>
-<h2 id="storyboard-连线容易出现的问题"><a href="#storyboard-连线容易出现的问题" class="headerlink" title="storyboard 连线容易出现的问题"></a>storyboard 连线容易出现的问题</h2><ul>
-<li>被连接的方法被删除, 但是连线没有去掉<ul>
-<li>可能出现方法找不到的错误</li>
-<li>unrecongnized selecotor sent to instance</li>
-</ul>
-</li>
-<li>连接的属性被删掉, 但是连线没有去掉<ul>
-<li>setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key</li>
-</ul>
-</li>
-</ul>
-<h2 id="UIViewController-控制器-的认识"><a href="#UIViewController-控制器-的认识" class="headerlink" title="UIViewController (控制器) 的认识"></a>UIViewController (控制器) 的认识</h2><ul>
-<li>一个控制器负责管理一个界面</li>
-<li>控制器负责界面的创建, 事件的处理等</li>
-</ul>
-<h2 id="类扩展"><a href="#类扩展" class="headerlink" title="类扩展"></a>类扩展</h2><ul>
-<li><p>格式<br>-</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">className</span>()</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> *   属性, 方法的声明</div><div class="line"> */</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>作用</p>
-<ul>
-<li>为某个类添加额外的属性和方法的声明</li>
-<li>可以写在 .h 和 .m 文件中</li>
+<h6 id="主线程"><a href="#主线程" class="headerlink" title="主线程"></a>主线程</h6><ul>
+<li>一个程序运行后,默认会开启1个线程,称为“主线程”或“UI线程”</li>
+<li>主线程一般用来 刷新UI界面 ,处理UI事件(比如:点击、滚动、拖拽等事件) </li>
+<li>主线程使用注意 <ul>
+<li>别将耗时的操作放到主线程中</li>
+<li>耗时操作会卡住主线程,严重影响UI的流畅度,给用户一种卡的坏体验</li>
 </ul>
 </li>
 </ul>
-<h2 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h2><ul>
-<li>Product Name<ul>
-<li>软件名称、产品名称、项目名称</li>
+<h2 id="二、NSThread"><a href="#二、NSThread" class="headerlink" title="二、NSThread"></a>二、NSThread</h2><h4 id="1、创建和启动线程"><a href="#1、创建和启动线程" class="headerlink" title="1、创建和启动线程"></a>1、创建和启动线程</h4><p><strong>一个NSThread对象就代表一条线程</strong></p>
+<h6 id="创建、启动线程"><a href="#创建、启动线程" class="headerlink" title="创建、启动线程"></a>创建、启动线程</h6><pre><code>NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run) object:nil];
+[thread start];
+// 线程一启动，就会在线程thread中执行self的run方法
+</code></pre><h6 id="其他创建线程方式"><a href="#其他创建线程方式" class="headerlink" title="其他创建线程方式"></a>其他创建线程方式</h6><p>1、创建线程后自动启动线程</p>
+<pre><code>[NSThread detachNewThreadSelector:@selector(run) toTarget:self withObject:nil];
+</code></pre><p>2、隐式创建并启动线程</p>
+<pre><code>[self performSelectorInBackground:@selector(run) withObject:nil];
+</code></pre><p>3、上述2种创建线程方式的优缺点</p>
+<pre><code>优点：简单快捷
+缺点：无法对线程进行更详细的设置
+</code></pre><h4 id="2、控制线程状态"><a href="#2、控制线程状态" class="headerlink" title="2、控制线程状态"></a>2、控制线程状态</h4><h6 id="启动线程"><a href="#启动线程" class="headerlink" title="启动线程"></a>启动线程</h6><pre><code>- (void)start; 
+</code></pre><p>// 进入就绪状态 -&gt; 运行状态。当线程任务执行完毕，自动进入死亡状态</p>
+<h6 id="阻塞（暂停）线程"><a href="#阻塞（暂停）线程" class="headerlink" title="阻塞（暂停）线程"></a>阻塞（暂停）线程</h6><pre><code>+ (void)sleepUntilDate:(NSDate *)date;
++ (void)sleepForTimeInterval:(NSTimeInterval)ti;
+</code></pre><p>// 进入阻塞状态</p>
+<h6 id="强制停止线程"><a href="#强制停止线程" class="headerlink" title="强制停止线程"></a>强制停止线程</h6><pre><code>+ (void)exit;
+</code></pre><p>// 进入死亡状态</p>
+<p><strong>注意：一旦线程停止（死亡）了，就不能再次开启任务</strong></p>
+<h4 id="3、常用属性方法"><a href="#3、常用属性方法" class="headerlink" title="3、常用属性方法"></a>3、常用属性方法</h4><h6 id="获得当前线程"><a href="#获得当前线程" class="headerlink" title="获得当前线程"></a>获得当前线程</h6><pre><code>NSThread *current = [NSThread currentThread];
+</code></pre><h6 id="线程的调度优先级"><a href="#线程的调度优先级" class="headerlink" title="线程的调度优先级"></a>线程的调度优先级</h6><pre><code>+ (double)threadPriority;
+</code></pre><p>调度优先级的取值范围是0.0 ~ 1.0，默认0.5，值越大，优先级越高</p>
+<h6 id="线程的名字"><a href="#线程的名字" class="headerlink" title="线程的名字"></a>线程的名字</h6><pre><code>- (void)setName:(NSString *)n;
+- (NSString *)name;
+</code></pre><h6 id="主线程相关用法"><a href="#主线程相关用法" class="headerlink" title="主线程相关用法"></a>主线程相关用法</h6><pre><code>+ (NSThread *)mainThread; // 获得主线程
+- (BOOL)isMainThread; // 是否为主线程
+</code></pre><h4 id="4、多线程的安全隐患"><a href="#4、多线程的安全隐患" class="headerlink" title="4、多线程的安全隐患"></a>4、多线程的安全隐患</h4><h6 id="资源共享"><a href="#资源共享" class="headerlink" title="资源共享"></a>资源共享</h6><ul>
+<li>1块资源可能会被多个线程共享，也就是多个线程可能会访问同一块资源</li>
+<li>比如多个线程访问同一个对象、同一个变量、同一个文件</li>
+<li>当多个线程访问同一块资源时，很容易引发数据错乱和数据安全问题</li>
 </ul>
-</li>
-<li>Drganization Identifier<ul>
-<li>公司的唯一标识</li>
-<li>一般是公司域名的反写, 比如 com.baidu</li>
+<h4 id="5、安全隐患解决-–-互斥锁"><a href="#5、安全隐患解决-–-互斥锁" class="headerlink" title="5、安全隐患解决 – 互斥锁"></a>5、安全隐患解决 – 互斥锁</h4><h6 id="互斥锁使用格式"><a href="#互斥锁使用格式" class="headerlink" title="互斥锁使用格式"></a>互斥锁使用格式</h6><pre><code>@synchronized(锁对象) { // 需要锁定的代码  }
+</code></pre><p><strong>注意：锁定1份代码只用1把锁，用多把锁是无效的</strong></p>
+<h6 id="互斥锁的优缺点"><a href="#互斥锁的优缺点" class="headerlink" title="互斥锁的优缺点"></a>互斥锁的优缺点</h6><pre><code>优点：能有效防止因多线程抢夺资源造成的数据安全问题
+缺点：需要消耗大量的CPU资源
+</code></pre><p><strong>互斥锁的使用前提：多条线程抢夺同一块资源</strong></p>
+<h6 id="相关专业术语：线程同步"><a href="#相关专业术语：线程同步" class="headerlink" title="相关专业术语：线程同步"></a>相关专业术语：线程同步</h6><pre><code>线程同步的意思是：多条线程按顺序地执行任务
+互斥锁，就是使用了线程同步技术
+</code></pre><h4 id="6、原子和非原子属性"><a href="#6、原子和非原子属性" class="headerlink" title="6、原子和非原子属性"></a>6、原子和非原子属性</h4><h6 id="OC在定义属性时有nonatomic和atomic两种选择"><a href="#OC在定义属性时有nonatomic和atomic两种选择" class="headerlink" title="OC在定义属性时有nonatomic和atomic两种选择"></a>OC在定义属性时有nonatomic和atomic两种选择</h6><ul>
+<li>atomic：原子属性，为setter方法加锁（默认就是atomic）</li>
+<li>nonatomic：非原子属性，不会为setter方法加锁</li>
 </ul>
-</li>
-<li>Bundle Identifier<ul>
-<li>软件的唯一标识</li>
-<li>一般是 Drganization Identifier + Product Name</li>
+<h4 id="7、线程间通信"><a href="#7、线程间通信" class="headerlink" title="7、线程间通信"></a>7、线程间通信</h4><h6 id="什么叫做线程间通信"><a href="#什么叫做线程间通信" class="headerlink" title="什么叫做线程间通信"></a>什么叫做线程间通信</h6><p>在1个进程中，线程往往不是孤立存在的，多个线程之间需要经常进行通信</p>
+<h6 id="线程间通信的体现"><a href="#线程间通信的体现" class="headerlink" title="线程间通信的体现"></a>线程间通信的体现</h6><ul>
+<li>1个线程传递数据给另1个线程</li>
+<li>在1个线程中执行完特定任务后，转到另1个线程继续执行任务</li>
 </ul>
-</li>
-</ul>
+<h6 id="线程间通信常用方法"><a href="#线程间通信常用方法" class="headerlink" title="线程间通信常用方法"></a>线程间通信常用方法</h6><pre><code>- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(id)arg waitUntilDone:(BOOL)wait;
+- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(id)arg waitUntilDone:(BOOL)wait;
+</code></pre><h4 id="8、什么时候使用自动释放池"><a href="#8、什么时候使用自动释放池" class="headerlink" title="8、什么时候使用自动释放池"></a>8、什么时候使用自动释放池</h4><p><strong>If you write a loop that creates many temporary objects.</strong><br>You may use an autorelease pool block inside the loop to dispose of those objects before the next iteration. Using an autorelease pool block in the loop helps to reduce the maximum memory footprint of the application. </p>
+<p>循环中创建了许多临时对象，在循环里面使用自动释放池，用来减少高内存占用。</p>
+<p><strong>If you spawn a secondary thread.</strong><br>You must create your own autorelease pool block as soon as the thread begins executing; otherwise, your application will leak objects. (See Autorelease Pool Blocks and Threads for details.) </p>
+<p>开启子线程的时候要自己创建自动释放池，否则可能会发生内存泄露</p>
+<h6 id="自动释放池常见面试代码"><a href="#自动释放池常见面试代码" class="headerlink" title="自动释放池常见面试代码"></a>自动释放池常见面试代码</h6><pre><code>for (int i = 0; i &lt; largeNumber; ++i) {
+    NSString *str = @&quot;Hello World&quot;;
+    str = [str stringByAppendingFormat:@&quot; - %d&quot;, i];
+    str = [str uppercaseString];
+    NSLog(@&quot;%@&quot;, str);
+}
+</code></pre><p><strong>在for循环内部加入一个自动释放池</strong></p>
 
           
         
@@ -1696,7 +1977,7 @@ iii.NSOperation里提供的方便的操作
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">96</span>
+              <span class="site-state-item-count">97</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
