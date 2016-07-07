@@ -1321,6 +1321,184 @@ iii.NSOperation里提供的方便的操作
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/README/" itemprop="url">
+                  UI简介
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/README/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/README/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>导航控制器的push的控制器的右滑弹出功能, 清空代理, 让导航控制器将功能找回</code><br><code>self.interactivePopGestureRecognizer.delegate = nil;</code></p>
+<h2 id="stroryboard-的认识"><a href="#stroryboard-的认识" class="headerlink" title="stroryboard 的认识"></a>stroryboard 的认识</h2><ul>
+<li>用于描述软件界面</li>
+<li>默认情况下, 程序一启动就会加载 Main.storyboard</li>
+<li>加载 storyboard 时, 会首先创建和显示箭头所指的控制器界面</li>
+</ul>
+<h2 id="IBAction-和-IBOutlet"><a href="#IBAction-和-IBOutlet" class="headerlink" title="IBAction 和 IBOutlet"></a>IBAction 和 IBOutlet</h2><ul>
+<li>IBAction<ul>
+<li>本质就是 void</li>
+<li>能让方法具备连线的功能</li>
+</ul>
+</li>
+<li>IBOutlet<ul>
+<li>能让属性具备连线的功能</li>
+</ul>
+</li>
+</ul>
+<h2 id="storyboard-连线容易出现的问题"><a href="#storyboard-连线容易出现的问题" class="headerlink" title="storyboard 连线容易出现的问题"></a>storyboard 连线容易出现的问题</h2><ul>
+<li>被连接的方法被删除, 但是连线没有去掉<ul>
+<li>可能出现方法找不到的错误</li>
+<li>unrecongnized selecotor sent to instance</li>
+</ul>
+</li>
+<li>连接的属性被删掉, 但是连线没有去掉<ul>
+<li>setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key</li>
+</ul>
+</li>
+</ul>
+<h2 id="UIViewController-控制器-的认识"><a href="#UIViewController-控制器-的认识" class="headerlink" title="UIViewController (控制器) 的认识"></a>UIViewController (控制器) 的认识</h2><ul>
+<li>一个控制器负责管理一个界面</li>
+<li>控制器负责界面的创建, 事件的处理等</li>
+</ul>
+<h2 id="类扩展"><a href="#类扩展" class="headerlink" title="类扩展"></a>类扩展</h2><ul>
+<li><p>格式<br>-</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">className</span>()</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> *   属性, 方法的声明</div><div class="line"> */</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>作用</p>
+<ul>
+<li>为某个类添加额外的属性和方法的声明</li>
+<li>可以写在 .h 和 .m 文件中</li>
+</ul>
+</li>
+</ul>
+<h2 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h2><ul>
+<li>Product Name<ul>
+<li>软件名称、产品名称、项目名称</li>
+</ul>
+</li>
+<li>Drganization Identifier<ul>
+<li>公司的唯一标识</li>
+<li>一般是公司域名的反写, 比如 com.baidu</li>
+</ul>
+</li>
+<li>Bundle Identifier<ul>
+<li>软件的唯一标识</li>
+<li>一般是 Drganization Identifier + Product Name</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1366,7 +1544,7 @@ iii.NSOperation里提供的方便的操作
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">94</span>
+              <span class="site-state-item-count">95</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1383,7 +1561,7 @@ iii.NSOperation里提供的方便的操作
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

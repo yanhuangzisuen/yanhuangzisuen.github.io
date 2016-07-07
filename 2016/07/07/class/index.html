@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Autolayout," />
+  <meta name="keywords" content="class," />
 
 
 
@@ -102,25 +102,70 @@
 
 
 
-<meta name="description" content="使用代码实现Autolayout的方法1
-创建约束
+<meta name="description" content="####1.@class的使用
 
-1234567891011121314+(id)constraintWithItem:(id)view1attribute:(NSLayoutAttribute)attr1relatedBy:(NSLayoutRelation)relationtoItem:(id)view2attribute:(NSLayoutAttribute)attr2m">
+作用
+可以简单地引用一个类
+
+
+简单使用
+@class Dog; //类的引入
+仅仅是告诉编译器:Dog是一个类;并不会包含Dog这个类的所有内容
+
+
+具体使用
+
+在.h文件中使用@class引用一个类
+在.m文件中使用#import包含这个类的.h文件
+
+
+如下面代码:
+12345678 A.h文件#import &quot;B.h&quot;@interface A : NSOb">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Autolayout">
-<meta property="og:url" content="http://yoursite.com/2016/07/07/autolayout/index.html">
+<meta property="og:title" content="class">
+<meta property="og:url" content="http://yoursite.com/2016/07/07/class/index.html">
 <meta property="og:site_name" content="颜文字">
-<meta property="og:description" content="使用代码实现Autolayout的方法1
-创建约束
+<meta property="og:description" content="####1.@class的使用
 
-1234567891011121314+(id)constraintWithItem:(id)view1attribute:(NSLayoutAttribute)attr1relatedBy:(NSLayoutRelation)relationtoItem:(id)view2attribute:(NSLayoutAttribute)attr2m">
-<meta property="og:updated_time" content="2016-07-07T07:08:52.000Z">
+作用
+可以简单地引用一个类
+
+
+简单使用
+@class Dog; //类的引入
+仅仅是告诉编译器:Dog是一个类;并不会包含Dog这个类的所有内容
+
+
+具体使用
+
+在.h文件中使用@class引用一个类
+在.m文件中使用#import包含这个类的.h文件
+
+
+如下面代码:
+12345678 A.h文件#import &quot;B.h&quot;@interface A : NSOb">
+<meta property="og:updated_time" content="2016-07-07T08:42:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Autolayout">
-<meta name="twitter:description" content="使用代码实现Autolayout的方法1
-创建约束
+<meta name="twitter:title" content="class">
+<meta name="twitter:description" content="####1.@class的使用
 
-1234567891011121314+(id)constraintWithItem:(id)view1attribute:(NSLayoutAttribute)attr1relatedBy:(NSLayoutRelation)relationtoItem:(id)view2attribute:(NSLayoutAttribute)attr2m">
+作用
+可以简单地引用一个类
+
+
+简单使用
+@class Dog; //类的引入
+仅仅是告诉编译器:Dog是一个类;并不会包含Dog这个类的所有内容
+
+
+具体使用
+
+在.h文件中使用@class引用一个类
+在.m文件中使用#import包含这个类的.h文件
+
+
+如下面代码:
+12345678 A.h文件#import &quot;B.h&quot;@interface A : NSOb">
 
 
 
@@ -141,9 +186,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/07/autolayout/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/07/class/"/>
 
-  <title> Autolayout | 颜文字 </title>
+  <title> class | 颜文字 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -303,7 +348,7 @@
             
             
               
-                Autolayout
+                class
               
             
           </h1>
@@ -315,7 +360,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
               2016-07-07
             </time>
           </span>
@@ -329,8 +374,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
                   </a>
                 </span>
 
@@ -345,8 +390,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/autolayout/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/autolayout/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/class/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/class/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -374,44 +419,61 @@
       
 
       
-        <h2 id="使用代码实现Autolayout的方法1"><a href="#使用代码实现Autolayout的方法1" class="headerlink" title="使用代码实现Autolayout的方法1"></a>使用代码实现Autolayout的方法1</h2><ul>
-<li>创建约束</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+(<span class="keyword">id</span>)constraintWithItem:(<span class="keyword">id</span>)view1</div><div class="line">attribute:(<span class="built_in">NSLayoutAttribute</span>)attr1</div><div class="line">relatedBy:(<span class="built_in">NSLayoutRelation</span>)relation</div><div class="line">toItem:(<span class="keyword">id</span>)view2</div><div class="line">attribute:(<span class="built_in">NSLayoutAttribute</span>)attr2</div><div class="line">multiplier:(<span class="built_in">CGFloat</span>)multiplier</div><div class="line">constant:(<span class="built_in">CGFloat</span>)c;</div><div class="line">* view1 ：要约束的控件</div><div class="line">* attr1 ：约束的类型（做怎样的约束）</div><div class="line">* relation ：与参照控件之间的关系</div><div class="line">* view2 ：参照的控件</div><div class="line">* attr2 ：约束的类型（做怎样的约束）</div><div class="line">* multiplier ：乘数</div><div class="line">* c ：常量</div></pre></td></tr></table></figure>
+        <p>####1.@class的使用</p>
 <ul>
-<li>添加约束</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)addConstraint:(<span class="built_in">NSLayoutConstraint</span> *)constraint;</div><div class="line">- (<span class="keyword">void</span>)addConstraints:(<span class="built_in">NSArray</span> *)constraints;</div></pre></td></tr></table></figure>
-<ul>
-<li>注意<ul>
-<li>一定要在拥有父控件之后再添加约束</li>
-<li>关闭Autoresizing功能<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">view.translatesAutoresizingMaskIntoConstraints = <span class="literal">NO</span>;</div></pre></td></tr></table></figure>
-</li>
+<li>作用<ul>
+<li>可以简单地引用一个类</li>
 </ul>
 </li>
-</ul>
-<h2 id="使用代码实现Autolayout的方法2-VFL"><a href="#使用代码实现Autolayout的方法2-VFL" class="headerlink" title="使用代码实现Autolayout的方法2 - VFL"></a>使用代码实现Autolayout的方法2 - VFL</h2><ul>
-<li>使用VFL创建约束数组</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">NSArray</span> *)constraintsWithVisualFormat:(<span class="built_in">NSString</span> *)format</div><div class="line">options:(<span class="built_in">NSLayoutFormatOptions</span>)opts</div><div class="line">metrics:(<span class="built_in">NSDictionary</span> *)metrics</div><div class="line">views:(<span class="built_in">NSDictionary</span> *)views;</div><div class="line">* format ：VFL语句</div><div class="line">* opts ：约束类型</div><div class="line">* metrics ：VFL语句中用到的具体数值</div><div class="line">* views ：VFL语句中用到的控件</div></pre></td></tr></table></figure>
-<ul>
-<li>使用下面的宏来自动生成views和metrics参数</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSDictionaryOfVariableBindings</span>(...)</div></pre></td></tr></table></figure>
-<h2 id="使用代码实现Autolayout的方法3-Masonry"><a href="#使用代码实现Autolayout的方法3-Masonry" class="headerlink" title="使用代码实现Autolayout的方法3 - Masonry"></a>使用代码实现Autolayout的方法3 - Masonry</h2><ul>
-<li><p>使用步骤</p>
-<ul>
-<li>添加Masonry文件夹的所有源代码到项目中</li>
-<li>添加2个宏、导入主头文件<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">// 只要添加了这个宏，就不用带mas_前缀</span></div><div class="line">    <span class="meta">#define MAS_SHORTHAND</span></div><div class="line"><span class="comment">// 只要添加了这个宏，equalTo就等价于mas_equalTo</span></div><div class="line"><span class="meta">#define MAS_SHORTHAND_GLOBALS</span></div><div class="line"><span class="comment">// 这个头文件一定要放在上面两个宏的后面</span></div><div class="line"><span class="meta">#import <span class="meta-string">"Masonry.h"</span></span></div></pre></td></tr></table></figure>
-</li>
+<li>简单使用<ul>
+<li>@class Dog; //类的引入</li>
+<li>仅仅是告诉编译器:Dog是一个类;并不会包含Dog这个类的所有内容</li>
 </ul>
 </li>
-<li><p>添加约束的方法</p>
+<li><p>具体使用</p>
+<ul>
+<li>在.h文件中使用@class引用一个类</li>
+<li>在.m文件中使用#import包含这个类的.h文件</li>
+</ul>
+</li>
+<li><p>如下面代码:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> A.h文件</div><div class="line"><span class="meta">#import <span class="meta-string">"B.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">A</span> : <span class="title">NSObject</span></span></div><div class="line"> &#123;</div><div class="line">    B *b;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>为了简单起见:A类是引用类,B类是被引用类,这里先不考虑A类的实现文件。</p>
+</li>
+<li><p>通常引用一个类有两种办法:</p>
+<ul>
+<li>一种是通过#import方式引入;</li>
+<li>另一种是通过@class引入;</li>
+</ul>
+</li>
+<li><p>这两种的方式的区别在于:</p>
+<ul>
+<li><p>1）#import方式会包含被引用类的所有信息,包括被引用类的变量和方法;@class方式只是告诉编译器在 A.h文件中 B *b只是类的声明,具体这个类里有什么信息,这里不需要知道,等实现文件中真正要用到时,才会真正去查看B类中信息;</p>
+</li>
+<li><p>2）使用@class方式由于只需要知道被引用类(B类)的名称就可以了,而在实现类由于要用到被引用类中的实体变量和方法,所以需要使用#import来包含被引用类的头文件;</p>
+</li>
+<li><p>3）通过上面2点也很容易知道在编译效率上,如果有上百个头文件都#import了同一个文件,或者这些文件依次被#improt(A-&gt;B, B-&gt;C,C-&gt;D…),<strong>一旦最开始的头文件稍有改动,后面引用到这个文件的所有类 都需要重新编译一遍,这样的效率也是可想而知的.</strong>而相对来讲,使用@class方式就不会出现这种问题了;</p>
+</li>
+<li><p><strong>所以:我们实际开发中尽量在.h头文件中使用@class</strong></p>
+</li>
+<li>4）对于循环依赖关系来说,比方A类引用B类,同时B类也引用A类,B类的代码:</li>
+</ul>
+</li>
+<li>当程序运行时,编译会报错,当使用@class在两个类相互声明,就不会出现编译报错。<br>*</li>
+<li><p>把其中的一个头文件中的import换成@class</p>
+</li>
+<li><p>面试题：#import和@class的区别。</p>
+<ul>
+<li>作用上的区别<ul>
+<li>import会包含引用类的所有信息(内容),包括引用类的变量和方法 @class仅仅是告诉编译器有这么一个类,具体这个类里有什么信息,完全不知道。</li>
+</ul>
+</li>
+<li>效率上的区别<ul>
+<li>如果有上百个头文件都#import了同一个文件,或者这些文件依次被#import,那么一旦最开始的头文件稍有改动,后面引用到这个文件的所有类都需要重新编译一遍,编译效率非常低相对来讲,使用@class方式就不会出现这种问题了。</li>
+</ul>
 </li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 这个方法只会添加新的约束</span></div><div class="line"> [view makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line"></div><div class="line"> &#125;];</div><div class="line"></div><div class="line"><span class="comment">// 这个方法会将以前的所有约束删掉，添加新的约束</span></div><div class="line"> [view remakeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line"></div><div class="line"> &#125;];</div><div class="line"></div><div class="line"> <span class="comment">// 这个方法将会覆盖以前的某些特定的约束</span></div><div class="line"> [view updateConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line"></div><div class="line"> &#125;];</div></pre></td></tr></table></figure>
-<ul>
-<li>约束的类型<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span>尺寸：width\height\size</div><div class="line"><span class="number">2.</span>边界：left\leading\right\trailing\top\bottom</div><div class="line"><span class="number">3.</span>中心点：center\centerX\centerY</div><div class="line"><span class="number">4.</span>边界：edges</div></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -436,7 +498,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Autolayout/" rel="tag">#Autolayout</a>
+            <a href="/tags/class/" rel="tag">#class</a>
           
         </div>
       
@@ -445,16 +507,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/07/uitextfield/" rel="next" title="UITextField">
-                <i class="fa fa-chevron-left"></i> UITextField
+              <a href="/2016/07/07/nsdictionaryaction/" rel="next" title="NSDictionary常见用法">
+                <i class="fa fa-chevron-left"></i> NSDictionary常见用法
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/07/cellidentifier/" rel="prev" title="CellIdentifier">
-                CellIdentifier <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/07/nsarrayandfile/" rel="prev" title="NSArray读写文件">
+                NSArray读写文件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -504,8 +566,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/07/autolayout/"
-           data-title="Autolayout" data-url="http://yoursite.com/2016/07/07/autolayout/">
+      <div class="ds-thread" data-thread-key="2016/07/07/class/"
+           data-title="class" data-url="http://yoursite.com/2016/07/07/class/">
       </div>
     
   </div>
@@ -616,7 +678,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用代码实现Autolayout的方法1"><span class="nav-number">1.</span> <span class="nav-text">使用代码实现Autolayout的方法1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用代码实现Autolayout的方法2-VFL"><span class="nav-number">2.</span> <span class="nav-text">使用代码实现Autolayout的方法2 - VFL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用代码实现Autolayout的方法3-Masonry"><span class="nav-number">3.</span> <span class="nav-text">使用代码实现Autolayout的方法3 - Masonry</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
