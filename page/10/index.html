@@ -296,8 +296,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/Quartz2d(绘图)/" itemprop="url">
-                  Quartz2D(绘图)
+                <a class="post-title-link" href="/2016/07/07/uitextfield/" itemprop="url">
+                  UITextField
                 </a>
               
             
@@ -340,8 +340,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/Quartz2d(绘图)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/Quartz2d(绘图)/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/uitextfield/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uitextfield/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -366,243 +366,1572 @@
       
         
           
-            <h2 id="一、基本图形绘制"><a href="#一、基本图形绘制" class="headerlink" title="一、基本图形绘制"></a>一、基本图形绘制</h2><ul>
-<li>线段（线宽、线段样式）</li>
-<li>矩形（空心、实心、颜色）</li>
-<li>三角形、四边形等形状</li>
-<li>1、说明 - (void)drawRect:(CGRect)rect 什么时候调用、调用次数等<ul>
-<li>当 view 第一次被显示的时候调用(调用一次)</li>
-<li>或者是重绘事件被触发的时候</li>
-<li>不要手动去调用这个方法</li>
+            <p>####返回textField的宽度</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.textField.width = [<span class="keyword">self</span>.textField.text sizeWithAttributes:@&#123;<span class="built_in">NSFontAttributeName</span> : <span class="keyword">self</span>.textField.font&#125;].width;</div></pre></td></tr></table></figure>
+<h3 id="富文本"><a href="#富文本" class="headerlink" title="富文本"></a>富文本</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">   NSMutableDictionary *attributes = [NSMutableDictionary dictionary];</div><div class="line"></div><div class="line">   attributes[NSFontAttributeName] = [UIFont systemFontOfSize:16];</div><div class="line"></div><div class="line">   attributes[NSForegroundColorAttributeName] = [UIColor grayColor];</div><div class="line"></div><div class="line">   //NSAttributedString : 带有属性的文字(富文本)</div><div class="line">   NSAttributedString *placeholder = [[NSAttributedString alloc] initWithString:@"账号" attributes:attributes];</div><div class="line"></div><div class="line">   self.phoneField.attributedPlaceholder = placeholder;</div><div class="line">    */</div><div class="line"></div><div class="line">   <span class="comment">/*</span></div><div class="line">   NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc] initWithString:@"手机号"];</div><div class="line">   //NSMutableAttributedString 可以单个字设置属性</div><div class="line">   [placeholder setAttributes:@&#123;NSForegroundColorAttributeName: [UIColor whiteColor]&#125; range:NSMakeRange(0, 1)];</div><div class="line"></div><div class="line">   self.phoneField.attributedPlaceholder = placeholder;</div><div class="line">    */</div></pre></td></tr></table></figure>
+<h2 id="UITextField-设置监听的3种方式"><a href="#UITextField-设置监听的3种方式" class="headerlink" title="UITextField 设置监听的3种方式:"></a>UITextField 设置监听的3种方式:</h2><h5 id="1-gt-通过addTarget方式"><a href="#1-gt-通过addTarget方式" class="headerlink" title="1&gt; 通过addTarget方式"></a>1&gt; 通过addTarget方式</h5><ul>
+<li>UITextField继承UIControll,可以addTarget监听。</li>
+<li>但是这种方式只能监听一些”单击事件”、”滚动条滚动事件”等, 有些事件通过addTarget方式监听无效, 比如”Value Changed”事件。</li>
+</ul>
+<p>####2&gt; 通过代理</p>
+<ul>
+<li>文本框的代理协议”UITextFieldDelegate”。演示:textFieldShouldBeginEditing方法。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 为某个文本框设置代理</span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="comment">// 设置文本框代理为当前控制器。</span></div><div class="line">    <span class="keyword">self</span>.textFidld.delegate = <span class="keyword">self</span>;</div><div class="line"> &#125;</div><div class="line"></div><div class="line"><span class="comment">// 让当前控制器遵守UITextFieldDelegate协议, 并且实现- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField方法, 返回YES</span></div><div class="line">- (<span class="built_in">BOOL</span>)textFieldShouldBeginEditing:(<span class="built_in">UITextField</span> *)textField</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-gt-通过”通知中心”监听事件。"><a href="#3-gt-通过”通知中心”监听事件。" class="headerlink" title="3&gt; 通过”通知中心”监听事件。"></a>3&gt; 通过”通知中心”监听事件。</h3><p>** 思路: 让用户名、密码文本框同时设置监听到textChanged方法。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//参考代码:</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line"><span class="comment">//通过通知中心监听文本框内容变化, 添加观察者</span></div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(textFieldValueChanged) name:<span class="built_in">UITextFieldTextDidChangeNotification</span> object:<span class="keyword">self</span>.userNameTextField];</div><div class="line"></div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(textFieldValueChanged) name:<span class="built_in">UITextFieldTextDidChangeNotification</span> object:<span class="keyword">self</span>.passWordTextField];</div><div class="line"></div><div class="line"><span class="comment">//TextField通知名</span></div><div class="line"><span class="comment">//    UIKIT_EXTERN NSString *const UITextFieldTextDidBeginEditingNotification;</span></div><div class="line"><span class="comment">//    UIKIT_EXTERN NSString *const UITextFieldTextDidEndEditingNotification;</span></div><div class="line"><span class="comment">//    UIKIT_EXTERN NSString *const UITextFieldTextDidChangeNotification;</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//实现监听方法</span></div><div class="line">- (<span class="keyword">void</span>) textFieldValueChanged</div><div class="line">&#123;</div><div class="line">    <span class="comment">//文本框的值发送改变, 就会调用</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**** 注意通过通知的方式注册事件, 需要在dealloc方法中移除 ****/</span></div><div class="line"><span class="comment">// 移除通知监听, 观察者被销毁时, 在观察着的dealloc方法中移除</span></div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="comment">//移除观察者</span></div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter]removeObserver:<span class="keyword">self</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Placeholder"><a href="#Placeholder" class="headerlink" title="Placeholder"></a>Placeholder</h3><ul>
+<li>文本框有占位符，提示用户输入什么。设置 placeholder</li>
+</ul>
+<h3 id="Secure-Text-Entry"><a href="#Secure-Text-Entry" class="headerlink" title="Secure Text Entry"></a>Secure Text Entry</h3><ul>
+<li>密码文本框是暗文，密码属于机密，不需要显示出来。设置文本框的”Secure Text Entry”属性</li>
+</ul>
+<h3 id="Clear-Button"><a href="#Clear-Button" class="headerlink" title="Clear Button"></a>Clear Button</h3><ul>
+<li>当文本框输入文字，会显示清除按钮，提高用户体验。设置文本框的”Clear Button”属性</li>
+</ul>
+<h3 id="Segue对象。"><a href="#Segue对象。" class="headerlink" title="Segue对象。"></a>Segue对象。</h3><ul>
+<li><p>在xcode6.1下, 拖线时选择Segue的style为show, 等价于以前的push。</p>
+</li>
+<li><p>重新拖线（手动 Segue）, 从控制器 to 控制器。</p>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//参考代码 :</span></div><div class="line">[<span class="keyword">self</span> performSegueWithIdentifier:<span class="string">@"login2contact"</span> sender:<span class="string">@"Jack"</span>];</div><div class="line"></div><div class="line"><span class="comment">//实现控制器的- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender方法。</span></div><div class="line"></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)prepareForSegue:(<span class="built_in">UIStoryboardSegue</span> *)segue sender:(<span class="keyword">id</span>)sender &#123;</div><div class="line"><span class="comment">// Get the new view controller using [segue destinationViewController].</span></div><div class="line"><span class="comment">// Pass the selected object to the new view controller.</span></div><div class="line"><span class="comment">//    NSLog(@"%@",sender);</span></div><div class="line"><span class="comment">//获取目标控制器</span></div><div class="line">    <span class="built_in">UIViewController</span> * targetVC = segue.destinationViewController;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//performSegueWithIdentifier:sender:的执行过程</span></div><div class="line">[<span class="keyword">self</span> performSegueWithIdentifier:<span class="string">@"login2contacts"</span> sender:<span class="literal">nil</span>];</div><div class="line"><span class="comment">//1&gt; self是来源控制器，只能通过来源控制器来调该方法。</span></div><div class="line"><span class="comment">//2&gt; 根据identifier去storyboard中找到对应的线，新建UIStoryboardSegue对象</span></div><div class="line"><span class="comment">//3&gt; 设置Segue对象的sourceViewController（来源控制器）</span></div><div class="line"><span class="comment">//4&gt; 新建并且设置Segue对象的destinationViewController（目标控制器）</span></div><div class="line"><span class="comment">//5&gt; 调用- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender方法</span></div><div class="line"><span class="comment">//6&gt; 执行跳转。</span></div><div class="line"><span class="comment">//** 具体跳转步骤:</span></div><div class="line"><span class="comment">//1&gt; 通过segue对象的sourceViewController获取源控制器所在的导航控制器。</span></div><div class="line"><span class="comment">//2&gt; 将segue的destinationViewControlelr压栈(push)进去。</span></div></pre></td></tr></table></figure>
+<h3 id="提示框的弹出"><a href="#提示框的弹出" class="headerlink" title="提示框的弹出"></a>提示框的弹出</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//xcode7下</span></div><div class="line">- (<span class="keyword">IBAction</span>)logOutBtnClick:(<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="built_in">UIAlertController</span> * alert = [<span class="built_in">UIAlertController</span> alertControllerWithTitle:<span class="string">@"确定注销吗?"</span> message:<span class="literal">nil</span> preferredStyle:<span class="built_in">UIAlertControllerStyleActionSheet</span>];</div><div class="line"></div><div class="line">    <span class="built_in">UIAlertAction</span> * okAction = [<span class="built_in">UIAlertAction</span> actionWithTitle:<span class="string">@"确定"</span> style:<span class="built_in">UIAlertActionStyleDestructive</span> handler:^(<span class="built_in">UIAlertAction</span> * _Nonnull action) &#123;</div><div class="line">    [<span class="keyword">self</span>.navigationController popViewControllerAnimated:<span class="literal">YES</span>];</div><div class="line">    &#125;];</div><div class="line"></div><div class="line">    <span class="built_in">UIAlertAction</span> * cancel = [<span class="built_in">UIAlertAction</span> actionWithTitle:<span class="string">@"取消"</span> style:<span class="built_in">UIAlertActionStyleCancel</span> handler:<span class="literal">nil</span>];</div><div class="line"></div><div class="line">    [alert addAction:okAction];</div><div class="line"></div><div class="line">    [alert addAction:cancel];</div><div class="line"></div><div class="line">    [<span class="keyword">self</span> presentViewController:alert animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// xcode6</span></div><div class="line"></div><div class="line"><span class="comment">// 1. 弹出UIActionSheet对话框</span></div><div class="line"><span class="built_in">UIActionSheet</span> *sheet = [[<span class="built_in">UIActionSheet</span> alloc] initWithTitle:<span class="string">@"确定要注销"</span> delegate:<span class="keyword">self</span> cancelButtonTitle:<span class="string">@"取消"</span> destructiveButtonTitle:<span class="string">@"注销"</span> otherButtonTitles:<span class="literal">nil</span>, <span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//alertView 上添加一个 textField</span></div><div class="line"><span class="comment">/*</span></div><div class="line">UIAlertViewStyleDefault = 0,</div><div class="line">UIAlertViewStyleSecureTextInput,//安全的文本输入, 密码保护模式</div><div class="line">UIAlertViewStylePlainTextInput,//普通的文本输入</div><div class="line">UIAlertViewStyleLoginAndPasswordInput//两行输入,Login 和 Password</div><div class="line">*/</div><div class="line">alertView.alertViewStyle = <span class="built_in">UIAlertViewStylePlainTextInput</span>;</div><div class="line"></div><div class="line"><span class="comment">//获取 alertView上的 textField</span></div><div class="line"><span class="built_in">UITextField</span> *textField = [alertView textFieldAtIndex:<span class="number">0</span>];</div><div class="line"></div><div class="line">[sheet showInView:<span class="keyword">self</span>.view];</div></pre></td></tr></table></figure>
+<ul>
+<li>UIActionSheet中的按钮点击事件</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)actionSheet:(<span class="built_in">UIActionSheet</span> *)actionSheet clickedButtonAtIndex:(<span class="built_in">NSInteger</span>)buttonIndex</div><div class="line">&#123;</div><div class="line">    <span class="comment">//buttonIndex 对应按钮的下标</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="awakeFromNib"><a href="#awakeFromNib" class="headerlink" title="awakeFromNib"></a>awakeFromNib</h3><ul>
+<li>awakeFromNib什么时候调用？xib加载完成的时候调用</li>
+<li>awakeFromNib的作用:从控件从xib加载完成之后，做一些初始化操作。</li>
+<li>在layoutSubViews设置尺寸。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/uiview/" itemprop="url">
+                  UIView
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/uiview/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uiview/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="UIView-的常见属性"><a href="#UIView-的常见属性" class="headerlink" title="UIView 的常见属性"></a>UIView 的常见属性</h2><ul>
+<li>NSArray *subviews<ul>
+<li>所有的子控件</li>
+<li>数组元素的顺序决定着子控件的显示层级顺序 (下标越大的, 越显示在上面)</li>
 </ul>
 </li>
 </ul>
+<h2 id="UIView-的常见方法"><a href="#UIView-的常见方法" class="headerlink" title="UIView 的常见方法"></a>UIView 的常见方法</h2><pre><code>1.tag  标识
+2.removeFromSuperview  想要删除哪个控件, 就调用那个控件的方法
+3.addSubView  添加子控件
+4.SubViewS 获取所有的子控件
+5.viewWithTag 通过 tag 获取子控件, 优先获取自己的 tag
+6.frame  决定了控件的位置和尺寸
+7.transform  可以改变位置, 大小, 旋转  一套创建固定值, 一套在原有基础上偏移
+</code></pre><ul>
+<li>addSubview:<ul>
+<li>添加一个子控件</li>
+<li>使用这个方法添加的子控件会被塞到 subviews 数组的最后面</li>
+</ul>
+</li>
+<li>可以使用下面的方法调整子控件在 subview 数组中的顺序</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//将子控件 view 插入到 subviews 数组的 index 位置</span></div><div class="line">- (<span class="keyword">void</span>)insertSubview:(<span class="built_in">UIView</span> *)view atIndex:(<span class="built_in">NSInteger</span>)index;</div><div class="line"></div><div class="line"><span class="comment">//将子控件 view 显示到子控件 siblingSubview 的下面</span></div><div class="line">- (<span class="keyword">void</span>)insertSubview:(<span class="built_in">UIView</span> *)view belowSubview:(<span class="built_in">UIView</span> *)siblingSubview;</div><div class="line"></div><div class="line"><span class="comment">//将子控件 view 显示到子控件 siblingSubview 的上面</span></div><div class="line">- (<span class="keyword">void</span>)insertSubview:(<span class="built_in">UIView</span> *)view aboveSubview:(<span class="built_in">UIView</span> *)siblingSubview;</div><div class="line"></div><div class="line"><span class="comment">//将子控件 view 放在数组的最后面, 显示在最上面</span></div><div class="line">- (<span class="keyword">void</span>)bringSubviewToFront:(<span class="built_in">UIView</span> *)view;</div><div class="line"></div><div class="line"><span class="comment">//将子控件 view 放在数组的最前面, 显示在最下面</span></div><div class="line">- (<span class="keyword">void</span>)sendSubviewToBack:(<span class="built_in">UIView</span> *)view;</div></pre></td></tr></table></figure>
+<h2 id="代码创建控件-—UIView"><a href="#代码创建控件-—UIView" class="headerlink" title="代码创建控件 —UIView"></a>代码创建控件 —UIView</h2><pre><code>1.alloc init
+2.修改 frame
+3.设置颜色    backgroundColor
+4.添加到控制器的 View    addSubview
+</code></pre><h3 id="viewDidLoad"><a href="#viewDidLoad" class="headerlink" title="viewDidLoad"></a>viewDidLoad</h3><pre><code>在控制器的 View 加载到内存中的时候, 就会运行
+一般在这里, 初始化数据, 或者创建控件等等
+</code></pre><h3 id="创建按钮"><a href="#创建按钮" class="headerlink" title="创建按钮"></a>创建按钮</h3><pre><code>1.创建某一种 type 的按钮    UIButton *bun = [UIButton buttonWithType:UIButtonTypeCustom];
+2.frame
+3.文字     [bun setTitle:    forState:(UIControlState)];
+4.文字颜色    setTitleColor: forState:
+5.设置图片    setBackgroundImage: forState:
+6.设置背景图片    setImage: forState:
+7.绑定方法(事件)    addTarget:(nullable id) action:(non null SEL) forControlEvents:(UIControlEvents)
+    addTarget : 添加哪个类的方法
+    action : 绑定哪个方法    @selector()    生成
+    forControlEvents : 触发方式
+8.添加    addSubview:
+</code></pre><h2 id="九宫格计算思路"><a href="#九宫格计算思路" class="headerlink" title="九宫格计算思路"></a>九宫格计算思路</h2><ul>
+<li>利用控件的索引index计算出控件所在的行号和列号</li>
+<li>利用列号计算控件的x值</li>
+<li>利用行号计算控件的y值</li>
+</ul>
+<h2 id="HUD"><a href="#HUD" class="headerlink" title="HUD"></a>HUD</h2><ul>
+<li>其他说法：指示器、遮盖、蒙板</li>
+<li>半透明HUD的做法<ul>
+<li>背景色设置为半透明颜色</li>
+</ul>
+</li>
+</ul>
+<h2 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h2><ul>
+<li>方法1：performSelector</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1.5s后自动调用self的hideHUD方法</span></div><div class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(hideHUD) withObject:<span class="literal">nil</span> afterDelay:<span class="number">1.5</span>];</div></pre></td></tr></table></figure>
 <ul>
-<li><p><strong>手动调用重绘方法 setNeedsDisplay 或者 setNeedsDisplayInRect:</strong></p>
-<pre><code>setNeedsDisplay 方法会把之前的内容都清除掉, 然后再重绘。
-setNeedsDisplayInRect:&lt;#(CGRect)#&gt;局部刷新
+<li>方法2：GCD</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">1.5</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">    <span class="comment">// 1.5s后自动执行这个block里面的代码</span></div><div class="line">    <span class="keyword">self</span>.hud.alpha = <span class="number">0.0</span>;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>方法3：NSTimer</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1.5s后自动调用self的hideHUD方法</span></div><div class="line">[<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">1.5</span> target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(hideHUD) userInfo:<span class="literal">nil</span> repeats:<span class="literal">NO</span>];</div><div class="line"><span class="comment">// repeats如果为YES，意味着每隔1.5s都会调用一次self的hidHUD方法</span></div></pre></td></tr></table></figure>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ul>
+<li>项目里面的某个.m文件无法使用<ul>
+<li>检查：Build Phases -&gt; Compile Sources</li>
+</ul>
+</li>
+<li>项目里面的某个资源文件（比如plist、音频等）无法使用<ul>
+<li>检查：Build Phases -&gt; Copy Bundle Resources</li>
+</ul>
+</li>
+</ul>
+<p>###xib<br>    描述局部界面, 解决界面问题 代码与逻辑处理需要与类进行关联<br>    属于轻量级别,<br>    返回数组 [NSBundle mainBundle] loadNibNamed: owner: options:<br>    重写 setter 方法, 一定要先给属性赋值</p>
+<p>###MVC 模式<br>    M —&gt; Model    描述数据, 处理数据<br>    V —&gt; View    展示界面<br>    C —&gt; Controller    用户交互的逻辑处理, 管理 view 的生命周期</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><ul>
+<li>什么是模型？<ul>
+<li>专门用来存放数据的对象</li>
+<li>一般都是一些直接继承自NSObject的纯对象</li>
+<li>内部会提供一些属性来存放数据</li>
+</ul>
+</li>
+</ul>
+<h2 id="一个控件看不见有哪些可能？"><a href="#一个控件看不见有哪些可能？" class="headerlink" title="一个控件看不见有哪些可能？"></a>一个控件看不见有哪些可能？</h2><ul>
+<li>宽度或者高度其实为0</li>
+<li>位置不对（比如是个负数或者超大的数，已经超出屏幕）</li>
+<li>hidden == YES</li>
+<li>alpha &lt;= 0.01</li>
+<li>没有设置背景色、没有设置内容</li>
+<li>可能是文字颜色和背景色一样</li>
+<li>检查父 View 的上面几种情况</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/多线程的基本概念/" itemprop="url">
+                  多线程概念和NSThread
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/多线程的基本概念/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/多线程的基本概念/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、多线程的基本概念"><a href="#一、多线程的基本概念" class="headerlink" title="一、多线程的基本概念"></a>一、多线程的基本概念</h2><h4 id="1、多线程的基本概念"><a href="#1、多线程的基本概念" class="headerlink" title="1、多线程的基本概念"></a>1、多线程的基本概念</h4><ol>
+<li>同步:顺序执行</li>
+<li>异步:同时运行</li>
+<li>进程:正在运行的程序,一个或多个线程组成</li>
+<li>线程:最基本的执行单元</li>
+</ol>
+<h4 id="2、特征"><a href="#2、特征" class="headerlink" title="2、特征"></a>2、特征</h4><ul>
+<li>(单核CPU)同一时间,cpu只能处理1个线程,只有1个线程在执行 </li>
+<li>多线程同时执行:是CPU快速的在多个线程之间的切换</li>
+<li>cpu调度线程的时间足够快,就造成了多线程的“同时”执行</li>
+<li>如果线程数非常多,cpu会在n个线程之间切换,消耗大量的cpu资源 </li>
+<li>每个线程被调度的次数会降低,线程的执行效率降低 </li>
+</ul>
+<h6 id="多线程的优点"><a href="#多线程的优点" class="headerlink" title="多线程的优点"></a>多线程的优点</h6><ul>
+<li>能<strong>适当</strong>提高程序的执行效率</li>
+<li>能<strong>适当</strong>提高资源的利用率（CPU&amp;内存）</li>
+<li>线程上得任务执行完后自动销毁</li>
+</ul>
+<h6 id="多线程的缺点"><a href="#多线程的缺点" class="headerlink" title="多线程的缺点"></a>多线程的缺点</h6><ul>
+<li>开启线程需要占用一定的内存空间(默认情况下,每一个线程都占512KB) </li>
+<li>如果开启大量的线程,会占用大量的内存空间,降低程序的性能</li>
+<li>线程越多,cpu在调用线程上的开销就越大</li>
+<li>程序设计更加复杂,比如线程间的通信、多线程的数据共享 </li>
+<li><strong>时间成本和空间成本</strong></li>
+</ul>
+<h6 id="主线程"><a href="#主线程" class="headerlink" title="主线程"></a>主线程</h6><ul>
+<li>一个程序运行后,默认会开启1个线程,称为“主线程”或“UI线程”</li>
+<li>主线程一般用来 刷新UI界面 ,处理UI事件(比如:点击、滚动、拖拽等事件) </li>
+<li>主线程使用注意 <ul>
+<li>别将耗时的操作放到主线程中</li>
+<li>耗时操作会卡住主线程,严重影响UI的流畅度,给用户一种卡的坏体验</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、NSThread"><a href="#二、NSThread" class="headerlink" title="二、NSThread"></a>二、NSThread</h2><h4 id="1、创建和启动线程"><a href="#1、创建和启动线程" class="headerlink" title="1、创建和启动线程"></a>1、创建和启动线程</h4><p><strong>一个NSThread对象就代表一条线程</strong></p>
+<h6 id="创建、启动线程"><a href="#创建、启动线程" class="headerlink" title="创建、启动线程"></a>创建、启动线程</h6><pre><code>NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run) object:nil];
+[thread start];
+// 线程一启动，就会在线程thread中执行self的run方法
+</code></pre><h6 id="其他创建线程方式"><a href="#其他创建线程方式" class="headerlink" title="其他创建线程方式"></a>其他创建线程方式</h6><p>1、创建线程后自动启动线程</p>
+<pre><code>[NSThread detachNewThreadSelector:@selector(run) toTarget:self withObject:nil];
+</code></pre><p>2、隐式创建并启动线程</p>
+<pre><code>[self performSelectorInBackground:@selector(run) withObject:nil];
+</code></pre><p>3、上述2种创建线程方式的优缺点</p>
+<pre><code>优点：简单快捷
+缺点：无法对线程进行更详细的设置
+</code></pre><h4 id="2、控制线程状态"><a href="#2、控制线程状态" class="headerlink" title="2、控制线程状态"></a>2、控制线程状态</h4><h6 id="启动线程"><a href="#启动线程" class="headerlink" title="启动线程"></a>启动线程</h6><pre><code>- (void)start; 
+</code></pre><p>// 进入就绪状态 -&gt; 运行状态。当线程任务执行完毕，自动进入死亡状态</p>
+<h6 id="阻塞（暂停）线程"><a href="#阻塞（暂停）线程" class="headerlink" title="阻塞（暂停）线程"></a>阻塞（暂停）线程</h6><pre><code>+ (void)sleepUntilDate:(NSDate *)date;
++ (void)sleepForTimeInterval:(NSTimeInterval)ti;
+</code></pre><p>// 进入阻塞状态</p>
+<h6 id="强制停止线程"><a href="#强制停止线程" class="headerlink" title="强制停止线程"></a>强制停止线程</h6><pre><code>+ (void)exit;
+</code></pre><p>// 进入死亡状态</p>
+<p><strong>注意：一旦线程停止（死亡）了，就不能再次开启任务</strong></p>
+<h4 id="3、常用属性方法"><a href="#3、常用属性方法" class="headerlink" title="3、常用属性方法"></a>3、常用属性方法</h4><h6 id="获得当前线程"><a href="#获得当前线程" class="headerlink" title="获得当前线程"></a>获得当前线程</h6><pre><code>NSThread *current = [NSThread currentThread];
+</code></pre><h6 id="线程的调度优先级"><a href="#线程的调度优先级" class="headerlink" title="线程的调度优先级"></a>线程的调度优先级</h6><pre><code>+ (double)threadPriority;
+</code></pre><p>调度优先级的取值范围是0.0 ~ 1.0，默认0.5，值越大，优先级越高</p>
+<h6 id="线程的名字"><a href="#线程的名字" class="headerlink" title="线程的名字"></a>线程的名字</h6><pre><code>- (void)setName:(NSString *)n;
+- (NSString *)name;
+</code></pre><h6 id="主线程相关用法"><a href="#主线程相关用法" class="headerlink" title="主线程相关用法"></a>主线程相关用法</h6><pre><code>+ (NSThread *)mainThread; // 获得主线程
+- (BOOL)isMainThread; // 是否为主线程
+</code></pre><h4 id="4、多线程的安全隐患"><a href="#4、多线程的安全隐患" class="headerlink" title="4、多线程的安全隐患"></a>4、多线程的安全隐患</h4><h6 id="资源共享"><a href="#资源共享" class="headerlink" title="资源共享"></a>资源共享</h6><ul>
+<li>1块资源可能会被多个线程共享，也就是多个线程可能会访问同一块资源</li>
+<li>比如多个线程访问同一个对象、同一个变量、同一个文件</li>
+<li>当多个线程访问同一块资源时，很容易引发数据错乱和数据安全问题</li>
+</ul>
+<h4 id="5、安全隐患解决-–-互斥锁"><a href="#5、安全隐患解决-–-互斥锁" class="headerlink" title="5、安全隐患解决 – 互斥锁"></a>5、安全隐患解决 – 互斥锁</h4><h6 id="互斥锁使用格式"><a href="#互斥锁使用格式" class="headerlink" title="互斥锁使用格式"></a>互斥锁使用格式</h6><pre><code>@synchronized(锁对象) { // 需要锁定的代码  }
+</code></pre><p><strong>注意：锁定1份代码只用1把锁，用多把锁是无效的</strong></p>
+<h6 id="互斥锁的优缺点"><a href="#互斥锁的优缺点" class="headerlink" title="互斥锁的优缺点"></a>互斥锁的优缺点</h6><pre><code>优点：能有效防止因多线程抢夺资源造成的数据安全问题
+缺点：需要消耗大量的CPU资源
+</code></pre><p><strong>互斥锁的使用前提：多条线程抢夺同一块资源</strong></p>
+<h6 id="相关专业术语：线程同步"><a href="#相关专业术语：线程同步" class="headerlink" title="相关专业术语：线程同步"></a>相关专业术语：线程同步</h6><pre><code>线程同步的意思是：多条线程按顺序地执行任务
+互斥锁，就是使用了线程同步技术
+</code></pre><h4 id="6、原子和非原子属性"><a href="#6、原子和非原子属性" class="headerlink" title="6、原子和非原子属性"></a>6、原子和非原子属性</h4><h6 id="OC在定义属性时有nonatomic和atomic两种选择"><a href="#OC在定义属性时有nonatomic和atomic两种选择" class="headerlink" title="OC在定义属性时有nonatomic和atomic两种选择"></a>OC在定义属性时有nonatomic和atomic两种选择</h6><ul>
+<li>atomic：原子属性，为setter方法加锁（默认就是atomic）</li>
+<li>nonatomic：非原子属性，不会为setter方法加锁</li>
+</ul>
+<h4 id="7、线程间通信"><a href="#7、线程间通信" class="headerlink" title="7、线程间通信"></a>7、线程间通信</h4><h6 id="什么叫做线程间通信"><a href="#什么叫做线程间通信" class="headerlink" title="什么叫做线程间通信"></a>什么叫做线程间通信</h6><p>在1个进程中，线程往往不是孤立存在的，多个线程之间需要经常进行通信</p>
+<h6 id="线程间通信的体现"><a href="#线程间通信的体现" class="headerlink" title="线程间通信的体现"></a>线程间通信的体现</h6><ul>
+<li>1个线程传递数据给另1个线程</li>
+<li>在1个线程中执行完特定任务后，转到另1个线程继续执行任务</li>
+</ul>
+<h6 id="线程间通信常用方法"><a href="#线程间通信常用方法" class="headerlink" title="线程间通信常用方法"></a>线程间通信常用方法</h6><pre><code>- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(id)arg waitUntilDone:(BOOL)wait;
+- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(id)arg waitUntilDone:(BOOL)wait;
+</code></pre><h4 id="8、什么时候使用自动释放池"><a href="#8、什么时候使用自动释放池" class="headerlink" title="8、什么时候使用自动释放池"></a>8、什么时候使用自动释放池</h4><p><strong>If you write a loop that creates many temporary objects.</strong><br>You may use an autorelease pool block inside the loop to dispose of those objects before the next iteration. Using an autorelease pool block in the loop helps to reduce the maximum memory footprint of the application. </p>
+<p>循环中创建了许多临时对象，在循环里面使用自动释放池，用来减少高内存占用。</p>
+<p><strong>If you spawn a secondary thread.</strong><br>You must create your own autorelease pool block as soon as the thread begins executing; otherwise, your application will leak objects. (See Autorelease Pool Blocks and Threads for details.) </p>
+<p>开启子线程的时候要自己创建自动释放池，否则可能会发生内存泄露</p>
+<h6 id="自动释放池常见面试代码"><a href="#自动释放池常见面试代码" class="headerlink" title="自动释放池常见面试代码"></a>自动释放池常见面试代码</h6><pre><code>for (int i = 0; i &lt; largeNumber; ++i) {
+    NSString *str = @&quot;Hello World&quot;;
+    str = [str stringByAppendingFormat:@&quot; - %d&quot;, i];
+    str = [str uppercaseString];
+    NSLog(@&quot;%@&quot;, str);
+}
+</code></pre><p><strong>在for循环内部加入一个自动释放池</strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/服务器配置笔记/" itemprop="url">
+                  服务器配置
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/服务器配置笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/服务器配置笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="服务器配置步骤"><a href="#服务器配置步骤" class="headerlink" title="服务器配置步骤:"></a>服务器配置步骤:</h2><h4 id="1、打开服务器配置目录"><a href="#1、打开服务器配置目录" class="headerlink" title="1、打开服务器配置目录"></a>1、打开服务器配置目录</h4><pre><code>cd /etc/apache2/
+</code></pre><h4 id="2、查看当前目录下内容"><a href="#2、查看当前目录下内容" class="headerlink" title="2、查看当前目录下内容"></a>2、查看当前目录下内容</h4><pre><code>ls
+</code></pre><h4 id="3、修改服务器根路径"><a href="#3、修改服务器根路径" class="headerlink" title="3、修改服务器根路径"></a>3、修改服务器根路径</h4><pre><code>{
+    sudo vim httpd.conf  //进入服务器配置文件
+
+    /DocumentRoot 回车 //查找服务器默认根路径
+
+    将默认根路径 DocumentRoot &quot;/Library/WebServer/Documents&quot; 注释掉;
+
+    在注释掉的根路径下面一行增加新的根路径
+    DocumentRoot &quot;/Users/likaining/Sites&quot;
+
+    将 &lt;Directory &quot;/Library/WebServer/Documents&quot;&gt; 注释掉;
+    增加新的 &lt;Directory &quot;/Users/likaining/Sites&quot;&gt;
+
+    注意: Mac 10.10 的 Apache 增加如下操作！
+
+    (看&quot;服务器配置视频\02-Mac10.10 Apache配置.mp4&quot;)
+
+    在 httpd.conf 中找到
+
+    &quot;Options FollowSymLinks Multiviews&quot;
+
+    加一个单词 Indexes，修改后的结果如下：
+
+    &quot;Options Indexes FollowSymLinks Multiviews&quot;
+}
+</code></pre><h4 id="4、保存退出"><a href="#4、保存退出" class="headerlink" title="4、保存退出"></a>4、保存退出</h4><pre><code>:wq 回车
+
+&quot;注意&quot;:如果感觉修改错误了,想重新进入修改,就做不保存退出的操作
+不保存退出
+:q! 回车
+
+启动服务器
+sudo apachectl -k start 或者 sudo apachectl start
+
+关闭服务器:
+sudo apachectl -k stop 或者 sudo apachectl stop
+
+重新启动服务器
+sudo apachectl -k restart 或者 $sudo apachectl restart
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/数据解析/" itemprop="url">
+                  数据解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/数据解析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/数据解析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、JSON数据"><a href="#一、JSON数据" class="headerlink" title="一、JSON数据"></a>一、JSON数据</h2><h4 id="1、什么是JSON数据"><a href="#1、什么是JSON数据" class="headerlink" title="1、什么是JSON数据"></a>1、什么是JSON数据</h4><h6 id="1、JSON-是一种轻量级的传输数据格式-用于数据交互"><a href="#1、JSON-是一种轻量级的传输数据格式-用于数据交互" class="headerlink" title="1、JSON:是一种轻量级的传输数据格式,用于数据交互"></a>1、JSON:是一种轻量级的传输数据格式,用于数据交互</h6><ul>
+<li>JSON是javascript语言的一个子集.javascript是个脚本语言(不需要编译),用来给HTML增加动态功能.</li>
+<li>javascript和java没有半毛钱的关系!</li>
+<li>服务器返回给客户端的数据,一般都是JSON格式或者XML格式(文件下载除外).</li>
+<li><p>语法规则: </p>
+<ul>
+<li><p><1> 数据以键值的方式保存;</1></p>
+<p>  键(key)必须用双引号(“key”),与键值之间* 以’:’分隔; {“name”:”小明”}</p>
+</li>
+<li><p><2> 数据和数据之间以逗号(,)分隔. {“name”:”小明”,”age”:13}</2></p>
+</li>
+<li><p><3> {}表示对象. “person”:{“name”:”小明”,”age”:13}</3></p>
+</li>
+<li><p><4> []表示数组. “persons”:[</4></p>
+<pre><code>{&quot;name&quot;:&quot;小明&quot;,&quot;age&quot;:13},
+{&quot;name&quot;:&quot;小红&quot;,&quot;age&quot;:14},
+{&quot;name&quot;:&quot;小花&quot;,&quot;age&quot;:15}
+</code></pre><p>  ]</p>
+</li>
+</ul>
+</li>
+</ul>
+<h6 id="2、JSON与OC转换对照"><a href="#2、JSON与OC转换对照" class="headerlink" title="2、JSON与OC转换对照:"></a>2、JSON与OC转换对照:</h6><pre><code>   大括号 {} == NSDictionary;
+中括号 [] == NSArray;
+双引号&quot; &quot; == NSString;
+数字13,13.5 == NSNumber;
+</code></pre><h6 id="3、数据传输过程"><a href="#3、数据传输过程" class="headerlink" title="3、数据传输过程:"></a>3、数据传输过程:</h6><ul>
+<li>客户端发送请求给服务器,服务器接收到客户端的请求之后,返回给客户端JSON数据.</li>
+<li>客户端需要把服务器返回的JSON数据转换为OC的数据格式(数组/字典等).</li>
+</ul>
+<h4 id="2、JSON数据解析"><a href="#2、JSON数据解析" class="headerlink" title="2、JSON数据解析"></a>2、JSON数据解析</h4><h6 id="1、JSON数据解析方法"><a href="#1、JSON数据解析方法" class="headerlink" title="1、JSON数据解析方法:"></a>1、JSON数据解析方法:</h6><ul>
+<li>在iOS中,常见的JSON数据解析方案有4种:   </li>
+<li>第三方框架:JSONKit, SBJson, TouchJson.性能从左到右,依次变差.(iOS 5(2011年)以前)</li>
+<li>苹果原生(自带):NSJSONSerialization (性能是最好的.iOS5以后推出).</li>
+</ul>
+<h6 id="2、解析JSON数据"><a href="#2、解析JSON数据" class="headerlink" title="2、解析JSON数据"></a>2、解析JSON数据</h6><p><strong>反序列化(解析):</strong></p>
+<ul>
+<li><p>将从服务器接收到的JSON数据(二进制数据)转换成OC数据类型(NSArray,NSDictionary等.)的过程.</p>
+</li>
+<li><p>目的: JSON数据 –&gt; OC对象; 得到数据字典或者数据数组</p>
+</li>
+<li><p>好处: 简化程序的开发,方便后续的字典转模型.</p>
+</li>
+<li><p>方法:</p>
+<pre><code>+(id)JSONObjectWithData:(NSData *)data options:(NSJSONReadingOptions)opt error:(NSError **)error;
 </code></pre></li>
 </ul>
+<p><strong>序列化:</strong></p>
 <ul>
-<li>2、说明为什么要在 - (void)drawRect:(CGRect)rect 方法中进行绘图</li>
-<li><strong>只有在这个方法中才能获取当前 View 的绘图上下文</strong></li>
+<li>将数组或者字典发送给服务器之前,转换成二进制数据.</li>
+<li>目的:OC对象 –&gt; JSON数据;得到二进制JSON数据 NSData.</li>
+<li>好处:方便网络传输,提高传输速度.</li>
+<li><p>方法:</p>
+<pre><code>+(NSData *)dataWithJSONObject:(id)obj options:(NSJSONWritingOptions)opt error:(NSError **)error;
+</code></pre></li>
 </ul>
-<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ol>
-<li>当要向UIView上绘图的时候, 必须重写UIView的drawRect:方法, 然后在这个方法中进行绘图</li>
-<li>在drawRect:方法中获取的参数rect, 指的就是当前view的bounds属性</li>
-<li>为什么向当前view中绘制图形, 必须在drawRect:方法中进行?<ul>
-<li>3.1 原因: 只有在当前view的drawRect:方法中才能成功的获取当前view的”图形上下文”, 有了图形上下文才能进行绘图</li>
-<li>3.2 为什么只有在drawRect:方法中才能获取当前view的图形上下文呢？</li>
-<li>3.3 原因: 是因为系统在调用drawRect:方法之前已经帮我们创建好了一个与当前view相关的图形上下文了, 然后才调用的drawRect:方法, 所以在drawRect:方法中, 我们就可以成功获取当前view的图形上下文了。</li>
-<li>3.4 如何创建一个图形上下文？（后面说）<ul>
-<li>3.5 drawRect:方法是谁来调用的？什么时候调用的？<ul>
-<li>3.5.1 drawRect:方法是系统帮我们调用的, 千万别手动去调用这个方法。原因是, 自己手动去调用drawRect:方法的时候无法保证系统已经帮我们创建好了”图形上下文”, 所以这样就无法保证在drawRect:方法中获取”图形上下文”对象, 所以也就无法绘图。</li>
-<li>3.5.2 drawRect:方法的什么时候被调用？<ul>
-<li>1&gt; 当这个View第一次显示的时候会条用一次drawRect:方法。</li>
-<li>2&gt; 当这个View执行重绘操作的时候, 会重新调用drawRect:方法来进行绘图。</li>
-<li>3&gt; 通过调用【[self setNeedsDisplay];// 把这个view都重绘一次】 或 【[self setNeedsDisplayInRect:(CGRect)]// 把view中的某个区域重绘一次】 来实现重绘</li>
-<li>4&gt; 在每次调用 setNeedsDisplay 或 setNeedsDisplayInRect:方法的时候, 内部会先创建一个与当前view相关连的”图形上下文”然后再调用drawRect:实现重绘。</li>
+<p><strong>需要注意的是,在做序列化之前,一定要检测一下对象是否能够被序列化.（使用 isValidJSONObject 检测一下要序列化的对象，是否能够正确被序列化）</strong></p>
+<h2 id="二、XML数据"><a href="#二、XML数据" class="headerlink" title="二、XML数据"></a>二、XML数据</h2><h4 id="1、什么是XML"><a href="#1、什么是XML" class="headerlink" title="1、什么是XML"></a>1、什么是XML</h4><h6 id="1、XML-eXtensible-Markup-Language-’可扩展标记语言’"><a href="#1、XML-eXtensible-Markup-Language-’可扩展标记语言’" class="headerlink" title="1、XML(eXtensible Markup Language)’可扩展标记语言’"></a>1、XML(eXtensible Markup Language)’可扩展标记语言’</h6><ul>
+<li>XML跟JSON一样,也是用来数据交互.</li>
+<li>HTML是超文本标记语言.用来表示网页页面.<h6 id="2、XML语法简介"><a href="#2、XML语法简介" class="headerlink" title="2、XML语法简介"></a>2、XML语法简介</h6></li>
+<li><p>一个完整的XML文件叫XML文档(XML Document).一个XML文档一般由以下几部分组成:</p>
+<ul>
+<li><p><1> 文档声明:</1></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+</code></pre></li>
+<li><p><2> 元素(Element)</2></p>
+<pre><code>1&gt; 一个元素包括开始标签和结束标签.
+    &lt;name&gt;小红&lt;/name&gt;
+
+    一个元素可以没有元素内容,没有元素内容可以简写.
+    &lt;/person&gt;
+
+    XML中所有的空格和换行,都会当做具体的内容处理.
+
+2&gt; 一个元素可以嵌套若干个子元素(不能出现交叉嵌套).
+    &lt;person&gt;
+    &lt;name&gt;小花&lt;/name&gt;
+    &lt;age&gt;16&lt;/age&gt;
+    &lt;/person&gt;
+
+3&gt; 规范的XML文档最多只能有一个根元素,其他元素都是根元素的子元素.
+</code></pre></li>
+<li><p><3> 属性(Attribute)</3></p>
+<pre><code>1&gt; 一个元素可以拥有多个属性.
+&lt;person name = &quot;小明&quot; age = &quot;18&quot;/&gt;
+2&gt; 属性值必须用双引号&quot;&quot;或者单引号&apos;&apos;括住.
+3&gt; 属性信息可以用元素内容来表示.
+</code></pre></li>
 </ul>
 </li>
 </ul>
-</li>
+<h4 id="2、XML两种解析方式"><a href="#2、XML两种解析方式" class="headerlink" title="2、XML两种解析方式"></a>2、XML两种解析方式</h4><ul>
+<li>XML 解析有两种不同的思路:  SAX 解析  DOM 解析.</li>
+<li>SAX 解析: 从 XML 文档的根元素开始,一行一行的逐行解析XML元素中的内容!  在移动端使用比较多!可以较小内存开销!</li>
+<li>DOM 解析: 将整个 XML 文档加载到内存中,然后在解析! 占用内存比较多,在 PC(电脑) 中使用比较多</li>
 </ul>
-</li>
-</ul>
-</li>
-</ol>
-<p><strong>注意: UIBezierPath 对象可以独立使用,  无需手动获取“图形上下文”对象，此处为了更好的理解“图形上下文对象”所以暂时还是采用手动获取“图形上下文”对象的方式来绘图
-</strong>        </p>
-<h4 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h4><h6 id="1、绘制一个”三角形”"><a href="#1、绘制一个”三角形”" class="headerlink" title="1、绘制一个”三角形”"></a>1、绘制一个”三角形”</h6><pre><code>// 1. 获取当前的图形上下文
-CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 2. 在上下文中绘制图形（拼接路径）
-// 2.1 设置一个起点
-CGContextMoveToPoint(ctx, 20, 20);
-// 2.2 添加一条直线到(100, 100)这个点
-CGContextAddLineToPoint(ctx, 100, 100);
-// 2.3 再添加一条线
-CGContextAddLineToPoint(ctx, 120, 30);
-// 2.4 再添加一条线段
-//CGContextAddLineToPoint(ctx, 20, 20);
-// 另外一种做法: 直接关闭路径（连接最后一个点和起点）
-CGContextClosePath(ctx);
-// 3. 把上下文渲染显示到 HMView01上
-// StrokePath 表示把路径以空心的形式渲染出来。
-CGContextStrokePath(ctx);
-</code></pre><h6 id="2、绘制一个实心”矩形”"><a href="#2、绘制一个实心”矩形”" class="headerlink" title="2、绘制一个实心”矩形”"></a>2、绘制一个实心”矩形”</h6><pre><code>// 绘制一个&quot;四边形&quot;
-// 1. 获取当前图形上下文
-CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 2. 开始绘制路径
-CGContextAddRect(ctx, CGRectMake(20, 20, 100, 120));
-// 3. 渲染
-CGContextFillPath(ctx);
-</code></pre><h6 id="3、设置图形的颜色"><a href="#3、设置图形的颜色" class="headerlink" title="3、设置图形的颜色"></a>3、设置图形的颜色</h6><pre><code>// 绘制一个&quot;四边形&quot;
-// 1. 获取当前图形上下文
-CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 2. 开始绘制路径
-CGContextAddRect(ctx, CGRectMake(20, 20, 100, 120));
+<p>######<br>    {<br>        XML解析:</p>
+<pre><code>        所谓XML解析,指的就是将XML中元素的内容取出来或者将元素中的属性值提取出来.
 
-//============ C 语言的方式设置颜色 =================
-CGContextSetRGBFillColor(ctx, 200/255.0, 100/255.0, 50/255.0, 1.0);
-//CGContextSetRGBStrokeColor(&lt;#CGContextRef context#&gt;, &lt;#CGFloat red#&gt;, &lt;#CGFloat green#&gt;, &lt;#CGFloat blue#&gt;, &lt;#CGFloat alpha#&gt;)
-//============ C 语言的方式设置颜色 =================
+    XML解析方式: 1.SAX 2.DOM
 
-//============ OC 的方式设置颜色 =================
-// 设置空心图形的线条颜色
-// [[UIColor redColor] setStroke];
-// 设置实心图形的填充颜色
-// [[UIColor redColor] setFill];
-// 统一设置&quot;空心图形&quot; 和 &quot;实心图形&quot;的颜色
-//[[UIColor redColor] set];
-//============ OC 的方式设置颜色 =================
-// 3. 渲染
-CGContextFillPath(ctx);
-</code></pre><h6 id="4、设置不同线段-不同颜色"><a href="#4、设置不同线段-不同颜色" class="headerlink" title="4、设置不同线段, 不同颜色"></a>4、设置不同线段, 不同颜色</h6><pre><code>//画两根线, 一根红色, 一根蓝色
-// 1. 获取上下文对象
-CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 2. 绘制图形
-// 2.1 设置起点
-CGContextMoveToPoint(ctx, 50, 50);
-// 2.2 添加一根线
-CGContextAddLineToPoint(ctx, 50, 150);
-// 2.3 设置线段颜色
-[[UIColor redColor] set];
-// 2.4 设置线宽
-CGContextSetLineWidth(ctx, 10);
-// 渲染一次
-CGContextStrokePath(ctx);
+    1.SAX解析:
 
-// 再移动到一个新的起点
-CGContextMoveToPoint(ctx, 100, 50);
-// 再添加一根线
-CGContextAddLineToPoint(ctx, 100, 150);
-// 设置线的颜色
-[[UIColor blueColor] set];
-// 3. 渲染&quot;上下文对象&quot;到 view 上
-CGContextStrokePath(ctx);
-</code></pre><h6 id="5、设置线段”头尾部”的样式"><a href="#5、设置线段”头尾部”的样式" class="headerlink" title="5、设置线段”头尾部”的样式"></a>5、设置线段”头尾部”的样式</h6><pre><code> // 1. 获取上下文对象
- CGContextRef ctx = UIGraphicsGetCurrentContext();
- // 2. 绘制路径
- // 2.1 移动到起点
- CGContextMoveToPoint(ctx, 20, 20);
- // 2.2 添加一条线段
- CGContextAddLineToPoint(ctx, 100, 100);
- // 2.3 设置颜色
- [[UIColor redColor] set];
- // 2.4 设置线段宽度
- CGContextSetLineWidth(ctx, 15);
- // 2.5 设置线段头尾部样式
- //enum CGLineCap {
- //kCGLineCapButt, 默认值
- //kCGLineCapRound, 圆角
- //kCGLineCapSquare 方角
- //};
-CGContextSetLineCap(ctx, kCGLineCapSquare);
-// 3. 渲染
-CGContextStrokePath(ctx);
-</code></pre><h6 id="6、设置转折点样式"><a href="#6、设置转折点样式" class="headerlink" title="6、设置转折点样式"></a>6、设置转折点样式</h6><pre><code>// 2.4 设置线段宽度
-CGContextSetLineWidth(ctx, 15);
-// 2.5 设置线段头尾部样式
-CGContextSetLineCap(ctx, kCGLineCapRound);
-// 2.6 设置转折点样式
-CGContextSetLineJoin(ctx, kCGLineJoinBevel);
-</code></pre><h6 id="7、文字绘制-通过OC-来绘制图形"><a href="#7、文字绘制-通过OC-来绘制图形" class="headerlink" title="7、文字绘制(通过OC 来绘制图形)"></a>7、文字绘制(通过OC 来绘制图形)</h6><p><strong>1、绘制一段文字(思路: 直接使用 OC 的方法, 无需手动获取上下文对象)</strong></p>
-<pre><code>NSString *str = @&quot;哈哈, 黑马程序员 iOS学院。&quot;;
-NSDictionary *attrs = @{
-    NSForegroundColorAttributeName : [UIColor redColor],
-    NSFontAttributeName : [UIFont systemFontOfSize:20]
-};
-[str drawAtPoint:CGPointMake(30, 50) withAttributes:attrs];
-</code></pre><p><strong>2、绘制一段文字到一个指定的区域</strong></p>
-<p>思路: 调用字符串的 drawInRect: 方法.</p>
-<pre><code>// 1. 绘制文字
-NSString *str = @&quot;哈哈, 黑马程序员 iOS。&quot;;
-NSDictionary *attrs = @{
-NSForegroundColorAttributeName : [UIColor redColor],
-NSFontAttributeName : [UIFont systemFontOfSize:20]
-};
+        从根元素开始,一个元素一个元素的按顺序往下解析.
 
-[str drawInRect:CGRectMake(20, 20, 50, 250) withAttributes:attrs];
-// 1. 获取上下文
-CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 2. 把矩形画出来
-CGContextAddRect(ctx,CGRectMake(20, 20, 50, 250));
-// 3. 渲染
-CGContextStrokePath(ctx);
-</code></pre><h6 id="8、图片绘制-通过OC-来绘制图形"><a href="#8、图片绘制-通过OC-来绘制图形" class="headerlink" title="8、图片绘制(通过OC 来绘制图形)"></a>8、图片绘制(通过OC 来绘制图形)</h6><p><strong>1、绘制一张图片到 UIView 上</strong></p>
-<pre><code>// 1. 获取图片
-UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
-// 2. 把图片画到当前的 view中
-[img drawAtPoint:CGPointMake(0, 0)];
-</code></pre><p><strong>2、在指定的矩形中绘制图片（会自动拉伸）</strong></p>
-<pre><code>// 1. 获取图片
-UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
-// 2. 把图片画到当前的 view中
-[img drawInRect:CGRectMake(0, 0, 150, 150)];
-</code></pre><p><strong>3、画格子花纹效果(（pattern）), 思路: 调用drawAsPatternInRect:方法</strong></p>
-<pre><code>// 1. 获取图片
-UIImage *img = [UIImage imageNamed:@&quot;abc&quot;];
-// 2. 把图片画到当前的 view中
-[img drawAsPatternInRect:self.bounds];
-// 3. 在右下角显示文字
-NSString *str = @&quot;@Lonely ios&quot;;
-NSDictionary *attrs = @{
-NSForegroundColorAttributeName : [UIColor redColor],
-NSFontAttributeName : [UIFont systemFontOfSize:20]
-};
-[ str drawInRect:CGRectMake(0, 100, 200, 30) withAttributes:attrs];
-</code></pre><h2 id="二、图形上下文栈"><a href="#二、图形上下文栈" class="headerlink" title="二、图形上下文栈"></a>二、图形上下文栈</h2><ul>
-<li><strong>CGContextSaveGState(ctx);// 保存ctx这个绘图上下文对象</strong></li>
-<li><strong>CGContextRestoreGState(ctx); // 恢复 ctx这个图形上下文</strong></li>
-</ul>
-<h4 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h4><h6 id="1、矩阵操作"><a href="#1、矩阵操作" class="headerlink" title="1、矩阵操作"></a>1、矩阵操作</h6><pre><code>// 1. 获取上下文
-CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 保存上下文
-CGContextSaveGState(ctx);
-//======================= 矩阵操作 ============================
-// 1.1 旋转
-CGContextRotateCTM(ctx, M_PI_4 * 0.5);
-// 1.2 缩放
-CGContextScaleCTM(ctx, 0.5, 0.5);
-//======================= 矩阵操作 ============================
-// 2. 绘制一些图形
-CGContextMoveToPoint(ctx, 10, 10);
-CGContextAddLineToPoint(ctx, 100, 100);
-CGContextAddEllipseInRect(ctx, CGRectMake(130, 150, 100, 100));
-// 恢复上下文
-CGContextRestoreGState(ctx);
-CGContextAddRect(ctx, CGRectMake(70, 90, 100, 80));
-// 3. 渲染
-CGContextStrokePath(ctx);
-</code></pre><p><strong>注：在绘制任何图形前保存上下文, 在绘制最后一个图形前恢复上下文</strong></p>
-<h6 id="2、图片裁剪"><a href="#2、图片裁剪" class="headerlink" title="2、图片裁剪"></a>2、图片裁剪</h6><pre><code>CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 1. 画圆，这里最好使用 Ellipse 来绘制圆（画圆和画图片都从0,0点开始）。
-CGContextAddArc(ctx, 100, 100, 90, 0, M_PI * 2, 1);
-// 2. 裁剪上下文, 注意裁剪完毕就只能在裁剪好的区域内画东西了, 超出的地方无法绘制图形。
-CGContextClip(ctx);
-// 3. 把图片绘制上去
-UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
-[img drawAtPoint:CGPointMake(0, 0)];
-</code></pre><h6 id="3、图片裁剪（返回圆形边框View）"><a href="#3、图片裁剪（返回圆形边框View）" class="headerlink" title="3、图片裁剪（返回圆形边框View）"></a>3、图片裁剪（返回圆形边框View）</h6><pre><code>- (UIImage *)zc_circleImage
-{
-    //NO -&gt; 透明
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
-    //获取上下文
-    CGContextRef contex = UIGraphicsGetCurrentContext();
-    //添加圆
-    CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
-    CGContextAddEllipseInRect(contex, rect);
-    //裁剪
-    CGContextClip(contex);
-    //将图片画上去
-    [self drawInRect:rect];
-    //获取图片
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    //关闭
-    UIGraphicsEndImageContext();
-    return image;
+        比较适合大文件的解析.
+
+    * 解析方法:
+
+        苹果原生: NSXMLParser ,使用简单.设置代理就可以了.
+
+        NSXMLParser 采用SAX方式逐行往下解析,当扫描到下面的情况都会通知代理.
+
+            &lt;1&gt; 扫描到文档(Doucument)的开始与结束的时候,会通知代理.
+
+            &lt;2&gt; 扫描到元素(Element)的开始与结束的时候,会通知代理.
+
+            &lt;3&gt; 扫描到元素中的内容的时候,会通知代理.
+
+    * 使用步骤:
+    {
+        // 1.传入XML,创建解析器
+        NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
+
+        // 2.设置代理,监听解析过程
+        parser.delegate = self;
+
+        // 3.开始解析
+        [parser parse];
+
+        // 4.解析完毕之后刷新表格数据
+        [self.tableView reloadData];
+
+        // 4.实现代理方法
+        {
+            // 1.当扫描到文档的开始时调用（开始解析）
+            - (void)parserDidStartDocument:(NSXMLParser *)parser;
+
+            // 2.当扫描到元素的开始时调用（attributeDict存放着元素的属性）
+            - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict;
+
+            // 3.发现元素中的内容的时候开始调用
+            - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string;
+
+            // 4.当扫描到元素结束时调用
+            - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName;
+
+            // 5.当扫描到文档的结束时调用（解析完毕）
+            - (void)parserDidEndDocument:(NSXMLParser *)parser;
+
+        }
+    }
+
+    2.DOM解析:
+
+        一次性将整个XML文档加载进内存,内存消耗比较大.
+
+        比较适合小文件.更加适用于Mac.
+
+    * 解析方法:
+
+        第三方框架:
+
+        * libxml2: 纯C语言,默认包含在iOS SDK中,同时支持SAX和DOM方式解析.
+
+        * GDateXML: DOM方式解析,由Google开发,基于libxml2.
+
+    * GDataXML使用步骤:
+    {
+        &lt;1&gt; 导入第三方框架 GDateXML;
+
+        &lt;2&gt; 注意修改三个地方:
+
+            1&gt; Header Search Paths : /usr/include/libxml2
+
+            2&gt; Other Linker Flags : -lxml2
+
+            3&gt; 添加非ARC :-fno-objc-arc
+
+        &lt;3&gt; 使用方法:
+        {
+            // 1.加载整个XML文档
+            GDataXMLDocument *dom = [[GDataXMLDocument alloc] initWithData:data options:0 error:NULL];
+
+            // 2.获得文档的根元素
+            GDataXMLElement *element = dom.rootElement;
+
+            // 3.得到根元素中包含的元素(vedio元素)
+            [element.children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+                GDataXMLElement *vedio = obj;
+
+                ITVedio *ITvedio = [[ITVedio alloc] init];
+                // 4.得到vedio元素中包含的元素内容
+                [vedio.children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+                    GDataXMLElement *ele = obj;
+
+                    // 5.将元素内容取出赋值.
+                    [ITvedio setValue:ele.stringValue forKeyPath:ele.name];
+
+                }];
+
+                // 将数据模型放在数据源中.
+                [self.vedios addObject:ITvedio];
+
+            }];
+
+        }
+    }
+
 }
-</code></pre><p><strong> 因为绘图操作是 CPU密集型操作（会大量使用到 CPU），所以如果可以使用普通 UIView 来代替的就不要自己进行绘图</strong></p>
+</code></pre><h2 id="补充知识点"><a href="#补充知识点" class="headerlink" title="补充知识点"></a>补充知识点</h2><pre><code>{
+    注意:播放视频
+
+    1. 导入: MediaPlayer/MediaPlayer.h
+    #import &lt;MediaPlayer/MediaPlayer.h&gt;
+
+    2. 创建视频播放控制器
+    MPMoviePlayerViewController *mv = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+
+    3. 跳转到控制器播放视频
+    [self presentMoviePlayerViewControllerAnimated:mv];
+
+
+    NSNumber 替代 int,防止 null 错误.
+
+    NSArray + Log 分类,打印汉字,方便调试.
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/文件上传/" itemprop="url">
+                  文件上传
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/文件上传/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/文件上传/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、POST上传单个文件"><a href="#一、POST上传单个文件" class="headerlink" title="一、POST上传单个文件"></a>一、POST上传单个文件</h2><p><strong>重点:1.单个文件上传(四个步骤) 2.设置请求体格式</strong></p>
+<h4 id="1、为什么要上传文件"><a href="#1、为什么要上传文件" class="headerlink" title="1、为什么要上传文件:"></a>1、为什么要上传文件:</h4><ul>
+<li>以前很多服务器对上传文件的大小有限制,PHP 限制是 2M</li>
+<li>目前很多服务器不仅不限制大小,而且鼓励上传多个文件!</li>
+<li>云服务器的普及!</li>
+<li>软件商希望获得更多的用户数据!</li>
+</ul>
+<p><strong>提示:abc 的目录是用来保存上传文件的,需要设置访问权限!</strong></p>
+<h4 id="2、步骤"><a href="#2、步骤" class="headerlink" title="2、步骤"></a>2、步骤</h4><h6 id="1、文件上传使用-POST-方法"><a href="#1、文件上传使用-POST-方法" class="headerlink" title="1、文件上传使用 POST 方法"></a>1、文件上传使用 POST 方法</h6><pre><code>// 请求为可变请求
+NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+// 制定请求方法为 POST
+request.HTTPMethod = @&quot;POST&quot;;
+</code></pre><h6 id="2、设置请求头-告诉服务器请求体中的内容包含文件参数"><a href="#2、设置请求头-告诉服务器请求体中的内容包含文件参数" class="headerlink" title="2、设置请求头,告诉服务器请求体中的内容包含文件参数"></a>2、设置请求头,告诉服务器请求体中的内容包含文件参数</h6><pre><code>[request setValue:@&quot;multipart/form-data; boundary=kBoundary&quot; forHTTPHeaderField:@&quot;Content-Type&quot;];
+</code></pre><h6 id="3、设置请求体-注意-必须严格按照格式设置"><a href="#3、设置请求体-注意-必须严格按照格式设置" class="headerlink" title="3、设置请求体(注意:必须严格按照格式设置)"></a>3、设置请求体(注意:必须严格按照格式设置)</h6><pre><code>// 上边界
+--boundary\r\n
+Content-Disposition: form-data; name=userfile; filename=555\r\n
+Content-Type: application/json\r\n\r\n
+文件内容的二进制数据
+// 下边界
+\r\n--boundary--
+注意1:请求体内容分为三个部分:
+* 上边界部分,告诉服务器要做数据上传,包含了服务器的接收字段name=userfile,文件在服务器中保存的名称filename=555,以及上传文件的数据类型 application/json(需要严格按照字符串格式来设置)
+* 上传文件的数据部分(二进制数据)
+* 下边界部分,严格按照字符串格式来设置.
+上边界部分和下边界部分的字符串,最后都要转换成二进制数据,和文件部分的二进制数据拼接在一起,作为请求体发送给服务器.
+注意2:
+* userfile =&gt; 负责上传文件脚本中的 字段名,开发的时候,可以咨询后端程序员
+* filename =&gt; 将文件保存在服务器上的文件名称
+* Content-Type: 客户端告诉服务器上传文件的文件类型
+注意3:
+* 每一行末尾需要有一定的 \r\n
+* 提示：有些服务器可以直接使用 \n，但是新浪微博如果使用 \n 上传文件，服务器会返回“没有权限”的错误！
+</code></pre><h6 id="4、发送请求-用-NSURLConnection异步发送请求"><a href="#4、发送请求-用-NSURLConnection异步发送请求" class="headerlink" title="4、发送请求(用 NSURLConnection异步发送请求)"></a>4、发送请求(用 NSURLConnection异步发送请求)</h6><pre><code>[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+    //
+    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+    NSLog(@&quot;%@&quot;,string);
+}];
+</code></pre><h2 id="二、多文件上传"><a href="#二、多文件上传" class="headerlink" title="二、多文件上传"></a>二、多文件上传</h2><p><strong>重点:1.掌握多文件上传的数据格式 2.学会封装多文件上传的方法</strong></p>
+<pre><code>多文件上传和单文件上传的基本思路是一样的,唯一的区别在于对请求体的封装.
+多文件的请求体部分格式1
+{
+    // 第一个文件参数的上边界
+    \r\n--boundary\r\n
+    Content-Disposition: form-data; name=userfile[]; filename=美女\r\n
+    Content-Type:image/jpeg\r\n\r\n
+    上传文件的二进制数据部分
+    // 第一个文件参数的下边界
+    \r\n--boundary--
+    // 第二个文件参数的上边界
+    \r\n--boundary\r\n
+    Content-Disposition: form-data; name=userfile[]; filename=JSON\r\n
+    Content-Type:text/plain\r\n\r\n
+    上传文件的二进制数据部分
+    // 第二个文件参数的下边界
+    \r\n--boundary--
+}
+
+{
+    多文件上传的请求体格式2
+    // 上边界
+    // 第一个文件参数
+    \r\n--boundary\r\n
+    Content-Disposition: form-data; name=userfile[]; filename=美女\r\n
+    Content-Type:image/jpeg\r\n\r\n
+    上传文件的二进制数据部分
+    // 第二个文件参数
+    \r\n--boundary\r\n
+    Content-Disposition: form-data; name=userfile[]; filename=JSON\r\n
+    Content-Type:text/plain\r\n\r\n
+    上传文件的二进制数据部分
+    // 下边界
+    \r\n--boundary--
+}
+</code></pre><h2 id="三、获取文件的-MIMEType"><a href="#三、获取文件的-MIMEType" class="headerlink" title="三、获取文件的 MIMEType"></a>三、获取文件的 MIMEType</h2><pre><code>上传文件的时候,需要告诉服务器文件类型(即Content-Type),这时,需要获取文件的 MIMEType.
+
+获取文件的 MIMEType 方法:加载文件时,通过 response 获得
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+
+    NSURLResponse *response = nil;
+
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&amp;response error:NULL];
+
+    NSLog(@&quot;%@&quot;,response.MIMEType);
+
+}
+response.MIMEType 即为 Content-Type 的类型.
+
+如果不想告诉服务器具体的文件类型,可以使用这个 Content-Type : application/octet-stream(8进制流)
+
+常见的 Content-Type 类型:
+{
+    - 大类型/小类型
+    - text/plain
+    - image/jpg
+    - image/png
+    - image/gif
+    - text/html
+    - application/json
+}
+</code></pre><h2 id="四、多文件-普通文本上传"><a href="#四、多文件-普通文本上传" class="headerlink" title="四、多文件 + 普通文本上传"></a>四、多文件 + 普通文本上传</h2><ul>
+<li>有些服务器可以在上传文件的同时,提交一些文本内容给服务器</li>
+<li>典型应用:<ul>
+<li><1>新浪微博: 上传图片的同时,发送一条微博信息!</1></li>
+<li><2>购物评论: 购买商品之后发表评论的时候图片+评论内容!</2></li>
+</ul>
+</li>
+<li><p>多文件上传的数据格式：</p>
+<pre><code>Content-Type: multipart/form-data; boundary=boundary
+// ------ 以下内容，是提供给服务器的二进制数据格式
+--boundary\r\n
+Content-Disposition: form-data; name=&quot;userfile[]&quot;; filename=&quot;aaa.txt&quot;\r\n
+Content-Type: application/octet-stream\r\n\r\n
+
+文件二进制数据
+\r\n
+--boundary\r\n
+Content-Disposition: form-data; name=&quot;userfile[]&quot;; filename=&quot;aaa副本.txt&quot;\r\n
+Content-Type: application/octet-stream\r\n\r\n
+
+文件二进制数据
+\r\n
+--boundary\r\n
+// username 是脚本文件接收参数的名称
+Content-Disposition: form-data; name=&quot;username&quot;\r\n\r\n
+
+普通文本二进制数据
+\r\n
+--boundary--
+// ------
+
+以上部分，是发送给服务器的二进制数据的组成格式(示例)
+</code></pre></li>
+<li><p>如果在 iOS 中,要实现POST上传文件,需要按照上述格式,拼接数据!</p>
+</li>
+<li>因为:格式是 W3C 指定的标准格式,苹果没有做任何封装!其他语言,都做了封装!</li>
+<li>以上三种数据拼接格式,需要大家了解并且能够自己会拼接一种!</li>
+<li>“第三方框架做文件上传:<ul>
+<li>AFN 能够同时实现上传”一个文件”,有些格式的文件,用 AFN 无法上传!</li>
+<li>ASI 能够同时实现上传多个文件,MRC的,2012年就停止更新了,设计的目标平台, iOS 2.0/iOS 3.0 !</li>
+</ul>
+</li>
+</ul>
+<h2 id="五、RESTful设计风格"><a href="#五、RESTful设计风格" class="headerlink" title="五、RESTful设计风格"></a>五、RESTful设计风格</h2><pre><code>为了简化开发流程,使开发更加直观,解读更加容易,现在有一种非常流行的程序设计风格----&gt;RESTful设计风格
+
+RESTful设计风格:
+
+    主要用于后端开发,主要的表现形式为使用同一个 URL,不同的 HTTP 访问方法,表达不同的语义.
+{
+    示例: http:/\/\www.xxx.com/product/123
+
+    -GET http:/\/\www.xxx.com/product/123   语义:从服务器&quot;获取&quot;产品ID 为123的产品信息.
+
+    -POST http:/\/\www.xxx.com/product/123   语义:在服务器&quot;新增&quot;产品ID 为123的产品信息.
+
+    * 提交二进制数据,需要提交一个 JSON 格式的二进制数据,后端程序员可以直接反序列化,得到 JSON 中得字典信息.
+    * POST JSON
+
+    -PUT http:/\/\www.xxx.com/product/123   语义:在服务器&quot;修改&quot;产品ID 为123的产品信息.
+
+    -DELETE http:/\/\www.xxx.com/product/123   语义:从服务器&quot;删除&quot;产品ID 为123的产品信息.
+
+    RESTful设计风格目前在国际上非常流行,国内也逐渐开始普及.
+
+    作为前端程序员,只需要知道有这种设计风格就可以.
+}
+</code></pre><h2 id="六、AFN-上传文件"><a href="#六、AFN-上传文件" class="headerlink" title="六、AFN 上传文件"></a>六、AFN 上传文件</h2><pre><code>{
+    // 1. 创建管理者
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+
+    // 2. 发送请求
+    [mgr POST:@&quot;http://localhost/upload/upload.php&quot; parameters:nil constructingBodyWithBlock:^(id&lt;AFMultipartFormData&gt; formData) {
+
+        // formData :设置上传文件所需要的参数,两种上传方法:
+        // &lt;1&gt; 通过本地文件的 url 上传
+        {
+            NSString *fromFile = @&quot;/Users/likaining/Desktop/meinv.jpg&quot;;
+
+            NSURL *url = [NSURL URLWithString:@&quot;file:///Users/likaining/Desktop/meinv.jpg&quot;];
+            // url :需要上传文件的文件路径
+            // name :服务器接收的文件名.
+            // fileName: 文件在服务器中保存的名字
+            // mimeType : 文件类型
+            [formData appendPartWithFileURL:url name:@&quot;userfile&quot; fileName:@&quot;meinv&quot; mimeType:@&quot;image/jpg&quot; error:NULL];
+        }
+        // &lt;2&gt; 通过文件的 二进制数据 上传
+        {
+            NSData *data = [NSData dataWithContentsOfFile:zipFile];
+
+            [formData appendPartWithFileData:data name:@&quot;userfile&quot; fileName:@&quot;meinv.zip&quot; mimeType:@&quot;gzip&quot;];
+        }
+
+        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            // 上传成功之后的回调
+            NSLog(@&quot;%@&quot;,responseObject);
+
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            //  上传失败之后的回调
+            NSLog(@&quot;失败&quot;);
+    }];
+
+}
+</code></pre><h2 id="八、监测网络状态"><a href="#八、监测网络状态" class="headerlink" title="八、监测网络状态"></a>八、监测网络状态</h2><pre><code>{
+    1. AFN 监测网络状态
+    {
+        // 创建 网络状态管理者
+        AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
+
+        // 监测网络状态的改变
+        [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            // 当网络状态发生改变的时候调用这个block
+            switch (status) {
+                case AFNetworkReachabilityStatusReachableViaWiFi:
+                    NSLog(@&quot;WIFI网络&quot;);
+                    break;
+
+                case AFNetworkReachabilityStatusReachableViaWWAN:
+                    NSLog(@&quot;蜂窝网络&quot;);
+                    break;
+
+                case AFNetworkReachabilityStatusNotReachable:
+                    NSLog(@&quot;没有网络&quot;);
+                    break;
+
+                case AFNetworkReachabilityStatusUnknown:
+                    NSLog(@&quot;未知网络&quot;);
+                    break;
+                default:
+                    break;
+            }
+        }];
+        // 开始监控
+        [mgr startMonitoring];
+    }
+    2.Reachability 监测网络状态
+    {
+        // 注册通知观察者,网络状态改变时,接收通知!
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(InternetStatusChanged) name:kReachabilityChangedNotification object:nil];
+
+        // 控制器销毁时,移除通知观察者.
+        -(void)dealloc
+        {
+            [[NSNotificationCenter defaultCenter] removeObserver:self];
+        }
+
+        // 根据当前网络状态,做出不同的响应.
+        - (void)InternetStatusChanged
+        {
+            NSLog(@&quot;网络状态改变了&quot;);
+
+            if ([Reachability reachabilityForLocalWiFi].currentReachabilityStatus == ReachableViaWiFi) {
+                NSLog(@&quot;Wifi 网络&quot;);
+            }
+            if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus == ReachableViaWWAN) {
+                NSLog(@&quot;蜂窝移动网络&quot;);
+            }
+            if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus == NotReachable)
+            {
+                NSLog(@&quot;没有网络&quot;);
+            }
+        }
+        // 创建 Reachability 对象,开始监测网络状态的改变
+        - (void)MonitorInternetStatus
+        {
+            Reachability *CZReachability = [Reachability reachabilityForInternetConnection];
+
+            [CZReachability startNotifier];
+
+            self.reachability = CZReachability;
+        }
+
+        - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+        {
+            [self MonitorInternetStatus];
+        }
+    }
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/项目文件介绍/" itemprop="url">
+                  项目文件介绍
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/项目文件介绍/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/项目文件介绍/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1、项目文件介绍"><a href="#1、项目文件介绍" class="headerlink" title="1、项目文件介绍"></a>1、项目文件介绍</h2><ul>
+<li>新建一个项目，最左侧中包含3个文件夹<ul>
+<li>第1个文件夹包含项目相关的所有的代码文件及数据文件</li>
+<li>supportingFiles里面包含配置文件及其他的数据文件</li>
+<li>最后的UI-TESTS文件夹主要是做单元测试使用的，我们目前不会用到，所以先不考虑。</li>
+</ul>
+</li>
+<li>info.plist文件，项目的配置信息文件</li>
+<li>pch文件，项目中所有公用的类或者宏的头文件<h2 id="2、info-plist文件"><a href="#2、info-plist文件" class="headerlink" title="2、info.plist文件"></a>2、info.plist文件</h2></li>
+<li>在Xcode6以前创建项目的时候为有一个“项目名称-info.plist”名称的文件，在Xcode6之后就直接就是info.plist文件了。</li>
+<li>这个文件主要用来保存当前项目的基本配置信息<ul>
+<li>info.plist文件内容实际上是xml格式的，通过 <strong>右键</strong> –&gt; <strong>open as sourceCode</strong> 可以看到。</li>
+<li>保存的信息如应用版本号，应用要求的可运行的最低系统版本号。</li>
+<li>应用程序启动要加载storyboard文件名称</li>
+</ul>
+</li>
+<li>常用的key：<ul>
+<li>bundle display name 应用名称的key，名称如果太长就不能完全显示了。</li>
+<li>bundle identifier 应用的唯一标示，如果相同就会被覆盖。</li>
+<li>bundle versions String short 最终应用发布时的版本号</li>
+<li>bundle version 针对内部的一个版本号。</li>
+<li>Supported interface ortations 标识设备所支持的方向，对应的选中”项目”-&gt;”General”-&gt;”Deployment Info”-&gt;”Device Orientation”。iPhone只支持3种方向，不支持上下颠倒的旋转，Portrait（竖屏），Landscape Left（横屏向左），Landscape Right（横屏向右）</li>
+</ul>
+</li>
+</ul>
+<h6 id="注意：自己创建的plist文件中不要包含Info关键字。"><a href="#注意：自己创建的plist文件中不要包含Info关键字。" class="headerlink" title="注意：自己创建的plist文件中不要包含Info关键字。"></a>注意：自己创建的plist文件中不要包含Info关键字。</h6><h2 id="3、pch文件"><a href="#3、pch文件" class="headerlink" title="3、pch文件"></a>3、pch文件</h2><ul>
+<li>全称“Prefix Header File（前缀头文件）”，预编译头文件。</li>
+<li><p>在Xcode 6以后苹果就不推荐使用了。</p>
+<ul>
+<li>遇到的问题：<ul>
+<li>整个项目中很多地方都在使用某个类的头文件</li>
+<li>整个项目中很多地方都在使用同一个”宏”</li>
+<li>在项目中很多地方都用到了NSLog（）方法，想一下子全部清除掉</li>
+</ul>
+</li>
+<li><p>解决以上问题，可以通过使用PCH文件，它也是个头文件类似于*.h文件</p>
+<p><strong> 注意：PCH文件的特点，项目中所有其他代码文件无序显示导入该PCH文件，默认就可以访问（其他文件无序手动#import该PCH文件就能使用）</strong></p>
+</li>
+</ul>
+</li>
+<li><p>主要作用：</p>
+<ul>
+<li>可以做一些公用的宏定义</li>
+<li>把公共的Model类的#import导入写到pch文件.</li>
+<li>自定义NSLog()。例如:#define CZLog(…) NSLog(<strong>VA_ARGS</strong>)</li>
+<li>创建pch文件<ul>
+<li>“newFile”-&gt;””-&gt;””</li>
+<li>将通用的头文件和相应的宏放进去。</li>
+</ul>
+</li>
+<li><p>配置头文件，以使用头文件</p>
+<ul>
+<li>选择”项目”-&gt;”Build Setting” -&gt;”All”-&gt;搜索 “Prefix Header”,配置相应的pch文件。</li>
+<li>“$(SRCROOT)/$(PRODUCT_NAME)/PrefixHeader.pch”（如果有问题，更换为下面的方式，可能会与中文有关）</li>
+<li>“$(SRCROOT)/对应的文件夹名/PrefixHeader.pch”</li>
+</ul>
+</li>
+<li><p>在应用程序测试的时候，需要log很多信息，但是如果我们发布程序的时候就要禁止打印信息。</p>
+<ul>
+<li>自定义自己的log方式。</li>
+<li>自定义log的完整形式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#ifdef DEBUG</div><div class="line"></div><div class="line">#define CZLog(...) NSLog(__VA_ARGS__)</div><div class="line"></div><div class="line">#else</div><div class="line"></div><div class="line">#define CZLog(...)</div><div class="line"></div><div class="line">#endif</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>在使用pch文件时的注意点：</p>
+<ul>
+<li>创建c语言文件进去，直接编译就报错，因为默认情况下所有文件都会包含pch文件中的OC内容，C语言文件内不能识别OC代码，所以就会报错。</li>
+<li><p>解决：在pch文件中判断一下，如果是OC文件菜引入响应的宏，如果是普通C语言文件则不引入，否则项目中添加C语言文件时会报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef __OBJC__</div><div class="line"></div><div class="line">// OC相关的内容</div><div class="line"></div><div class="line">#endif</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
 
           
         
@@ -885,1201 +2214,6 @@ NSString *filePath = [docPath stringByAppendingPathComponent:@&quot;person.plist
 <li><strong>因此如果在storyboard使用自定义view,重写initWithCoder方法，一定要调用[super initWithCoder:]，因为只有系统才知道怎么解析storyboard，如果没有调用，就解析不了这个文件</strong>。</li>
 </ul>
 </li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/项目文件介绍/" itemprop="url">
-                  项目文件介绍
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/项目文件介绍/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/项目文件介绍/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="1、项目文件介绍"><a href="#1、项目文件介绍" class="headerlink" title="1、项目文件介绍"></a>1、项目文件介绍</h2><ul>
-<li>新建一个项目，最左侧中包含3个文件夹<ul>
-<li>第1个文件夹包含项目相关的所有的代码文件及数据文件</li>
-<li>supportingFiles里面包含配置文件及其他的数据文件</li>
-<li>最后的UI-TESTS文件夹主要是做单元测试使用的，我们目前不会用到，所以先不考虑。</li>
-</ul>
-</li>
-<li>info.plist文件，项目的配置信息文件</li>
-<li>pch文件，项目中所有公用的类或者宏的头文件<h2 id="2、info-plist文件"><a href="#2、info-plist文件" class="headerlink" title="2、info.plist文件"></a>2、info.plist文件</h2></li>
-<li>在Xcode6以前创建项目的时候为有一个“项目名称-info.plist”名称的文件，在Xcode6之后就直接就是info.plist文件了。</li>
-<li>这个文件主要用来保存当前项目的基本配置信息<ul>
-<li>info.plist文件内容实际上是xml格式的，通过 <strong>右键</strong> –&gt; <strong>open as sourceCode</strong> 可以看到。</li>
-<li>保存的信息如应用版本号，应用要求的可运行的最低系统版本号。</li>
-<li>应用程序启动要加载storyboard文件名称</li>
-</ul>
-</li>
-<li>常用的key：<ul>
-<li>bundle display name 应用名称的key，名称如果太长就不能完全显示了。</li>
-<li>bundle identifier 应用的唯一标示，如果相同就会被覆盖。</li>
-<li>bundle versions String short 最终应用发布时的版本号</li>
-<li>bundle version 针对内部的一个版本号。</li>
-<li>Supported interface ortations 标识设备所支持的方向，对应的选中”项目”-&gt;”General”-&gt;”Deployment Info”-&gt;”Device Orientation”。iPhone只支持3种方向，不支持上下颠倒的旋转，Portrait（竖屏），Landscape Left（横屏向左），Landscape Right（横屏向右）</li>
-</ul>
-</li>
-</ul>
-<h6 id="注意：自己创建的plist文件中不要包含Info关键字。"><a href="#注意：自己创建的plist文件中不要包含Info关键字。" class="headerlink" title="注意：自己创建的plist文件中不要包含Info关键字。"></a>注意：自己创建的plist文件中不要包含Info关键字。</h6><h2 id="3、pch文件"><a href="#3、pch文件" class="headerlink" title="3、pch文件"></a>3、pch文件</h2><ul>
-<li>全称“Prefix Header File（前缀头文件）”，预编译头文件。</li>
-<li><p>在Xcode 6以后苹果就不推荐使用了。</p>
-<ul>
-<li>遇到的问题：<ul>
-<li>整个项目中很多地方都在使用某个类的头文件</li>
-<li>整个项目中很多地方都在使用同一个”宏”</li>
-<li>在项目中很多地方都用到了NSLog（）方法，想一下子全部清除掉</li>
-</ul>
-</li>
-<li><p>解决以上问题，可以通过使用PCH文件，它也是个头文件类似于*.h文件</p>
-<p><strong> 注意：PCH文件的特点，项目中所有其他代码文件无序显示导入该PCH文件，默认就可以访问（其他文件无序手动#import该PCH文件就能使用）</strong></p>
-</li>
-</ul>
-</li>
-<li><p>主要作用：</p>
-<ul>
-<li>可以做一些公用的宏定义</li>
-<li>把公共的Model类的#import导入写到pch文件.</li>
-<li>自定义NSLog()。例如:#define CZLog(…) NSLog(<strong>VA_ARGS</strong>)</li>
-<li>创建pch文件<ul>
-<li>“newFile”-&gt;””-&gt;””</li>
-<li>将通用的头文件和相应的宏放进去。</li>
-</ul>
-</li>
-<li><p>配置头文件，以使用头文件</p>
-<ul>
-<li>选择”项目”-&gt;”Build Setting” -&gt;”All”-&gt;搜索 “Prefix Header”,配置相应的pch文件。</li>
-<li>“$(SRCROOT)/$(PRODUCT_NAME)/PrefixHeader.pch”（如果有问题，更换为下面的方式，可能会与中文有关）</li>
-<li>“$(SRCROOT)/对应的文件夹名/PrefixHeader.pch”</li>
-</ul>
-</li>
-<li><p>在应用程序测试的时候，需要log很多信息，但是如果我们发布程序的时候就要禁止打印信息。</p>
-<ul>
-<li>自定义自己的log方式。</li>
-<li>自定义log的完整形式</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#ifdef DEBUG</div><div class="line"></div><div class="line">#define CZLog(...) NSLog(__VA_ARGS__)</div><div class="line"></div><div class="line">#else</div><div class="line"></div><div class="line">#define CZLog(...)</div><div class="line"></div><div class="line">#endif</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>在使用pch文件时的注意点：</p>
-<ul>
-<li>创建c语言文件进去，直接编译就报错，因为默认情况下所有文件都会包含pch文件中的OC内容，C语言文件内不能识别OC代码，所以就会报错。</li>
-<li><p>解决：在pch文件中判断一下，如果是OC文件菜引入响应的宏，如果是普通C语言文件则不引入，否则项目中添加C语言文件时会报错。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#ifdef __OBJC__</div><div class="line"></div><div class="line">// OC相关的内容</div><div class="line"></div><div class="line">#endif</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/NSOperation/" itemprop="url">
-                  NSOperation
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Net/" itemprop="url" rel="index">
-                    <span itemprop="name">Net</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/NSOperation/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/NSOperation/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、NSOperation简介"><a href="#一、NSOperation简介" class="headerlink" title="一、NSOperation简介"></a>一、NSOperation简介</h2><h4 id="1、NSOperation的作用"><a href="#1、NSOperation的作用" class="headerlink" title="1、NSOperation的作用"></a>1、NSOperation的作用</h4><ul>
-<li>是OC语言中基于GCD的面向对象的封装</li>
-<li>使用起来比GCD更加简单（面向对象）</li>
-<li>提供了一些用GCD不好实现的功能</li>
-<li>苹果推荐使用，使用NSOperation不用关心线程以及线程的生命周期</li>
-</ul>
-<h4 id="2、查看NSOperation的头文件"><a href="#2、查看NSOperation的头文件" class="headerlink" title="2、查看NSOperation的头文件"></a>2、查看NSOperation的头文件</h4><ul>
-<li>NSOperation是一个抽象类<ol>
-<li>不能直接使用（方法没有实现）</li>
-<li>约束子类都具有共同的属性和方法</li>
-</ol>
-</li>
-<li>NSOperation的子类<ol>
-<li>NSInvocationOperation</li>
-<li>NSBlockOperation</li>
-<li>自定义operation</li>
-</ol>
-</li>
-</ul>
-<h4 id="3、使用步骤"><a href="#3、使用步骤" class="headerlink" title="3、使用步骤"></a>3、使用步骤</h4><h6 id="NSOperation和NSOperationQueue实现多线程的具体步骤"><a href="#NSOperation和NSOperationQueue实现多线程的具体步骤" class="headerlink" title="NSOperation和NSOperationQueue实现多线程的具体步骤"></a>NSOperation和NSOperationQueue实现多线程的具体步骤</h6><ul>
-<li>先将需要执行的操作封装到一个NSOperation对象中</li>
-<li>然后将NSOperation对象添加到NSOperationQueue中</li>
-<li>系统会自动将NSOperationQueue中的NSOperation取出来</li>
-<li>将取出的NSOperation封装的操作放到一条新线程中执行</li>
-</ul>
-<h2 id="二、NSOperation"><a href="#二、NSOperation" class="headerlink" title="二、NSOperation"></a>二、NSOperation</h2><h4 id="1、NSInvocationOperation"><a href="#1、NSInvocationOperation" class="headerlink" title="1、NSInvocationOperation"></a>1、NSInvocationOperation</h4><h6 id="建NSInvocationOperation对象"><a href="#建NSInvocationOperation对象" class="headerlink" title="建NSInvocationOperation对象"></a>建NSInvocationOperation对象</h6><pre><code>- (id)initWithTarget:(id)target selector:(SEL)sel object:(id)arg;
-</code></pre><h6 id="调用start方法开始执行操作"><a href="#调用start方法开始执行操作" class="headerlink" title="调用start方法开始执行操作"></a>调用start方法开始执行操作</h6><pre><code>- (void)start;
-</code></pre><p><strong>一旦执行操作，就会调用target的sel方法</strong></p>
-<h6 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h6><ul>
-<li>默认情况下，调用了start方法后并不会开一条新线程去执行操作，而是在当前线程同步执行操作</li>
-<li>只有将NSOperation放到一个NSOperationQueue中，才会异步执行操作,年代久远，不常用。</li>
-</ul>
-<h4 id="2、NSBlockOperation"><a href="#2、NSBlockOperation" class="headerlink" title="2、NSBlockOperation"></a>2、NSBlockOperation</h4><h6 id="创建NSBlockOperation对象"><a href="#创建NSBlockOperation对象" class="headerlink" title="创建NSBlockOperation对象"></a>创建NSBlockOperation对象</h6><pre><code>+ (id)blockOperationWithBlock:(void (^)(void))block;
-</code></pre><h6 id="通过addExecutionBlock-方法添加更多的操作"><a href="#通过addExecutionBlock-方法添加更多的操作" class="headerlink" title="通过addExecutionBlock:方法添加更多的操作"></a>通过addExecutionBlock:方法添加更多的操作</h6><pre><code>- (void)addExecutionBlock:(void (^)(void))block;
-</code></pre><p><strong>注意：只要NSBlockOperation封装的操作数 &gt; 1，就会异步执行操作</strong></p>
-<h4 id="3、NSOperationQueue"><a href="#3、NSOperationQueue" class="headerlink" title="3、NSOperationQueue"></a>3、NSOperationQueue</h4><h6 id="NSOperationQueue的作用"><a href="#NSOperationQueue的作用" class="headerlink" title="NSOperationQueue的作用"></a>NSOperationQueue的作用</h6><pre><code>NSOperation可以调用start方法来执行任务，但默认是同步执行的
-如果将NSOperation添加到NSOperationQueue（操作队列）中，系统会自动异步执行NSOperation中的操作
-</code></pre><h6 id="添加操作到NSOperationQueue中"><a href="#添加操作到NSOperationQueue中" class="headerlink" title="添加操作到NSOperationQueue中"></a>添加操作到NSOperationQueue中</h6><pre><code>- (void)addOperation:(NSOperation *)op;
-- (void)addOperationWithBlock:(void (^)(void))block;
-</code></pre><h6 id="监听操作完成"><a href="#监听操作完成" class="headerlink" title="监听操作完成"></a>监听操作完成</h6><pre><code>可以监听一个操作的执行完毕
-- (void (^)(void))completionBlock;
-- (void)setCompletionBlock:(void (^)(void))block;
-</code></pre><h4 id="4、最大并发数"><a href="#4、最大并发数" class="headerlink" title="4、最大并发数"></a>4、最大并发数</h4><h6 id="什么是并发数"><a href="#什么是并发数" class="headerlink" title="什么是并发数"></a>什么是并发数</h6><ul>
-<li>同时执行的任务数</li>
-<li>比如，同时开3个线程执行3个任务，并发数就是3</li>
-</ul>
-<h6 id="最大并发数的相关方法"><a href="#最大并发数的相关方法" class="headerlink" title="最大并发数的相关方法"></a>最大并发数的相关方法</h6><pre><code>- (NSInteger)maxConcurrentOperationCount;
-- (void)setMaxConcurrentOperationCount:(NSInteger)cnt;
-</code></pre><h4 id="5、队列的暂停、取消、恢复"><a href="#5、队列的暂停、取消、恢复" class="headerlink" title="5、队列的暂停、取消、恢复"></a>5、队列的暂停、取消、恢复</h4><h6 id="取消队列的所有操作"><a href="#取消队列的所有操作" class="headerlink" title="取消队列的所有操作"></a>取消队列的所有操作</h6><pre><code>- (void)cancelAllOperations;
-提示：也可以调用NSOperation的- (void)cancel方法取消单个操作
-</code></pre><h6 id="暂停和恢复队列"><a href="#暂停和恢复队列" class="headerlink" title="暂停和恢复队列"></a>暂停和恢复队列</h6><pre><code>- (void)setSuspended:(BOOL)b; // YES代表暂停队列，NO代表恢复队列
-- (BOOL)isSuspended;
-</code></pre><h4 id="6、操作的优先级"><a href="#6、操作的优先级" class="headerlink" title="6、操作的优先级"></a>6、操作的优先级</h4><h6 id="设置NSOperation在queue中的优先级，可以改变操作的执行优先级"><a href="#设置NSOperation在queue中的优先级，可以改变操作的执行优先级" class="headerlink" title="设置NSOperation在queue中的优先级，可以改变操作的执行优先级"></a>设置NSOperation在queue中的优先级，可以改变操作的执行优先级</h6><pre><code>- (NSOperationQueuePriority)queuePriority;
-- (void)setQueuePriority:(NSOperationQueuePriority)p;
-</code></pre><h6 id="优先级的取值"><a href="#优先级的取值" class="headerlink" title="优先级的取值"></a>优先级的取值</h6><pre><code>NSOperationQueuePriorityVeryLow = -8L,
-NSOperationQueuePriorityLow = -4L,
-NSOperationQueuePriorityNormal = 0,
-NSOperationQueuePriorityHigh = 4,
-NSOperationQueuePriorityVeryHigh = 8
-
-iOS8 @property NSQualityOfService qualityOfService
-
-NSQualityOfServiceUserInteractive = 0x21,
-NSQualityOfServiceUserInitiated = 0x19,
-NSQualityOfServiceUtility = 0x11,
-NSQualityOfServiceBackground = 0x09,
-NSQualityOfServiceDefault = -1
-</code></pre><h4 id="7、操作依赖"><a href="#7、操作依赖" class="headerlink" title="7、操作依赖"></a>7、操作依赖</h4><h6 id="NSOperation之间可以设置依赖来保证执行顺序"><a href="#NSOperation之间可以设置依赖来保证执行顺序" class="headerlink" title="NSOperation之间可以设置依赖来保证执行顺序"></a>NSOperation之间可以设置依赖来保证执行顺序</h6><pre><code>比如一定要让操作A执行完后，才能执行操作B，可以这么写
-[operationB addDependency:operationA]; // 操作B依赖于操作A
-可以在不同queue的NSOperation之间创建依赖关系
-</code></pre><p><strong>注意不能相符依赖</strong></p>
-<h4 id="8、线程间通信"><a href="#8、线程间通信" class="headerlink" title="8、线程间通信"></a>8、线程间通信</h4><h6 id="子线程-gt-主线程"><a href="#子线程-gt-主线程" class="headerlink" title="子线程-&gt;主线程"></a>子线程-&gt;主线程</h6><pre><code>[self.queue addOperationWithBlock:^{
-        //子线程
-        //do something
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            //主线程的任务,操作UI等
-        }];
-    }];
-</code></pre><h4 id="9、自定义NSOperation"><a href="#9、自定义NSOperation" class="headerlink" title="9、自定义NSOperation"></a>9、自定义NSOperation</h4><h6 id="重写main方法，把我们想要执行的代码放到该方法中去运行。"><a href="#重写main方法，把我们想要执行的代码放到该方法中去运行。" class="headerlink" title="重写main方法，把我们想要执行的代码放到该方法中去运行。"></a>重写main方法，把我们想要执行的代码放到该方法中去运行。</h6><pre><code>- (void)main;
-</code></pre><h2 id="3、NSOperation-VS-GCD"><a href="#3、NSOperation-VS-GCD" class="headerlink" title="3、NSOperation VS GCD"></a>3、NSOperation VS GCD</h2><h4 id="1、GCD"><a href="#1、GCD" class="headerlink" title="1、GCD"></a>1、GCD</h4><pre><code>i.  GCD是iOS4.0 推出的，主要针对多核cpu做了优化，是C语言的技术
-ii. GCD是将任务(block)添加到队列(串行/并行/全局/主队列)，并且以同步/异步的方式执行任务的函数
-iii.GCD提供了一些NSOperation不具备的功能
-1.    一次性执行
-2.    延迟执行
-3.    调度组
-</code></pre><h4 id="2、NSOperation"><a href="#2、NSOperation" class="headerlink" title="2、NSOperation"></a>2、NSOperation</h4><pre><code>i.  NSOperation是iOS2.0推出的，iOS4之后重写了NSOperation
-ii.    NSOperation将操作(异步的任务)添加到队列(并发队列)，就会执行指定操作的函数
-iii.NSOperation里提供的方便的操作
-1.    最大并发数
-2.    队列的暂定/继续
-3.    取消所有的操作
-4.    指定操作之间的依赖关系(GCD可以用同步实现)
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/cellidentifier/" itemprop="url">
-                  CellIdentifier
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/cellidentifier/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/cellidentifier/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="tableView性能优化-cell的循环利用方式1"><a href="#tableView性能优化-cell的循环利用方式1" class="headerlink" title="tableView性能优化 - cell的循环利用方式1"></a>tableView性能优化 - cell的循环利用方式1</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *  什么时候调用：每当有一个cell进入视野范围内就会调用</div><div class="line"> */</div><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 0.重用标识</span></div><div class="line">    <span class="comment">// 被static修饰的局部变量：只会初始化一次，在整个程序运行过程中，只有一份内存</span></div><div class="line">    <span class="keyword">static</span> <span class="built_in">NSString</span> *ID = <span class="string">@"cell"</span>;</div><div class="line"></div><div class="line">    <span class="comment">// 1.先根据cell的标识去缓存池中查找可循环利用的cell</span></div><div class="line">    <span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:ID];</div><div class="line"></div><div class="line">    <span class="comment">// 2.如果cell为nil（缓存池找不到对应的cell）</span></div><div class="line">    <span class="keyword">if</span> (cell == <span class="literal">nil</span>) &#123;</div><div class="line">        cell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:ID];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 3.覆盖数据</span></div><div class="line">    cell.textLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"testdata - %zd"</span>, indexPath.row];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> cell;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="tableView性能优化-cell的循环利用方式2"><a href="#tableView性能优化-cell的循环利用方式2" class="headerlink" title="tableView性能优化 - cell的循环利用方式2"></a>tableView性能优化 - cell的循环利用方式2</h2><ul>
-<li>定义一个全局变量</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义重用标识</span></div><div class="line"><span class="built_in">NSString</span> *ID = <span class="string">@"cell"</span>;</div></pre></td></tr></table></figure>
-<ul>
-<li>注册某个标识对应的cell类型</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 在这个方法中注册cell</span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line"></div><div class="line">    <span class="comment">// 注册某个标识对应的cell类型</span></div><div class="line">    [<span class="keyword">self</span>.tableView registerClass:[<span class="built_in">UITableViewCell</span> <span class="keyword">class</span>] forCellReuseIdentifier:ID];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>在数据源方法中返回cell</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 1.去缓存池中查找cell</span></div><div class="line">    <span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:ID];</div><div class="line"></div><div class="line">    <span class="comment">// 2.覆盖数据</span></div><div class="line">    cell.textLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"testdata - %zd"</span>, indexPath.row];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> cell;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="tableView性能优化-cell的循环利用方式3"><a href="#tableView性能优化-cell的循环利用方式3" class="headerlink" title="tableView性能优化 - cell的循环利用方式3"></a>tableView性能优化 - cell的循环利用方式3</h2><ul>
-<li><p>在storyboard中设置UITableView的Dynamic Prototypes Cell<br><img src="/img/Snip20150602_152.png" alt=""></p>
-</li>
-<li><p>设置cell的重用标识<br><img src="/img/Snip20150602_153.png" alt=""></p>
-</li>
-<li><p>在代码中利用重用标识获取cell</p>
-</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 0.重用标识</span></div><div class="line"><span class="comment">// 被static修饰的局部变量：只会初始化一次，在整个程序运行过程中，只有一份内存</span></div><div class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *ID = <span class="string">@"cell"</span>;</div><div class="line"></div><div class="line"><span class="comment">// 1.先根据cell的标识去缓存池中查找可循环利用的cell</span></div><div class="line"><span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:ID];</div><div class="line"></div><div class="line"><span class="comment">// 2.覆盖数据</span></div><div class="line">cell.textLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"cell - %zd"</span>, indexPath.row];</div><div class="line"></div><div class="line"><span class="keyword">return</span> cell;</div></pre></td></tr></table></figure>
-<h2 id="错误将UIViewController当做UITableViewController来用"><a href="#错误将UIViewController当做UITableViewController来用" class="headerlink" title="错误将UIViewController当做UITableViewController来用"></a>错误将UIViewController当做UITableViewController来用</h2><p><img src="/img/Snip20150602_110.png" alt=""></p>
-<h2 id="UITableView的常见设置"><a href="#UITableView的常见设置" class="headerlink" title="UITableView的常见设置"></a>UITableView的常见设置</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 分割线颜色</span></div><div class="line"><span class="keyword">self</span>.tableView.separatorColor = [<span class="built_in">UIColor</span> redColor];</div><div class="line"></div><div class="line"><span class="comment">// 隐藏分割线</span></div><div class="line"><span class="keyword">self</span>.tableView.separatorStyle = <span class="built_in">UITableViewCellSeparatorStyleNone</span>;</div><div class="line"></div><div class="line"><span class="comment">// tableView有数据的时候才需要分割线</span></div><div class="line"><span class="comment">// 开发小技巧:快速取消分割线</span></div><div class="line"> <span class="keyword">self</span>.tableView.tableFooterView = [[<span class="built_in">UIView</span> alloc] init];</div></pre></td></tr></table></figure>
-<h2 id="UITableViewCell的常见设置"><a href="#UITableViewCell的常见设置" class="headerlink" title="UITableViewCell的常见设置"></a>UITableViewCell的常见设置</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 取消选中的样式(常用) 让当前 cell 按下无反应</span></div><div class="line">cell.selectionStyle = <span class="built_in">UITableViewCellSelectionStyleNone</span>;</div><div class="line"></div><div class="line"><span class="comment">// 设置选中的背景色</span></div><div class="line"><span class="built_in">UIView</span> *selectedBackgroundView = [[<span class="built_in">UIView</span> alloc] init];</div><div class="line">selectedBackgroundView.backgroundColor = [<span class="built_in">UIColor</span> redColor];</div><div class="line">cell.selectedBackgroundView = selectedBackgroundView;</div><div class="line"></div><div class="line"><span class="comment">// 设置默认的背景色</span></div><div class="line">cell.backgroundColor = [<span class="built_in">UIColor</span> blueColor];</div><div class="line"></div><div class="line"><span class="comment">// 设置默认的背景色</span></div><div class="line"><span class="built_in">UIView</span> *backgroundView = [[<span class="built_in">UIView</span> alloc] init];</div><div class="line">backgroundView.backgroundColor = [<span class="built_in">UIColor</span> greenColor];</div><div class="line">cell.backgroundView = backgroundView;</div><div class="line"></div><div class="line"><span class="comment">// backgroundView的优先级 &gt; backgroundColor</span></div><div class="line"><span class="comment">// 设置指示器</span></div><div class="line"><span class="comment">//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;</span></div><div class="line">cell.accessoryView = [[<span class="built_in">UISwitch</span> alloc] init];</div></pre></td></tr></table></figure>
-<h2 id="自定义cell"><a href="#自定义cell" class="headerlink" title="自定义cell"></a>自定义cell</h2><ul>
-<li><p><code>等高的cell</code></p>
-<ul>
-<li><p><code>storyboard自定义cell</code></p>
-<ul>
-<li>1.创建一个继承自UITableViewCell的子类，比如XMGDealCell<br><br><img src="/img/Snip20150602_305.png" alt=""></li>
-<li>2.在storyboard中<ul>
-<li>往cell里面增加需要用到的子控件<br><br><img src="/img/Snip20150602_302.png" alt=""></li>
-<li>设置cell的重用标识<br><br><img src="/img/Snip20150602_303.png" alt=""></li>
-<li>设置cell的class为XMGDealCell<br><br><img src="/img/Snip20150602_304.png" alt=""></li>
-</ul>
-</li>
-<li>3.在控制器中<ul>
-<li>利用重用标识找到cell</li>
-<li>给cell传递模型数据<br><br><img src="/img/Snip20150602_301.png" alt=""></li>
-</ul>
-</li>
-<li>4.在XMGDealCell中<ul>
-<li>将storyboard中的子控件连线到类扩展中<br><br><img src="/img/Snip20150602_299.png" alt=""></li>
-<li>需要提供一个模型属性，重写模型的set方法，在这个方法中设置模型数据到子控件上<br><br><img src="/img/Snip20150602_298.png" alt=""><br><img src="/img/Snip20150602_300.png" alt=""></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><code>xib自定义cell</code></p>
-<ul>
-<li>1.创建一个继承自UITableViewCell的子类，比如XMGDealCell<br></li>
-<li>2.创建一个xib文件（文件名建议跟cell的类名一样），比如XMGDealCell.xib<ul>
-<li>拖拽一个UITableViewCell出来</li>
-<li>修改cell的class为XMGDealCell</li>
-<li><strong>设置cell的重用标识</strong></li>
-<li>往cell中添加需要用到的子控件</li>
-</ul>
-</li>
-<li>3.在控制器中<ul>
-<li><strong>利用registerNib…方法注册xib文件</strong></li>
-<li>利用重用标识找到cell（如果没有注册xib文件，就需要手动去加载xib文件）</li>
-<li>给cell传递模型数据<br></li>
-</ul>
-</li>
-<li>4.在XMGDealCell中<ul>
-<li>将xib中的子控件连线到类扩展中</li>
-<li>需要提供一个模型属性，重写模型的set方法，在这个方法中设置模型数据到子控件上</li>
-<li>也可以将创建获得cell的代码封装起来（比如cellWithTableView:方法）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><code>代码自定义cell(使用frame)</code></p>
-<ul>
-<li>1.创建一个继承自UITableViewCell的子类，比如XMGDealCell<ul>
-<li>在initWithStyle:reuseIdentifier:方法中<ul>
-<li>添加子控件</li>
-<li>设置子控件的初始化属性（比如文字颜色、字体）</li>
-</ul>
-</li>
-<li>在layoutSubviews方法中设置子控件的frame</li>
-<li>需要提供一个模型属性，重写模型的set方法，在这个方法中设置模型数据到子控件</li>
-</ul>
-</li>
-<li>2.在控制器中<ul>
-<li>利用registerClass…方法注册XMGDealCell类</li>
-<li>利用重用标识找到cell（如果没有注册类，就需要手动创建cell）</li>
-<li>给cell传递模型数据</li>
-<li>也可以将创建获得cell的代码封装起来（比如cellWithTableView:方法）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><code>代码自定义cell(使用autolayout)</code></p>
-<ul>
-<li>1.创建一个继承自UITableViewCell的子类，比如XMGDealCell<ul>
-<li>在initWithStyle:reuseIdentifier:方法中<ul>
-<li>添加子控件</li>
-<li>添加子控件的约束（建议使用<code>Masonry</code>）</li>
-<li>设置子控件的初始化属性（比如文字颜色、字体）</li>
-</ul>
-</li>
-<li>需要提供一个模型属性，重写模型的set方法，在这个方法中设置模型数据到子控件</li>
-</ul>
-</li>
-<li>2.在控制器中<ul>
-<li>利用registerClass…方法注册XMGDealCell类</li>
-<li>利用重用标识找到cell（如果没有注册类，就需要手动创建cell）</li>
-<li>给cell传递模型数据</li>
-<li>也可以将创建获得cell的代码封装起来（比如cellWithTableView:方法）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>非等高的cell</p>
-<ul>
-<li><p>xib自定义cell</p>
-</li>
-<li><p>storyboard自定义cell</p>
-</li>
-<li>代码自定义cell（frame）</li>
-<li>代码自定义cell（Autolayout）</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/autoresizing/" itemprop="url">
-                  Autoresizing
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/autoresizing/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/autoresizing/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>##autoresizing<br>    外部的四根线: 保持与父 view 的距离不变<br>    内部的两根线: 保持宽度和高度随着父 view 的改变而改变<br>    局限: 只能设置子 view 和父 view 之间的约束</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIViewAutoresizingNone</span>                     外部四根线都都选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleLeftMargin</span>       左侧灵活, 即右侧勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleWidth</span>            宽度灵活, 即宽度勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleRightMargin</span>      右侧灵活, 即左侧勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleTopMargin</span>        上侧灵活, 即下侧勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleHeight</span>           高度灵活, 即高度勾选</div><div class="line"><span class="built_in">UIViewAutoresizingFlexibleBottomMargin</span>     下侧灵活, 即上侧勾选</div><div class="line"></div><div class="line"><span class="comment">//eg:</span></div><div class="line">blueView.autoresizingMask = <span class="built_in">UIViewAutoresizingFlexibleTopMargin</span> | <span class="built_in">UIViewAutoresizingFlexibleLeftMargin</span>;</div></pre></td></tr></table></figure>
-<p>###autolayout</p>
-<ul>
-<li>约束</li>
-<li>参照</li>
-<li>核心公式: 宽度<ul>
-<li>被约束 view 的宽度 = 参照 view 的宽度 * 系数 + 常量 constant</li>
-</ul>
-</li>
-</ul>
-<p>###NSLayoutConstraint</p>
-<ul>
-<li>VFL<ul>
-<li>可视化格式语言</li>
-</ul>
-</li>
-<li>Masonry<ul>
-<li>第三方框架</li>
-<li>两个宏定义, 要放在导入头文件之前</li>
-<li>mas_</li>
-<li>自动装箱</li>
-</ul>
-</li>
-</ul>
-<p>###sizeClass</p>
-<ul>
-<li>把屏幕划分为九种</li>
-<li>any          任意       *</li>
-<li>compact   紧凑型  -</li>
-<li>regular     宽松型  +</li>
-<li>installed 属性 : 在不同类型的屏幕上面可以添加或取消控件</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/多线程的基本概念/" itemprop="url">
-                  多线程概念和NSThread
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Net/" itemprop="url" rel="index">
-                    <span itemprop="name">Net</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/多线程的基本概念/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/多线程的基本概念/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、多线程的基本概念"><a href="#一、多线程的基本概念" class="headerlink" title="一、多线程的基本概念"></a>一、多线程的基本概念</h2><h4 id="1、多线程的基本概念"><a href="#1、多线程的基本概念" class="headerlink" title="1、多线程的基本概念"></a>1、多线程的基本概念</h4><ol>
-<li>同步:顺序执行</li>
-<li>异步:同时运行</li>
-<li>进程:正在运行的程序,一个或多个线程组成</li>
-<li>线程:最基本的执行单元</li>
-</ol>
-<h4 id="2、特征"><a href="#2、特征" class="headerlink" title="2、特征"></a>2、特征</h4><ul>
-<li>(单核CPU)同一时间,cpu只能处理1个线程,只有1个线程在执行 </li>
-<li>多线程同时执行:是CPU快速的在多个线程之间的切换</li>
-<li>cpu调度线程的时间足够快,就造成了多线程的“同时”执行</li>
-<li>如果线程数非常多,cpu会在n个线程之间切换,消耗大量的cpu资源 </li>
-<li>每个线程被调度的次数会降低,线程的执行效率降低 </li>
-</ul>
-<h6 id="多线程的优点"><a href="#多线程的优点" class="headerlink" title="多线程的优点"></a>多线程的优点</h6><ul>
-<li>能<strong>适当</strong>提高程序的执行效率</li>
-<li>能<strong>适当</strong>提高资源的利用率（CPU&amp;内存）</li>
-<li>线程上得任务执行完后自动销毁</li>
-</ul>
-<h6 id="多线程的缺点"><a href="#多线程的缺点" class="headerlink" title="多线程的缺点"></a>多线程的缺点</h6><ul>
-<li>开启线程需要占用一定的内存空间(默认情况下,每一个线程都占512KB) </li>
-<li>如果开启大量的线程,会占用大量的内存空间,降低程序的性能</li>
-<li>线程越多,cpu在调用线程上的开销就越大</li>
-<li>程序设计更加复杂,比如线程间的通信、多线程的数据共享 </li>
-<li><strong>时间成本和空间成本</strong></li>
-</ul>
-<h6 id="主线程"><a href="#主线程" class="headerlink" title="主线程"></a>主线程</h6><ul>
-<li>一个程序运行后,默认会开启1个线程,称为“主线程”或“UI线程”</li>
-<li>主线程一般用来 刷新UI界面 ,处理UI事件(比如:点击、滚动、拖拽等事件) </li>
-<li>主线程使用注意 <ul>
-<li>别将耗时的操作放到主线程中</li>
-<li>耗时操作会卡住主线程,严重影响UI的流畅度,给用户一种卡的坏体验</li>
-</ul>
-</li>
-</ul>
-<h2 id="二、NSThread"><a href="#二、NSThread" class="headerlink" title="二、NSThread"></a>二、NSThread</h2><h4 id="1、创建和启动线程"><a href="#1、创建和启动线程" class="headerlink" title="1、创建和启动线程"></a>1、创建和启动线程</h4><p><strong>一个NSThread对象就代表一条线程</strong></p>
-<h6 id="创建、启动线程"><a href="#创建、启动线程" class="headerlink" title="创建、启动线程"></a>创建、启动线程</h6><pre><code>NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run) object:nil];
-[thread start];
-// 线程一启动，就会在线程thread中执行self的run方法
-</code></pre><h6 id="其他创建线程方式"><a href="#其他创建线程方式" class="headerlink" title="其他创建线程方式"></a>其他创建线程方式</h6><p>1、创建线程后自动启动线程</p>
-<pre><code>[NSThread detachNewThreadSelector:@selector(run) toTarget:self withObject:nil];
-</code></pre><p>2、隐式创建并启动线程</p>
-<pre><code>[self performSelectorInBackground:@selector(run) withObject:nil];
-</code></pre><p>3、上述2种创建线程方式的优缺点</p>
-<pre><code>优点：简单快捷
-缺点：无法对线程进行更详细的设置
-</code></pre><h4 id="2、控制线程状态"><a href="#2、控制线程状态" class="headerlink" title="2、控制线程状态"></a>2、控制线程状态</h4><h6 id="启动线程"><a href="#启动线程" class="headerlink" title="启动线程"></a>启动线程</h6><pre><code>- (void)start; 
-</code></pre><p>// 进入就绪状态 -&gt; 运行状态。当线程任务执行完毕，自动进入死亡状态</p>
-<h6 id="阻塞（暂停）线程"><a href="#阻塞（暂停）线程" class="headerlink" title="阻塞（暂停）线程"></a>阻塞（暂停）线程</h6><pre><code>+ (void)sleepUntilDate:(NSDate *)date;
-+ (void)sleepForTimeInterval:(NSTimeInterval)ti;
-</code></pre><p>// 进入阻塞状态</p>
-<h6 id="强制停止线程"><a href="#强制停止线程" class="headerlink" title="强制停止线程"></a>强制停止线程</h6><pre><code>+ (void)exit;
-</code></pre><p>// 进入死亡状态</p>
-<p><strong>注意：一旦线程停止（死亡）了，就不能再次开启任务</strong></p>
-<h4 id="3、常用属性方法"><a href="#3、常用属性方法" class="headerlink" title="3、常用属性方法"></a>3、常用属性方法</h4><h6 id="获得当前线程"><a href="#获得当前线程" class="headerlink" title="获得当前线程"></a>获得当前线程</h6><pre><code>NSThread *current = [NSThread currentThread];
-</code></pre><h6 id="线程的调度优先级"><a href="#线程的调度优先级" class="headerlink" title="线程的调度优先级"></a>线程的调度优先级</h6><pre><code>+ (double)threadPriority;
-</code></pre><p>调度优先级的取值范围是0.0 ~ 1.0，默认0.5，值越大，优先级越高</p>
-<h6 id="线程的名字"><a href="#线程的名字" class="headerlink" title="线程的名字"></a>线程的名字</h6><pre><code>- (void)setName:(NSString *)n;
-- (NSString *)name;
-</code></pre><h6 id="主线程相关用法"><a href="#主线程相关用法" class="headerlink" title="主线程相关用法"></a>主线程相关用法</h6><pre><code>+ (NSThread *)mainThread; // 获得主线程
-- (BOOL)isMainThread; // 是否为主线程
-</code></pre><h4 id="4、多线程的安全隐患"><a href="#4、多线程的安全隐患" class="headerlink" title="4、多线程的安全隐患"></a>4、多线程的安全隐患</h4><h6 id="资源共享"><a href="#资源共享" class="headerlink" title="资源共享"></a>资源共享</h6><ul>
-<li>1块资源可能会被多个线程共享，也就是多个线程可能会访问同一块资源</li>
-<li>比如多个线程访问同一个对象、同一个变量、同一个文件</li>
-<li>当多个线程访问同一块资源时，很容易引发数据错乱和数据安全问题</li>
-</ul>
-<h4 id="5、安全隐患解决-–-互斥锁"><a href="#5、安全隐患解决-–-互斥锁" class="headerlink" title="5、安全隐患解决 – 互斥锁"></a>5、安全隐患解决 – 互斥锁</h4><h6 id="互斥锁使用格式"><a href="#互斥锁使用格式" class="headerlink" title="互斥锁使用格式"></a>互斥锁使用格式</h6><pre><code>@synchronized(锁对象) { // 需要锁定的代码  }
-</code></pre><p><strong>注意：锁定1份代码只用1把锁，用多把锁是无效的</strong></p>
-<h6 id="互斥锁的优缺点"><a href="#互斥锁的优缺点" class="headerlink" title="互斥锁的优缺点"></a>互斥锁的优缺点</h6><pre><code>优点：能有效防止因多线程抢夺资源造成的数据安全问题
-缺点：需要消耗大量的CPU资源
-</code></pre><p><strong>互斥锁的使用前提：多条线程抢夺同一块资源</strong></p>
-<h6 id="相关专业术语：线程同步"><a href="#相关专业术语：线程同步" class="headerlink" title="相关专业术语：线程同步"></a>相关专业术语：线程同步</h6><pre><code>线程同步的意思是：多条线程按顺序地执行任务
-互斥锁，就是使用了线程同步技术
-</code></pre><h4 id="6、原子和非原子属性"><a href="#6、原子和非原子属性" class="headerlink" title="6、原子和非原子属性"></a>6、原子和非原子属性</h4><h6 id="OC在定义属性时有nonatomic和atomic两种选择"><a href="#OC在定义属性时有nonatomic和atomic两种选择" class="headerlink" title="OC在定义属性时有nonatomic和atomic两种选择"></a>OC在定义属性时有nonatomic和atomic两种选择</h6><ul>
-<li>atomic：原子属性，为setter方法加锁（默认就是atomic）</li>
-<li>nonatomic：非原子属性，不会为setter方法加锁</li>
-</ul>
-<h4 id="7、线程间通信"><a href="#7、线程间通信" class="headerlink" title="7、线程间通信"></a>7、线程间通信</h4><h6 id="什么叫做线程间通信"><a href="#什么叫做线程间通信" class="headerlink" title="什么叫做线程间通信"></a>什么叫做线程间通信</h6><p>在1个进程中，线程往往不是孤立存在的，多个线程之间需要经常进行通信</p>
-<h6 id="线程间通信的体现"><a href="#线程间通信的体现" class="headerlink" title="线程间通信的体现"></a>线程间通信的体现</h6><ul>
-<li>1个线程传递数据给另1个线程</li>
-<li>在1个线程中执行完特定任务后，转到另1个线程继续执行任务</li>
-</ul>
-<h6 id="线程间通信常用方法"><a href="#线程间通信常用方法" class="headerlink" title="线程间通信常用方法"></a>线程间通信常用方法</h6><pre><code>- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(id)arg waitUntilDone:(BOOL)wait;
-- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(id)arg waitUntilDone:(BOOL)wait;
-</code></pre><h4 id="8、什么时候使用自动释放池"><a href="#8、什么时候使用自动释放池" class="headerlink" title="8、什么时候使用自动释放池"></a>8、什么时候使用自动释放池</h4><p><strong>If you write a loop that creates many temporary objects.</strong><br>You may use an autorelease pool block inside the loop to dispose of those objects before the next iteration. Using an autorelease pool block in the loop helps to reduce the maximum memory footprint of the application. </p>
-<p>循环中创建了许多临时对象，在循环里面使用自动释放池，用来减少高内存占用。</p>
-<p><strong>If you spawn a secondary thread.</strong><br>You must create your own autorelease pool block as soon as the thread begins executing; otherwise, your application will leak objects. (See Autorelease Pool Blocks and Threads for details.) </p>
-<p>开启子线程的时候要自己创建自动释放池，否则可能会发生内存泄露</p>
-<h6 id="自动释放池常见面试代码"><a href="#自动释放池常见面试代码" class="headerlink" title="自动释放池常见面试代码"></a>自动释放池常见面试代码</h6><pre><code>for (int i = 0; i &lt; largeNumber; ++i) {
-    NSString *str = @&quot;Hello World&quot;;
-    str = [str stringByAppendingFormat:@&quot; - %d&quot;, i];
-    str = [str uppercaseString];
-    NSLog(@&quot;%@&quot;, str);
-}
-</code></pre><p><strong>在for循环内部加入一个自动释放池</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/README/" itemprop="url">
-                  UI简介
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/README/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/README/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>导航控制器的push的控制器的右滑弹出功能, 清空代理, 让导航控制器将功能找回</code><br><code>self.interactivePopGestureRecognizer.delegate = nil;</code></p>
-<h2 id="stroryboard-的认识"><a href="#stroryboard-的认识" class="headerlink" title="stroryboard 的认识"></a>stroryboard 的认识</h2><ul>
-<li>用于描述软件界面</li>
-<li>默认情况下, 程序一启动就会加载 Main.storyboard</li>
-<li>加载 storyboard 时, 会首先创建和显示箭头所指的控制器界面</li>
-</ul>
-<h2 id="IBAction-和-IBOutlet"><a href="#IBAction-和-IBOutlet" class="headerlink" title="IBAction 和 IBOutlet"></a>IBAction 和 IBOutlet</h2><ul>
-<li>IBAction<ul>
-<li>本质就是 void</li>
-<li>能让方法具备连线的功能</li>
-</ul>
-</li>
-<li>IBOutlet<ul>
-<li>能让属性具备连线的功能</li>
-</ul>
-</li>
-</ul>
-<h2 id="storyboard-连线容易出现的问题"><a href="#storyboard-连线容易出现的问题" class="headerlink" title="storyboard 连线容易出现的问题"></a>storyboard 连线容易出现的问题</h2><ul>
-<li>被连接的方法被删除, 但是连线没有去掉<ul>
-<li>可能出现方法找不到的错误</li>
-<li>unrecongnized selecotor sent to instance</li>
-</ul>
-</li>
-<li>连接的属性被删掉, 但是连线没有去掉<ul>
-<li>setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key</li>
-</ul>
-</li>
-</ul>
-<h2 id="UIViewController-控制器-的认识"><a href="#UIViewController-控制器-的认识" class="headerlink" title="UIViewController (控制器) 的认识"></a>UIViewController (控制器) 的认识</h2><ul>
-<li>一个控制器负责管理一个界面</li>
-<li>控制器负责界面的创建, 事件的处理等</li>
-</ul>
-<h2 id="类扩展"><a href="#类扩展" class="headerlink" title="类扩展"></a>类扩展</h2><ul>
-<li><p>格式<br>-</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">className</span>()</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> *   属性, 方法的声明</div><div class="line"> */</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>作用</p>
-<ul>
-<li>为某个类添加额外的属性和方法的声明</li>
-<li>可以写在 .h 和 .m 文件中</li>
-</ul>
-</li>
-</ul>
-<h2 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h2><ul>
-<li>Product Name<ul>
-<li>软件名称、产品名称、项目名称</li>
-</ul>
-</li>
-<li>Drganization Identifier<ul>
-<li>公司的唯一标识</li>
-<li>一般是公司域名的反写, 比如 com.baidu</li>
-</ul>
-</li>
-<li>Bundle Identifier<ul>
-<li>软件的唯一标识</li>
-<li>一般是 Drganization Identifier + Product Name</li>
 </ul>
 </li>
 </ul>

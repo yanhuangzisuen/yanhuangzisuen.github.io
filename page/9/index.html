@@ -296,8 +296,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/HTTP请求和数据安全/" itemprop="url">
-                  HTTP请求和数据安全
+                <a class="post-title-link" href="/2016/07/07/uiimageview/" itemprop="url">
+                  UIImageView
                 </a>
               
             
@@ -324,8 +324,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Net/" itemprop="url" rel="index">
-                    <span itemprop="name">Net</span>
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
                   </a>
                 </span>
 
@@ -340,8 +340,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/HTTP请求和数据安全/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/HTTP请求和数据安全/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/uiimageview/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uiimageview/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -366,344 +366,31 @@
       
         
           
-            <h2 id="一、HTTP请求"><a href="#一、HTTP请求" class="headerlink" title="一、HTTP请求"></a>一、HTTP请求</h2><h4 id="1、http协议-超文本传输协议-Hypertext-Transfer-Protocol"><a href="#1、http协议-超文本传输协议-Hypertext-Transfer-Protocol" class="headerlink" title="1、http协议: 超文本传输协议(Hypertext Transfer Protocol)"></a>1、http协议: 超文本传输协议(Hypertext Transfer Protocol)</h4><pre><code>http协议规定了客户端和服务器之间的数据传输格式.
-http协议是在网络开发中最常用的协议.不管是移动客户端还是PC端,访问网络资源经常使用http协议.
-http优点:
-&lt;1&gt; 简单快速:
-    http协议简单,通信速度很快.
-&lt;2&gt; 灵活:
-    http协议允许传输任意类型的数据.
-&lt;3&gt; http协议是短连接(非持续性连接)
-    http协议限制每次连接只处理一个请求,服务器对客户端的请求作出响应后,马上断开连接.这种方式可以节省传输时间.
-</code></pre><h4 id="2、http协议的使用"><a href="#2、http协议的使用" class="headerlink" title="2、http协议的使用"></a>2、http协议的使用</h4><p><strong>完整的http通信分为两步:</strong></p>
-<h6 id="1、请求-客户端向服务器索要数据"><a href="#1、请求-客户端向服务器索要数据" class="headerlink" title="1、请求:客户端向服务器索要数据."></a>1、请求:客户端向服务器索要数据.</h6><pre><code>http协议规定:一个完整的http请求包含&apos;请求行&apos;,&apos;请求头&apos;,&apos;请求体&apos;三个部分;
+            <p>###UIImageView 帧动画</p>
+<pre><code>1. 可以展示单张图片
+2. 也可以用来播放动画
+3. 播放动画的方法
+ - (void)startAnimating;//开始播放
+ - (void)stopAnimating;//结束播放
+ - (BOOL)isAnimating;//是否正在播放
+4. 用来存放动画图片的属性
+ @property(nonatomic, copy) NSArray *animationImages;
+5. 播放的属性
+ @property (nonatomic) NSTimeInterval animationDuration;//持续时间
+
+ //如果不设置默认会无限循环播放
+ @property (nonatomic) NSInteger      animationRepeatCount;//重复次数
+</code></pre><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//eg:</span></div><div class="line"><span class="keyword">if</span> ([<span class="keyword">self</span>.imageView isAnimating]) <span class="keyword">return</span>;</div><div class="line"></div><div class="line"><span class="comment">//动画数组</span></div><div class="line"><span class="keyword">self</span>.imageView.animationImages = arrM;</div><div class="line"></div><div class="line"><span class="comment">//设置播放动画的属性 ---- 必须在播放之前</span></div><div class="line"><span class="keyword">self</span>.imageView.animationDuration = <span class="number">3</span>;<span class="comment">//时间</span></div><div class="line"><span class="keyword">self</span>.imageView.animationRepeatCount = <span class="number">1</span>;<span class="comment">//次数</span></div><div class="line"></div><div class="line"><span class="comment">//开始动画</span></div><div class="line">[<span class="keyword">self</span>.imageView startAnimating];</div><div class="line"></div><div class="line"><span class="comment">//动画结束, 释放图片内存</span></div><div class="line"></div><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">3.0</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">    <span class="comment">// 3.0s后自动执行这个block里面的代码</span></div><div class="line">    <span class="keyword">self</span>.imageView.animationImages = <span class="literal">nil</span>;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>###读取图片的两种方式:</p>
+<pre><code>imageNamed: 自动对图片做缓存
+    优点: 第一次加载之后,  后面再使用直接读取缓存
+    缺点: 会导致内存飙升
+imageWithContentOfFile: 不会做缓存  路径: NSBundle
+    优点:  不做缓存
+    缺点: 加载比较慢
+</code></pre><h3 id="拉伸图片"><a href="#拉伸图片" class="headerlink" title="拉伸图片"></a>拉伸图片</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//方式一:</span></div><div class="line"><span class="built_in">UIImage</span> *resizeImage = [image resizableImageWithCapInsets:<span class="built_in">UIEdgeInsetsMake</span>(halfHeight, halfWidth, halfHeight, halfWidth) resizingMode:<span class="built_in">UIImageResizingModeStretch</span>];</div><div class="line"><span class="comment">//方式二:</span></div><div class="line">Assets : Show Slicing</div></pre></td></tr></table></figure>
+<h3 id="Xcode-的-UUID"><a href="#Xcode-的-UUID" class="headerlink" title="Xcode 的 UUID"></a>Xcode 的 UUID</h3><p>9AFF134A-08DC-4096-8CEE-62A4BB123046<br>插件的安装路径<br>~/Library/Application Support/Developer/Shared/Xcode/Plug-ins</p>
 
-&apos;请求行&apos;:包含了请求方法,请求资源路径,http协议版本.
-
-&quot;GET /resources/images/ HTTP/1.1&quot;
-
-&apos;请求头&apos;:包含了对客户端的环境描述,客户端请求的主机地址等信息.
-
-Accept: text/html // 客户端所能接收的数据类型
-Accept-Language: zh-cn // 客户端的语言环境
-Accept-Encoding: gzip // 客户端支持的数据压缩格式
-Host: m.baidu.com // 客户端想访问的服务器主机地址
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:37.0) Gecko/20100101 Firefox/37.0 // 客户端的类型,客户端的软件环境
-
-&apos;请求体&apos;:客户端发给服务器的具体数据,比如文件/图片等.
-</code></pre><h6 id="2、响应-服务器返回客户端想要的数据"><a href="#2、响应-服务器返回客户端想要的数据" class="headerlink" title="2、响应:服务器返回客户端想要的数据"></a>2、响应:服务器返回客户端想要的数据</h6><pre><code>http协议规定:一个完整的http响应包含&apos;状态行&apos;,&apos;响应头&apos;,&apos;实体内容&apos;三个部分;
-
-&apos;状态行&apos;:包含了http协议版本,状态吗,状态英文名称.
-
-&quot;HTTP/1.1 200 OK&quot;
-
-&apos;响应头&apos;:包含了对服务器的描述,对返回数据的描述.
-
-Content-Encoding: gzip // 服务器支持的数据压缩格式
-Content-Length:  1528 // 返回数据的长度
-Content-Type:  application/xhtml+xml;charset=utf-8 // 返回数据的类型
-Date: Mon, 15 Jun 2015 09:06:46 GMT // 响应的时间
-Server: apache  // 服务器类型
-
-&apos;实体内容&apos;:服务器返回给客户端的具体数据(图片/html/文件...).
-</code></pre><h4 id="3、发送http请求"><a href="#3、发送http请求" class="headerlink" title="3、发送http请求:"></a>3、发送http请求:</h4><pre><code>在iOS开发中,发送http请求的方案有很多,常见的有如下几种:
-&lt;1&gt; 苹果原生:
-{
-    * NSURLConnection:用法简单,古老经典的一种方案.
-
-    * NSURLSession:iOS7以后推出的技术,功能比NSURLConnection更加强大.
-
-    * CFNetWork:NSURL 的底层,纯C语言,一般不用.
-}
-
-&lt;2&gt; 第三方框架:
-{
-    * ASIHttpRequest:http终结者,功能很强大,可惜作者已停止更新.
-
-    * AFNetWorking:简单易用,提供了基本够用的常用功能,维护和使用者多.
-
-    * MKNetWorkKit:简单易用,产自印度,维护和使用者少.
-}
-</code></pre><h2 id="二、GET-和-POST"><a href="#二、GET-和-POST" class="headerlink" title="二、GET 和 POST"></a>二、GET 和 POST</h2><h4 id="1、http方法"><a href="#1、http方法" class="headerlink" title="1、http方法:"></a>1、http方法:</h4><pre><code>http协议定义了很多方法对应不同的资源操作,其中最常用的是GET 和 POST 方法.
-{
-    { GET、POST、OPTIONS、HEAD、PUT、DELETE、TRACE、CONNECT、PATCH }
-
-    增:PUT
-    删:DELETE
-    改:POST
-    查:GET
-}
-</code></pre><h4 id="2、参数"><a href="#2、参数" class="headerlink" title="2、参数"></a>2、参数</h4><pre><code>因为 GET 和 POST 可以实现上述所有操作,所以,在现实开发中,我们只要会用GET 和 POST 方法就可以了.
-在与服务器交互时,有时候需要给服务器发送一些数据,比如登录时需要发送用户名和密码.
-参数:就是指传递给服务器的具体数据.
-</code></pre><h4 id="3、GET-和-POST-的主要区别表现在参数的传递上"><a href="#3、GET-和-POST-的主要区别表现在参数的传递上" class="headerlink" title="3、GET 和 POST 的主要区别表现在参数的传递上"></a>3、GET 和 POST 的主要区别表现在参数的传递上</h4><h6 id="1、GET"><a href="#1、GET" class="headerlink" title="1、GET"></a>1、GET</h6><pre><code>GET的本质是从服务器得到数据,效率更高.并且GET请求可以被缓存.
-
-&apos;注意&apos;: 网络缓存数据,保存在SQLite的数据库中(路径:NSHomeDirectory()).
-查看缓存数据命令行:
-&apos;cd 文件目录&apos;   (打开文件目录)
-&apos;ls&apos;   查看当前文件下目录
-&apos;sqlite3 Cache.db&apos;   打开数据库
-&apos;.tables&apos;    查看数据库中的表单
-&apos;select * from cfurl_cache_response;&apos;   查看服务器响应缓存
-&apos;select * from cfurl_cache_receiver_data;&apos;   查看服务器返回的数据缓存
-
-在请求 URL 后面以 ? 的形式跟上发给服务器的参数,参数以 &quot;参数名&quot;=&quot;参数值&quot;的形式拼接,多个参数之间用 &amp; 分隔.
-
-注意:GET的长度是有限制的,不同的浏览器有不同的长度限制,一般在2~8K之间
-</code></pre><h6 id="2、POST"><a href="#2、POST" class="headerlink" title="2、POST"></a>2、POST</h6><pre><code>POST的本质是向服务器发送数据,也可以获得服务器处理之后的结果,效率不如GET.POST请求不可以被缓存,每次刷新之后都需要重新提交表单.
-
-发送给服务器的参数全部放在&apos;请求体&apos;中;
-
-理论上,POST传递的数据量没有限制.
-
-注意:所有涉及到用户隐私的数据(密码/银行卡号等...)都要用POST的方式传递.
-</code></pre><h4 id="4、注意-URL中不能出现空格以及中文等特殊符号"><a href="#4、注意-URL中不能出现空格以及中文等特殊符号" class="headerlink" title="4、注意:URL中不能出现空格以及中文等特殊符号"></a>4、注意:URL中不能出现空格以及中文等特殊符号</h4><pre><code>1&gt;URL中,所有的字符都必须是 ASCII 码;
-
-2&gt;URL中不能出现中文和特殊符号(如空格);
-
-所以,如果 URL 中出现了中文,需要添加百分号转译.
-urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-</code></pre><h4 id="5、POST-发送登陆请求"><a href="#5、POST-发送登陆请求" class="headerlink" title="5、POST 发送登陆请求"></a>5、POST 发送登陆请求</h4><pre><code>1&gt; 用可变请求: NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-2&gt; 指定请求方法: request.HTTPMethod = @&quot;POST&quot;;
-3&gt; 设置请求体数据: request.HTTPBody = data;
-// 实例化请求体字符串
-NSString *body = [NSString stringWithFormat:@&quot;username=%@&amp;password=%@&quot;,self.userName.text,self.password.text];
-// 将字符串转换成二进制数据
-NSData *data = [body dataUsingEncoding:NSUTF8StringEncoding];
-4&gt; 发送异步网络请求.
-[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-    // NSURLResponse *response: 服务器响应
-    // NSData *data: 服务器返回的数据
-    // NSError *connectionError: 连接错误处理
-    // 网络请求的回调.
-}]
-</code></pre><h2 id="三、保存用户信息"><a href="#三、保存用户信息" class="headerlink" title="三、保存用户信息"></a>三、保存用户信息</h2><h4 id="1、偏好设置保存用户信息"><a href="#1、偏好设置保存用户信息" class="headerlink" title="1、偏好设置保存用户信息"></a>1、偏好设置保存用户信息</h4><pre><code>&lt;1&gt;如果用户登陆成功,就保存用户信息.下次直接从偏好设置中读取用户信息,以此做到用户只需要输入一次账号和密码,以后登陆就可以不用再次输入.
-
-1&gt;.登陆成功,保存用户信息(偏好设置)
-2&gt;.再次进入,直接显示用户之前保存的信息.避免用户重复输入.
-
-// 偏好设置存储用户信息
--(void)savaUserInfo
-{
-    // 实例化偏好设置对象(单例)
-    NSUserDefaults *User = [NSUserDefaults standardUserDefaults];
-    // 保存用户名
-    [User setObject:self.userName.text forKey:kITUSERNAMEKEY];
-    // 保存用户密码
-    [User setObject:pass forKey:kITUSERPASSKEY];
-    // 同步保存用户信息
-    [User synchronize];
-}
-
-// 加载偏好设置中的用户信息
-- (void)loadUserInfo
-{
-    NSUserDefaults *User = [NSUserDefaults standardUserDefaults];
-
-    if ([User objectForKey:ITUSERNAMEKEY]) {
-
-        self.userName.text = [User objectForKey:ITUSERNAMEKEY];
-
-    }if ([User objectForKey:ITUSERPASSKEY]) {
-
-        self.password.text = [User objectForKey:ITUSERPASSKEY];
-
-    };
-}
-
-&lt;2&gt; 用户登陆业务逻辑
-{
-    // &lt;1&gt; 用户登陆需要一个单独的控制器,因为只需要登陆一次(Login.storyboard). 应用程序需要有一个入口:main.storyboard: app 主页面
-
-    // &lt;2&gt; 判断用户是否登陆成功过(通过偏好设置中存储的用户信息判断)
-    // 1&gt; 如果偏好设置中存有用户信息(说明之前登陆成功过),直接进入 app 主页面 :main.storyboard
-    // 2&gt; 如果偏好设置中不存在用户信息(第一次登陆或者之前注销了用户信息),进入登陆界面 :Login.storyboard
-
-    // &lt;3&gt; 如果用户登陆成功,跳转到 app 主页面:main.storyboard.并且在偏好设置中保存用户信息.
-
-    // &lt;4&gt; 如果用户点击注销按钮,注销用户信息,返回到登陆页面.
-}
-
-
-&lt;3&gt; 问题: 用户密码不能以明文的形式保存,需要对用户密码加密之后再保存!
-
-密码的安全原则:
-
-1&gt; 本地和服务器都不允许保存用户的密码明文.
-
-2&gt; 在网络上,不允许传输用户的密码明文.
-
-现代密码学趣闻! 中途岛海战(AF)
-
-&lt;4&gt; 数据加密算法:
-
-1&gt; 对称加密算法:加密和解密使用同一密钥.加密解密速度快,要保证密钥安全.适合给大数据加密.
-
-2&gt; 非对称加密算法:使用公钥加密,私钥解密.或者使用私钥加密,公钥解密.更加安全,但是加密解密速度慢,适合给小数据加密.
-
-&lt;5&gt; 小技巧:
-
-openssl :是一个强大的安全套接字层密码库,囊括主要的密码算法,常用的密钥和证书封装管理功能以及 SSL 协议.提供丰富的应用程序测试功能.
-
-终端命令:
-
-    echo hello |openssl md5
-    echo hello |openssl sha1
-    echo hello |openssl sha -sha256
-    echo hello |openssl sha -sha512
-</code></pre><h2 id="四、信息安全加密"><a href="#四、信息安全加密" class="headerlink" title="四、信息安全加密"></a>四、信息安全加密</h2><p><strong>了解:常用加密方法: 1&gt; base64  2&gt; MD5  3&gt; MD5加盐  4&gt; HMAC  5&gt; 时间戳密码(用户密码动态变化)</strong></p>
-<h4 id="1、base64"><a href="#1、base64" class="headerlink" title="1、base64"></a>1、base64</h4><pre><code>base64 编码是现代密码学的基础.
-
-原本是 8个bit 一组表示数据,改为 6个bit一组表示数据,不足的部分补零,每 两个0 用 一个 = 表示.
-用base64 编码之后,数据长度会变大,增加了大约 1/3 左右.
-
-base64 基本能够达到安全要求,但是,base64能够逆运算,非常不安全!
-base64 编码有个非常显著的特点,末尾有个 &apos;=&apos; 号.
-
-利用终端命令进行base64运算:
-
-    // 将文件 meinv.jpg 进行 base64运算之后存储为 meinv.txt
-    base64 meinv.jpg -o meinv.txt
-
-    // 讲meinv.txt 解码生成 meinv.png
-    base64 -D meinv.txt -o meinv.png
-
-    // 将字符串 &quot;hello&quot; 进行 base 64 编码 结果:aGVsbG8=
-    echo &quot;hello&quot; | base64
-
-    // 将 base64编码之后的结果 aGVsbG8= 反编码为字符串
-    echo aGVsbG8= | base64 -D
-</code></pre><h4 id="2、MD5-–-信息-摘要算法-哈希算法之一"><a href="#2、MD5-–-信息-摘要算法-哈希算法之一" class="headerlink" title="2、MD5 – (信息-摘要算法) 哈希算法之一"></a>2、MD5 – (信息-摘要算法) 哈希算法之一</h4><pre><code>把一个任意长度的字节串变换成一定长度的十六进制的大整数. 注意,字符串的转换过程是不可逆的.
-
-用于确保&apos;信息传输&apos;完整一致.
-
-MD5特点:
-
-*1.压缩性:   任意长度的数据,算出的 MD5 值长度都是固定的.
-*2.容易计算: 从原数据计算出 MD5 值很容易.
-*3.抗修改性: 对原数据进行任何改动,哪怕只修改一个字节,所得到的 MD5 值都有很大区别.
-*4.弱抗碰撞: 已知原数据和其 MD5 值,想找到一个具有相同 MD5 值的数据(即伪造数据)是非常困难的.
-*5.强抗碰撞: 想找到两个不同数据,使他们具有相同的 MD5 值,是非常困难的.
-
-MD5 应用:
-
-*1. 一致性验证: MD5 将整个文件当做一个大文本信息,通过不可逆的字符串变换算法,产生一个唯一的 MD5 信息摘要.就像每个人都有自己独一无二的指纹,MD5 对任何文件产生一个独一无二的&quot;数字指纹&quot;.
-
-    利用 MD5 来进行文件校验, 被大量应用在软件下载站,论坛数据库,系统文件安全等方面.
-
-*2. 数字签名;
-
-*3. 安全访问认证;
-</code></pre><h4 id="3、MD5加盐"><a href="#3、MD5加盐" class="headerlink" title="3、MD5加盐"></a>3、MD5加盐</h4><pre><code>MD5 本身是不可逆运算,但是,目前网络上有很多数据库支持反查询.
-MD5加盐 就是在密码哈希过程中添加的额外的随机值.
-注意:加盐要足够长,足够复杂.
-</code></pre><h4 id="4、HMAC"><a href="#4、HMAC" class="headerlink" title="4、HMAC"></a>4、HMAC</h4><pre><code>HMAC 利用哈希算法,以一个密钥和一个消息为输入,生成一个消息摘要作为输出.
-
-HMAC 主要使用在身份认证中;
-
-认证流程:
-
-    *1. 客户端向服务器发送一个请求.
-    *2. 服务器接收到请求后,生成一个&apos;随机数&apos;并通过网络传输给客户端.
-    *3. 客户端将接收到的&apos;随机数&apos;和&apos;密钥&apos;进行 HMAC-MD5 运算,将得到的结构作为认证数据传递给服务器.
-    (实际是将随机数提供给 ePass,密钥也是存储在 ePass中的)
-    *4. 与此同时,服务器也使用该&apos;随机数&apos;与存储在服务器数据库中的该客户&apos;密钥&apos;进行 HMAC-MD5 运算,如果
-    服务器的运算结果与客户端传回的认证数据相同,则认为客户端是一个合法用法.
-</code></pre><h4 id="5、时间戳密码-用户密码动态变化"><a href="#5、时间戳密码-用户密码动态变化" class="headerlink" title="5、时间戳密码(用户密码动态变化)"></a>5、时间戳密码(用户密码动态变化)</h4><pre><code>相同的密码明文 + 相同的加密算法 ===》 每次计算都得出不同的结果.可以充分保证密码的安全性.
-
-原理:将当前时间加入到密码中;
-
-因为每次登陆时间都不同,所以每次计算出的结果也都不相同.
-
-服务器也需要采用相同的算法.这就需要服务器和客户端时间一致.
-
-注意:服务器端时间和客户端时间,可以有一分钟的误差(比如:第59S发送的网络请求,一秒钟后服务器收到并作出响应,这时服务器当前时间比客户端发送时间晚一分钟).
-
-这就意味着,服务器需要计算两次（当前时间和一分钟之前两个时间点各计算一次）.只要有一个结果是正确的,就可以验证成功!
-</code></pre><h2 id="五、钥匙串访问"><a href="#五、钥匙串访问" class="headerlink" title="五、钥匙串访问"></a>五、钥匙串访问</h2><h4 id="1、钥匙串访问"><a href="#1、钥匙串访问" class="headerlink" title="1、钥匙串访问"></a>1、钥匙串访问</h4><pre><code>苹果在 iOS 7.0.3 版本以后公布钥匙串访问的SDK. 钥匙串访问接口是纯C语言的.
-
-钥匙串使用 AES 256加密算法,能够保证用户密码的安全.
-
-钥匙串访问的第三方框架(SSKeychain),是对 C语言框架 的封装.注意:不需要看源码.
-
-钥匙串访问的密码保存在哪里?只有苹果才知道.这样进一步保障了用户的密码安全.
-
-使用步骤:
-{
-    // 获取应用程序唯一标识.
-
-    NSString *bundleId = [NSBundle mainBundle].bundleIdentifier;
-
-    // 1.利用第三方框架,将用户密码保存在钥匙串
-
-    [SSKeychain setPassword:self.pwdText.text forService:bundleId account:self.usernameText.text];
-
-    &quot;注意&quot;三个参数:
-
-    1.密码:可以直接使用明文.钥匙串访问本身是使用 AES 256加密,就是安全的.所以使用的时候,直接传递密码明文就可以了.
-
-    2.服务名:可以随便乱写,建议唯一! 建议使用 bundleId.
-
-    bundleId是应用程序的唯一标识,每一个上架的应用程序都有一个唯一的 bundleId
-
-    3.账户名:直接用用户名称就可以.
-
-    // 2.从钥匙串加载密码
-
-    self.pwdText.text = [SSKeychain passwordForService:bundleId account:self.usernameText.text];
-}
-</code></pre><h2 id="六、指纹识别"><a href="#六、指纹识别" class="headerlink" title="六、指纹识别"></a>六、指纹识别</h2><pre><code>指纹识别功能是 iphone 5S之后推出的.SDK是 iOS 8.0 推出!
-
-推出指纹识别功能的目的,是为了简化移动支付环节,占领移动支付市场.
-
-使用步骤:
-{
-    1&gt; 导入框架;
-#import &lt;LocalAuthentication/LocalAuthentication.h&gt;
-
-    2&gt; 指纹识别的实现:
-    {
-        1. 需要判断手机系统版本是否是 iOS 8.0 以上的版本.只有 iOS 8.0 以上才支持.
-
-        // 获得当前系统版本号
-        float version = [UIDevice currentDevice].systemVersion.floatValue;
-
-        if (version &lt; 8.0 ) // 判断当前系统版本
-        {
-            NSLog(@&quot;系统版本太低,请升级至最新系统&quot;);
-            return;
-        }
-
-        2. 实例化指纹识别对象,判断当前设备是否支持指纹识别功能(是否带有TouchID).
-
-        // 1&gt; 实例化指纹识别对象
-        LAContext *laCtx = [[LAContext alloc] init];
-
-        // 2&gt; 判断当前设备是否支持指纹识别功能.
-        if (![laCtx canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:NULL])
-        { // 如果设备不支持指纹识别功能
-
-            NSLog(@&quot;该设备不支持指纹识别功能&quot;);
-
-            return;
-        };
-
-        3.指纹登陆(默认是异步方法)
-        // 指纹登陆
-        [laCtx evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:@&quot;指纹登陆&quot; reply:^(BOOL success, NSError *error)
-         {
-             // 如果成功,表示指纹输入正确.
-             if (success) {
-                 NSLog(@&quot;指纹识别成功!&quot;);
-
-             }else
-             {
-                 NSLog(@&quot;指纹识别错误,请再次尝试&quot;);
-             }
-         }];
-    }
-}
-</code></pre>
           
         
       
@@ -752,8 +439,8 @@ HMAC 主要使用在身份认证中;
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/UIWindow和控制器/" itemprop="url">
-                  UIWindow和控制器
+                <a class="post-title-link" href="/2016/07/07/uibutton/" itemprop="url">
+                  UIButton
                 </a>
               
             
@@ -796,8 +483,8 @@ HMAC 主要使用在身份认证中;
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/UIWindow和控制器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/UIWindow和控制器/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/uibutton/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uibutton/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -823,102 +510,1082 @@ HMAC 主要使用在身份认证中;
         
           
             <ul>
-<li>UIWindow是一种特殊的UIView,通常在一个app中只有一个UIWindow</li>
-<li>iOS程序启动完毕后，创建的第一个视图控件就是UIWindow，接着创建控制器的view，最后将控制器的view添加到UIWindow上，于是控制器的view就显示在屏幕上了。</li>
-<li>-个iOS程序之所以能显示在屏幕上，完全是因为他有UIWindow的存在,也就是说，没有UIWindow,就看不见任何UI界面。</li>
-<li>可以自己手动创建UIWindow</li>
+<li>解决按钮按下不立即变色问题</li>
 </ul>
-<h2 id="1、手动创建控制器"><a href="#1、手动创建控制器" class="headerlink" title="1、手动创建控制器"></a>1、手动创建控制器</h2><ul>
-<li>不适用Xcode自动生成的ViewController及storyboard文件</li>
-<li>自己手动实现加载控制器</li>
-<li>实现步骤<ul>
-<li>在应用程序加载完毕后，手动创建UIWindow及应用程序代理里面的UIWindow</li>
-<li>创建要加载的控制器</li>
-<li>设置为窗口的根控制器</li>
-<li>设置窗口为主窗口并可见，或者设置为主窗口，然后设置窗口的hidden属性为NO</li>
-</ul>
-</li>
-</ul>
-<h6 id="注意：创建的窗口默认是不可见，隐藏的。"><a href="#注意：创建的窗口默认是不可见，隐藏的。" class="headerlink" title="注意：创建的窗口默认是不可见，隐藏的。"></a>注意：创建的窗口默认是不可见，隐藏的。</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 1.创建窗口</div><div class="line">self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];</div><div class="line">self.window.windowLevel = UIWindowLevelStatusBar;</div><div class="line">NSLog(@&quot;%p&quot;, self.window);</div><div class="line"></div><div class="line">// 2.创建自定义的控制器</div><div class="line">CZViewController *vc = [[CZViewController alloc] init];</div><div class="line"></div><div class="line">// 3.设置窗口的根控制器为自定义的控制器</div><div class="line">self.window.rootViewController = vc;</div><div class="line"></div><div class="line">// 4.设置窗口为主窗口并可见</div><div class="line">[self.window makeKeyAndVisible];</div></pre></td></tr></table></figure>
-<h2 id="2、创建控制器的方法介绍"><a href="#2、创建控制器的方法介绍" class="headerlink" title="2、创建控制器的方法介绍"></a>2、创建控制器的方法介绍</h2><ul>
-<li><p>纯代码创建控制器</p>
-</li>
-<li><p>通过storyboard文件创建控制器</p>
-</li>
-<li><p>通过xib的方式创建控制器</p>
-</li>
-</ul>
-<h4 id="1、纯代码创建控制器"><a href="#1、纯代码创建控制器" class="headerlink" title="1、纯代码创建控制器"></a>1、纯代码创建控制器</h4><ul>
-<li><p>1.创建窗口</p>
-<pre><code>self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-</code></pre></li>
-<li><p>2.创建控制器作为窗口的根控制器</p>
-<pre><code>CZViewController *vc = [[CZViewController alloc] init];
-self.window.rootViewController = vc;
-</code></pre></li>
-<li><p>3.设置窗口为主窗口并可见</p>
-<pre><code>[self.window makeKeyAndVisible];
-</code></pre><h4 id="2、通过storyboard文件创建控制器"><a href="#2、通过storyboard文件创建控制器" class="headerlink" title="2、通过storyboard文件创建控制器"></a>2、通过storyboard文件创建控制器</h4></li>
-<li><p>1.创建窗口</p>
-<pre><code>self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-</code></pre></li>
-<li><p>2.创建控制器作为窗口的根控制器</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//自定义 button, 重写该方法</span></div><div class="line">- (<span class="keyword">void</span>)setHighlighted:(<span class="built_in">BOOL</span>)highlighted</div><div class="line">&#123;</div><div class="line">    <span class="comment">//如果调用父类的 setHighlighted, 那么点击下去, 不会立即变色</span></div><div class="line"><span class="comment">//    [super setHighlighted:highlighted];</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
-<li><p>2.1加载storyboard文件</p>
-<pre><code>UIStoryboard *sb = [UIStoryboard storyboardWithName:@&quot;CZStoryboard&quot; bundle:nil];
-</code></pre></li>
-<li><p>2.2作为初始化控制器  【文件中只有一个storyboard】</p>
-<pre><code>UIViewController *vc = [sb instantiateInitialViewController];
-</code></pre><p>   <strong>注：有多个storyboard，就需要根据标记去加载 【文件中又多个storyboard】</strong></p>
-<pre><code>UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@&quot;green&quot;];
-</code></pre></li>
-<li><p>2.3设置为窗口的根控制器</p>
-<pre><code>self.window.rootViewController = vc;
-</code></pre></li>
+<li>button有多种状态, 它提供了一些便捷属性，可以直接获取当前状态下的文字、文字颜色、图片等</li>
 </ul>
-</li>
-<li><p>3.设置窗口为主窗口并可见</p>
-<pre><code>[self.window makeKeyAndVisible];
-</code></pre></li>
-</ul>
-<h4 id="3、通过xib的方式创建控制器"><a href="#3、通过xib的方式创建控制器" class="headerlink" title="3、通过xib的方式创建控制器"></a>3、通过xib的方式创建控制器</h4><ul>
-<li><p>1.创建窗口</p>
-<pre><code>self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-</code></pre></li>
-<li><p>2.创建控制器作为窗口的根控制器</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>,<span class="keyword">retain</span>) <span class="built_in">NSString</span> *currentTitle;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>,<span class="keyword">retain</span>) <span class="built_in">UIColor</span>  *currentTitleColor;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>,<span class="keyword">retain</span>) <span class="built_in">UIImage</span>  *currentImage;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>,<span class="keyword">retain</span>) <span class="built_in">UIImage</span>  *currentBackgroundImage;</div></pre></td></tr></table></figure>
 <ul>
-<li><p>2.1直接根据xib文件去加载</p>
-<pre><code>xib文件名称与控制器名称完全不同
-1.修改xib文件的File&apos;s Owner类型为自定义控制器类型
-2.选中File&apos;s Owner，右键将view连线到xib文件中的view上
-3.在alloc+init的时候指定要加载的xib文件名称
+<li>设置button 的水平对齐方式</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIControlContentHorizontalAlignmentCenter</span> = <span class="number">0</span>,</div><div class="line"><span class="built_in">UIControlContentHorizontalAlignmentLeft</span>   = <span class="number">1</span>,</div><div class="line"><span class="built_in">UIControlContentHorizontalAlignmentRight</span>  = <span class="number">2</span>,</div><div class="line"><span class="built_in">UIControlContentHorizontalAlignmentFill</span>   = <span class="number">3</span>,</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//button.contentMode --&gt; 设置image</span></div><div class="line"><span class="comment">//UIControl内容的排布方式 contentHorizontalAlignment -- contentVerticalAlignment</span></div></pre></td></tr></table></figure>
 
-CZViewController *vc = [[CZViewController alloc] initWithNibName:@&quot;Empty&quot; bundle:nil];
-</code></pre></li>
-<li><p>2.2xib文件名称与控制器名称类似但是少了Controller</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">1.同上</div><div class="line">2.同上</div><div class="line">3.直接alloc + init，不需要指定要加载的文件名称，系统会自动寻找名称与控制器名称类似【少了类型的后缀（如controller）】的xib文件	    </div><div class="line">CZViewController *vc = [[CZViewController alloc] init];</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/uicollectionview/" itemprop="url">
+                  UICollectionView
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/uicollectionview/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uicollectionview/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>###UICollectionView</p>
+<p>####1. 实例化 collectionView 必须传入一个非空的 layout 布局对象</p>
+<ul>
+<li>UICollectionViewLayout</li>
+<li>UICollectionViewFlowLayout 是 UICollectionViewLayout 的子类</li>
+</ul>
+<p>####2. 注册 cell</p>
+<ul>
+<li>class</li>
+<li>xib  必须设置重用标识符 registerNib</li>
+<li>storyboard prototype  必须设置重用标识符</li>
+</ul>
+<p>####3. flowLayout</p>
+<ul>
+<li>itemSize 设置 cell 的大小</li>
+<li>sectionInsets 设置组的内边距</li>
+<li>scrollDirection 设置滚动方向</li>
+<li>minimumInterItemSpacing 列间距(垂直方向)</li>
+<li>minimumLineSpacing  行间距(垂直方向)</li>
+</ul>
+<p>####4.组头/组尾</p>
+<ul>
+<li>必须通过代理方法进行重用返回</li>
+<li>如果通过 storyboard 拖拽显示, 必须设置重用标识符, 不然代理方法不会执行</li>
+</ul>
+<p>####悬浮效果<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- flowLayout.sectionHeaderPinToVisibleBounds = <span class="literal">YES</span>;</div><div class="line">- flowLayout.sectionFooterPinToVisibleBounds = <span class="literal">YES</span>;</div></pre></td></tr></table></figure></p>
+<p>####设置组头/组尾的 size, 也与滚动方向有关</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">flowLayout.headerReferenceSize = <span class="built_in">CGSizeMake</span>(垂直滚动时无效, 水平滚动时无效);</div><div class="line">flowLayout.footerReferenceSize = <span class="built_in">CGSizeMake</span>(垂直滚动时无效, 水平滚动时无效);</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/uilabel/" itemprop="url">
+                  UILabel
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/uilabel/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uilabel/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">UIFont</span> boldSystemFontOfSize:&lt;<span class="meta">#(CGFloat)#&gt;]//粗体</span></div><div class="line">    <span class="comment">//italicSystemFontOfSize:  斜体</span></div></pre></td></tr></table></figure>
+<h3 id="富文本"><a href="#富文本" class="headerlink" title="富文本"></a>富文本</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *commentString =[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"回复 %@: %@"</span>, parentsComment.nick, _comment.content];</div><div class="line"></div><div class="line"><span class="built_in">NSRange</span> range = [commentString rangeOfString:parentsComment.nick];</div><div class="line"></div><div class="line"><span class="built_in">NSMutableAttributedString</span> *attString = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:commentString];</div><div class="line"></div><div class="line">[attString addAttribute:<span class="built_in">NSForegroundColorAttributeName</span> value:[<span class="built_in">UIColor</span> orangeColor] range:range];</div><div class="line"></div><div class="line"><span class="keyword">self</span>.label.attributedText = attString;</div></pre></td></tr></table></figure>
+<h3 id="计算文本范围"><a href="#计算文本范围" class="headerlink" title="计算文本范围"></a>计算文本范围</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CGSize</span> textSize = <span class="built_in">CGSizeMake</span>(限定宽度, MAXFLOAT);</div><div class="line"></div><div class="line"><span class="built_in">CGRect</span> textRect = [label.text boundingRectWithSize:textSize options:<span class="built_in">NSStringDrawingUsesLineFragmentOrigin</span> attributes:@&#123;<span class="built_in">NSFontAttributeName</span>: [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">15</span>]&#125; context:<span class="literal">nil</span>];</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">label.autoresizingMask = <span class="built_in">UIViewAutoresizingFlexibleHeight</span>;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/uimenucontroller/" itemprop="url">
+                  UIMenuController
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/uimenucontroller/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uimenucontroller/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark -</span></div><div class="line"><span class="meta">#pragma mark - UIMenuController的处理</span></div><div class="line">- (<span class="keyword">void</span>)didClickCell</div><div class="line">&#123;</div><div class="line">    <span class="built_in">UIMenuController</span> *menu = [<span class="built_in">UIMenuController</span> sharedMenuController];</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (menu.isMenuVisible) &#123;</div><div class="line"></div><div class="line">        [menu setMenuVisible:<span class="literal">NO</span> animated:<span class="literal">YES</span>];</div><div class="line"></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [<span class="keyword">self</span> becomeFirstResponder];</div><div class="line"></div><div class="line">        <span class="built_in">UIMenuItem</span> *dingItem = [[<span class="built_in">UIMenuItem</span> alloc] initWithTitle:<span class="string">@"顶"</span> action:<span class="keyword">@selector</span>(ding:)];</div><div class="line">        <span class="built_in">UIMenuItem</span> *replyItem = [[<span class="built_in">UIMenuItem</span> alloc] initWithTitle:<span class="string">@"回复"</span> action:<span class="keyword">@selector</span>(reply:)];</div><div class="line">        <span class="built_in">UIMenuItem</span> *reportItem = [[<span class="built_in">UIMenuItem</span> alloc] initWithTitle:<span class="string">@"举报"</span> action:<span class="keyword">@selector</span>(report:)];</div><div class="line">        [menu setMenuItems:@[dingItem, replyItem, reportItem]];</div><div class="line"></div><div class="line">        <span class="built_in">CGRect</span> rect = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="keyword">self</span>.height * <span class="number">0.5</span>, <span class="keyword">self</span>.width, <span class="keyword">self</span>.height * <span class="number">0.5</span>);</div><div class="line">        [menu setTargetRect:rect inView:<span class="keyword">self</span>];</div><div class="line">        [menu setMenuVisible:<span class="literal">YES</span> animated:<span class="literal">YES</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  能能成为第一响应者</div><div class="line"> */</div><div class="line">- (<span class="built_in">BOOL</span>)canBecomeFirstResponder</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  能响应对应的事件</div><div class="line"> */</div><div class="line">- (<span class="built_in">BOOL</span>)canPerformAction:(SEL)action withSender:(<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (action == <span class="keyword">@selector</span>(ding:) || action == <span class="keyword">@selector</span>(reply:) || action == <span class="keyword">@selector</span>(report:)) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  顶</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)ding:(<span class="built_in">UIMenuController</span> *)menu</div><div class="line">&#123;</div><div class="line">    ZXX_SHOW_METHOD_INFO</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  评论</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)reply:(<span class="built_in">UIMenuController</span> *)menu</div><div class="line">&#123;</div><div class="line">    ZXX_SHOW_METHOD_INFO</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  举报</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)report:(<span class="built_in">UIMenuController</span> *)menu</div><div class="line">&#123;</div><div class="line">    ZXX_SHOW_METHOD_INFO</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="block-调用时防错处理"><a href="#block-调用时防错处理" class="headerlink" title="block 调用时防错处理"></a>block 调用时防错处理</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)clickButtonWithCompletionBlock:(<span class="keyword">void</span>(^)())completionBlock</div><div class="line">&#123;</div><div class="line">    <span class="comment">//...</span></div><div class="line">    <span class="comment">//当外界调用该方法传block 为 nil 时, 直接调用会出错</span></div><div class="line">    <span class="comment">//要判断</span></div><div class="line">    !completionBlock ? : completionBlock();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/uiscrollview/" itemprop="url">
+                  UIScrollView
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/uiscrollview/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uiscrollview/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##缩放<br>    设置最大能方法多少倍<br>    最小能缩小多少倍<br>    告诉 scrollView 要对哪个 view 进行缩放(代理方法)</p>
+<p>##滚动<br>    contentSize —滚动范围<br>    contentInset — 内边距<br>    contentOffset — 偏移量(内容滚动到某个点)</p>
+<p>##UIScrollView的常见属性</p>
+<pre><code>//不要自动调整insets, 自己设置contentInset
+self.automaticallyAdjustsScrollViewInsets = NO;
+
+滚动范围: contentSize --&gt; 要比 scrollView 的 size 大
+
+内边距 : contentInset --&gt; (滚动到边界的时候) imageView 的边框距离 scrollView 边框的距离
+
+偏移量 : contentOffset --&gt; 是滚动到某个位置(点)
+
+弹簧效果 : bounces --&gt; 默认 YES, 一般不关闭
+
+分页效果(以 scrollView 的宽度进行分页) :
+_scrollView.pagingEnabled = YES;
+
+总有弹簧效果 : 就算不设置 contentSize 也可以有弹簧效果, 前提是 bounces = YES;
+alwaysBounceHorizontal
+alwaysBounceVertical
+
+滚动指示器 : 默认是 YES, 打开的
+showsHorizontalScrollIndicator
+showsVerticalScrollIndicator
+
+是否可以滚动 :
+scrollEnabled = YES;
+</code></pre><h2 id="无法滚动的原因"><a href="#无法滚动的原因" class="headerlink" title="无法滚动的原因"></a><code>无法滚动的原因</code></h2><ol>
+<li><code>contentSize 小于 scrollView.size</code></li>
+<li><code>scrollEnable = NO;</code></li>
+<li><code>userInteractionEnabled = NO;禁止用户交互</code></li>
+</ol>
+<h2 id="pageControl-注意属性"><a href="#pageControl-注意属性" class="headerlink" title="pageControl 注意属性:"></a>pageControl 注意属性:</h2><pre><code>1.numberOfPages --&gt; 设置点数
+2.currentPage --&gt; 当前位置 取值0 ~ numberOfPages - 1;
+3.currentPageIndicatorTintColor --&gt; 当前指示器的颜色
+4.pageIndicatorTintColor --&gt; 非当前指示器的颜色
+</code></pre><h2 id="NSTimer-的使用"><a href="#NSTimer-的使用" class="headerlink" title="NSTimer 的使用"></a>NSTimer 的使用</h2><pre><code>scheduled : 计划
+Interval : 间隔
+target : 一般指控制器
+selector : 方法
+uesrInfo : 用户自定义的参数
+repeats : 重复
+
+一旦创建就会立即执行
+
+invalidate 无效后, 要再次使用, 需要重新创建timer
+fire 立即执行, 不会等待 Interval 设置的时间
+</code></pre><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> + (<span class="built_in">NSTimer</span> *)scheduledTimerWithTimeInterval:(<span class="built_in">NSTimeInterval</span>)ti target:(<span class="keyword">id</span>)aTarget selector:(SEL)aSelector userInfo:(<span class="keyword">nullable</span> <span class="keyword">id</span>)userInfo repeats:(<span class="built_in">BOOL</span>)yesOrNo;</div><div class="line"></div><div class="line"> <span class="built_in">NSRunLoop</span> *mainLoop = [<span class="built_in">NSRunLoop</span> mainRunLoop];</div><div class="line">    <span class="comment">/*</span></div><div class="line">     设置优先级</div><div class="line">     NSDefaultRunLoopMode;</div><div class="line">     NSRunLoopCommonModes//优先级更高, 拖拽时定时器不会停止</div><div class="line">     */</div><div class="line">[mainLoop addTimer:_timer forMode:<span class="built_in">NSRunLoopCommonModes</span>];</div></pre></td></tr></table></figure>
+<h2 id="使用-delegate"><a href="#使用-delegate" class="headerlink" title="使用 delegate :"></a>使用 delegate :</h2><ol>
+<li>修饰符必须使用 weak, 防止循环引用</li>
+<li>如果两个对象相互引用, 其中一个必须是 weak</li>
+<li>addSubview –&gt; 强引用</li>
+</ol>
+<h2 id="UIScrollViewDelegate"><a href="#UIScrollViewDelegate" class="headerlink" title="UIScrollViewDelegate"></a>UIScrollViewDelegate</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//滚动完毕就会调用（如果不是人为拖拽scrollView导致滚动完毕，才会调用这个方法</span></div><div class="line">- (<span class="keyword">void</span>)scrollViewDidEndScrollingAnimation:(<span class="built_in">UIScrollView</span> *)scrollView</div><div class="line">&#123;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="拖拽"><a href="#拖拽" class="headerlink" title="拖拽"></a>拖拽</h4><ul>
+<li>当 scrollView 内容滚动时, 就会调用</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)scrollViewDidScroll:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"滚动时调用"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>deagg : 拖拽, 开始拖拽的时候调用</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)scrollViewWillBeginDragging:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</div><div class="line">     <span class="built_in">NSLog</span>(<span class="string">@"开始拖拽"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>停止拖拽是调用</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)scrollViewDidEndDragging:(<span class="built_in">UIScrollView</span> *)scrollView willDecelerate:(<span class="built_in">BOOL</span>)decelerate &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"停止拖拽"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h4><ul>
+<li>返回的 view 将被拉伸/缩放</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UIView</span> *)viewForZoomingInScrollView:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</div><div class="line">    <span class="keyword">return</span> _imageView;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>只要图片在放大/缩小时一直调用</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)scrollViewDidZoom:(<span class="built_in">UIScrollView</span> *)scrollView &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"缩放时调用"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>开始缩放的时候调用</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//withView : 进行缩放的 view</span></div><div class="line">- (<span class="keyword">void</span>)scrollViewWillBeginZooming:(<span class="built_in">UIScrollView</span> *)scrollView withView:(<span class="built_in">UIView</span> *)view &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"开始缩放的时候调用"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>结束的时候调用</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//withView : 进行缩放的 view</span></div><div class="line"><span class="comment">//atScale : 缩放的倍数</span></div><div class="line">- (<span class="keyword">void</span>)scrollViewDidEndZooming:(<span class="built_in">UIScrollView</span> *)scrollView withView:(<span class="built_in">UIView</span> *)view atScale:(<span class="built_in">CGFloat</span>)scale &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"结束的时候调用"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/uipickerview/" itemprop="url">
+                  UIPickerView
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/uipickerview/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uipickerview/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-数据选择控件介绍："><a href="#1-数据选择控件介绍：" class="headerlink" title="1.数据选择控件介绍："></a>1.数据选择控件介绍：</h2><pre><code>* UIPickerView-显示一组或多组数据方便用户选择。
+    * 在文本框中输入数据时，如果是比较固定的话，就可以让用户直接去滚动选择，不需要用户再去手动输入。
+
+* UIDatePicker-显示一个日期组件方便用户选择日期或时间。
+    * 与UIPickerView类似，可以更好地提高用户体验，方便用户输入内容。
+
+* 在iOS 8中就比较少使用UIPickerView控件了。比如选择语言或者区域时用户的是UITableView了。
+
+* 控件作用：
+    * 从指定的数据源中选择控件。
+    * 通常以UITextField的inputView的形式出现（当选中某个文本框后，弹出键盘中显示该控件）
+
+* 注意：
+    * 使用PickerView之前都需要指定数据源对象和代理对象
+    * 需要使用的两个协议：
+        * UIPickerViewDataSource 数据源协议
+        * UIPickerViewDelegate   代理协议
+</code></pre><h2 id="info-plist文件介绍"><a href="#info-plist文件介绍" class="headerlink" title="info.plist文件介绍"></a>info.plist文件介绍</h2><pre><code>* 将项目文件夹用记事本打开，查看配置信息
+* 显示各项配置信息
+* 第一个文件夹保存项目中所有的相关内容。
+* Test文件夹主要是坐单元测试的时候用的，暂时没有用到，所以先不考虑
+* info.plist文件中保存了当前项目的所有配置。
+    * 文件本身是一个xml文件，标记语言。
+    * 在项目中配置的信息最后保存到info.plist文件中了。
+    * 应用版本号
+    * 应用要求的可运行的最低系统版本号
+    * Main的storyboard
+</code></pre><h6 id="注意：自己创建的plist文件中不要包含Info关键字。"><a href="#注意：自己创建的plist文件中不要包含Info关键字。" class="headerlink" title="注意：自己创建的plist文件中不要包含Info关键字。"></a>注意：自己创建的plist文件中不要包含Info关键字。</h6><pre><code>* 在Xcode 5中名称为&quot;项目名称-Info.plist&quot;名称，Xcode6 以后就直接就是info.plist了。
+* bundle display name 应用名称的key，名称如果太长就不能完全显示了。
+* bundle identifier 应用的唯一标示，如果相同就会被覆盖。
+* bundle versions String short 最终应用发布时的版本号
+* bundle version 针对内部的一个版本号。
+* Supported interface ortations 标识设备所支持的方向，对应的选中&quot;项目&quot;-&gt;&quot;General&quot;-&gt;&quot;Deployment Info&quot;-&gt;&quot;Device Orientation&quot;。iPhone只支持3种方向，不支持上下颠倒的旋转，Portrait（竖屏），Landscape Left（横屏向左），Landscape Right（横屏向右）
+
+* Info.plist就是一个xml文件，可以通过open as source code 查看
+</code></pre><h2 id="pch文件-“Prefix-Header-File（头文件）”"><a href="#pch文件-“Prefix-Header-File（头文件）”" class="headerlink" title="pch文件 “Prefix Header File（头文件）”"></a>pch文件 “Prefix Header File（头文件）”</h2><pre><code>* 在Xcode 6以后苹果就不推荐使用了。
+* 遇到的问题：
+    * 整个项目中很多地方都在使用某个类的头文件
+    * 整个项目中很多地方都在使用同一个&quot;宏&quot;
+    * 在项目中很多地方都用到了NSLog（）方法，想一下子全部清除掉
+* 解决以上问题，可以通过使用PCH文件，它也是个头文件类似于*.h文件
+</code></pre><h6 id="注意：PCH文件的特点，项目中所有其他代码文件无序显示导入该PCH文件，默认就可以访问（其他文件无序手动-import该PCH文件就能使用）"><a href="#注意：PCH文件的特点，项目中所有其他代码文件无序显示导入该PCH文件，默认就可以访问（其他文件无序手动-import该PCH文件就能使用）" class="headerlink" title="注意：PCH文件的特点，项目中所有其他代码文件无序显示导入该PCH文件，默认就可以访问（其他文件无序手动#import该PCH文件就能使用）"></a>注意：PCH文件的特点，项目中所有其他代码文件无序显示导入该PCH文件，默认就可以访问（其他文件无序手动#import该PCH文件就能使用）</h6><pre><code>* 主要作用：
+    * 可以做一些公用的宏定义
+    * 把公共的Model类的#import导入写到pch文件.
+    * 自定义NSLog()。例如:#define ZXXLog(...) NSLog(__VA_ARGS__)
+
+*  创建pch文件
+    * &quot;newFile&quot;-&gt;&quot;&quot;-&gt;&quot;&quot;
+    * 将通用的头文件和相应的宏放进去。
+*  配置头文件，以使用头文件
+    * 选择&quot;项目&quot;-&gt;&quot;Build Setting&quot; -&gt;&quot;All&quot;-&gt;搜索 &quot;Prefix Header&quot;,配置相应的pch文件。
+    * &quot;$(SRCROOT)/$(PRODUCT_NAME)/PrefixHeader.pch&quot;（如果有问题，更换为下面的方式，可能会与中文有关）
+    * &quot;$(SRCROOT)/对应的文件夹名/PrefixHeader.pch&quot;
+
+* 在应用程序测试的时候，需要log很多信息，但是如果我们发布程序的时候就要禁止打印信息。
+    * 自定义自己的log方式。
+    * 自定义log的完整形式
+</code></pre><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#ifdef DEBUG</span></div><div class="line"></div><div class="line"><span class="meta">#define ZXXLog(...) NSLog(__VA_ARGS__)</span></div><div class="line"></div><div class="line"><span class="meta">#else</span></div><div class="line"></div><div class="line"><span class="meta">#define ZXXLog(...)</span></div><div class="line"></div><div class="line"><span class="meta">#endif</span></div></pre></td></tr></table></figure>
+<pre><code>* 在使用pch文件时的注意点：
+    * 创建c语言文件进去，直接编译就报错，因为默认情况下所有文件都会包含pch文件中的OC内容，C语言文件内不能识别OC代码，所以就会报错。
+    * 解决：在pch文件中判断一下，如果是OC文件菜引入响应的宏，如果是普通C语言文件则不引入，否则项目中添加C语言文件时会报错。
+</code></pre><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#ifdef __OBJC__</span></div><div class="line"></div><div class="line"><span class="comment">// OC相关的内容</span></div><div class="line"></div><div class="line"><span class="meta">#endif</span></div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/uitableview/" itemprop="url">
+                  UITableView
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/uitableview/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uitableview/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//有两个tableView不要调整inset</span></div><div class="line"><span class="keyword">self</span>.automaticallyAdjustsScrollViewInsets = <span class="literal">NO</span>;</div></pre></td></tr></table></figure>
+<h2 id="分隔线样式"><a href="#分隔线样式" class="headerlink" title="分隔线样式"></a>分隔线样式</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//没有分隔线</span></div><div class="line"><span class="keyword">self</span>.tableView.separatorStyle = <span class="built_in">UITableViewCellSeparatorStyleNone</span>;</div></pre></td></tr></table></figure>
+<h2 id="tableView如何显示数据"><a href="#tableView如何显示数据" class="headerlink" title="tableView如何显示数据"></a>tableView如何显示数据</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">tableView 中想要显示数据:</div><div class="line">        遵守协议 : <span class="built_in">UITableViewDataSouse</span> (决定数据)</div><div class="line">        实现方法 :</div><div class="line">            <span class="number">0.</span>numberOfSectionsInTableView 一个 tableView 中有多少组</div><div class="line">            <span class="number">1.</span>numberOfRowsInSection 一组有多少行</div><div class="line">            <span class="number">2.</span>cellForRowAtIndexPath 每一行的内容</div><div class="line">        调用的循序 :</div><div class="line">            <span class="number">1.</span>numberOfSectionsInTableView:</div><div class="line">            <span class="number">2.</span>numberOfRowsInSection: 会调用多遍, 上面的方法返回多少组就调用多少次</div><div class="line">            <span class="number">3.</span>cellForRowAtIndexPath: 总共有多少行, 就调用多少遍</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *  告诉tableView一共有多少组数据</div><div class="line"> */</div><div class="line">- (<span class="built_in">NSInteger</span>)numberOfSectionsInTableView:(<span class="built_in">UITableView</span> *)tableView</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  告诉tableView第section组有多少行</div><div class="line"> */</div><div class="line">- (<span class="built_in">NSInteger</span>)tableView:(<span class="built_in">UITableView</span> *)tableView numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  告诉tableView第indexPath行显示怎样的cell</div><div class="line"> */</div><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  告诉tableView第section组的头部标题</div><div class="line"> */</div><div class="line">- (<span class="built_in">NSString</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView titleForHeaderInSection:(<span class="built_in">NSInteger</span>)section</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  告诉tableView第section组的尾部标题</div><div class="line"> */</div><div class="line">- (<span class="built_in">NSString</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView titleForFooterInSection:(<span class="built_in">NSInteger</span>)section</div></pre></td></tr></table></figure>
+<h3 id="静态单元格"><a href="#静态单元格" class="headerlink" title="静态单元格"></a>静态单元格</h3><ul>
+<li><p>静态单元格:</p>
+<p>  一般数据不发送改变<br>  一定要在 UITableViewController 中使用<br>  只是相对于动态, cell 中的内容少, 而且不经常改变<br>  如果静态单元格, 实现了对应的数据源方法, 依然会走代码, 代码的组数, 行数只能比 storyboard 中的少, 不能多</p>
 </li>
-<li><p>2.3.xib文件名称与控制器名称完全相同</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">    1.同上</div><div class="line">    2.同上</div><div class="line">    3.系统会优先去寻找与控制器名称完全相同的xib文件</div><div class="line">CZViewController *vc = [[CZViewController alloc] init];</div></pre></td></tr></table></figure>
+<li><p>动态单元格:</p>
+<p>  里面的数据根据动态来加载 (plist,服务器)</p>
 </li>
-<li><p>2.3设置为窗口的根控制器</p>
-<pre><code>self.window.rootViewController = vc;
-</code></pre></li>
-<li><p>3.设置窗口为主窗口并可见</p>
-<pre><code>[self.window makeKeyAndVisible];
-</code></pre></li>
+</ul>
+<p><strong>如果storyboard 设置了静态单元格, 而又实现了这3个数据源方法, 会清空storyboard的数据,<br>但是组数与行数与storyboard设置的不一致, 导致奔溃</strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/uitableviewcell/" itemprop="url">
+                  UITableViewCell
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/uitableviewcell/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uitableviewcell/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="cell的样式"><a href="#cell的样式" class="headerlink" title="cell的样式"></a>cell的样式</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UITableViewCellStyleDefault</span> : 不显示 detailTextLabel</div><div class="line"></div><div class="line"><span class="built_in">UITableViewCellStyleValue1</span> : detailTextLabel 显示在 textLabel 右侧</div><div class="line"></div><div class="line"><span class="built_in">UITableViewCellStyleValue2</span> : 不显示imageView, textLabel居左显示, 颜色变蓝</div><div class="line"></div><div class="line"><span class="built_in">UITableViewCellStyleSubtitle</span> : 都显示, detailTextLabel 显示在 textLabel 下侧</div></pre></td></tr></table></figure>
+<h3 id="cell选中的样式"><a href="#cell选中的样式" class="headerlink" title="cell选中的样式"></a>cell选中的样式</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//没有选中样式</span></div><div class="line">cell.selectionStyle = <span class="built_in">UITableViewCellSelectionStyleNone</span>;</div><div class="line"></div><div class="line"><span class="keyword">self</span>.backgroundColor = ZXX_COLOR(<span class="number">244</span>, <span class="number">244</span>, <span class="number">244</span>);</div><div class="line"></div><div class="line"><span class="comment">//    self.textLabel.textColor = ZXX_COLOR(78, 78, 78);</span></div><div class="line">    <span class="comment">//cell设置选中的样式为none , cell不会进入高亮状态, 设置高亮的属性都不会显示</span></div><div class="line"><span class="comment">//    self.textLabel.highlightedTextColor = ZXX_COLOR(219, 21, 26);</span></div><div class="line"></div><div class="line">    <span class="keyword">self</span>.selectedBackgroundView = [[<span class="built_in">UIView</span> alloc] init];</div></pre></td></tr></table></figure>
+<h3 id="cell的插入和删除"><a href="#cell的插入和删除" class="headerlink" title="cell的插入和删除"></a>cell的插入和删除</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">cell 的删除和插入</div><div class="line">        删除</div><div class="line">        打开默认在左侧的删除按钮</div><div class="line">        _tableView.editing = <span class="literal">YES</span>;</div><div class="line">        滑动删除</div><div class="line">        _tableView.editing = <span class="literal">NO</span>;</div><div class="line">        还需要实现</div><div class="line">        - (<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView commitEditingStyle:(<span class="built_in">UITableViewCellEditingStyle</span>)editingStyle forRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">        删除 cell 的步骤</div><div class="line">            删除数据源中的对象</div><div class="line">            刷新数据 [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:<span class="built_in">UITableViewRowAnimationLeft</span>];</div><div class="line">        插入 cell 的步骤</div><div class="line">            插入新数据到数据源数组中</div><div class="line">            刷新数据 [_tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:<span class="built_in">UITableViewRowAnimationLeft</span>];</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark -</span></div><div class="line"><span class="meta">#pragma mark - 决定那一行是可以被编辑</span></div><div class="line"><span class="comment">//决定那一行是可以被编辑的, 要打开 tableView 的编辑模式</span></div><div class="line">- (<span class="built_in">BOOL</span>)tableView:(<span class="built_in">UITableView</span> *)tableView canEditRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//删除模式中, 点击减号弹出的 delete, 点击 delete 才会调用这个方法</span></div><div class="line"><span class="comment">//添加模式中, 点击加号就会调用这个方法</span></div><div class="line">    <span class="comment">/**</span></div><div class="line">     UITableViewCellEditingStyle:3种模式</div><div class="line">        UITableViewCellEditingStyleNone,</div><div class="line">        UITableViewCellEditingStyleDelete,</div><div class="line">        UITableViewCellEditingStyleInsert</div><div class="line">     */</div><div class="line">- (<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView commitEditingStyle:(<span class="built_in">UITableViewCellEditingStyle</span>)editingStyle forRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#pragma mark -</span></div><div class="line"><span class="meta">#pragma mark - 设置删除按钮上面显示的文本</span></div><div class="line"><span class="comment">//设置删除按钮上面显示的文本</span></div><div class="line">- (<span class="built_in">NSString</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">@"咔嚓掉"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#pragma mark -</span></div><div class="line"><span class="meta">#pragma mark - 决定编辑模式</span></div><div class="line"><span class="comment">//决定编辑模式</span></div><div class="line">- (<span class="built_in">UITableViewCellEditingStyle</span>)tableView:(<span class="built_in">UITableView</span> *)tableView editingStyleForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="built_in">UITableViewCellEditingStyleDelete</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="复制粘贴"><a href="#复制粘贴" class="headerlink" title="复制粘贴"></a>复制粘贴</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark -</span></div><div class="line"><span class="meta">#pragma mark - 决定那一行长按要不要显示复制粘贴选项</span></div><div class="line">- (<span class="built_in">BOOL</span>)tableView:(<span class="built_in">UITableView</span> *)tableView shouldShowMenuForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#pragma mark -</span></div><div class="line"><span class="meta">#pragma mark - 决定菜单栏上显示的名称</span></div><div class="line">- (<span class="built_in">BOOL</span>)tableView:(<span class="built_in">UITableView</span> *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath withSender:(<span class="keyword">nullable</span> <span class="keyword">id</span>)sender &#123;</div><div class="line">    <span class="keyword">if</span> (action == <span class="keyword">@selector</span>(<span class="keyword">copy</span>:) || action == <span class="keyword">@selector</span>(paste:)) &#123;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line"></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#pragma mark -</span></div><div class="line"><span class="meta">#pragma mark - 点击菜单中选项会调用这个方法</span></div><div class="line">- (<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView performAction:(SEL)action forRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath withSender:(<span class="keyword">nullable</span> <span class="keyword">id</span>)sender &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (action == <span class="keyword">@selector</span>(<span class="keyword">copy</span>:)) &#123;</div><div class="line">        HeroModel *heroModel = <span class="keyword">self</span>.dataArray[indexPath.row];</div><div class="line"></div><div class="line">        <span class="comment">//保存至剪贴板中</span></div><div class="line">        [<span class="built_in">UIPasteboard</span> generalPasteboard].strings = @[heroModel.icon, heroModel.name, heroModel.intro];</div><div class="line"></div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (action == <span class="keyword">@selector</span>(paste:)) &#123;</div><div class="line"></div><div class="line">        <span class="comment">//从剪贴板中读取</span></div><div class="line">        HeroModel *heroModel = [[HeroModel alloc] init];</div><div class="line"></div><div class="line">        <span class="built_in">NSArray</span> *array = [<span class="built_in">UIPasteboard</span> generalPasteboard].strings;</div><div class="line"></div><div class="line">        heroModel.icon = array[<span class="number">0</span>];</div><div class="line">        heroModel.name = array[<span class="number">1</span>];</div><div class="line">        heroModel.intro = array[<span class="number">2</span>];</div><div class="line"></div><div class="line">        <span class="comment">//更新数据源</span></div><div class="line">        [_dataArray insertObject:heroModel atIndex:indexPath.row];</div><div class="line"></div><div class="line">        <span class="comment">//刷新数据</span></div><div class="line">        [_tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:<span class="built_in">UITableViewRowAnimationLeft</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###awakeFromXib<br>    一个类和 xib 关联之后, 初始化方法</p>
+<p>###实例化方法调用顺序</p>
+<ul>
+<li><p>init 与 initWithFrame</p>
+<ul>
+<li>当实例化方法为 initWithFrame 时只调用 initWithFrame 方法</li>
+<li>当实例化方法为 init 时, 先调用 initWithFrame 方法, 再调用 init 方法</li>
 </ul>
 </li>
 </ul>
-<h2 id="3、控制器的view是懒加载的方式创建的"><a href="#3、控制器的view是懒加载的方式创建的" class="headerlink" title="3、控制器的view是懒加载的方式创建的"></a>3、控制器的view是懒加载的方式创建的</h2><ul>
-<li>控制器的view是延迟加载(懒加载)的：用到时再加载</li>
-<li>控制器的view加载完毕就会调用viewDidLoad方法</li>
-<li>用isViewLoaded方法判断UIViewController的view是否已经被加载</li>
-<li>重写loadView方法，如果在窗口显示之前如果没有用到控制器的view就不会调用loadView方法，在窗口显示的时候就会调用loadView方法。</li>
-<li>如果在窗口显示之前用到了控制器的view，就会直接调用loadView方法。</li>
-<li>loadView方法仅在用代码创建视图控制器的界面时使用</li>
-<li>在loadView方法中实现加载自定义的view的时候，不需要调用super。</li>
+<p>###双模型<br>    单一原则, 每一个类, 每一个模型, 管理一类事</p>
+<p>###计算文本 size 的方法</p>
+<ul>
+<li>字体的大小<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//限定的 size</span></div><div class="line"><span class="built_in">CGSize</span> contentMaxSize = <span class="built_in">CGSizeMake</span>(MAXFLOAT, MAXFLOAT);</div><div class="line"><span class="comment">//NSFontAttributeName : 字体的大小, 字体大小要与文本上设置的一致</span></div><div class="line"><span class="built_in">NSDictionary</span> *attributesDict = @&#123;<span class="built_in">NSFontAttributeName</span> : [<span class="built_in">UIFont</span> systemFontOfSize: <span class="number">17</span>]&#125;</div><div class="line">返回值为 <span class="built_in">CGRect</span> 类型 = [要计算的文本 boundingRectWithSize:限定 size optionsNSStringDrawingUsesLineFragmentOrigin  attributes: 字典 context:<span class="literal">nil</span>];</div></pre></td></tr></table></figure>
+</li>
 </ul>
+<p>###设置 footerView 和 headerView 的注意事项</p>
+<ul>
+<li>frame 的有些属性设置后, 添加到 tableView 上后会进行修改<ul>
+<li>解决方法, 创建一个 tempView ,将实际想操作的 view 添加到 tempView 上</li>
+</ul>
+</li>
+</ul>
+<p>###菊花 Activity Indicator View</p>
+<ul>
+<li>startAnimating</li>
+<li>stopAnimating</li>
+</ul>
+<p>###alpha = 0 与 clear color 的区别</p>
+<ul>
+<li>alpha = 0, 透明的, 添加的子控件也将透明</li>
+<li>clear color, 没有颜色, 添加的子控件可以看到</li>
+</ul>
+<p>###延迟执行方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">self</span> performSelector:&lt;<span class="meta">#(non null SEL)#&gt; withObject:<span class="meta-string">&lt;#(nullable id)#&gt;</span> afterDelay:<span class="meta-string">&lt;#(NSTimeInterval)#&gt;</span>]</span></div><div class="line"><span class="comment">//GCD</span></div><div class="line">dispatch_after……</div></pre></td></tr></table></figure>
 
           
         
@@ -1151,2170 +1818,6 @@ $sudo apachectl -k start
 $ ls -la
 $ chmod 644 info.php（没有权限的文件名）
 $ chmod 644 *.*
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/服务器配置笔记/" itemprop="url">
-                  服务器配置
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Net/" itemprop="url" rel="index">
-                    <span itemprop="name">Net</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/服务器配置笔记/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/服务器配置笔记/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="服务器配置步骤"><a href="#服务器配置步骤" class="headerlink" title="服务器配置步骤:"></a>服务器配置步骤:</h2><h4 id="1、打开服务器配置目录"><a href="#1、打开服务器配置目录" class="headerlink" title="1、打开服务器配置目录"></a>1、打开服务器配置目录</h4><pre><code>cd /etc/apache2/
-</code></pre><h4 id="2、查看当前目录下内容"><a href="#2、查看当前目录下内容" class="headerlink" title="2、查看当前目录下内容"></a>2、查看当前目录下内容</h4><pre><code>ls
-</code></pre><h4 id="3、修改服务器根路径"><a href="#3、修改服务器根路径" class="headerlink" title="3、修改服务器根路径"></a>3、修改服务器根路径</h4><pre><code>{
-    sudo vim httpd.conf  //进入服务器配置文件
-
-    /DocumentRoot 回车 //查找服务器默认根路径
-
-    将默认根路径 DocumentRoot &quot;/Library/WebServer/Documents&quot; 注释掉;
-
-    在注释掉的根路径下面一行增加新的根路径
-    DocumentRoot &quot;/Users/likaining/Sites&quot;
-
-    将 &lt;Directory &quot;/Library/WebServer/Documents&quot;&gt; 注释掉;
-    增加新的 &lt;Directory &quot;/Users/likaining/Sites&quot;&gt;
-
-    注意: Mac 10.10 的 Apache 增加如下操作！
-
-    (看&quot;服务器配置视频\02-Mac10.10 Apache配置.mp4&quot;)
-
-    在 httpd.conf 中找到
-
-    &quot;Options FollowSymLinks Multiviews&quot;
-
-    加一个单词 Indexes，修改后的结果如下：
-
-    &quot;Options Indexes FollowSymLinks Multiviews&quot;
-}
-</code></pre><h4 id="4、保存退出"><a href="#4、保存退出" class="headerlink" title="4、保存退出"></a>4、保存退出</h4><pre><code>:wq 回车
-
-&quot;注意&quot;:如果感觉修改错误了,想重新进入修改,就做不保存退出的操作
-不保存退出
-:q! 回车
-
-启动服务器
-sudo apachectl -k start 或者 sudo apachectl start
-
-关闭服务器:
-sudo apachectl -k stop 或者 sudo apachectl stop
-
-重新启动服务器
-sudo apachectl -k restart 或者 $sudo apachectl restart
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/数据解析/" itemprop="url">
-                  数据解析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Net/" itemprop="url" rel="index">
-                    <span itemprop="name">Net</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/数据解析/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/数据解析/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、JSON数据"><a href="#一、JSON数据" class="headerlink" title="一、JSON数据"></a>一、JSON数据</h2><h4 id="1、什么是JSON数据"><a href="#1、什么是JSON数据" class="headerlink" title="1、什么是JSON数据"></a>1、什么是JSON数据</h4><h6 id="1、JSON-是一种轻量级的传输数据格式-用于数据交互"><a href="#1、JSON-是一种轻量级的传输数据格式-用于数据交互" class="headerlink" title="1、JSON:是一种轻量级的传输数据格式,用于数据交互"></a>1、JSON:是一种轻量级的传输数据格式,用于数据交互</h6><ul>
-<li>JSON是javascript语言的一个子集.javascript是个脚本语言(不需要编译),用来给HTML增加动态功能.</li>
-<li>javascript和java没有半毛钱的关系!</li>
-<li>服务器返回给客户端的数据,一般都是JSON格式或者XML格式(文件下载除外).</li>
-<li><p>语法规则: </p>
-<ul>
-<li><p><1> 数据以键值的方式保存;</1></p>
-<p>  键(key)必须用双引号(“key”),与键值之间* 以’:’分隔; {“name”:”小明”}</p>
-</li>
-<li><p><2> 数据和数据之间以逗号(,)分隔. {“name”:”小明”,”age”:13}</2></p>
-</li>
-<li><p><3> {}表示对象. “person”:{“name”:”小明”,”age”:13}</3></p>
-</li>
-<li><p><4> []表示数组. “persons”:[</4></p>
-<pre><code>{&quot;name&quot;:&quot;小明&quot;,&quot;age&quot;:13},
-{&quot;name&quot;:&quot;小红&quot;,&quot;age&quot;:14},
-{&quot;name&quot;:&quot;小花&quot;,&quot;age&quot;:15}
-</code></pre><p>  ]</p>
-</li>
-</ul>
-</li>
-</ul>
-<h6 id="2、JSON与OC转换对照"><a href="#2、JSON与OC转换对照" class="headerlink" title="2、JSON与OC转换对照:"></a>2、JSON与OC转换对照:</h6><pre><code>   大括号 {} == NSDictionary;
-中括号 [] == NSArray;
-双引号&quot; &quot; == NSString;
-数字13,13.5 == NSNumber;
-</code></pre><h6 id="3、数据传输过程"><a href="#3、数据传输过程" class="headerlink" title="3、数据传输过程:"></a>3、数据传输过程:</h6><ul>
-<li>客户端发送请求给服务器,服务器接收到客户端的请求之后,返回给客户端JSON数据.</li>
-<li>客户端需要把服务器返回的JSON数据转换为OC的数据格式(数组/字典等).</li>
-</ul>
-<h4 id="2、JSON数据解析"><a href="#2、JSON数据解析" class="headerlink" title="2、JSON数据解析"></a>2、JSON数据解析</h4><h6 id="1、JSON数据解析方法"><a href="#1、JSON数据解析方法" class="headerlink" title="1、JSON数据解析方法:"></a>1、JSON数据解析方法:</h6><ul>
-<li>在iOS中,常见的JSON数据解析方案有4种:   </li>
-<li>第三方框架:JSONKit, SBJson, TouchJson.性能从左到右,依次变差.(iOS 5(2011年)以前)</li>
-<li>苹果原生(自带):NSJSONSerialization (性能是最好的.iOS5以后推出).</li>
-</ul>
-<h6 id="2、解析JSON数据"><a href="#2、解析JSON数据" class="headerlink" title="2、解析JSON数据"></a>2、解析JSON数据</h6><p><strong>反序列化(解析):</strong></p>
-<ul>
-<li><p>将从服务器接收到的JSON数据(二进制数据)转换成OC数据类型(NSArray,NSDictionary等.)的过程.</p>
-</li>
-<li><p>目的: JSON数据 –&gt; OC对象; 得到数据字典或者数据数组</p>
-</li>
-<li><p>好处: 简化程序的开发,方便后续的字典转模型.</p>
-</li>
-<li><p>方法:</p>
-<pre><code>+(id)JSONObjectWithData:(NSData *)data options:(NSJSONReadingOptions)opt error:(NSError **)error;
-</code></pre></li>
-</ul>
-<p><strong>序列化:</strong></p>
-<ul>
-<li>将数组或者字典发送给服务器之前,转换成二进制数据.</li>
-<li>目的:OC对象 –&gt; JSON数据;得到二进制JSON数据 NSData.</li>
-<li>好处:方便网络传输,提高传输速度.</li>
-<li><p>方法:</p>
-<pre><code>+(NSData *)dataWithJSONObject:(id)obj options:(NSJSONWritingOptions)opt error:(NSError **)error;
-</code></pre></li>
-</ul>
-<p><strong>需要注意的是,在做序列化之前,一定要检测一下对象是否能够被序列化.（使用 isValidJSONObject 检测一下要序列化的对象，是否能够正确被序列化）</strong></p>
-<h2 id="二、XML数据"><a href="#二、XML数据" class="headerlink" title="二、XML数据"></a>二、XML数据</h2><h4 id="1、什么是XML"><a href="#1、什么是XML" class="headerlink" title="1、什么是XML"></a>1、什么是XML</h4><h6 id="1、XML-eXtensible-Markup-Language-’可扩展标记语言’"><a href="#1、XML-eXtensible-Markup-Language-’可扩展标记语言’" class="headerlink" title="1、XML(eXtensible Markup Language)’可扩展标记语言’"></a>1、XML(eXtensible Markup Language)’可扩展标记语言’</h6><ul>
-<li>XML跟JSON一样,也是用来数据交互.</li>
-<li>HTML是超文本标记语言.用来表示网页页面.<h6 id="2、XML语法简介"><a href="#2、XML语法简介" class="headerlink" title="2、XML语法简介"></a>2、XML语法简介</h6></li>
-<li><p>一个完整的XML文件叫XML文档(XML Document).一个XML文档一般由以下几部分组成:</p>
-<ul>
-<li><p><1> 文档声明:</1></p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
-</code></pre></li>
-<li><p><2> 元素(Element)</2></p>
-<pre><code>1&gt; 一个元素包括开始标签和结束标签.
-    &lt;name&gt;小红&lt;/name&gt;
-
-    一个元素可以没有元素内容,没有元素内容可以简写.
-    &lt;/person&gt;
-
-    XML中所有的空格和换行,都会当做具体的内容处理.
-
-2&gt; 一个元素可以嵌套若干个子元素(不能出现交叉嵌套).
-    &lt;person&gt;
-    &lt;name&gt;小花&lt;/name&gt;
-    &lt;age&gt;16&lt;/age&gt;
-    &lt;/person&gt;
-
-3&gt; 规范的XML文档最多只能有一个根元素,其他元素都是根元素的子元素.
-</code></pre></li>
-<li><p><3> 属性(Attribute)</3></p>
-<pre><code>1&gt; 一个元素可以拥有多个属性.
-&lt;person name = &quot;小明&quot; age = &quot;18&quot;/&gt;
-2&gt; 属性值必须用双引号&quot;&quot;或者单引号&apos;&apos;括住.
-3&gt; 属性信息可以用元素内容来表示.
-</code></pre></li>
-</ul>
-</li>
-</ul>
-<h4 id="2、XML两种解析方式"><a href="#2、XML两种解析方式" class="headerlink" title="2、XML两种解析方式"></a>2、XML两种解析方式</h4><ul>
-<li>XML 解析有两种不同的思路:  SAX 解析  DOM 解析.</li>
-<li>SAX 解析: 从 XML 文档的根元素开始,一行一行的逐行解析XML元素中的内容!  在移动端使用比较多!可以较小内存开销!</li>
-<li>DOM 解析: 将整个 XML 文档加载到内存中,然后在解析! 占用内存比较多,在 PC(电脑) 中使用比较多</li>
-</ul>
-<p>######<br>    {<br>        XML解析:</p>
-<pre><code>        所谓XML解析,指的就是将XML中元素的内容取出来或者将元素中的属性值提取出来.
-
-    XML解析方式: 1.SAX 2.DOM
-
-    1.SAX解析:
-
-        从根元素开始,一个元素一个元素的按顺序往下解析.
-
-        比较适合大文件的解析.
-
-    * 解析方法:
-
-        苹果原生: NSXMLParser ,使用简单.设置代理就可以了.
-
-        NSXMLParser 采用SAX方式逐行往下解析,当扫描到下面的情况都会通知代理.
-
-            &lt;1&gt; 扫描到文档(Doucument)的开始与结束的时候,会通知代理.
-
-            &lt;2&gt; 扫描到元素(Element)的开始与结束的时候,会通知代理.
-
-            &lt;3&gt; 扫描到元素中的内容的时候,会通知代理.
-
-    * 使用步骤:
-    {
-        // 1.传入XML,创建解析器
-        NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-
-        // 2.设置代理,监听解析过程
-        parser.delegate = self;
-
-        // 3.开始解析
-        [parser parse];
-
-        // 4.解析完毕之后刷新表格数据
-        [self.tableView reloadData];
-
-        // 4.实现代理方法
-        {
-            // 1.当扫描到文档的开始时调用（开始解析）
-            - (void)parserDidStartDocument:(NSXMLParser *)parser;
-
-            // 2.当扫描到元素的开始时调用（attributeDict存放着元素的属性）
-            - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict;
-
-            // 3.发现元素中的内容的时候开始调用
-            - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string;
-
-            // 4.当扫描到元素结束时调用
-            - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName;
-
-            // 5.当扫描到文档的结束时调用（解析完毕）
-            - (void)parserDidEndDocument:(NSXMLParser *)parser;
-
-        }
-    }
-
-    2.DOM解析:
-
-        一次性将整个XML文档加载进内存,内存消耗比较大.
-
-        比较适合小文件.更加适用于Mac.
-
-    * 解析方法:
-
-        第三方框架:
-
-        * libxml2: 纯C语言,默认包含在iOS SDK中,同时支持SAX和DOM方式解析.
-
-        * GDateXML: DOM方式解析,由Google开发,基于libxml2.
-
-    * GDataXML使用步骤:
-    {
-        &lt;1&gt; 导入第三方框架 GDateXML;
-
-        &lt;2&gt; 注意修改三个地方:
-
-            1&gt; Header Search Paths : /usr/include/libxml2
-
-            2&gt; Other Linker Flags : -lxml2
-
-            3&gt; 添加非ARC :-fno-objc-arc
-
-        &lt;3&gt; 使用方法:
-        {
-            // 1.加载整个XML文档
-            GDataXMLDocument *dom = [[GDataXMLDocument alloc] initWithData:data options:0 error:NULL];
-
-            // 2.获得文档的根元素
-            GDataXMLElement *element = dom.rootElement;
-
-            // 3.得到根元素中包含的元素(vedio元素)
-            [element.children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-
-                GDataXMLElement *vedio = obj;
-
-                ITVedio *ITvedio = [[ITVedio alloc] init];
-                // 4.得到vedio元素中包含的元素内容
-                [vedio.children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-
-                    GDataXMLElement *ele = obj;
-
-                    // 5.将元素内容取出赋值.
-                    [ITvedio setValue:ele.stringValue forKeyPath:ele.name];
-
-                }];
-
-                // 将数据模型放在数据源中.
-                [self.vedios addObject:ITvedio];
-
-            }];
-
-        }
-    }
-
-}
-</code></pre><h2 id="补充知识点"><a href="#补充知识点" class="headerlink" title="补充知识点"></a>补充知识点</h2><pre><code>{
-    注意:播放视频
-
-    1. 导入: MediaPlayer/MediaPlayer.h
-    #import &lt;MediaPlayer/MediaPlayer.h&gt;
-
-    2. 创建视频播放控制器
-    MPMoviePlayerViewController *mv = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-
-    3. 跳转到控制器播放视频
-    [self presentMoviePlayerViewControllerAnimated:mv];
-
-
-    NSNumber 替代 int,防止 null 错误.
-
-    NSArray + Log 分类,打印汉字,方便调试.
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/文件上传/" itemprop="url">
-                  文件上传
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Net/" itemprop="url" rel="index">
-                    <span itemprop="name">Net</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/文件上传/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/文件上传/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、POST上传单个文件"><a href="#一、POST上传单个文件" class="headerlink" title="一、POST上传单个文件"></a>一、POST上传单个文件</h2><p><strong>重点:1.单个文件上传(四个步骤) 2.设置请求体格式</strong></p>
-<h4 id="1、为什么要上传文件"><a href="#1、为什么要上传文件" class="headerlink" title="1、为什么要上传文件:"></a>1、为什么要上传文件:</h4><ul>
-<li>以前很多服务器对上传文件的大小有限制,PHP 限制是 2M</li>
-<li>目前很多服务器不仅不限制大小,而且鼓励上传多个文件!</li>
-<li>云服务器的普及!</li>
-<li>软件商希望获得更多的用户数据!</li>
-</ul>
-<p><strong>提示:abc 的目录是用来保存上传文件的,需要设置访问权限!</strong></p>
-<h4 id="2、步骤"><a href="#2、步骤" class="headerlink" title="2、步骤"></a>2、步骤</h4><h6 id="1、文件上传使用-POST-方法"><a href="#1、文件上传使用-POST-方法" class="headerlink" title="1、文件上传使用 POST 方法"></a>1、文件上传使用 POST 方法</h6><pre><code>// 请求为可变请求
-NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-// 制定请求方法为 POST
-request.HTTPMethod = @&quot;POST&quot;;
-</code></pre><h6 id="2、设置请求头-告诉服务器请求体中的内容包含文件参数"><a href="#2、设置请求头-告诉服务器请求体中的内容包含文件参数" class="headerlink" title="2、设置请求头,告诉服务器请求体中的内容包含文件参数"></a>2、设置请求头,告诉服务器请求体中的内容包含文件参数</h6><pre><code>[request setValue:@&quot;multipart/form-data; boundary=kBoundary&quot; forHTTPHeaderField:@&quot;Content-Type&quot;];
-</code></pre><h6 id="3、设置请求体-注意-必须严格按照格式设置"><a href="#3、设置请求体-注意-必须严格按照格式设置" class="headerlink" title="3、设置请求体(注意:必须严格按照格式设置)"></a>3、设置请求体(注意:必须严格按照格式设置)</h6><pre><code>// 上边界
---boundary\r\n
-Content-Disposition: form-data; name=userfile; filename=555\r\n
-Content-Type: application/json\r\n\r\n
-文件内容的二进制数据
-// 下边界
-\r\n--boundary--
-注意1:请求体内容分为三个部分:
-* 上边界部分,告诉服务器要做数据上传,包含了服务器的接收字段name=userfile,文件在服务器中保存的名称filename=555,以及上传文件的数据类型 application/json(需要严格按照字符串格式来设置)
-* 上传文件的数据部分(二进制数据)
-* 下边界部分,严格按照字符串格式来设置.
-上边界部分和下边界部分的字符串,最后都要转换成二进制数据,和文件部分的二进制数据拼接在一起,作为请求体发送给服务器.
-注意2:
-* userfile =&gt; 负责上传文件脚本中的 字段名,开发的时候,可以咨询后端程序员
-* filename =&gt; 将文件保存在服务器上的文件名称
-* Content-Type: 客户端告诉服务器上传文件的文件类型
-注意3:
-* 每一行末尾需要有一定的 \r\n
-* 提示：有些服务器可以直接使用 \n，但是新浪微博如果使用 \n 上传文件，服务器会返回“没有权限”的错误！
-</code></pre><h6 id="4、发送请求-用-NSURLConnection异步发送请求"><a href="#4、发送请求-用-NSURLConnection异步发送请求" class="headerlink" title="4、发送请求(用 NSURLConnection异步发送请求)"></a>4、发送请求(用 NSURLConnection异步发送请求)</h6><pre><code>[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-    //
-    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
-    NSLog(@&quot;%@&quot;,string);
-}];
-</code></pre><h2 id="二、多文件上传"><a href="#二、多文件上传" class="headerlink" title="二、多文件上传"></a>二、多文件上传</h2><p><strong>重点:1.掌握多文件上传的数据格式 2.学会封装多文件上传的方法</strong></p>
-<pre><code>多文件上传和单文件上传的基本思路是一样的,唯一的区别在于对请求体的封装.
-多文件的请求体部分格式1
-{
-    // 第一个文件参数的上边界
-    \r\n--boundary\r\n
-    Content-Disposition: form-data; name=userfile[]; filename=美女\r\n
-    Content-Type:image/jpeg\r\n\r\n
-    上传文件的二进制数据部分
-    // 第一个文件参数的下边界
-    \r\n--boundary--
-    // 第二个文件参数的上边界
-    \r\n--boundary\r\n
-    Content-Disposition: form-data; name=userfile[]; filename=JSON\r\n
-    Content-Type:text/plain\r\n\r\n
-    上传文件的二进制数据部分
-    // 第二个文件参数的下边界
-    \r\n--boundary--
-}
-
-{
-    多文件上传的请求体格式2
-    // 上边界
-    // 第一个文件参数
-    \r\n--boundary\r\n
-    Content-Disposition: form-data; name=userfile[]; filename=美女\r\n
-    Content-Type:image/jpeg\r\n\r\n
-    上传文件的二进制数据部分
-    // 第二个文件参数
-    \r\n--boundary\r\n
-    Content-Disposition: form-data; name=userfile[]; filename=JSON\r\n
-    Content-Type:text/plain\r\n\r\n
-    上传文件的二进制数据部分
-    // 下边界
-    \r\n--boundary--
-}
-</code></pre><h2 id="三、获取文件的-MIMEType"><a href="#三、获取文件的-MIMEType" class="headerlink" title="三、获取文件的 MIMEType"></a>三、获取文件的 MIMEType</h2><pre><code>上传文件的时候,需要告诉服务器文件类型(即Content-Type),这时,需要获取文件的 MIMEType.
-
-获取文件的 MIMEType 方法:加载文件时,通过 response 获得
-{
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-
-    NSURLResponse *response = nil;
-
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&amp;response error:NULL];
-
-    NSLog(@&quot;%@&quot;,response.MIMEType);
-
-}
-response.MIMEType 即为 Content-Type 的类型.
-
-如果不想告诉服务器具体的文件类型,可以使用这个 Content-Type : application/octet-stream(8进制流)
-
-常见的 Content-Type 类型:
-{
-    - 大类型/小类型
-    - text/plain
-    - image/jpg
-    - image/png
-    - image/gif
-    - text/html
-    - application/json
-}
-</code></pre><h2 id="四、多文件-普通文本上传"><a href="#四、多文件-普通文本上传" class="headerlink" title="四、多文件 + 普通文本上传"></a>四、多文件 + 普通文本上传</h2><ul>
-<li>有些服务器可以在上传文件的同时,提交一些文本内容给服务器</li>
-<li>典型应用:<ul>
-<li><1>新浪微博: 上传图片的同时,发送一条微博信息!</1></li>
-<li><2>购物评论: 购买商品之后发表评论的时候图片+评论内容!</2></li>
-</ul>
-</li>
-<li><p>多文件上传的数据格式：</p>
-<pre><code>Content-Type: multipart/form-data; boundary=boundary
-// ------ 以下内容，是提供给服务器的二进制数据格式
---boundary\r\n
-Content-Disposition: form-data; name=&quot;userfile[]&quot;; filename=&quot;aaa.txt&quot;\r\n
-Content-Type: application/octet-stream\r\n\r\n
-
-文件二进制数据
-\r\n
---boundary\r\n
-Content-Disposition: form-data; name=&quot;userfile[]&quot;; filename=&quot;aaa副本.txt&quot;\r\n
-Content-Type: application/octet-stream\r\n\r\n
-
-文件二进制数据
-\r\n
---boundary\r\n
-// username 是脚本文件接收参数的名称
-Content-Disposition: form-data; name=&quot;username&quot;\r\n\r\n
-
-普通文本二进制数据
-\r\n
---boundary--
-// ------
-
-以上部分，是发送给服务器的二进制数据的组成格式(示例)
-</code></pre></li>
-<li><p>如果在 iOS 中,要实现POST上传文件,需要按照上述格式,拼接数据!</p>
-</li>
-<li>因为:格式是 W3C 指定的标准格式,苹果没有做任何封装!其他语言,都做了封装!</li>
-<li>以上三种数据拼接格式,需要大家了解并且能够自己会拼接一种!</li>
-<li>“第三方框架做文件上传:<ul>
-<li>AFN 能够同时实现上传”一个文件”,有些格式的文件,用 AFN 无法上传!</li>
-<li>ASI 能够同时实现上传多个文件,MRC的,2012年就停止更新了,设计的目标平台, iOS 2.0/iOS 3.0 !</li>
-</ul>
-</li>
-</ul>
-<h2 id="五、RESTful设计风格"><a href="#五、RESTful设计风格" class="headerlink" title="五、RESTful设计风格"></a>五、RESTful设计风格</h2><pre><code>为了简化开发流程,使开发更加直观,解读更加容易,现在有一种非常流行的程序设计风格----&gt;RESTful设计风格
-
-RESTful设计风格:
-
-    主要用于后端开发,主要的表现形式为使用同一个 URL,不同的 HTTP 访问方法,表达不同的语义.
-{
-    示例: http:/\/\www.xxx.com/product/123
-
-    -GET http:/\/\www.xxx.com/product/123   语义:从服务器&quot;获取&quot;产品ID 为123的产品信息.
-
-    -POST http:/\/\www.xxx.com/product/123   语义:在服务器&quot;新增&quot;产品ID 为123的产品信息.
-
-    * 提交二进制数据,需要提交一个 JSON 格式的二进制数据,后端程序员可以直接反序列化,得到 JSON 中得字典信息.
-    * POST JSON
-
-    -PUT http:/\/\www.xxx.com/product/123   语义:在服务器&quot;修改&quot;产品ID 为123的产品信息.
-
-    -DELETE http:/\/\www.xxx.com/product/123   语义:从服务器&quot;删除&quot;产品ID 为123的产品信息.
-
-    RESTful设计风格目前在国际上非常流行,国内也逐渐开始普及.
-
-    作为前端程序员,只需要知道有这种设计风格就可以.
-}
-</code></pre><h2 id="六、AFN-上传文件"><a href="#六、AFN-上传文件" class="headerlink" title="六、AFN 上传文件"></a>六、AFN 上传文件</h2><pre><code>{
-    // 1. 创建管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-
-    // 2. 发送请求
-    [mgr POST:@&quot;http://localhost/upload/upload.php&quot; parameters:nil constructingBodyWithBlock:^(id&lt;AFMultipartFormData&gt; formData) {
-
-        // formData :设置上传文件所需要的参数,两种上传方法:
-        // &lt;1&gt; 通过本地文件的 url 上传
-        {
-            NSString *fromFile = @&quot;/Users/likaining/Desktop/meinv.jpg&quot;;
-
-            NSURL *url = [NSURL URLWithString:@&quot;file:///Users/likaining/Desktop/meinv.jpg&quot;];
-            // url :需要上传文件的文件路径
-            // name :服务器接收的文件名.
-            // fileName: 文件在服务器中保存的名字
-            // mimeType : 文件类型
-            [formData appendPartWithFileURL:url name:@&quot;userfile&quot; fileName:@&quot;meinv&quot; mimeType:@&quot;image/jpg&quot; error:NULL];
-        }
-        // &lt;2&gt; 通过文件的 二进制数据 上传
-        {
-            NSData *data = [NSData dataWithContentsOfFile:zipFile];
-
-            [formData appendPartWithFileData:data name:@&quot;userfile&quot; fileName:@&quot;meinv.zip&quot; mimeType:@&quot;gzip&quot;];
-        }
-
-        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            // 上传成功之后的回调
-            NSLog(@&quot;%@&quot;,responseObject);
-
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            //  上传失败之后的回调
-            NSLog(@&quot;失败&quot;);
-    }];
-
-}
-</code></pre><h2 id="八、监测网络状态"><a href="#八、监测网络状态" class="headerlink" title="八、监测网络状态"></a>八、监测网络状态</h2><pre><code>{
-    1. AFN 监测网络状态
-    {
-        // 创建 网络状态管理者
-        AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
-
-        // 监测网络状态的改变
-        [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-            // 当网络状态发生改变的时候调用这个block
-            switch (status) {
-                case AFNetworkReachabilityStatusReachableViaWiFi:
-                    NSLog(@&quot;WIFI网络&quot;);
-                    break;
-
-                case AFNetworkReachabilityStatusReachableViaWWAN:
-                    NSLog(@&quot;蜂窝网络&quot;);
-                    break;
-
-                case AFNetworkReachabilityStatusNotReachable:
-                    NSLog(@&quot;没有网络&quot;);
-                    break;
-
-                case AFNetworkReachabilityStatusUnknown:
-                    NSLog(@&quot;未知网络&quot;);
-                    break;
-                default:
-                    break;
-            }
-        }];
-        // 开始监控
-        [mgr startMonitoring];
-    }
-    2.Reachability 监测网络状态
-    {
-        // 注册通知观察者,网络状态改变时,接收通知!
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(InternetStatusChanged) name:kReachabilityChangedNotification object:nil];
-
-        // 控制器销毁时,移除通知观察者.
-        -(void)dealloc
-        {
-            [[NSNotificationCenter defaultCenter] removeObserver:self];
-        }
-
-        // 根据当前网络状态,做出不同的响应.
-        - (void)InternetStatusChanged
-        {
-            NSLog(@&quot;网络状态改变了&quot;);
-
-            if ([Reachability reachabilityForLocalWiFi].currentReachabilityStatus == ReachableViaWiFi) {
-                NSLog(@&quot;Wifi 网络&quot;);
-            }
-            if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus == ReachableViaWWAN) {
-                NSLog(@&quot;蜂窝移动网络&quot;);
-            }
-            if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus == NotReachable)
-            {
-                NSLog(@&quot;没有网络&quot;);
-            }
-        }
-        // 创建 Reachability 对象,开始监测网络状态的改变
-        - (void)MonitorInternetStatus
-        {
-            Reachability *CZReachability = [Reachability reachabilityForInternetConnection];
-
-            [CZReachability startNotifier];
-
-            self.reachability = CZReachability;
-        }
-
-        - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-        {
-            [self MonitorInternetStatus];
-        }
-    }
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/CALayer/" itemprop="url">
-                  CALayer
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/CALayer/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/CALayer/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><ul>
-<li><p>在iOS中，你能看得见摸得着的东西基本上都是UIView，比如一个按钮、一个文本标签、一个文本输入框、一个图标等等，这些都是UIView，<strong>其实UIView之所以能显示在屏幕上，完全是因为它内部的一个图层</strong></p>
-</li>
-<li><p>在创建UIView对象时，UIView内部会自动创建一个图层(即CALayer对象)，通过UIView的layer属性可以访问这个层</p>
-<pre><code>@property(nonatomic,readonly,retain) CALayer *layer; 
-</code></pre></li>
-<li><p>当UIView需要显示到屏幕上时，会调用drawRect:方法进行绘图，并且会将所有内容绘制在自己的图层上(layer)，绘图完毕后，系统会将图层拷贝到屏幕上，于是就完成了UIView的显示</p>
-</li>
-</ul>
-<p>*换句话说，UIView本身不具备显示的功能，是它内部的层才有显示功能</p>
-<h2 id="二、CALayer应用"><a href="#二、CALayer应用" class="headerlink" title="二、CALayer应用"></a>二、CALayer应用</h2><h4 id="1、CALayer的属性"><a href="#1、CALayer的属性" class="headerlink" title="1、CALayer的属性"></a>1、CALayer的属性</h4><pre><code>@property CGFloat borderWidth;                //边框宽度
-@property CGColorRef borderColor;            //边框颜色(CGColorRef类型)
-@property CGColorRef backgroundColor;         //背景颜色
-@property float opacity;                    //透明度
-@property CGColorRef shadowColor;             //阴影颜色
-@property float shadowOpacity;
-@property CGSize shadowOffset;
-@property CGFloat shadowRadius;
-@property(strong) id contents;                内容(比如设置为图片CGImageRef)
-@property CGFloat cornerRadius;                //圆角半径
-@property CGRect bounds;                    //宽度和高度
-@property CGPoint position;                    //位置(默认指中点，具体由anchorPoint决定)
-@property CGPoint anchorPoint;                //锚点(x,y的范围都是0-1)，决定了position的含义
-@property CATransform3D transform;            //形变属性
-@property(getter=isHidden) BOOL hidden;
-@property(readonly) CALayer *superlayer;
-@property(copy) NSArray *sublayers;
-@property BOOL masksToBounds;
-</code></pre><h4 id="2、UIView和CALayer的选择"><a href="#2、UIView和CALayer的选择" class="headerlink" title="2、UIView和CALayer的选择"></a>2、UIView和CALayer的选择</h4><ul>
-<li><p>通过CALayer，就能做出跟UIImageView一样的界面效果</p>
-</li>
-<li><p>既然CALayer和UIView都能实现相同的显示效果，那究竟该选择谁好呢？</p>
-<ul>
-<li>其实，对比CALayer，UIView多了一个事件处理的功能。也就是说，CALayer不能处理用户的触摸事件，而UIView可以</li>
-<li><p>所以，如果显示出来的东西需要跟用户进行交互的话，用UIView；如果不需要跟用户进行交互，用UIView或者CALayer都可以<br>当然，CALayer的性能会高一些，因为它少了事件处理的功能，更加轻量级</p>
-<p><strong>UIView ： 接受和处理系统事件、触摸事件。</strong></p>
-<p><strong>CALayer ： 显示内容</strong></p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="3、position和anchorPoint"><a href="#3、position和anchorPoint" class="headerlink" title="3、position和anchorPoint"></a>3、position和anchorPoint</h4><h6 id="1、-property-CGPoint-position"><a href="#1、-property-CGPoint-position" class="headerlink" title="1、@property CGPoint position;"></a>1、@property CGPoint position;</h6><ul>
-<li>用来设置CALayer在父层中的位置</li>
-<li>以父层的左上角为原点(0, 0)</li>
-</ul>
-<h6 id="2、-property-CGPoint-anchorPoint"><a href="#2、-property-CGPoint-anchorPoint" class="headerlink" title="2、@property CGPoint anchorPoint;"></a>2、@property CGPoint anchorPoint;</h6><ul>
-<li>称为“定位点”、“锚点”</li>
-<li>决定着CALayer的position属性所指的是哪个点</li>
-<li>以自己的左上角为原点(0, 0)</li>
-<li>它的x、y取值范围都是0~1，默认值为（0.5, 0.5）</li>
-</ul>
-<h4 id="4、隐式动画"><a href="#4、隐式动画" class="headerlink" title="4、隐式动画"></a>4、隐式动画</h4><ul>
-<li>每一个UIView内部都默认关联着一个CALayer, 我们可称这个Layer为Root Layer（根层）</li>
-<li>所有的非Root Layer, 也就是手动创建的CALayer对象, 都存在着隐式动画。 root layer 是没有隐式动画的</li>
-<li><p><strong>可以通过动画事务(CATransaction)关闭默认的隐式动画效果</strong></p>
-<pre><code>[CATransaction begin];
-[CATransaction setDisableActions:YES];
-self.myview.layer.position = CGPointMake(10, 10);
-[CATransaction commit];
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/UIDynamic（物理引擎）/" itemprop="url">
-                  UIDynamic（物理引擎）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/UIDynamic（物理引擎）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/UIDynamic（物理引擎）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><h4 id="1、相关概念"><a href="#1、相关概念" class="headerlink" title="1、相关概念"></a>1、相关概念</h4><p>a. 谁要进行物理仿真?(要谁做)</p>
-<pre><code>* 物理仿真元素(Dynamic Item)
-* 是任何遵守了UIDynamicItem协议的对象
-</code></pre><p>b. 执行怎样的物理仿真效果?怎样的动画效果?(做什么动画)</p>
-<pre><code>* 物理仿真行为(Dynamic Behavior) 
-* 仿真行为,是动力学行为的父类,基本的动力学行为类
-UIGravityBehavior、UICollisionBehavior、UIAttachmentBehavior、UISnapBehavi or、UIPushBehavior以及UIDynamicItemBehavior均继承自该父类,可以组合使用
-</code></pre><p>c. 让物理仿真元素执行具体的物理仿真行为(开始做) </p>
-<pre><code>* 物理仿真器(Dynamic Animator)
-* 为动力学元素提供物理学相关的能力及动画,同时为这些元素提供相关的上 
-* 下文,是动力学元素与底层iOS物理引擎之间的中介,将Behavior对象添加到 Animator即可实现动力仿真
-</code></pre><p>d. 注意不是任何对象都可以做物理仿真效果 </p>
-<pre><code>* 物理仿真元素要素:
-* 任何遵守了UIDynamicItem协议的对象 UIView默认已经遵守了    * UIDynamicItem协议,因此任何UI控件都能做物理仿真     * UICollectionViewLayoutAttributes类默认也遵守UIDynamicItem协议
-</code></pre><p><strong>仿真器使用时必须设置一个strong属性使其不会立即销毁</strong></p>
-<pre><code>@property (nonatomic, strong) UIDynamicAnimator *animator;
-</code></pre><h4 id="2、使用步骤"><a href="#2、使用步骤" class="headerlink" title="2、使用步骤"></a>2、使用步骤</h4><p>a. 创建一个UIDynamicAnimator对象<br>b. 创建行为对象(UIDynamicBehavior)<br>c. 将要执行动画的对象添加到UIDynamicBehavior中<br>一般会将 UIView 添加到行为对象中 UIView 遵守了UIDynamicItem协议</p>
-<h2 id="二、物理仿真行为"><a href="#二、物理仿真行为" class="headerlink" title="二、物理仿真行为"></a>二、物理仿真行为</h2><h4 id="1、重力行为-Gravity"><a href="#1、重力行为-Gravity" class="headerlink" title="1、重力行为(Gravity)"></a>1、重力行为(Gravity)</h4><h6 id="1、重力行为用于给动力学元素指定一个重力向量"><a href="#1、重力行为用于给动力学元素指定一个重力向量" class="headerlink" title="1、重力行为用于给动力学元素指定一个重力向量"></a>1、重力行为用于给动力学元素指定一个重力向量</h6><h6 id="2、代码示例"><a href="#2、代码示例" class="headerlink" title="2、代码示例"></a>2、代码示例</h6><pre><code>//1 创建物理仿真器
-UIDynamicAnimator *animator = [[UIDynamicAnimator alloc]
-initWithReferenceView:self.redView];
-self.animator = animator;
-//2 创建重力行为(物理行为)
-UIGravityBehavior *behavior = [[UIGravityBehavior alloc]
-initWithItems:@[self.redView]]; //量级(用来控制加速度,1.0代表加速度是1000 points
-/second2) behavior.magnitude = 0.2; //方向
-//
-behavior.gravityDirection = CGVectorMake(1, 1);
-behavior.angle = 0;
-//3 把物理行为添加到物理仿真器中 开始动画
-[animator addBehavior:behavior];
-</code></pre><h4 id="2、碰撞行为-Collision"><a href="#2、碰撞行为-Collision" class="headerlink" title="2、碰撞行为(Collision)"></a>2、碰撞行为(Collision)</h4><h6 id="1、相关属性"><a href="#1、相关属性" class="headerlink" title="1、相关属性"></a>1、相关属性</h6><p>translatesReferenceBoundsIntoBoundary</p>
-<pre><code>translatesReferenceBoundsIntoBoundary设置为YES而不是明确的添加边界的坐标。这样会使这
-个边界使用 UIDynamicAnimator 提供的参考系的边界。
-</code></pre><p>collisionMode</p>
-<pre><code>UICollisionBehaviorModeItems 碰到元素碰撞,边界不碰撞 UICollisionBehaviorModeBoundaries 碰到边界碰撞,元素不碰撞 UICollisionBehaviorModeEverything 默认,碰到边界或元素会发生碰撞
-</code></pre><h6 id="2、代码示例-1"><a href="#2、代码示例-1" class="headerlink" title="2、代码示例"></a>2、代码示例</h6><pre><code>//1 创建物理仿真器,动画的范围
-self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-//2 创建物理仿真行为
-//2.1 重力行为
-UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:@[self.redView]];
-//2.2 碰撞行为
-UICollisionBehavior *collision = [[UICollisionBehavior alloc] initWithItems:@[self.redView]];
-//2.3 碰撞的边界,translatesReferenceBoundsIntoBoundary设置为YES而不是明确的添加边界的坐
-标。这样会使这个边界使用 UIDynamicAnimator 提供的参考系的边界。 collision.translatesReferenceBoundsIntoBoundary = YES;
-//3 把物理仿真行为添加到物理仿真器中 [self.animator addBehavior:gravity]; [self.animator addBehavior:collision];
-</code></pre><h6 id="3、碰撞行为-其它"><a href="#3、碰撞行为-其它" class="headerlink" title="3、碰撞行为-其它"></a>3、碰撞行为-其它</h6><ol>
-<li><p>两种自定义边界的方式,设置直线<br> a. 添加边界,设置两个点</p>
-<pre><code>[collision addBoundaryWithIdentifier:@&quot;b1&quot; fromPoint:CGPointMake(0, 200) toPoint:CGPointMake(180, 250)];
-</code></pre><p> b. 使用路径的方式</p>
-<pre><code>UIBezierPath *path = [UIBezierPath bezierPath];
-[path moveToPoint:CGPointMake(0, 200)];
-[path addLineToPoint:CGPointMake(180, 250)];
-[collision addBoundaryWithIdentifier:@&quot;b1&quot; forPath:path];
-</code></pre></li>
-<li><p>自定义边界,设置矩形的边界</p>
-<pre><code>UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 200, 180, 20)]; [collision addBoundaryWithIdentifier:@&quot;b2&quot; forPath:path];
-</code></pre></li>
-<li><p>碰撞过程中监听frame的变化 </p>
-<pre><code>[collision setAction:^{
-NSLog(@&quot;%@&quot;,NSStringFromCGRect(self.redView.frame)); }];
-</code></pre></li>
-<li>碰撞行为的弹力系数(0-1之间)</li>
-</ol>
-<pre><code>UIDynamicItemBehavior *item = [[UIDynamicItemBehavior alloc] initWithItems: @[self.redView]];
-item.elasticity = 1;
-</code></pre><p>添加到物理仿真器中</p>
-<pre><code>[self.animator addBehavior:item];
-</code></pre><ol>
-<li><p>设置碰撞行为的代理,碰撞到边界以后改变物体的状态</p>
-<pre><code>- (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id&lt;UIDynamicItem&gt;)item withBoundaryIdentifier:(id&lt;NSCopying&gt;)identifier atPoint:(CGPoint)p {
-</code></pre><p>//开始的碰撞物体</p>
-<pre><code>UIView *view = (UIView *)item;
-</code></pre><p>//边界的id</p>
-<pre><code>NSString *strId = (NSString *)identifier; //当碰撞到黄色边界以后改变当前物体的颜色 if ([strId isEqualToString:@&quot;b2&quot;]) {
-[UIView animateWithDuration:0.3 animations:^{ view.backgroundColor = [UIColor blackColor];
-} completion:^(BOOL finished) {
-view.backgroundColor = [UIColor redColor]; }];
-} }
-</code></pre></li>
-</ol>
-<h4 id="3、捕捉行为-Snap"><a href="#3、捕捉行为-Snap" class="headerlink" title="3、捕捉行为(Snap)"></a>3、捕捉行为(Snap)</h4><h6 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h6><pre><code>//1 物理仿真器
-self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-//2 创建捕捉行为
-UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:self.redView snapToPoint:location]; //阻尼,减幅,衰减 取值(0-1)
-snap.damping = 0;
-//3 把行为添加到物理仿真器
-[self.animator addBehavior:snap];
-</code></pre><h4 id="4、附着行为-Attachment"><a href="#4、附着行为-Attachment" class="headerlink" title="4、附着行为(Attachment)"></a>4、附着行为(Attachment)</h4><p><strong>附着行为描述一个视图与一个锚点或者另一个视图相连接的情况附着 行为描述的是两点之间的连接情况,可以模拟刚性或者弹性连接在多 个物体间设定多个UIAttachmentBehavior,可以模拟多物体连接</strong></p>
-<h6 id="1、属性"><a href="#1、属性" class="headerlink" title="1、属性"></a>1、属性</h6><ul>
-<li>attachedBehaviorType:连接类型(连接到锚点或视图) items:连接视图数组</li>
-<li>anchorPoint:连接锚点</li>
-<li>length:距离连接锚点的距离 只要设置了以下两个属性,即为弹性连接 * damping:振幅大小</li>
-<li>frequency:振动频率</li>
-</ul>
-<h6 id="2、示例代码"><a href="#2、示例代码" class="headerlink" title="2、示例代码"></a>2、示例代码</h6><pre><code>//1 物理仿真器
-self.animator = [[UIDynamicAnimator alloc]
-initWithReferenceView:self.view];
-//2 重力行为
-UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:
-@[self.redView]]; [gravity setAction:^{
-view.startPoint = self.redView.center;
-view.endPoint = point; }];
-//2.1 添加附着行为
-UIAttachmentBehavior *attachment = [[UIAttachmentBehavior alloc] initWithItem:self.redView attachedToAnchor:point];
-//弹性行为
-attachment.frequency = 0.5; attachment.damping = 0.5;
-//3 把行为添加到仿真器
-[self.animator addBehavior:gravity]; [self.animator addBehavior:attachment];
-</code></pre><h4 id="5、推动行为-Push"><a href="#5、推动行为-Push" class="headerlink" title="5、推动行为(Push)"></a>5、推动行为(Push)</h4><p><strong>推行为可以为一个视图施加一个作用力,该力可以是持续的,也可以是一次性的可以设置力的大小,方向和作用点等信息</strong></p>
-<h6 id="1、属性-1"><a href="#1、属性-1" class="headerlink" title="1、属性"></a>1、属性</h6><ul>
-<li>mode:推动类型(一次性或是持续推) </li>
-<li>angle:推动角度</li>
-<li>magnitude:推动力量</li>
-</ul>
-<h6 id="2、示例代码-1"><a href="#2、示例代码-1" class="headerlink" title="2、示例代码"></a>2、示例代码</h6><pre><code>//1 物理仿真器
-self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view]; //2 一次性推动行为(持续性推动行为)
-UIPushBehavior *push = [[UIPushBehavior alloc] initWithItems:@[self.redView]
-mode:UIPushBehaviorModeContinuous];
-//
-//设置推动的方向和推力的大小 push.angle = M_PI_2; push.magnitude = 1; //设置向量
-push.pushDirection = CGVectorMake(0, 100); //3 把推动行为添加都物理仿真器
-[self.animator addBehavior:push];
-</code></pre><h4 id="6、UIDynamicItemBehavior"><a href="#6、UIDynamicItemBehavior" class="headerlink" title="6、UIDynamicItemBehavior"></a>6、UIDynamicItemBehavior</h4><p><strong>UIDynamicItemBehavior:元素行为</strong></p>
-<h6 id="1、属性-2"><a href="#1、属性-2" class="headerlink" title="1、属性"></a>1、属性</h6><ul>
-<li>DynamicItem是一个辅助的行为,用来设置运动学元素参与物理仿真过程中的参数,如:弹 性系数、摩擦系数、密度、阻力、角阻力以及是否允许旋转等</li>
-<li>elasticity(弹性系数):决定了碰撞的弹性程度,比如碰撞时物体的弹性 * friction(摩擦系数) :决定了沿接触面滑动时的摩擦力大小</li>
-<li>density(密度): 跟size结合使用,计算物体的总质量。质量越大,物体加速或减速就越 困难</li>
-<li>resistance(阻力):决定线性移动的阻力大小,与摩擦系数不同,摩擦系数只作用于滑动 运动</li>
-<li>angularResistance(角阻力) :决定旋转运动时的阻力大小</li>
-<li>allowsRotation(允许旋转):这个属性很有意思,它在真实的物理世界没有对应的模型。 设置这个属性为 NO 物体就完全不会转动,而无论施加多大的转动力</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/SQLite语句/" itemprop="url">
-                  SQLite语句
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/SQLite语句/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/SQLite语句/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><h4 id="1、SQL语句的特点"><a href="#1、SQL语句的特点" class="headerlink" title="1、SQL语句的特点"></a>1、SQL语句的特点</h4><ul>
-<li>不区分大小写（比如数据库认为user和UsEr是一样的）</li>
-<li>每条语句都必须以分号 ; 结尾</li>
-</ul>
-<h6 id="SQL中的常用关键字有"><a href="#SQL中的常用关键字有" class="headerlink" title="SQL中的常用关键字有"></a>SQL中的常用关键字有</h6><p>select、insert、update、delete、from、create、where、desc、order、by、group、table、alter、view、index等等</p>
-<p><strong>数据库中不可以使用关键字来命名表、字段</strong></p>
-<h4 id="2、SQL语句的种类"><a href="#2、SQL语句的种类" class="headerlink" title="2、SQL语句的种类"></a>2、SQL语句的种类</h4><h6 id="数据定义语句（DDL：Data-Definition-Language）"><a href="#数据定义语句（DDL：Data-Definition-Language）" class="headerlink" title="数据定义语句（DDL：Data Definition Language）"></a>数据定义语句（DDL：Data Definition Language）</h6><ul>
-<li>包括create和drop等操作</li>
-<li>在数据库中创建新表或删除表（create table或 drop table）<h6 id="数据操作语句（DML：Data-Manipulation-Language）"><a href="#数据操作语句（DML：Data-Manipulation-Language）" class="headerlink" title="数据操作语句（DML：Data Manipulation Language）"></a>数据操作语句（DML：Data Manipulation Language）</h6></li>
-<li>包括insert、update、delete等操作</li>
-<li>上面的3种操作分别用于添加、修改、删除表中的数据<h6 id="数据查询语句（DQL：Data-Query-Language）"><a href="#数据查询语句（DQL：Data-Query-Language）" class="headerlink" title="数据查询语句（DQL：Data Query Language）"></a>数据查询语句（DQL：Data Query Language）</h6></li>
-<li>可以用于查询获得表中的数据</li>
-<li>关键字select是DQL（也是所有SQL）用得最多的操作</li>
-<li>其他DQL常用的关键字有where，order by，group by和having</li>
-</ul>
-<h2 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h2><h4 id="1、创表"><a href="#1、创表" class="headerlink" title="1、创表"></a>1、创表</h4><h6 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h6><ul>
-<li>create table 表名 (字段名1 字段类型1, 字段名2 字段类型2, …) ;</li>
-<li>create table if not exists 表名 (字段名1 字段类型1, 字段名2 字段类型2, …) ;</li>
-</ul>
-<h6 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h6><ul>
-<li>create table t_student (id integer, name text, age inetger, score real) ;</li>
-</ul>
-<h4 id="2、字段类型"><a href="#2、字段类型" class="headerlink" title="2、字段类型"></a>2、字段类型</h4><h6 id="SQLite将数据划分为以下几种存储类型："><a href="#SQLite将数据划分为以下几种存储类型：" class="headerlink" title="SQLite将数据划分为以下几种存储类型："></a>SQLite将数据划分为以下几种存储类型：</h6><ul>
-<li>integer : 整型值</li>
-<li>real : 浮点值</li>
-<li>text : 文本字符串</li>
-<li>blob : 二进制数据（比如文件）</li>
-</ul>
-<h6 id="实际上SQLite是无类型的"><a href="#实际上SQLite是无类型的" class="headerlink" title="实际上SQLite是无类型的"></a>实际上SQLite是无类型的</h6><ul>
-<li>就算声明为integer类型，还是能存储字符串文本（主键除外）</li>
-<li>建表时声明啥类型或者不声明类型都可以，也就意味着创表语句可以这么写：</li>
-<li>create table t_student(name, age);</li>
-</ul>
-<p><strong>为了保持良好的编程规范、方便程序员之间的交流，编写建表语句的时候最好加上每个字段的具体类型</strong></p>
-<h4 id="3、删表"><a href="#3、删表" class="headerlink" title="3、删表"></a>3、删表</h4><h6 id="格式-1"><a href="#格式-1" class="headerlink" title="格式"></a>格式</h6><ul>
-<li>drop table 表名 ;</li>
-<li>drop table if exists 表名 ;<h6 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h6></li>
-<li>drop table t_student ;</li>
-</ul>
-<h4 id="4、插入数据（insert）"><a href="#4、插入数据（insert）" class="headerlink" title="4、插入数据（insert）"></a>4、插入数据（insert）</h4><h6 id="格式-2"><a href="#格式-2" class="headerlink" title="格式"></a>格式</h6><ul>
-<li>insert into 表名 (字段1, 字段2, …) values (字段1的值, 字段2的值, …) ;</li>
-</ul>
-<h6 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h6><ul>
-<li>insert into t_student (name, age) values (‘lnj’, 10) ;</li>
-</ul>
-<p><strong>注：数据库中的字符串内容应该用单引号 ’ 括住</strong></p>
-<h4 id="5、更新数据（update）"><a href="#5、更新数据（update）" class="headerlink" title="5、更新数据（update）"></a>5、更新数据（update）</h4><h6 id="格式-3"><a href="#格式-3" class="headerlink" title="格式"></a>格式</h6><ul>
-<li>update 表名 set 字段1 = 字段1的值, 字段2 = 字段2的值, … ; </li>
-</ul>
-<h6 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h6><ul>
-<li>update t_student set name = ‘jack’, age = 20 ; </li>
-</ul>
-<p><strong>注：上面的示例会将t_student表中所有记录的name都改为jack，age都改为20</strong></p>
-<h4 id="6、删除数据（delete）"><a href="#6、删除数据（delete）" class="headerlink" title="6、删除数据（delete）"></a>6、删除数据（delete）</h4><h6 id="格式-4"><a href="#格式-4" class="headerlink" title="格式"></a>格式</h6><ul>
-<li>delete from 表名 ;</li>
-</ul>
-<h6 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h6><p>delete from t_student ;</p>
-<p><strong>注：上面的示例会将t_student表中所有记录都删掉</strong></p>
-<h4 id="7、条件语句"><a href="#7、条件语句" class="headerlink" title="7、条件语句"></a>7、条件语句</h4><p><strong>如果只想更新或者删除某些固定的记录，那就必须在DML语句后加上一些条件</strong></p>
-<h6 id="条件语句的常见格式"><a href="#条件语句的常见格式" class="headerlink" title="条件语句的常见格式"></a>条件语句的常见格式</h6><pre><code>where 字段 = 某个值 ;   // 不能用两个 =
-where 字段 is 某个值 ;   // is 相当于 = 
-where 字段 != 某个值 ; 
-where 字段 is not 某个值 ;   // is not 相当于 != 
-where 字段 &gt; 某个值 ; 
-where 字段1 = 某个值 and 字段2 &gt; 某个值 ;  // and相当于C语言中的 &amp;&amp;
-where 字段1 = 某个值 or 字段2 = 某个值 ;  //  or 相当于C语言中的 ||
-</code></pre><h6 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h6><pre><code>将t_student表中年龄大于10 并且 姓名不等于jack的记录，年龄都改为 5
-update t_student set age = 5 where age &gt; 10 and name != ‘jack’ ;
-
-删除t_student表中年龄小于等于10 或者 年龄大于30的记录
-delete from t_student where age &lt;= 10 or age &gt; 30 ;
-
-猜猜下面语句的作用
-update t_student set score = age where name = ‘jack’ ;
-将t_student表中名字等于jack的记录，score字段的值 都改为 age字段的值
-</code></pre><h4 id="8、查询"><a href="#8、查询" class="headerlink" title="8、查询"></a>8、查询</h4><h6 id="格式-5"><a href="#格式-5" class="headerlink" title="格式"></a>格式</h6><ul>
-<li>select 字段1, 字段2, … from 表名 ;</li>
-<li>select * from 表名;   //  查询所有的字段</li>
-</ul>
-<h6 id="示例-5"><a href="#示例-5" class="headerlink" title="示例"></a>示例</h6><ul>
-<li>select name, age from t_student ;</li>
-<li>select * from t_student ;</li>
-<li>select * from t_student where age &gt; 10 ;  //  条件查询</li>
-</ul>
-<h4 id="9、起别名"><a href="#9、起别名" class="headerlink" title="9、起别名"></a>9、起别名</h4><h6 id="格式-字段和表都可以起别名"><a href="#格式-字段和表都可以起别名" class="headerlink" title="格式(字段和表都可以起别名)"></a>格式(字段和表都可以起别名)</h6><ul>
-<li>select 字段1 别名 , 字段2 别名 , … from 表名 别名 ; </li>
-<li>select 字段1 别名, 字段2 as 别名, … from 表名 as 别名 ;</li>
-<li>select 别名.字段1, 别名.字段2, … from 表名 别名 ;</li>
-</ul>
-<h6 id="示例-6"><a href="#示例-6" class="headerlink" title="示例"></a>示例</h6><ul>
-<li>select name myname, age myage from t_student ;</li>
-<li>给name起个叫做myname的别名，给age起个叫做myage的别名</li>
-<li>select s.name, s.age from t_student s ;</li>
-<li>给t_student表起个别名叫做s，利用s来引用表中的字段</li>
-</ul>
-<h4 id="10、计算记录的数量"><a href="#10、计算记录的数量" class="headerlink" title="10、计算记录的数量"></a>10、计算记录的数量</h4><h6 id="格式-6"><a href="#格式-6" class="headerlink" title="格式"></a>格式</h6><ul>
-<li>select count (字段) from 表名 ;</li>
-<li>select count ( * ) from 表名 ;<h6 id="示例-7"><a href="#示例-7" class="headerlink" title="示例"></a>示例</h6></li>
-<li>select count (age) from t_student ;</li>
-<li>select count ( * ) from t_student where score &gt;= 60;</li>
-</ul>
-<h4 id="11、排序"><a href="#11、排序" class="headerlink" title="11、排序"></a>11、排序</h4><pre><code>查询出来的结果可以用order by进行排序
-select * from t_student order by 字段 ;
-select * from t_student order by age ;
-
-默认是按照升序排序（由小到大），也可以变为降序（由大到小）
-select * from t_student order by age desc ;  //降序
-select * from t_student order by age asc ;   // 升序（默认）
-
-也可以用多个字段进行排序
-select * from t_student order by age asc, height desc ;
-先按照年龄排序（升序），年龄相等就按照身高排序（降序）
-</code></pre><h4 id="12、limit"><a href="#12、limit" class="headerlink" title="12、limit"></a>12、limit</h4><pre><code>使用limit可以精确地控制查询结果的数量，比如每次只查询10条数据
-格式：
-select * from 表名 limit 数值1, 数值2 ;
-示例：
-select * from t_student limit 4, 8 ;
-可以理解为：跳过最前面4条语句，然后取8条记录
-
-limit常用来做分页查询，比如每页固定显示5条数据，那么应该这样取数据
-第1页：limit 0, 5
-第2页：limit 5, 5
-第3页：limit 10, 5
-…
-第n页：limit 5*(n-1), 5
-
-猜猜下面语句的作用
-select * from t_student limit 7 ;
-相当于select * from t_student limit 0, 7 ;
-表示取最前面的7条记录
-</code></pre><h4 id="13、简单约束"><a href="#13、简单约束" class="headerlink" title="13、简单约束"></a>13、简单约束</h4><pre><code>建表时可以给特定的字段设置一些约束条件，常见的约束有
-not null ：规定字段的值不能为null
-unique ：规定字段的值必须唯一
-default ：指定字段的默认值
-（建议：尽量给字段设定严格的约束，以保证数据的规范性）
-
-示例
-create table t_student (id integer, name text not null unique, age integer not null default 1) ;
-name字段不能为null，并且唯一
-age字段不能为null，并且默认为1
-</code></pre><h4 id="14、主键约束"><a href="#14、主键约束" class="headerlink" title="14、主键约束"></a>14、主键约束</h4><p>如果t_student表中就name和age两个字段，而且有些记录的name和age字段的值都一样时，那么就没法区分这些数据，造成数据库的记录不唯一，这样就不方便管理数据</p>
-<h6 id="主键的设计原则"><a href="#主键的设计原则" class="headerlink" title="主键的设计原则"></a>主键的设计原则</h6><ul>
-<li>主键应当是对用户没有意义的</li>
-<li>永远也不要更新主键</li>
-<li>主键不应包含动态变化的数据</li>
-<li>主键应当由计算机自动生成</li>
-</ul>
-<h6 id="主键的声明"><a href="#主键的声明" class="headerlink" title="主键的声明"></a>主键的声明</h6><pre><code>在创表的时候用primary key声明一个主键
-create table t_student (id integer primary key, name text, age integer) ;
-integer类型的id作为t_student表的主键
-
-主键字段
-只要声明为primary key，就说明是一个主键字段
-主键字段默认就包含了not null 和 unique 两个约束
-
-如果想要让主键自动增长（必须是integer类型），应该增加autoincrement
-create table t_student (id integer primary key autoincrement, name text, age integer) ;
-</code></pre><h4 id="15、外键约束"><a href="#15、外键约束" class="headerlink" title="15、外键约束"></a>15、外键约束</h4><pre><code>利用外键约束可以用来建立表与表之间的联系
-外键的一般情况是：一张表的某个字段，引用着另一张表的主键字段
-
-新建一个外键
-create table t_student (id integer primary key autoincrement, name text, age integer, class_id integer, constraint fk_t_student_class_id_t_class_id foreign key (class_id) references t_class (id)) ; 
-t_student表中有一个叫做fk_t_student_class_id_t_class_id的外键
-这个外键的作用是用t_student表中的class_id字段引用t_class表的id字段
-</code></pre><h4 id="16、表连接查询"><a href="#16、表连接查询" class="headerlink" title="16、表连接查询"></a>16、表连接查询</h4><pre><code>什么是表连接查询
-需要联合多张表才能查到想要的数据
-
-表连接的类型
-内连接：inner join 或者 join  （显示的是左右表都有完整字段值的记录）
-左外连接：left outer join （保证左表数据的完整性）
-
-示例
-查询0316iOS班的所有学生
-select s.name,s.age from t_student s, t_class c where s.class_id = c.id and c.name = ‘0316iOS’;
-</code></pre><h2 id="三、SQLite编码"><a href="#三、SQLite编码" class="headerlink" title="三、SQLite编码"></a>三、SQLite编码</h2><h4 id="1、创建、打开、关闭数据库"><a href="#1、创建、打开、关闭数据库" class="headerlink" title="1、创建、打开、关闭数据库"></a>1、创建、打开、关闭数据库</h4><pre><code>创建或打开数据库
-// path是数据库文件的存放路径
-sqlite3 *db = NULL;
-int result = sqlite3_open([path UTF8String], &amp;db); 
-
-代码解析：
-sqlite3_open()将根据文件路径打开数据库，如果不存在，则会创建一个新的数据库。如果result等于常量SQLITE_OK，则表示成功打开数据库
-sqlite3 *db：一个打开的数据库实例
-数据库文件的路径必须以C字符串(而非NSString)传入
-
-关闭数据库：sqlite3_close(db);
-</code></pre><h4 id="2、执行不返回数据的SQL语句"><a href="#2、执行不返回数据的SQL语句" class="headerlink" title="2、执行不返回数据的SQL语句"></a>2、执行不返回数据的SQL语句</h4><pre><code>执行创表语句
-char *errorMsg = NULL;  // 用来存储错误信息
-char *sql = &quot;create table if not exists t_person(id integer primary key autoincrement, name text, age integer);&quot;;
-int result = sqlite3_exec(db, sql, NULL, NULL, &amp;errorMsg);
-
-代码解析：
-sqlite3_exec()可以执行任何SQL语句，比如创表、更新、插入和删除操作。但是一般不用它执行查询语句，因为它不会返回查询到的数据
-sqlite3_exec()还可以执行的语句：
-开启事务：begin transaction;
-回滚事务：rollback;
-提交事务：commit;
-</code></pre><h4 id="3、带占位符插入数据"><a href="#3、带占位符插入数据" class="headerlink" title="3、带占位符插入数据"></a>3、带占位符插入数据</h4><pre><code>char *sql = &quot;insert into t_person(name, age) values(?, ?);&quot;;
-sqlite3_stmt *stmt;
-if (sqlite3_prepare_v2(db, sql, -1, &amp;stmt, NULL) == SQLITE_OK) {
-    sqlite3_bind_text(stmt, 1, &quot;母鸡&quot;, -1, NULL);
-    sqlite3_bind_int(stmt, 2, 27);
-}
-if (sqlite3_step(stmt) != SQLITE_DONE) {
-    NSLog(@&quot;插入数据错误&quot;);
-}
-sqlite3_finalize(stmt);
-
-代码解析：
-sqlite3_prepare_v2()返回值等于SQLITE_OK，说明SQL语句已经准备成功，没有语法问题
-
-sqlite3_bind_text()：大部分绑定函数都只有3个参数
-第1个参数是sqlite3_stmt *类型
-第2个参数指占位符的位置，第一个占位符的位置是1，不是0
-第3个参数指占位符要绑定的值
-第4个参数指在第3个参数中所传递数据的长度，对于C字符串，可以传递-1代替字符串的长度
-第5个参数是一个可选的函数回调，一般用于在语句执行后完成内存清理工作
-sqlite_step()：执行SQL语句，返回SQLITE_DONE代表成功执行完毕
-sqlite_finalize()：销毁sqlite3_stmt *对象
-</code></pre><h4 id="4、查询数据"><a href="#4、查询数据" class="headerlink" title="4、查询数据"></a>4、查询数据</h4><pre><code>char *sql = &quot;select id,name,age from t_person;&quot;;
-sqlite3_stmt *stmt;
-if (sqlite3_prepare_v2(db, sql, -1, &amp;stmt, NULL) == SQLITE_OK) {
-    while (sqlite3_step(stmt) == SQLITE_ROW) {
-        int _id = sqlite3_column_int(stmt, 0);
-        char *_name = (char *)sqlite3_column_text(stmt, 1);
-        NSString *name = [NSString stringWithUTF8String:_name];
-        int _age = sqlite3_column_int(stmt, 2);
-        NSLog(@&quot;id=%i, name=%@, age=%i&quot;, _id, name, _age);
-    }
-}
-sqlite3_finalize(stmt);
-代码解析
-sqlite3_step()返回SQLITE_ROW代表遍历到一条新记录
-sqlite3_column_*()用于获取每个字段对应的值，第2个参数是字段的索引，从0开始
-</code></pre><h2 id="四、附件"><a href="#四、附件" class="headerlink" title="四、附件"></a>四、附件</h2><pre><code>/*简单约束*/
-CREATE TABLE IF NOT EXISTS t_student(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, age INTEGER);
-CREATE TABLE IF NOT EXISTS t_student(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, age INTEGER NOT NULL);
-CREATE TABLE IF NOT EXISTS t_student(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, age INTEGER);
-CREATE TABLE IF NOT EXISTS t_student(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, age INTEGER DEFAULT 1);
-
-/*分页*/
-SELECT * FROM t_student ORDER BY id ASC LIMIT 30, 10;
-
-/*排序*/
-SELECT * FROM t_student WHERE score &gt; 50 ORDER BY age DESC;
-SELECT * FROM t_student WHERE score &lt; 50 ORDER BY age ASC , score DESC;
-
-/*计量*/
-SELECT COUNT(*) FROM t_student WHERE age &gt; 50;
-
-/*别名*/
-SELECT name as myName, age as myAge, score as myScore FROM t_student;
-SELECT name myName, age myAge, score myScore FROM t_student;
-SELECT s.name myName, s.age myAge, s.score myScore FROM t_student s WHERE s.age &gt; 50;
-
-/*查询*/
-SELECT name, age, score FROM t_student;
-SELECT * FROM t_student;
-
-/*修改指定数据*/
-UPDATE t_student SET name = &apos;MM&apos; WHERE age = 10;
-UPDATE t_student SET name = &apos;WW&apos; WHERE age is 7;
-UPDATE t_student SET name = &apos;XXOO&apos; WHERE age &lt; 20;
-UPDATE t_student SET name = &apos;NNMM&apos; WHERE age &lt; 50 and score &gt; 10;
-
-/*删除数据*/
-DELETE FROM t_student;
-
-/*更新数据*/
-UPDATE t_student SET name = &apos;LNJ&apos;;
-
-/*插入数据*/
- INSERT INTO t_student(age, score, name) VALUES (&apos;28&apos;, 100, &apos;jonathan&apos;);
- INSERT INTO t_student(name, age) VALUES (&apos;lee&apos;, &apos;28&apos;);
- INSERT INTO t_student(score) VALUES (100);
-
-/*插入数据*/
-INSERT INTO t_student(name, age, score) VALUES (&apos;lee&apos;, &apos;28&apos;, 100);
-
-/*添加主键*/
-CREATE TABLE IF NOT EXISTS t_student (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, age INTEGER, score REAL);
-CREATE TABLE IF NOT EXISTS t_student (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, score REAL);
-CREATE TABLE IF NOT EXISTS t_student (id INTEGER, name TEXT, age INTEGER, score REAL, PRIMARY KEY(id));
-
-/*删除表*/
-DROP TABLE t_student;
-DROP TABLE IF EXISTS t_student;
-
-/*创建表*/
-CREATE TABLE t_student(id INTEGER , name TEXT, age , score REAL);
-CREATE TABLE IF NOT EXISTS t_student(id INTEGER , name TEXT, age , score REAL);
-</code></pre><h4 id="1-打开数据库"><a href="#1-打开数据库" class="headerlink" title="1.打开数据库"></a>1.打开数据库</h4><pre><code>int sqlite3_open(
-    const char *filename,   // 数据库的文件路径
-    sqlite3 **ppDb          // 数据库实例
-);
-</code></pre><h4 id="2、执行任何SQL语句"><a href="#2、执行任何SQL语句" class="headerlink" title="2、执行任何SQL语句"></a>2、执行任何SQL语句</h4><pre><code>int sqlite3_exec(
-    sqlite3*,                                  // 一个打开的数据库实例
-    const char *sql,                           // 需要执行的SQL语句
-    int (*callback)(void*,int,char**,char**),  // SQL语句执行完毕后的回调
-    void *,                                    // 回调函数的第1个参数
-    char **errmsg                              // 错误信息
-);
-</code></pre><h4 id="3、检查SQL语句的合法性"><a href="#3、检查SQL语句的合法性" class="headerlink" title="3、检查SQL语句的合法性"></a>3、检查SQL语句的合法性</h4><pre><code>int sqlite3_prepare_v2(
-    sqlite3 *db,            // 数据库实例
-    const char *zSql,       // 需要检查的SQL语句
-    int nByte,              // SQL语句的最大字节长度
-    sqlite3_stmt **ppStmt,  // sqlite3_stmt实例，用来获得数据库数据
-    const char **pzTail
-);
-</code></pre><h4 id="4、查询一行数据"><a href="#4、查询一行数据" class="headerlink" title="4、查询一行数据"></a>4、查询一行数据</h4><pre><code>int sqlite3_step(sqlite3_stmt*); // 如果查询到一行数据，就会返回
-</code></pre><h4 id="5、利用stmt获得某一字段的值"><a href="#5、利用stmt获得某一字段的值" class="headerlink" title="5、利用stmt获得某一字段的值"></a>5、利用stmt获得某一字段的值</h4><pre><code>double sqlite3_column_double(sqlite3_stmt*, int iCol);  // 浮点数据
-int sqlite3_column_int(sqlite3_stmt*, int iCol); // 整型数据
-sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol); // 长整型数据
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/CoreAnimation（核心动画）/" itemprop="url">
-                  CoreAnimation（核心动画）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/CoreAnimation（核心动画）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/CoreAnimation（核心动画）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、核心动画-简介"><a href="#一、核心动画-简介" class="headerlink" title="一、核心动画(简介)"></a>一、核心动画(简介)</h2><ul>
-<li>Core Animation的动画执行过程都是在后台操作的，不会阻塞主线程。</li>
-<li><strong>要注意的是，Core Animation是直接作用在CALayer上的，并非UIView。</strong></li>
-</ul>
-<h4 id="1、动画使用步骤"><a href="#1、动画使用步骤" class="headerlink" title="1、动画使用步骤"></a>1、动画使用步骤</h4><ol>
-<li>创建动画对象</li>
-<li>设置动画属性</li>
-<li>把动画对象添加到某个 CALayer 对象上</li>
-<li>需要停止动画：可以调用 remove 方法移除动画</li>
-</ol>
-<h4 id="2、Core-Animation的使用步骤"><a href="#2、Core-Animation的使用步骤" class="headerlink" title="2、Core Animation的使用步骤"></a>2、Core Animation的使用步骤</h4><ol>
-<li><p>使用它需要先添加QuartzCore.framework框架和引入主头文件<quartzcore quartzcore.h="">(iOS7+不需要)</quartzcore></p>
-</li>
-<li><p>初始化一个CAAnimation对象，并设置一些动画相关属性</p>
-</li>
-<li><p>通过调用CALayer的addAnimation:forKey:方法增加CAAnimation对象到CALayer中，这样就能开始执行动画了</p>
-</li>
-<li><p>通过调用CALayer的removeAnimationForKey:方法可以停止CALayer中的动画</p>
-</li>
-</ol>
-<h4 id="3、注意：（问题）"><a href="#3、注意：（问题）" class="headerlink" title="3、注意：（问题）"></a>3、注意：（问题）</h4><h6 id="1、动画太快-默认时间是0-25秒-通过-duration-属性修改"><a href="#1、动画太快-默认时间是0-25秒-通过-duration-属性修改" class="headerlink" title="1、动画太快, 默认时间是0.25秒, 通过 duration 属性修改"></a>1、动画太快, 默认时间是0.25秒, 通过 duration 属性修改</h6><h6 id="2、动画执行完毕以后回到了起始的位置。"><a href="#2、动画执行完毕以后回到了起始的位置。" class="headerlink" title="2、动画执行完毕以后回到了起始的位置。"></a>2、动画执行完毕以后回到了起始的位置。</h6><ul>
-<li>原因:<ul>
-<li>核心动画的本质是在后台移动图层中的内容, 控件本身的 frame 没有发生改变。</li>
-<li>所以看到动画执行完毕后, 又回到了原来的位置</li>
-<li>通过设置动画代理来观察动画执行完毕后控件的 frame 值, layer 的 Frame 值, layer 的 position 值, 都是没有变化的</li>
-</ul>
-</li>
-<li><p>解决:</p>
-<ul>
-<li><p><strong>解决1：</strong>当动画执行完毕以后, 手动设置控件的位置。在动画的代理方法（动画结束的时候设置控件的 center）</p>
-<pre><code>self.blueView.center = CGPointMake(300, 50);
-</code></pre><p><strong>注意: 不指定 fromValue 的情况下, 如果直接在添加完毕动画后, 设置控件的 center = 最终的终点有问题!!!所以不要在添加完动画以后直接设置 center 为最终的终点, 而要放到代理方法中。</strong></p>
-<ul>
-<li><p><strong>解决2：</strong></p>
-<ul>
-<li>动画执行完毕后不要删除动画对象</li>
-<li><p>设置 fillMode</p>
-<pre><code>// 当动画执行完毕后不要删除动画对象
-animation.removedOnCompletion = NO;
-animation.fillMode = kCAFillModeForwards;
-</code></pre></li>
-<li>缺点： 无法与用户交互, 因为 frame 就没变</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>核心动画的本质：在后台移动图层中的内容,  执行完毕后图层本身的位置并没有发生变化。</li>
-</ul>
-<h4 id="4、CAAnimation"><a href="#4、CAAnimation" class="headerlink" title="4、CAAnimation"></a>4、CAAnimation</h4><h6 id="1、所有动画对象的父类，负责控制动画的持续时间和速度，是个抽象类，不能直接使用，应该使用它具体的子类"><a href="#1、所有动画对象的父类，负责控制动画的持续时间和速度，是个抽象类，不能直接使用，应该使用它具体的子类" class="headerlink" title="1、所有动画对象的父类，负责控制动画的持续时间和速度，是个抽象类，不能直接使用，应该使用它具体的子类"></a>1、所有动画对象的父类，负责控制动画的持续时间和速度，是个抽象类，不能直接使用，应该使用它具体的子类</h6><h6 id="2、属性解析：-红色代表来自CAMediaTiming协议的属性"><a href="#2、属性解析：-红色代表来自CAMediaTiming协议的属性" class="headerlink" title="2、属性解析：(红色代表来自CAMediaTiming协议的属性)"></a>2、属性解析：(红色代表来自CAMediaTiming协议的属性)</h6><ul>
-<li>duration：动画的持续时间</li>
-<li>repeatCount：动画的重复次数</li>
-<li>repeatDuration：动画的重复时间</li>
-<li>removedOnCompletion：默认为YES，代表动画执行完毕后就从图层上移除，图形会恢复到动画执行前的状态。如果想让图层保持显示动画执行后的状态，那就设置为NO，不过还要设置fillMode为kCAFillModeForwards</li>
-<li>fillMode：决定当前对象在非active时间段的行为.比如动画开始之前,动画结束之后</li>
-<li>beginTime：可以用来设置动画延迟执行时间，若想延迟2s，就设置为* CACurrentMediaTime()+2，CACurrentMediaTime()为图层的当前时间</li>
-<li>timingFunction：速度控制函数，控制动画运行的节奏</li>
-<li>delegate：动画代理<h4 id="5、CAPropertyAnimation"><a href="#5、CAPropertyAnimation" class="headerlink" title="5、CAPropertyAnimation"></a>5、CAPropertyAnimation</h4></li>
-<li>是CAAnimation的子类，也是个抽象类，要想创建动画对象，应该使用它的两个子类：CABasicAnimation和CAKeyframeAnimation<br>属性解析：</li>
-<li>keyPath：通过指定CALayer的一个属性名称为keyPath(NSString类型)，并且对CALayer的这个属性的值进行修改，达到相应的动画效果。比如，指定@”position”为keyPath，就修改CALayer的position属性的值，以达到平移的动画效果</li>
-</ul>
-<h2 id="二、动画"><a href="#二、动画" class="headerlink" title="二、动画"></a>二、动画</h2><h4 id="1、CABasicAnimation-基本动画-只有两帧的动画"><a href="#1、CABasicAnimation-基本动画-只有两帧的动画" class="headerlink" title="1、CABasicAnimation(基本动画-只有两帧的动画)"></a>1、CABasicAnimation(基本动画-只有两帧的动画)</h4><ul>
-<li>1、CAPropertyAnimation的子类</li>
-<li>2、属性解析:<ul>
-<li>fromValue：keyPath相应属性的初始值</li>
-<li>toValue：keyPath相应属性的结束值</li>
-</ul>
-</li>
-<li>3、随着动画的进行，在长度为duration的持续时间内，keyPath相应属性的值从fromValue渐渐地变为toValue</li>
-</ul>
-<p><strong>如果fillMode=kCAFillModeForwards和removedOnComletion=NO，那么在动画执行完毕后，图层会保持显示动画执行后的状态。但在实质上，图层的属性值还是动画执行前的初始值，并没有真正被改变。比如，CALayer的position初始值为(0,0)，CABasicAnimation的fromValue为(10,10)，toValue为(100,100)，虽然动画执行完毕后图层保持在(100,100)这个位置，实质上图层的position还是为(0,0)</strong></p>
-<h4 id="2、CAAnimationGroup"><a href="#2、CAAnimationGroup" class="headerlink" title="2、CAAnimationGroup"></a>2、CAAnimationGroup</h4><ul>
-<li>CAAnimation的子类，可以保存一组动画对象，将CAAnimationGroup对象加入层后，组中所有动画对象可以同时并发运行<br>属性解析：</li>
-<li>animations：用来保存一组动画对象的NSArray</li>
-<li>默认情况下，一组动画对象是同时运行的，也可以通过设置动画对象的beginTime属性来更改动画的开始时间</li>
-</ul>
-<h4 id="3、CATransition-转场动画"><a href="#3、CATransition-转场动画" class="headerlink" title="3、CATransition-转场动画"></a>3、CATransition-转场动画</h4><ul>
-<li>CAAnimation的子类，用于做转场动画，能够为层提供移出屏幕和移入屏幕的动画效果。iOS比Mac OS X的转场动画效果少一点</li>
-<li>UINavigationController就是通过CATransition实现了将控制器的视图推入屏幕的动画效果</li>
-<li>属性解析:<ul>
-<li>type：动画过渡类型</li>
-<li>subtype：动画过渡方向</li>
-<li>startProgress：动画起点(在整体动画的百分比)</li>
-<li>endProgress：动画终点(在整体动画的百分比)</li>
-</ul>
-</li>
-</ul>
-<h6 id="1、使用UIView动画函数实现转场动画——单视图"><a href="#1、使用UIView动画函数实现转场动画——单视图" class="headerlink" title="1、使用UIView动画函数实现转场动画——单视图"></a>1、使用UIView动画函数实现转场动画——单视图</h6><pre><code>+ (void)transitionWithView:(UIView *)view duration:(NSTimeInterval)duration options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^)(BOOL finished))completion;
-</code></pre><p><strong>参数说明：</strong></p>
-<pre><code>duration：动画的持续时间
-view：需要进行转场动画的视图
-options：转场动画的类型
-animations：将改变视图属性的代码放在这个block中
-completion：动画结束后，会自动调用这个block
-</code></pre><h6 id="2、使用UIView动画函数实现转场动画——双视图"><a href="#2、使用UIView动画函数实现转场动画——双视图" class="headerlink" title="2、使用UIView动画函数实现转场动画——双视图"></a>2、使用UIView动画函数实现转场动画——双视图</h6><pre><code>+ (void)transitionFromView:(UIView *)fromView toView:(UIView *)toView duration:(NSTimeInterval)duration options:(UIViewAnimationOptions)options completion:(void (^)(BOOL finished))completion;
-</code></pre><p><strong>参数说明：</strong></p>
-<pre><code>duration：动画的持续时间
-options：转场动画的类型
-animations：将改变视图属性的代码放在这个block中
-completion：动画结束后，会自动调用这个block
-</code></pre><h2 id="三、CADisplayLink"><a href="#三、CADisplayLink" class="headerlink" title="三、CADisplayLink"></a>三、CADisplayLink</h2><ul>
-<li>CADisplayLink是一种以屏幕刷新频率触发的时钟机制，每秒钟执行大约60次左右</li>
-<li>CADisplayLink是一个计时器，可以使绘图代码与视图的刷新频率保持同步，而NSTimer无法确保计时器实际被触发的准确时间</li>
-<li>使用方法：<ul>
-<li>定义CADisplayLink并制定触发调用方法</li>
-<li>将显示链接添加到主运行循环队列</li>
-</ul>
-</li>
-</ul>
-<h4 id="4、UIView动画"><a href="#4、UIView动画" class="headerlink" title="4、UIView动画"></a>4、UIView动画</h4><p><strong>常见方法解析:</strong></p>
-<pre><code>+ (void)setAnimationDelegate:(id)delegate
-设置动画代理对象，当动画开始或者结束时会发消息给代理对象
-+ (void)setAnimationWillStartSelector:(SEL)selector
-当动画即将开始时，执行delegate对象的selector，并且把beginAnimations:context:中传入的参数传进selector
-+ (void)setAnimationDidStopSelector:(SEL)selector
-当动画结束时，执行delegate对象的selector，并且把beginAnimations:context:中传入的参数传进selector
-+ (void)setAnimationDuration:(NSTimeInterval)duration
-动画的持续时间，秒为单位
-+ (void)setAnimationDelay:(NSTimeInterval)delay
-动画延迟delay秒后再开始
-+ (void)setAnimationStartDate:(NSDate *)startDate
-动画的开始时间，默认为now
-+ (void)setAnimationCurve:(UIViewAnimationCurve)curve
-动画的节奏控制,具体看下面的”备注”
-+ (void)setAnimationRepeatCount:(float)repeatCount
-动画的重复次数
-+ (void)setAnimationRepeatAutoreverses:(BOOL)repeatAutoreverses
-如果设置为YES,代表动画每次重复执行的效果会跟上一次相反
-+ (void)setAnimationTransition:(UIViewAnimationTransition)transition forView:(UIView *)view cache:(BOOL)cache
-设置视图view的过渡效果, transition指定过渡类型, cache设置YES代表使用视图缓存，性能较好
-</code></pre><h4 id="5、UIImageView的帧动画"><a href="#5、UIImageView的帧动画" class="headerlink" title="5、UIImageView的帧动画"></a>5、UIImageView的帧动画</h4><ul>
-<li>UIImageView可以让一系列的图片在特定的时间内按顺序显示</li>
-<li><p>相关属性解析:</p>
-<pre><code>animationImages：要显示的图片(一个装着UIImage的NSArray)
-animationDuration：完整地显示一次animationImages中的所有图片所需的时间
-animationRepeatCount：动画的执行次数(默认为0，代表无限循环)
-</code></pre></li>
-<li><p>相关方法解析:</p>
-<pre><code>- (void)startAnimating; 开始动画
-- (void)stopAnimating;  停止动画
-- (BOOL)isAnimating;  是否正在运行动画
-</code></pre><h4 id="6、UIActivityIndicatorView"><a href="#6、UIActivityIndicatorView" class="headerlink" title="6、UIActivityIndicatorView"></a>6、UIActivityIndicatorView</h4></li>
-<li>是一个旋转进度轮，可以用来告知用户有一个操作正在进行中，一般用initWithActivityIndicatorStyle初始化</li>
-<li><p>方法解析:</p>
-<pre><code>- (void)startAnimating; 开始动画
-- (void)stopAnimating;  停止动画
-- (BOOL)isAnimating;  是否正在运行动画
-</code></pre></li>
-<li><p>UIActivityIndicatorViewStyle有3个值可供选择：</p>
-<pre><code>UIActivityIndicatorViewStyleWhiteLarge   //大型白色指示器    
-UIActivityIndicatorViewStyleWhite      //标准尺寸白色指示器    
-UIActivityIndicatorViewStyleGray    //灰色指示器，用于白色背景
-</code></pre></li>
-</ul>
-<h2 id="四、参考代码"><a href="#四、参考代码" class="headerlink" title="四、参考代码"></a>四、参考代码</h2><h4 id="基本动画-位移"><a href="#基本动画-位移" class="headerlink" title="基本动画: 位移"></a>基本动画: 位移</h4><pre><code>// 1. 创建动画对象
-CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@&quot;position&quot;];
-// 默认动画时间是0.25秒
-animation.duration = 2.0;
-// 设置动画代理
-animation.delegate = self;
-
-// 当动画执行完毕后不要删除动画对象
-animation.removedOnCompletion = NO;
-animation.fillMode = kCAFillModeForwards;
-
-// 2. 设置动画属性值
-//animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(200, 30)];
-animation.fromValue = [NSValue valueWithCGPoint:self.blueView.center];
-animation.toValue = [NSValue valueWithCGPoint:CGPointMake(240, 500)];
-// 3. 将动画添加到对应的layer 中
-// 这样每次会添加一个新的动画
- //self.blueView.layer addAnimation:animation forKey:nil]
- // 注意： 如果下面的 key 指定了一个写死的 key,@&quot;animation100&quot;，这样不会每次都添加一个新的动画了。
-[self.blueView.layer addAnimation:animation forKey:@&quot;animation1&quot;];
-// 动画执行完毕后设置控件的 center
-//self.blueView.center = CGPointMake(300, 50);
-</code></pre><h4 id="2、基本动画-缩放动画"><a href="#2、基本动画-缩放动画" class="headerlink" title="2、基本动画: 缩放动画"></a>2、基本动画: 缩放动画</h4><pre><code>// 创建动画对象
-CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@&quot;transform.scale&quot;];
-// 设置动画属性
-anim.fromValue = @(1.0f);
-anim.toValue = @(0.7f);
-// 设置重复次数
-anim.repeatCount = 10;
-
-// 将动画对象添加到 layer 中
-[self.blueView.layer addAnimation:anim forKey:nil];
-</code></pre><h4 id="3、基本动画-旋转动画"><a href="#3、基本动画-旋转动画" class="headerlink" title="3、基本动画: 旋转动画"></a>3、基本动画: 旋转动画</h4><pre><code>CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@&quot;transform.rotation&quot;];
-
-anim.duration = 3;
-anim.repeatCount = CGFLOAT_MAX;
-// 不要每次都设置起始度数
-//anim.fromValue = @(0);
-anim.toValue = @(M_PI * 2);
-
-[self.blueView.layer addAnimation:anim forKey:nil];
-</code></pre><h6 id="一些问题："><a href="#一些问题：" class="headerlink" title="一些问题："></a>一些问题：</h6><p><strong>1、注意: 如果 [self.blueView.layer addAnimation:anim forKey:nil];没有指定 forKey, 那么每次都会添加一个新动画, 会越来越快</strong></p>
-<h6 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h6><pre><code>// 判断如果已经有动画对象了, 就不再添加了
-if ([self.blueView.layer animationForKey:@&quot;anim1&quot;] != nil) {
-return;
-}
-</code></pre><p><strong>2、注意: 如果当动画正在执行的时候, 将程序退出到后台, 那么当程序再次进入前台的时候就不执行了。</strong></p>
-<h6 id="解决办法-1"><a href="#解决办法-1" class="headerlink" title="解决办法"></a>解决办法</h6><ul>
-<li>原因: 因为再次进入前台后动画已经被删除了。</li>
-<li>解决1: anim.removedOnCompletion = NO;</li>
-</ul>
-<p><strong>3、问题: 当双击 home 键的时候, 动画不会暂停。</strong></p>
-<h6 id="解决办法-2"><a href="#解决办法-2" class="headerlink" title="解决办法"></a>解决办法</h6><pre><code>// 暂停
-- (void)applicationWillResignActive:(UIApplication *)application {
-ViewController *vc =  (ViewController *)self.window.rootViewController;
-[vc pause];
-}
-
-// 恢复
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-ViewController *vc =  (ViewController *)self.window.rootViewController;
-[vc resume];
-}
-</code></pre><h4 id="4、基本动画-关键帧动画"><a href="#4、基本动画-关键帧动画" class="headerlink" title="4、基本动画: 关键帧动画"></a>4、基本动画: 关键帧动画</h4><h6 id="1、设置-values-属性"><a href="#1、设置-values-属性" class="headerlink" title="1、设置 values 属性"></a>1、设置 values 属性</h6><pre><code>CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@&quot;position&quot;];
-anim.duration = 3;
-anim.removedOnCompletion = NO;
-CGPoint p1 = CGPointMake(10, 10);
-CGPoint p2 = CGPointMake(10, 110);
-CGPoint p3 = CGPointMake(110, 110);
-CGPoint p4 = CGPointMake(110, 10);
-CGPoint p5 = CGPointMake(10, 10);
-anim.values = @[[NSValue valueWithCGPoint:p1], [NSValue valueWithCGPoint:p2], [NSValue valueWithCGPoint:p3], [NSValue valueWithCGPoint:p4],[NSValue valueWithCGPoint:p5]];
-
-[self.blueView.layer addAnimation:anim forKey:nil];
-</code></pre><h6 id="2、设置-path-属性"><a href="#2、设置-path-属性" class="headerlink" title="2、设置 path 属性"></a>2、设置 path 属性</h6><pre><code>CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@&quot;position&quot;];
-anim.duration = 3;
-anim.removedOnCompletion = NO;
-anim.fillMode = kCAFillModeForwards;
-UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(50, 50, 150, 150)];
-anim.path = path.CGPath;
-
-[self.blueView.layer addAnimation:anim forKey:nil];
-</code></pre><h6 id="3、-模拟”app-抖动”"><a href="#3、-模拟”app-抖动”" class="headerlink" title="3、 模拟”app 抖动”"></a>3、 模拟”app 抖动”</h6><p><strong>思路: 通过设置左右旋转实现</strong></p>
-<pre><code>if ([self.blueView.layer animationForKey:@&quot;shake&quot;]) {
-return;
-}
-
-CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@&quot;transform.rotation&quot;];
-anim.values = @[@(-M_PI / 36), @(M_PI / 36), @(-M_PI / 36)];
-anim.duration = 0.15;
-anim.repeatCount = CGFLOAT_MAX;
-[self.blueView.layer addAnimation:anim forKey:@&quot;shake&quot;];
-</code></pre><h4 id="5、组动画"><a href="#5、组动画" class="headerlink" title="5、组动画"></a>5、组动画</h4><pre><code>// 动画组, 组动画
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-UITouch *touch = touches.anyObject;
-CGPoint location = [touch locationInView:touch.view];
-
-
-CAAnimationGroup *groupAnim = [[CAAnimationGroup alloc] init];
-
-// 位移
-CABasicAnimation *anim1 = [CABasicAnimation animationWithKeyPath:@&quot;position&quot;];
-anim1.toValue = [NSValue valueWithCGPoint:location];
-
-// 缩放
-CABasicAnimation *anim2 = [CABasicAnimation animationWithKeyPath:@&quot;transform.scale&quot;];
-anim2.toValue = @(0.3);
-
-
-// 旋转
-CABasicAnimation *anim3 = [CABasicAnimation animationWithKeyPath:@&quot;transform.rotation&quot;];
-anim3.toValue = @(M_PI * 8);
-
-// 关键帧动画
-CAKeyframeAnimation *anim4 = [CAKeyframeAnimation animationWithKeyPath:@&quot;position&quot;];
-UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(180, 150, 150, 150)];
-anim4.path = path.CGPath;
-
-groupAnim.animations = @[anim1, anim2, anim3, anim4];
-groupAnim.duration = 1.0;
-groupAnim.repeatCount = CGFLOAT_MAX;
-
-[self.blueView.layer addAnimation:groupAnim forKey:nil];
 </code></pre>
           
         
