@@ -296,6 +296,271 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/07/UITableView补充/" itemprop="url">
+                  UITableView方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/UITableView补充/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/UITableView补充/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、数据源和代理方法"><a href="#一、数据源和代理方法" class="headerlink" title="一、数据源和代理方法"></a>一、数据源和代理方法</h2><p><strong>UITableView有两种风格：UITableViewStylePlain和UITableViewStyleGrouped</strong></p>
+<h4 id="1、UITableViewDataSource-数据源"><a href="#1、UITableViewDataSource-数据源" class="headerlink" title="1、UITableViewDataSource(数据源)"></a>1、UITableViewDataSource(数据源)</h4><ul>
+<li><p>1、有多少组</p>
+<pre><code>- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+</code></pre></li>
+<li><p>2、有多少行（required）</p>
+<pre><code>- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+</code></pre></li>
+<li><p>3、cell（required）</p>
+<pre><code>- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+</code></pre></li>
+<li><p>4、SectionHeaderView/SectionFooterView Title</p>
+<pre><code>- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+
+- (nullable NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section;
+</code></pre></li>
+<li><p>5、Editing（对应indexPath的cell是否可编辑）</p>
+<pre><code>[TableView setEditing:YES animated:YES];
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
+</code></pre></li>
+<li><p>6、Moving/reordering</p>
+<pre><code>- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath;
+</code></pre><p>  <code>By default, the reorder control will be shown only if the datasource implements -tableView:moveRowAtIndexPath:toIndexPath:</code></p>
+</li>
+<li><p>7、Index</p>
+<pre><code>返回tableView的SectionTitle的数组
+- (nullable NSArray&lt;NSString *&gt; *)sectionIndexTitlesForTableView:(UITableView *)tableView 
+</code></pre><p>  <code>return list of section titles to display in section index view (e.g. &quot;ABCD...Z#&quot;)</code></p>
+<pre><code>返回具体title在tableView的哪组
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index`
+</code></pre></li>
+</ul>
+<h4 id="2、UITableViewDelegate（代理）"><a href="#2、UITableViewDelegate（代理）" class="headerlink" title="2、UITableViewDelegate（代理）"></a>2、UITableViewDelegate（代理）</h4><ul>
+<li><p>1、height</p>
+<pre><code>- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section;
+
+预估高度
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(7_0);
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0);
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section NS_AVAILABLE_IOS(7_0);
+</code></pre></li>
+<li><p>2、SectionHeaderView/SectionFooterView</p>
+<pre><code>- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section;
+
+UITableViewMethod（不是代理方法，当需要重用时使用以下方法设置）
+- (nullable UITableViewHeaderFooterView *)headerViewForSection:(NSInteger)section NS_AVAILABLE_IOS(6_0);
+
+- (nullable UITableViewHeaderFooterView *)footerViewForSection:(NSInteger)section NS_AVAILABLE_IOS(6_0);
+</code></pre></li>
+<li><p>3、selected</p>
+<pre><code>- (nullable NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(3_0);
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(3_0);
+</code></pre></li>
+<li><p>4、用户点击cell 右边的 箭头</p>
+<pre><code>- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+</code></pre></li>
+</ul>
+<h4 id="3、UITableViewCell"><a href="#3、UITableViewCell" class="headerlink" title="3、UITableViewCell"></a>3、UITableViewCell</h4><ul>
+<li><p>1、UITableViewCellStyle</p>
+<pre><code>typedef NS_ENUM(NSInteger, UITableViewCellStyle) {
+UITableViewCellStyleDefault,    // 左侧显示textLabel（不显示detailTextLabel），imageView可选（显示在最左边）
+
+UITableViewCellStyleValue1,     // 左侧显示textLabel、右侧显示detailTextLabel（默认蓝色），imageView可选（显示在最左边）
+
+UITableViewCellStyleValue2,     // 左侧依次显示textLabel(默认蓝色)和detailTextLabel，imageView可选（显示在最左边）
+
+UITableViewCellStyleSubtitle    // 左上方显示textLabel，左下方显示detailTextLabel（默认灰色）,imageView可选（显示在最左边）
+};
+</code></pre></li>
+<li><p>2、UITableViewCell的accesoryTyp</p>
+<pre><code>typedef NS_ENUM(NSInteger, UITableViewCellAccessoryType) {
+UITableViewCellAccessoryNone,                   // 不显示任何图标
+UITableViewCellAccessoryDisclosureIndicator,    // 跳转指示图标
+UITableViewCellAccessoryDetailDisclosureButton, // 内容详情图标和跳转指示图标
+UITableViewCellAccessoryCheckmark,              // 勾选图标
+UITableViewCellAccessoryDetailButton    // 内容详情图标
+};
+</code></pre></li>
+<li><p>3、如果不希望响应select，那么就可以用下面的代码设置属性</p>
+<pre><code>TableView.allowsSelection = NO;
+</code></pre></li>
+<li><p>4/如何让cell 能够响应 select，但是选中后的颜色又不发生改变呢，那么就设置</p>
+<pre><code>cell.selectionStyle = UITableViewCellSelectionStyleNone;
+</code></pre></li>
+<li><p>5、如何获得 某一行的CELL对象</p>
+<pre><code>- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+</code></pre></li>
+</ul>
+<h4 id="4、UITableView的刷新方法"><a href="#4、UITableView的刷新方法" class="headerlink" title="4、UITableView的刷新方法"></a>4、UITableView的刷新方法</h4><ul>
+<li><p>1、刷新整个表格</p>
+<pre><code>- (void)reloadData;
+</code></pre></li>
+<li><p>2、刷新指定的分组和行</p>
+<pre><code>- (void)reloadRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation NS_AVAILABLE_IOS(3_0);
+</code></pre></li>
+<li><p>3、刷新指定的分组</p>
+<pre><code>- (void)reloadSections:(NSIndexSet *)sections withRowAnimation:(UITableViewRowAnimation)animation NS_AVAILABLE_IOS(3_0);
+</code></pre></li>
+<li><p>4、删除时刷新指定的行数据</p>
+<pre><code>- (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation;。
+</code></pre></li>
+<li><p>5、添加时刷新指定的行数据。</p>
+<pre><code>- (void)insertRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation;
+</code></pre></li>
+</ul>
+<h4 id="5、TableView的SectionHeader-SectionFooterView高度设置"><a href="#5、TableView的SectionHeader-SectionFooterView高度设置" class="headerlink" title="5、TableView的SectionHeader/SectionFooterView高度设置"></a>5、TableView的SectionHeader/SectionFooterView高度设置</h4><pre><code>//当需要设置TableView的SectionHeaderView和FooterView的高度为0时
+
+//方式一：通过代理方法设置（注：返回值为0表示使用属性sectionHeaderHeight的默认值）
+//优先使用代理方法设置高度，若未重写或返回值为0则通过属性设置
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return section == CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
+}
+
+//方式二：通过属性赋值(可以直接设置为0，但当各组头尾的高度不一致时，需使用代理方法)
+
+self.tableView.sectionHeaderHeight = CGFLOAT_MIN;
+
+self.tableView.sectionFooterHeight = CGFLOAT_MIN;
+</code></pre><h4 id="6、隐藏TableView的tableHeaderView-tableFooterView设置"><a href="#6、隐藏TableView的tableHeaderView-tableFooterView设置" class="headerlink" title="6、隐藏TableView的tableHeaderView/tableFooterView设置"></a>6、隐藏TableView的tableHeaderView/tableFooterView设置</h4><pre><code>//不能直接设置tableHeaderView/tableFooterView的frame为0（无效，此时系统会使用tableHeaderView/tableFooterView的默认frame）
+
+self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
+
+self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
+</code></pre><h4 id="7、折叠所有section-header"><a href="#7、折叠所有section-header" class="headerlink" title="7、折叠所有section header"></a>7、折叠所有section header</h4><pre><code>numberOfRowsInSection: 如果反回的行数为0 那么 cellForRowAtIndexPath： 是不会调用的
+
+为 **Model** 添加一个**bool**属性， 用来记录该组是否折叠 ， 默认是 NO
+@property (nonatomic, assign,getter=isExplain) BOOL explain;
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/07/UIDynamic（物理引擎）/" itemprop="url">
                   UIDynamic（物理引擎）
                 </a>
@@ -1607,6 +1872,137 @@ iii.NSOperation里提供的方便的操作
             
               
                 
+                <a class="post-title-link" href="/2016/07/07/storyboardandxib/" itemprop="url">
+                  StoryboardAndXib
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/storyboardandxib/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/storyboardandxib/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="xib-和-storyboard-的异同点"><a href="#xib-和-storyboard-的异同点" class="headerlink" title="xib 和 storyboard 的异同点"></a>xib 和 storyboard 的异同点</h3><pre><code>共同点: 可以设置 UI 界面
+
+不同的: storyboard(描述整个界面) 可以进行界面跳转, 是重量级的
+        xib(描述局部界面) 轻量级
+</code></pre><ul>
+<li>xib</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回一个数组 按 xib 拖放顺序</span></div><div class="line">[[<span class="built_in">NSBundle</span> mainBundle] loadNidNamed:<span class="string">@"xib的文件名"</span> ower:<span class="literal">nil</span> options: <span class="literal">nil</span>];</div><div class="line"></div><div class="line">loadNibNamed:  xib 的名字 返回数组</div><div class="line">使用 loadNibNamed: 的原因</div><div class="line">在项目文件中, xib 文件是以 .xib 结尾</div><div class="line">安装之后, 就自动的以 .nib 结尾</div><div class="line">执行command+R 相当于在模拟器上安装了应用程序</div></pre></td></tr></table></figure>
+<ul>
+<li>storyboard</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIStoryboard</span> *sb = [<span class="built_in">UIStoryboard</span> storyboardWithName:<span class="string">@"ZXXLoteryHallViewController"</span> bundle:<span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//当前 storyboard 箭头所指的控制器</span></div><div class="line"><span class="built_in">UIViewController</span> = sb.instantiateInitialViewController;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/07/README/" itemprop="url">
                   UI简介
                 </a>
@@ -1785,8 +2181,8 @@ iii.NSOperation里提供的方便的操作
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/storyboardandxib/" itemprop="url">
-                  StoryboardAndXib
+                <a class="post-title-link" href="/2016/07/07/transform/" itemprop="url">
+                  Transform
                 </a>
               
             
@@ -1829,8 +2225,8 @@ iii.NSOperation里提供的方便的操作
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/storyboardandxib/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/storyboardandxib/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/transform/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/transform/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1855,374 +2251,14 @@ iii.NSOperation里提供的方便的操作
       
         
           
-            <h3 id="xib-和-storyboard-的异同点"><a href="#xib-和-storyboard-的异同点" class="headerlink" title="xib 和 storyboard 的异同点"></a>xib 和 storyboard 的异同点</h3><pre><code>共同点: 可以设置 UI 界面
-
-不同的: storyboard(描述整个界面) 可以进行界面跳转, 是重量级的
-        xib(描述局部界面) 轻量级
-</code></pre><ul>
-<li>xib</li>
+            <ul>
+<li>下面的方法是直接创建一个固定的 transform</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回一个数组 按 xib 拖放顺序</span></div><div class="line">[[<span class="built_in">NSBundle</span> mainBundle] loadNidNamed:<span class="string">@"xib的文件名"</span> ower:<span class="literal">nil</span> options: <span class="literal">nil</span>];</div><div class="line"></div><div class="line">loadNibNamed:  xib 的名字 返回数组</div><div class="line">使用 loadNibNamed: 的原因</div><div class="line">在项目文件中, xib 文件是以 .xib 结尾</div><div class="line">安装之后, 就自动的以 .nib 结尾</div><div class="line">执行command+R 相当于在模拟器上安装了应用程序</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//参数最多, 可定制性最强, 用的不多</span></div><div class="line"><span class="built_in">CGAffineTransformMake</span>(&lt;<span class="meta">#CGFloat a#&gt;, <span class="meta-string">&lt;#CGFloat b#&gt;</span>, <span class="meta-string">&lt;#CGFloat c#&gt;</span>, <span class="meta-string">&lt;#CGFloat d#&gt;</span>, <span class="meta-string">&lt;#CGFloat tx#&gt;</span>, <span class="meta-string">&lt;#CGFloat ty#&gt;</span>);</span></div><div class="line"></div><div class="line"><span class="comment">//平移, 修改位置</span></div><div class="line"><span class="built_in">CGAffineTransformMakeTranslation</span>(&lt;<span class="meta">#CGFloat tx#&gt;, <span class="meta-string">&lt;#CGFloat ty#&gt;</span>);</span></div><div class="line"></div><div class="line"><span class="comment">//缩放</span></div><div class="line"><span class="built_in">CGAffineTransformMakeScale</span>(&lt;<span class="meta">#CGFloat sx#&gt;, <span class="meta-string">&lt;#CGFloat sy#&gt;</span>);</span></div><div class="line"></div><div class="line"><span class="comment">//旋转, 弧度 CGFloat == double</span></div><div class="line">    M_PI == 一个π  M_PI_2 == π/<span class="number">2</span>   M_1_PI = <span class="number">1</span>/π</div><div class="line"><span class="built_in">CGAffineTransformMakeRotation</span>(&lt;<span class="meta">#CGFloat angle#&gt;);</span></div></pre></td></tr></table></figure>
 <ul>
-<li>storyboard</li>
+<li>每次累加当前的 transform, 连续动画</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIStoryboard</span> *sb = [<span class="built_in">UIStoryboard</span> storyboardWithName:<span class="string">@"ZXXLoteryHallViewController"</span> bundle:<span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//当前 storyboard 箭头所指的控制器</span></div><div class="line"><span class="built_in">UIViewController</span> = sb.instantiateInitialViewController;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/Quartz2d(绘图)/" itemprop="url">
-                  Quartz2D(绘图)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/Quartz2d(绘图)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/Quartz2d(绘图)/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、基本图形绘制"><a href="#一、基本图形绘制" class="headerlink" title="一、基本图形绘制"></a>一、基本图形绘制</h2><ul>
-<li>线段（线宽、线段样式）</li>
-<li>矩形（空心、实心、颜色）</li>
-<li>三角形、四边形等形状</li>
-<li>1、说明 - (void)drawRect:(CGRect)rect 什么时候调用、调用次数等<ul>
-<li>当 view 第一次被显示的时候调用(调用一次)</li>
-<li>或者是重绘事件被触发的时候</li>
-<li>不要手动去调用这个方法</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p><strong>手动调用重绘方法 setNeedsDisplay 或者 setNeedsDisplayInRect:</strong></p>
-<pre><code>setNeedsDisplay 方法会把之前的内容都清除掉, 然后再重绘。
-setNeedsDisplayInRect:&lt;#(CGRect)#&gt;局部刷新
-</code></pre></li>
-</ul>
-<ul>
-<li>2、说明为什么要在 - (void)drawRect:(CGRect)rect 方法中进行绘图</li>
-<li><strong>只有在这个方法中才能获取当前 View 的绘图上下文</strong></li>
-</ul>
-<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ol>
-<li>当要向UIView上绘图的时候, 必须重写UIView的drawRect:方法, 然后在这个方法中进行绘图</li>
-<li>在drawRect:方法中获取的参数rect, 指的就是当前view的bounds属性</li>
-<li>为什么向当前view中绘制图形, 必须在drawRect:方法中进行?<ul>
-<li>3.1 原因: 只有在当前view的drawRect:方法中才能成功的获取当前view的”图形上下文”, 有了图形上下文才能进行绘图</li>
-<li>3.2 为什么只有在drawRect:方法中才能获取当前view的图形上下文呢？</li>
-<li>3.3 原因: 是因为系统在调用drawRect:方法之前已经帮我们创建好了一个与当前view相关的图形上下文了, 然后才调用的drawRect:方法, 所以在drawRect:方法中, 我们就可以成功获取当前view的图形上下文了。</li>
-<li>3.4 如何创建一个图形上下文？（后面说）<ul>
-<li>3.5 drawRect:方法是谁来调用的？什么时候调用的？<ul>
-<li>3.5.1 drawRect:方法是系统帮我们调用的, 千万别手动去调用这个方法。原因是, 自己手动去调用drawRect:方法的时候无法保证系统已经帮我们创建好了”图形上下文”, 所以这样就无法保证在drawRect:方法中获取”图形上下文”对象, 所以也就无法绘图。</li>
-<li>3.5.2 drawRect:方法的什么时候被调用？<ul>
-<li>1&gt; 当这个View第一次显示的时候会条用一次drawRect:方法。</li>
-<li>2&gt; 当这个View执行重绘操作的时候, 会重新调用drawRect:方法来进行绘图。</li>
-<li>3&gt; 通过调用【[self setNeedsDisplay];// 把这个view都重绘一次】 或 【[self setNeedsDisplayInRect:(CGRect)]// 把view中的某个区域重绘一次】 来实现重绘</li>
-<li>4&gt; 在每次调用 setNeedsDisplay 或 setNeedsDisplayInRect:方法的时候, 内部会先创建一个与当前view相关连的”图形上下文”然后再调用drawRect:实现重绘。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<p><strong>注意: UIBezierPath 对象可以独立使用,  无需手动获取“图形上下文”对象，此处为了更好的理解“图形上下文对象”所以暂时还是采用手动获取“图形上下文”对象的方式来绘图
-</strong>        </p>
-<h4 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h4><h6 id="1、绘制一个”三角形”"><a href="#1、绘制一个”三角形”" class="headerlink" title="1、绘制一个”三角形”"></a>1、绘制一个”三角形”</h6><pre><code>// 1. 获取当前的图形上下文
-CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 2. 在上下文中绘制图形（拼接路径）
-// 2.1 设置一个起点
-CGContextMoveToPoint(ctx, 20, 20);
-// 2.2 添加一条直线到(100, 100)这个点
-CGContextAddLineToPoint(ctx, 100, 100);
-// 2.3 再添加一条线
-CGContextAddLineToPoint(ctx, 120, 30);
-// 2.4 再添加一条线段
-//CGContextAddLineToPoint(ctx, 20, 20);
-// 另外一种做法: 直接关闭路径（连接最后一个点和起点）
-CGContextClosePath(ctx);
-// 3. 把上下文渲染显示到 HMView01上
-// StrokePath 表示把路径以空心的形式渲染出来。
-CGContextStrokePath(ctx);
-</code></pre><h6 id="2、绘制一个实心”矩形”"><a href="#2、绘制一个实心”矩形”" class="headerlink" title="2、绘制一个实心”矩形”"></a>2、绘制一个实心”矩形”</h6><pre><code>// 绘制一个&quot;四边形&quot;
-// 1. 获取当前图形上下文
-CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 2. 开始绘制路径
-CGContextAddRect(ctx, CGRectMake(20, 20, 100, 120));
-// 3. 渲染
-CGContextFillPath(ctx);
-</code></pre><h6 id="3、设置图形的颜色"><a href="#3、设置图形的颜色" class="headerlink" title="3、设置图形的颜色"></a>3、设置图形的颜色</h6><pre><code>// 绘制一个&quot;四边形&quot;
-// 1. 获取当前图形上下文
-CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 2. 开始绘制路径
-CGContextAddRect(ctx, CGRectMake(20, 20, 100, 120));
-
-//============ C 语言的方式设置颜色 =================
-CGContextSetRGBFillColor(ctx, 200/255.0, 100/255.0, 50/255.0, 1.0);
-//CGContextSetRGBStrokeColor(&lt;#CGContextRef context#&gt;, &lt;#CGFloat red#&gt;, &lt;#CGFloat green#&gt;, &lt;#CGFloat blue#&gt;, &lt;#CGFloat alpha#&gt;)
-//============ C 语言的方式设置颜色 =================
-
-//============ OC 的方式设置颜色 =================
-// 设置空心图形的线条颜色
-// [[UIColor redColor] setStroke];
-// 设置实心图形的填充颜色
-// [[UIColor redColor] setFill];
-// 统一设置&quot;空心图形&quot; 和 &quot;实心图形&quot;的颜色
-//[[UIColor redColor] set];
-//============ OC 的方式设置颜色 =================
-// 3. 渲染
-CGContextFillPath(ctx);
-</code></pre><h6 id="4、设置不同线段-不同颜色"><a href="#4、设置不同线段-不同颜色" class="headerlink" title="4、设置不同线段, 不同颜色"></a>4、设置不同线段, 不同颜色</h6><pre><code>//画两根线, 一根红色, 一根蓝色
-// 1. 获取上下文对象
-CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 2. 绘制图形
-// 2.1 设置起点
-CGContextMoveToPoint(ctx, 50, 50);
-// 2.2 添加一根线
-CGContextAddLineToPoint(ctx, 50, 150);
-// 2.3 设置线段颜色
-[[UIColor redColor] set];
-// 2.4 设置线宽
-CGContextSetLineWidth(ctx, 10);
-// 渲染一次
-CGContextStrokePath(ctx);
-
-// 再移动到一个新的起点
-CGContextMoveToPoint(ctx, 100, 50);
-// 再添加一根线
-CGContextAddLineToPoint(ctx, 100, 150);
-// 设置线的颜色
-[[UIColor blueColor] set];
-// 3. 渲染&quot;上下文对象&quot;到 view 上
-CGContextStrokePath(ctx);
-</code></pre><h6 id="5、设置线段”头尾部”的样式"><a href="#5、设置线段”头尾部”的样式" class="headerlink" title="5、设置线段”头尾部”的样式"></a>5、设置线段”头尾部”的样式</h6><pre><code> // 1. 获取上下文对象
- CGContextRef ctx = UIGraphicsGetCurrentContext();
- // 2. 绘制路径
- // 2.1 移动到起点
- CGContextMoveToPoint(ctx, 20, 20);
- // 2.2 添加一条线段
- CGContextAddLineToPoint(ctx, 100, 100);
- // 2.3 设置颜色
- [[UIColor redColor] set];
- // 2.4 设置线段宽度
- CGContextSetLineWidth(ctx, 15);
- // 2.5 设置线段头尾部样式
- //enum CGLineCap {
- //kCGLineCapButt, 默认值
- //kCGLineCapRound, 圆角
- //kCGLineCapSquare 方角
- //};
-CGContextSetLineCap(ctx, kCGLineCapSquare);
-// 3. 渲染
-CGContextStrokePath(ctx);
-</code></pre><h6 id="6、设置转折点样式"><a href="#6、设置转折点样式" class="headerlink" title="6、设置转折点样式"></a>6、设置转折点样式</h6><pre><code>// 2.4 设置线段宽度
-CGContextSetLineWidth(ctx, 15);
-// 2.5 设置线段头尾部样式
-CGContextSetLineCap(ctx, kCGLineCapRound);
-// 2.6 设置转折点样式
-CGContextSetLineJoin(ctx, kCGLineJoinBevel);
-</code></pre><h6 id="7、文字绘制-通过OC-来绘制图形"><a href="#7、文字绘制-通过OC-来绘制图形" class="headerlink" title="7、文字绘制(通过OC 来绘制图形)"></a>7、文字绘制(通过OC 来绘制图形)</h6><p><strong>1、绘制一段文字(思路: 直接使用 OC 的方法, 无需手动获取上下文对象)</strong></p>
-<pre><code>NSString *str = @&quot;哈哈, 黑马程序员 iOS学院。&quot;;
-NSDictionary *attrs = @{
-    NSForegroundColorAttributeName : [UIColor redColor],
-    NSFontAttributeName : [UIFont systemFontOfSize:20]
-};
-[str drawAtPoint:CGPointMake(30, 50) withAttributes:attrs];
-</code></pre><p><strong>2、绘制一段文字到一个指定的区域</strong></p>
-<p>思路: 调用字符串的 drawInRect: 方法.</p>
-<pre><code>// 1. 绘制文字
-NSString *str = @&quot;哈哈, 黑马程序员 iOS。&quot;;
-NSDictionary *attrs = @{
-NSForegroundColorAttributeName : [UIColor redColor],
-NSFontAttributeName : [UIFont systemFontOfSize:20]
-};
-
-[str drawInRect:CGRectMake(20, 20, 50, 250) withAttributes:attrs];
-// 1. 获取上下文
-CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 2. 把矩形画出来
-CGContextAddRect(ctx,CGRectMake(20, 20, 50, 250));
-// 3. 渲染
-CGContextStrokePath(ctx);
-</code></pre><h6 id="8、图片绘制-通过OC-来绘制图形"><a href="#8、图片绘制-通过OC-来绘制图形" class="headerlink" title="8、图片绘制(通过OC 来绘制图形)"></a>8、图片绘制(通过OC 来绘制图形)</h6><p><strong>1、绘制一张图片到 UIView 上</strong></p>
-<pre><code>// 1. 获取图片
-UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
-// 2. 把图片画到当前的 view中
-[img drawAtPoint:CGPointMake(0, 0)];
-</code></pre><p><strong>2、在指定的矩形中绘制图片（会自动拉伸）</strong></p>
-<pre><code>// 1. 获取图片
-UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
-// 2. 把图片画到当前的 view中
-[img drawInRect:CGRectMake(0, 0, 150, 150)];
-</code></pre><p><strong>3、画格子花纹效果(（pattern）), 思路: 调用drawAsPatternInRect:方法</strong></p>
-<pre><code>// 1. 获取图片
-UIImage *img = [UIImage imageNamed:@&quot;abc&quot;];
-// 2. 把图片画到当前的 view中
-[img drawAsPatternInRect:self.bounds];
-// 3. 在右下角显示文字
-NSString *str = @&quot;@Lonely ios&quot;;
-NSDictionary *attrs = @{
-NSForegroundColorAttributeName : [UIColor redColor],
-NSFontAttributeName : [UIFont systemFontOfSize:20]
-};
-[ str drawInRect:CGRectMake(0, 100, 200, 30) withAttributes:attrs];
-</code></pre><h2 id="二、图形上下文栈"><a href="#二、图形上下文栈" class="headerlink" title="二、图形上下文栈"></a>二、图形上下文栈</h2><ul>
-<li><strong>CGContextSaveGState(ctx);// 保存ctx这个绘图上下文对象</strong></li>
-<li><strong>CGContextRestoreGState(ctx); // 恢复 ctx这个图形上下文</strong></li>
-</ul>
-<h4 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h4><h6 id="1、矩阵操作"><a href="#1、矩阵操作" class="headerlink" title="1、矩阵操作"></a>1、矩阵操作</h6><pre><code>// 1. 获取上下文
-CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 保存上下文
-CGContextSaveGState(ctx);
-//======================= 矩阵操作 ============================
-// 1.1 旋转
-CGContextRotateCTM(ctx, M_PI_4 * 0.5);
-// 1.2 缩放
-CGContextScaleCTM(ctx, 0.5, 0.5);
-//======================= 矩阵操作 ============================
-// 2. 绘制一些图形
-CGContextMoveToPoint(ctx, 10, 10);
-CGContextAddLineToPoint(ctx, 100, 100);
-CGContextAddEllipseInRect(ctx, CGRectMake(130, 150, 100, 100));
-// 恢复上下文
-CGContextRestoreGState(ctx);
-CGContextAddRect(ctx, CGRectMake(70, 90, 100, 80));
-// 3. 渲染
-CGContextStrokePath(ctx);
-</code></pre><p><strong>注：在绘制任何图形前保存上下文, 在绘制最后一个图形前恢复上下文</strong></p>
-<h6 id="2、图片裁剪"><a href="#2、图片裁剪" class="headerlink" title="2、图片裁剪"></a>2、图片裁剪</h6><pre><code>CGContextRef ctx = UIGraphicsGetCurrentContext();
-// 1. 画圆，这里最好使用 Ellipse 来绘制圆（画圆和画图片都从0,0点开始）。
-CGContextAddArc(ctx, 100, 100, 90, 0, M_PI * 2, 1);
-// 2. 裁剪上下文, 注意裁剪完毕就只能在裁剪好的区域内画东西了, 超出的地方无法绘制图形。
-CGContextClip(ctx);
-// 3. 把图片绘制上去
-UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
-[img drawAtPoint:CGPointMake(0, 0)];
-</code></pre><h6 id="3、图片裁剪（返回圆形边框View）"><a href="#3、图片裁剪（返回圆形边框View）" class="headerlink" title="3、图片裁剪（返回圆形边框View）"></a>3、图片裁剪（返回圆形边框View）</h6><pre><code>- (UIImage *)zc_circleImage
-{
-    //NO -&gt; 透明
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
-    //获取上下文
-    CGContextRef contex = UIGraphicsGetCurrentContext();
-    //添加圆
-    CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
-    CGContextAddEllipseInRect(contex, rect);
-    //裁剪
-    CGContextClip(contex);
-    //将图片画上去
-    [self drawInRect:rect];
-    //获取图片
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    //关闭
-    UIGraphicsEndImageContext();
-    return image;
-}
-</code></pre><p><strong> 因为绘图操作是 CPU密集型操作（会大量使用到 CPU），所以如果可以使用普通 UIView 来代替的就不要自己进行绘图</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//持续旋转</span></div><div class="line"><span class="built_in">CGAffineTransformRotate</span>(&lt;<span class="meta">#CGAffineTransform t#&gt;, <span class="meta-string">&lt;#CGFloat angle#&gt;</span>)</span></div><div class="line"></div><div class="line"><span class="comment">//持续缩放</span></div><div class="line"><span class="built_in">CGAffineTransformScale</span>(&lt;<span class="meta">#CGAffineTransform t#&gt;, <span class="meta-string">&lt;#CGFloat sx#&gt;</span>, <span class="meta-string">&lt;#CGFloat sy#&gt;</span>)</span></div><div class="line"></div><div class="line"><span class="comment">//连续移动</span></div><div class="line"><span class="built_in">CGAffineTransformTranslate</span>(&lt;<span class="meta">#CGAffineTransform t#&gt;, <span class="meta-string">&lt;#CGFloat tx#&gt;</span>, <span class="meta-string">&lt;#CGFloat ty#&gt;</span>)</span></div></pre></td></tr></table></figure>
 
           
         
@@ -2396,168 +2432,11 @@ UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/uiapplication/" itemprop="url">
-                  UIApplication
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/uiapplication/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uiapplication/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="UIApplication对象介绍"><a href="#UIApplication对象介绍" class="headerlink" title="UIApplication对象介绍"></a>UIApplication对象介绍</h2><pre><code>* 对象主要用来保存一些数据和封装一些方法
-* 对象中的属性主要用来保存数据
-* 对象中的方法主要用来执行一些代码，即对象的一些行为
-
-* 如果接收到推送消息时，应用头像上的数字就是在应用级别上的操作。
-
-* 一个UIApplication代理一个应用程序，而且是单例的。
-    * 用来封装整个应用程序的一个对象，比如当应用程序执行到某个时期要做什么，生命周期等。
-* 获取UIApplication对象,&quot;[UIApplication sharedApplication];&quot;(单例)
-
-sharedApplication : 返回应用程序的单例对象
-    openURL : 可以打电话, 发邮件, 应用程序之间的跳转
-    keyWindow : 应用程序的主窗口
-    networkActivityIndicatorVisible : 在状态栏显示网络旋转的齿轮
-    applicationIconBadgeNumber : 应用头像上的数字
-    applicationSupportsShakeToEdit : 默认 yes, 摇晃手机时, Undo Redo 按钮
-
-* 当一个iOS程序启动后，首先创建的第一个对象就是UIApplication对象;
-* 利用UIApplication可以做一些应用级别的操作。
-    * 当qq有消息的时候右上角显示的消息条数。
-        * iOS8以后要经过用户的允许才能设置通知。
-        * 如果用户点击了不允许，就要手动到设置里面去进行配置。
-    * 联网操作时，状态栏上的等待图表指示器。waiting图表
-    * 利用UIApplication打开某个资源：
-        * 系统会自动根据协议识别使用某个app打开
-* 通过UIApplication管理状态栏
-    * 自从iOS7开始可以通过两种方式控制器状态栏的
-        * 控制器：通过UIViewController管理
-</code></pre><h2 id="UIApplicationDelegate介绍"><a href="#UIApplicationDelegate介绍" class="headerlink" title="UIApplicationDelegate介绍"></a>UIApplicationDelegate介绍</h2><pre><code>* 新建完项目后的那个AppDelegate文件，就是UIApplication的代理对象
-    * 并且该代理对象已经被设置好了，无需我们手动设置了。
-    * 在main函数中进行的设置
-</code></pre><h1 id="AppDelegate-应用程序代理对象"><a href="#AppDelegate-应用程序代理对象" class="headerlink" title="AppDelegate 应用程序代理对象"></a>AppDelegate 应用程序代理对象</h1><ul>
-<li><p>应用程序代理对象，用来监听应用程序的执行过程</p>
-</li>
-<li><p>常用监听方法</p>
-</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//应用程序加载完毕</span></div><div class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</div><div class="line">    <span class="comment">// Override point for customization after application launch.</span></div><div class="line">    <span class="comment">//可执行自定义操作</span></div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序失去焦点</span></div><div class="line">- (<span class="keyword">void</span>)applicationWillResignActive:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//不接受用户交互</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序进入后台</span></div><div class="line">- (<span class="keyword">void</span>)applicationDidEnterBackground:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//双击home键课查看</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序进入前台</span></div><div class="line">- (<span class="keyword">void</span>)applicationWillEnterForeground:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//双击home键，选中程序的时候进入前台</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序获取焦点</span></div><div class="line">- (<span class="keyword">void</span>)applicationDidBecomeActive:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//接受用户交互</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序销毁</span></div><div class="line">- (<span class="keyword">void</span>)applicationWillTerminate:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//只有在直接双击home，销毁程序时在会调用</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序接收到内存警告</span></div><div class="line">- (<span class="keyword">void</span>)didReceiveMemoryWarning &#123;</div><div class="line">    [<span class="keyword">super</span> didReceiveMemoryWarning];</div><div class="line">    <span class="comment">//当内存不足时，会收到系统的内存警告</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2598,7 +2477,7 @@ sharedApplication : 返回应用程序的单例对象
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">100</span>
+              <span class="site-state-item-count">101</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2606,7 +2485,7 @@ sharedApplication : 返回应用程序的单例对象
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2615,7 +2494,7 @@ sharedApplication : 返回应用程序的单例对象
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -296,8 +296,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/nsmutablearray/" itemprop="url">
-                  NSMutableArray
+                <a class="post-title-link" href="/2016/07/07/nsmutabledictionary/" itemprop="url">
+                  NSMutableDictionary
                 </a>
               
             
@@ -340,8 +340,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/nsmutablearray/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsmutablearray/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsmutabledictionary/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsmutabledictionary/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -366,24 +366,20 @@
       
         
           
-            <pre><code>1. NSMutableArray 是 NSArray 的子类, NSArray 是不可变的, 一旦初始化完毕后, 它里面的内容就永远固定的, 不能删除里面的内容, 也不能再往里面添加元素
-2. NSMutableArray 是可变的, 可以进行增\删\改操作
-</code></pre><ul>
-<li>NSMutableArray 添加元素</li>
+            <pre><code>1. NSMutableDictionary 是 NSDictionary 的子类, NSDictionary 是不可变的, 一旦初始化完毕后, 它里面的内容就永远固定的, 不能删除里面的内容, 也不能再往里面添加元素
+2. NSMutableDictionary 是可变的, 可以进行增\删\改操作
+</code></pre><h2 id="NSMutableDictionary-的常见用法"><a href="#NSMutableDictionary-的常见用法" class="headerlink" title="NSMutableDictionary 的常见用法"></a>NSMutableDictionary 的常见用法</h2><ul>
+<li>添加\修改操作</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加一个元素</span></div><div class="line">- (<span class="keyword">void</span>)addObject:(<span class="keyword">id</span>)object;</div><div class="line"></div><div class="line"><span class="comment">//添加 otherArray 的全部元素到当前数组中</span></div><div class="line">- (<span class="keyword">void</span>)addObjectsFromArray:(<span class="built_in">NSArray</span>)array;</div><div class="line"></div><div class="line"><span class="comment">//在 index 位置插入一个元素 anObject</span></div><div class="line">- (<span class="keyword">void</span>)insertObject:(<span class="keyword">id</span>)anObject atIndex:(<span class="built_in">NSUInteger</span>)index;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加一个键值对(如果字典中存在这个 key, 会将之前对应的值替换掉)</span></div><div class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">id</span>)anObject forKey:(<span class="keyword">id</span>&lt;<span class="built_in">NSCopying</span>&gt;)aKey;</div></pre></td></tr></table></figure>
 <ul>
-<li>NSMutableArray 删除元素</li>
+<li>删除操作</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//删除最后一个元素</span></div><div class="line">- (<span class="keyword">void</span>)removeLastObject;</div><div class="line"></div><div class="line"><span class="comment">//删除所有元素</span></div><div class="line">- (<span class="keyword">void</span>)removeAllObjects;</div><div class="line"></div><div class="line"><span class="comment">//删除 index 位置的元素</span></div><div class="line">- (<span class="keyword">void</span>)removeObjectAtIndex:(<span class="built_in">NSUInteger</span>)index;</div><div class="line"></div><div class="line"><span class="comment">//删除特定的元素</span></div><div class="line">- (<span class="keyword">void</span>)removeObject:(<span class="keyword">id</span>)object;</div><div class="line"></div><div class="line"><span class="comment">//删除 range 范围内的所有元素</span></div><div class="line">- (<span class="keyword">void</span>)removeObjectsInRange:(<span class="built_in">NSRange</span>)range;</div></pre></td></tr></table></figure>
-<ul>
-<li>NSMutableArray 替换元素</li>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//通过 aKey 删除对应的 value</span></div><div class="line">- (<span class="keyword">void</span>)removeObjectForKey:(<span class="keyword">id</span>)aKey;</div><div class="line"></div><div class="line"><span class="comment">//删除所有的键值对</span></div><div class="line">- (<span class="keyword">void</span>)removeAllObjects;</div></pre></td></tr></table></figure>
+<h2 id="NSMutableDictionary-的简写"><a href="#NSMutableDictionary-的简写" class="headerlink" title="NSMutableDictionary 的简写"></a>NSMutableDictionary 的简写</h2><ul>
+<li>设置键值对</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用 anObject 替换 index 位置对应的元素</span></div><div class="line">- (<span class="keyword">void</span>)replaceObjectAtIndex:(<span class="built_in">NSUInteger</span>)index withObject:(<span class="keyword">id</span>)anObject;</div><div class="line"></div><div class="line"><span class="comment">//交换 idx1 和 idx2 位置的元素</span></div><div class="line">- (<span class="keyword">void</span>)exchangeObjectAtIndex:(<span class="built_in">NSUIntrger</span>)idx1 withObjectAtIndex:(<span class="built_in">NSUInteger</span>)idx2;</div></pre></td></tr></table></figure>
-<ul>
-<li>NSMutableArray 简写</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//设置元素</span></div><div class="line"><span class="comment">//之前</span></div><div class="line">[array replaceObjectAtIndex:<span class="number">0</span> withObject:<span class="string">@"Jack"</span>];</div><div class="line"></div><div class="line"><span class="comment">//现在</span></div><div class="line">array[<span class="number">0</span>] = <span class="string">@"Jack"</span>;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//before</span></div><div class="line">[dict setObject:<span class="string">@"Jack"</span> forKey:<span class="string">@"name"</span>];</div><div class="line"></div><div class="line"><span class="comment">//now</span></div><div class="line">dict[<span class="string">@"name"</span>] = <span class="string">@"Jack"</span></div></pre></td></tr></table></figure>
 
           
         
@@ -1077,8 +1073,145 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/transform/" itemprop="url">
-                  Transform
+                <a class="post-title-link" href="/2016/07/07/nsmutablearray/" itemprop="url">
+                  NSMutableArray
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/nsmutablearray/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsmutablearray/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>1. NSMutableArray 是 NSArray 的子类, NSArray 是不可变的, 一旦初始化完毕后, 它里面的内容就永远固定的, 不能删除里面的内容, 也不能再往里面添加元素
+2. NSMutableArray 是可变的, 可以进行增\删\改操作
+</code></pre><ul>
+<li>NSMutableArray 添加元素</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加一个元素</span></div><div class="line">- (<span class="keyword">void</span>)addObject:(<span class="keyword">id</span>)object;</div><div class="line"></div><div class="line"><span class="comment">//添加 otherArray 的全部元素到当前数组中</span></div><div class="line">- (<span class="keyword">void</span>)addObjectsFromArray:(<span class="built_in">NSArray</span>)array;</div><div class="line"></div><div class="line"><span class="comment">//在 index 位置插入一个元素 anObject</span></div><div class="line">- (<span class="keyword">void</span>)insertObject:(<span class="keyword">id</span>)anObject atIndex:(<span class="built_in">NSUInteger</span>)index;</div></pre></td></tr></table></figure>
+<ul>
+<li>NSMutableArray 删除元素</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//删除最后一个元素</span></div><div class="line">- (<span class="keyword">void</span>)removeLastObject;</div><div class="line"></div><div class="line"><span class="comment">//删除所有元素</span></div><div class="line">- (<span class="keyword">void</span>)removeAllObjects;</div><div class="line"></div><div class="line"><span class="comment">//删除 index 位置的元素</span></div><div class="line">- (<span class="keyword">void</span>)removeObjectAtIndex:(<span class="built_in">NSUInteger</span>)index;</div><div class="line"></div><div class="line"><span class="comment">//删除特定的元素</span></div><div class="line">- (<span class="keyword">void</span>)removeObject:(<span class="keyword">id</span>)object;</div><div class="line"></div><div class="line"><span class="comment">//删除 range 范围内的所有元素</span></div><div class="line">- (<span class="keyword">void</span>)removeObjectsInRange:(<span class="built_in">NSRange</span>)range;</div></pre></td></tr></table></figure>
+<ul>
+<li>NSMutableArray 替换元素</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用 anObject 替换 index 位置对应的元素</span></div><div class="line">- (<span class="keyword">void</span>)replaceObjectAtIndex:(<span class="built_in">NSUInteger</span>)index withObject:(<span class="keyword">id</span>)anObject;</div><div class="line"></div><div class="line"><span class="comment">//交换 idx1 和 idx2 位置的元素</span></div><div class="line">- (<span class="keyword">void</span>)exchangeObjectAtIndex:(<span class="built_in">NSUIntrger</span>)idx1 withObjectAtIndex:(<span class="built_in">NSUInteger</span>)idx2;</div></pre></td></tr></table></figure>
+<ul>
+<li>NSMutableArray 简写</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//设置元素</span></div><div class="line"><span class="comment">//之前</span></div><div class="line">[array replaceObjectAtIndex:<span class="number">0</span> withObject:<span class="string">@"Jack"</span>];</div><div class="line"></div><div class="line"><span class="comment">//现在</span></div><div class="line">array[<span class="number">0</span>] = <span class="string">@"Jack"</span>;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/07/uiapplication/" itemprop="url">
+                  UIApplication
                 </a>
               
             
@@ -1121,8 +1254,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/transform/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/transform/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/uiapplication/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uiapplication/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1147,14 +1280,44 @@
       
         
           
-            <ul>
-<li>下面的方法是直接创建一个固定的 transform</li>
+            <h2 id="UIApplication对象介绍"><a href="#UIApplication对象介绍" class="headerlink" title="UIApplication对象介绍"></a>UIApplication对象介绍</h2><pre><code>* 对象主要用来保存一些数据和封装一些方法
+* 对象中的属性主要用来保存数据
+* 对象中的方法主要用来执行一些代码，即对象的一些行为
+
+* 如果接收到推送消息时，应用头像上的数字就是在应用级别上的操作。
+
+* 一个UIApplication代理一个应用程序，而且是单例的。
+    * 用来封装整个应用程序的一个对象，比如当应用程序执行到某个时期要做什么，生命周期等。
+* 获取UIApplication对象,&quot;[UIApplication sharedApplication];&quot;(单例)
+
+sharedApplication : 返回应用程序的单例对象
+    openURL : 可以打电话, 发邮件, 应用程序之间的跳转
+    keyWindow : 应用程序的主窗口
+    networkActivityIndicatorVisible : 在状态栏显示网络旋转的齿轮
+    applicationIconBadgeNumber : 应用头像上的数字
+    applicationSupportsShakeToEdit : 默认 yes, 摇晃手机时, Undo Redo 按钮
+
+* 当一个iOS程序启动后，首先创建的第一个对象就是UIApplication对象;
+* 利用UIApplication可以做一些应用级别的操作。
+    * 当qq有消息的时候右上角显示的消息条数。
+        * iOS8以后要经过用户的允许才能设置通知。
+        * 如果用户点击了不允许，就要手动到设置里面去进行配置。
+    * 联网操作时，状态栏上的等待图表指示器。waiting图表
+    * 利用UIApplication打开某个资源：
+        * 系统会自动根据协议识别使用某个app打开
+* 通过UIApplication管理状态栏
+    * 自从iOS7开始可以通过两种方式控制器状态栏的
+        * 控制器：通过UIViewController管理
+</code></pre><h2 id="UIApplicationDelegate介绍"><a href="#UIApplicationDelegate介绍" class="headerlink" title="UIApplicationDelegate介绍"></a>UIApplicationDelegate介绍</h2><pre><code>* 新建完项目后的那个AppDelegate文件，就是UIApplication的代理对象
+    * 并且该代理对象已经被设置好了，无需我们手动设置了。
+    * 在main函数中进行的设置
+</code></pre><h1 id="AppDelegate-应用程序代理对象"><a href="#AppDelegate-应用程序代理对象" class="headerlink" title="AppDelegate 应用程序代理对象"></a>AppDelegate 应用程序代理对象</h1><ul>
+<li><p>应用程序代理对象，用来监听应用程序的执行过程</p>
+</li>
+<li><p>常用监听方法</p>
+</li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//参数最多, 可定制性最强, 用的不多</span></div><div class="line"><span class="built_in">CGAffineTransformMake</span>(&lt;<span class="meta">#CGFloat a#&gt;, <span class="meta-string">&lt;#CGFloat b#&gt;</span>, <span class="meta-string">&lt;#CGFloat c#&gt;</span>, <span class="meta-string">&lt;#CGFloat d#&gt;</span>, <span class="meta-string">&lt;#CGFloat tx#&gt;</span>, <span class="meta-string">&lt;#CGFloat ty#&gt;</span>);</span></div><div class="line"></div><div class="line"><span class="comment">//平移, 修改位置</span></div><div class="line"><span class="built_in">CGAffineTransformMakeTranslation</span>(&lt;<span class="meta">#CGFloat tx#&gt;, <span class="meta-string">&lt;#CGFloat ty#&gt;</span>);</span></div><div class="line"></div><div class="line"><span class="comment">//缩放</span></div><div class="line"><span class="built_in">CGAffineTransformMakeScale</span>(&lt;<span class="meta">#CGFloat sx#&gt;, <span class="meta-string">&lt;#CGFloat sy#&gt;</span>);</span></div><div class="line"></div><div class="line"><span class="comment">//旋转, 弧度 CGFloat == double</span></div><div class="line">    M_PI == 一个π  M_PI_2 == π/<span class="number">2</span>   M_1_PI = <span class="number">1</span>/π</div><div class="line"><span class="built_in">CGAffineTransformMakeRotation</span>(&lt;<span class="meta">#CGFloat angle#&gt;);</span></div></pre></td></tr></table></figure>
-<ul>
-<li>每次累加当前的 transform, 连续动画</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//持续旋转</span></div><div class="line"><span class="built_in">CGAffineTransformRotate</span>(&lt;<span class="meta">#CGAffineTransform t#&gt;, <span class="meta-string">&lt;#CGFloat angle#&gt;</span>)</span></div><div class="line"></div><div class="line"><span class="comment">//持续缩放</span></div><div class="line"><span class="built_in">CGAffineTransformScale</span>(&lt;<span class="meta">#CGAffineTransform t#&gt;, <span class="meta-string">&lt;#CGFloat sx#&gt;</span>, <span class="meta-string">&lt;#CGFloat sy#&gt;</span>)</span></div><div class="line"></div><div class="line"><span class="comment">//连续移动</span></div><div class="line"><span class="built_in">CGAffineTransformTranslate</span>(&lt;<span class="meta">#CGAffineTransform t#&gt;, <span class="meta-string">&lt;#CGFloat tx#&gt;</span>, <span class="meta-string">&lt;#CGFloat ty#&gt;</span>)</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//应用程序加载完毕</span></div><div class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</div><div class="line">    <span class="comment">// Override point for customization after application launch.</span></div><div class="line">    <span class="comment">//可执行自定义操作</span></div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序失去焦点</span></div><div class="line">- (<span class="keyword">void</span>)applicationWillResignActive:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//不接受用户交互</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序进入后台</span></div><div class="line">- (<span class="keyword">void</span>)applicationDidEnterBackground:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//双击home键课查看</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序进入前台</span></div><div class="line">- (<span class="keyword">void</span>)applicationWillEnterForeground:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//双击home键，选中程序的时候进入前台</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序获取焦点</span></div><div class="line">- (<span class="keyword">void</span>)applicationDidBecomeActive:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//接受用户交互</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序销毁</span></div><div class="line">- (<span class="keyword">void</span>)applicationWillTerminate:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//只有在直接双击home，销毁程序时在会调用</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序接收到内存警告</span></div><div class="line">- (<span class="keyword">void</span>)didReceiveMemoryWarning &#123;</div><div class="line">    [<span class="keyword">super</span> didReceiveMemoryWarning];</div><div class="line">    <span class="comment">//当内存不足时，会收到系统的内存警告</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
           
         
@@ -1602,152 +1765,6 @@ groupAnim.repeatCount = CGFLOAT_MAX;
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/launch/" itemprop="url">
-                  Launch
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/launch/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/launch/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>###1.应用图标<br>    Launch Image Source</p>
-<p>###2.启动图片<br>    Launch Screen</p>
-<p>###3.修改状态栏的样式</p>
-<pre><code>- (UIStatusBarStyle)preferredStatusBarStyle
-</code></pre><p>###4.隐藏状态栏</p>
-<pre><code>- (BOOL)prefersStatusBarHidden
-</code></pre><p>###5.使用 KVC 的方式赋值<br>    [self setValuesForKeysWithDictionary:dict];</p>
-<p>###6.让数组中的对象都执行一个方法</p>
-<ul>
-<li><p>makeObjectsPerformSelector</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[_answerView.subviews  makeObjectsPerformSelector:<span class="keyword">@selector</span>(removeFromSuperview)];</div></pre></td></tr></table></figure>
-</li>
-<li><p>makeObjectsPerformSelector: 让数组中的对象都执行这个 removeFromSuperview 方法</p>
-</li>
-</ul>
-<p>###7.block 遍历数组</p>
-<ul>
-<li><p>enumerateObjectsUsingBlock:</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">   [_optionView.subviews enumerateObjectsUsingBlock:^(__kindof <span class="built_in">UIView</span> * _Nonnull obj, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> * _Nonnull stop) &#123;</div><div class="line"><span class="comment">// obj 数组中对象 UIView *类型的对象, 根据实际更改</span></div><div class="line"><span class="comment">// idx 数组的下标</span></div><div class="line"><span class="comment">// *stop = YES, 立即跳出遍历</span></div><div class="line">&#125;];</div></pre></td></tr></table></figure>
-<p>###8.用户交互功能</p>
-<ul>
-<li>userInteractionEnabled –&gt; NO 禁止用户交互, 如果父View 设置了, 子view 也将不接受用户交互</li>
-</ul>
-<p>###9.前置view</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">   [<span class="keyword">self</span>.view bringSubviewToFront:_imageButton];</div><div class="line"><span class="keyword">self</span>.view 必须是 _imageButton 的父view</div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/07/07/nsnotificationcenter_and_delegate/" itemprop="url">
                   NSNotificationCenter And Delegate
                 </a>
@@ -1897,7 +1914,7 @@ groupAnim.repeatCount = CGFLOAT_MAX;
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1938,7 +1955,7 @@ groupAnim.repeatCount = CGFLOAT_MAX;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">100</span>
+              <span class="site-state-item-count">101</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1946,7 +1963,7 @@ groupAnim.repeatCount = CGFLOAT_MAX;
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1955,7 +1972,7 @@ groupAnim.repeatCount = CGFLOAT_MAX;
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -2266,6 +2266,362 @@ NSString *filePath = [docPath stringByAppendingPathComponent:@&quot;person.plist
             
               
                 
+                <a class="post-title-link" href="/2016/07/07/Quartz2d(绘图)/" itemprop="url">
+                  Quartz2D(绘图)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/Quartz2d(绘图)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/Quartz2d(绘图)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、基本图形绘制"><a href="#一、基本图形绘制" class="headerlink" title="一、基本图形绘制"></a>一、基本图形绘制</h2><ul>
+<li>线段（线宽、线段样式）</li>
+<li>矩形（空心、实心、颜色）</li>
+<li>三角形、四边形等形状</li>
+<li>1、说明 - (void)drawRect:(CGRect)rect 什么时候调用、调用次数等<ul>
+<li>当 view 第一次被显示的时候调用(调用一次)</li>
+<li>或者是重绘事件被触发的时候</li>
+<li>不要手动去调用这个方法</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>手动调用重绘方法 setNeedsDisplay 或者 setNeedsDisplayInRect:</strong></p>
+<pre><code>setNeedsDisplay 方法会把之前的内容都清除掉, 然后再重绘。
+setNeedsDisplayInRect:&lt;#(CGRect)#&gt;局部刷新
+</code></pre></li>
+</ul>
+<ul>
+<li>2、说明为什么要在 - (void)drawRect:(CGRect)rect 方法中进行绘图</li>
+<li><strong>只有在这个方法中才能获取当前 View 的绘图上下文</strong></li>
+</ul>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ol>
+<li>当要向UIView上绘图的时候, 必须重写UIView的drawRect:方法, 然后在这个方法中进行绘图</li>
+<li>在drawRect:方法中获取的参数rect, 指的就是当前view的bounds属性</li>
+<li>为什么向当前view中绘制图形, 必须在drawRect:方法中进行?<ul>
+<li>3.1 原因: 只有在当前view的drawRect:方法中才能成功的获取当前view的”图形上下文”, 有了图形上下文才能进行绘图</li>
+<li>3.2 为什么只有在drawRect:方法中才能获取当前view的图形上下文呢？</li>
+<li>3.3 原因: 是因为系统在调用drawRect:方法之前已经帮我们创建好了一个与当前view相关的图形上下文了, 然后才调用的drawRect:方法, 所以在drawRect:方法中, 我们就可以成功获取当前view的图形上下文了。</li>
+<li>3.4 如何创建一个图形上下文？（后面说）<ul>
+<li>3.5 drawRect:方法是谁来调用的？什么时候调用的？<ul>
+<li>3.5.1 drawRect:方法是系统帮我们调用的, 千万别手动去调用这个方法。原因是, 自己手动去调用drawRect:方法的时候无法保证系统已经帮我们创建好了”图形上下文”, 所以这样就无法保证在drawRect:方法中获取”图形上下文”对象, 所以也就无法绘图。</li>
+<li>3.5.2 drawRect:方法的什么时候被调用？<ul>
+<li>1&gt; 当这个View第一次显示的时候会条用一次drawRect:方法。</li>
+<li>2&gt; 当这个View执行重绘操作的时候, 会重新调用drawRect:方法来进行绘图。</li>
+<li>3&gt; 通过调用【[self setNeedsDisplay];// 把这个view都重绘一次】 或 【[self setNeedsDisplayInRect:(CGRect)]// 把view中的某个区域重绘一次】 来实现重绘</li>
+<li>4&gt; 在每次调用 setNeedsDisplay 或 setNeedsDisplayInRect:方法的时候, 内部会先创建一个与当前view相关连的”图形上下文”然后再调用drawRect:实现重绘。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>注意: UIBezierPath 对象可以独立使用,  无需手动获取“图形上下文”对象，此处为了更好的理解“图形上下文对象”所以暂时还是采用手动获取“图形上下文”对象的方式来绘图
+</strong>        </p>
+<h4 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h4><h6 id="1、绘制一个”三角形”"><a href="#1、绘制一个”三角形”" class="headerlink" title="1、绘制一个”三角形”"></a>1、绘制一个”三角形”</h6><pre><code>// 1. 获取当前的图形上下文
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 2. 在上下文中绘制图形（拼接路径）
+// 2.1 设置一个起点
+CGContextMoveToPoint(ctx, 20, 20);
+// 2.2 添加一条直线到(100, 100)这个点
+CGContextAddLineToPoint(ctx, 100, 100);
+// 2.3 再添加一条线
+CGContextAddLineToPoint(ctx, 120, 30);
+// 2.4 再添加一条线段
+//CGContextAddLineToPoint(ctx, 20, 20);
+// 另外一种做法: 直接关闭路径（连接最后一个点和起点）
+CGContextClosePath(ctx);
+// 3. 把上下文渲染显示到 HMView01上
+// StrokePath 表示把路径以空心的形式渲染出来。
+CGContextStrokePath(ctx);
+</code></pre><h6 id="2、绘制一个实心”矩形”"><a href="#2、绘制一个实心”矩形”" class="headerlink" title="2、绘制一个实心”矩形”"></a>2、绘制一个实心”矩形”</h6><pre><code>// 绘制一个&quot;四边形&quot;
+// 1. 获取当前图形上下文
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 2. 开始绘制路径
+CGContextAddRect(ctx, CGRectMake(20, 20, 100, 120));
+// 3. 渲染
+CGContextFillPath(ctx);
+</code></pre><h6 id="3、设置图形的颜色"><a href="#3、设置图形的颜色" class="headerlink" title="3、设置图形的颜色"></a>3、设置图形的颜色</h6><pre><code>// 绘制一个&quot;四边形&quot;
+// 1. 获取当前图形上下文
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 2. 开始绘制路径
+CGContextAddRect(ctx, CGRectMake(20, 20, 100, 120));
+
+//============ C 语言的方式设置颜色 =================
+CGContextSetRGBFillColor(ctx, 200/255.0, 100/255.0, 50/255.0, 1.0);
+//CGContextSetRGBStrokeColor(&lt;#CGContextRef context#&gt;, &lt;#CGFloat red#&gt;, &lt;#CGFloat green#&gt;, &lt;#CGFloat blue#&gt;, &lt;#CGFloat alpha#&gt;)
+//============ C 语言的方式设置颜色 =================
+
+//============ OC 的方式设置颜色 =================
+// 设置空心图形的线条颜色
+// [[UIColor redColor] setStroke];
+// 设置实心图形的填充颜色
+// [[UIColor redColor] setFill];
+// 统一设置&quot;空心图形&quot; 和 &quot;实心图形&quot;的颜色
+//[[UIColor redColor] set];
+//============ OC 的方式设置颜色 =================
+// 3. 渲染
+CGContextFillPath(ctx);
+</code></pre><h6 id="4、设置不同线段-不同颜色"><a href="#4、设置不同线段-不同颜色" class="headerlink" title="4、设置不同线段, 不同颜色"></a>4、设置不同线段, 不同颜色</h6><pre><code>//画两根线, 一根红色, 一根蓝色
+// 1. 获取上下文对象
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 2. 绘制图形
+// 2.1 设置起点
+CGContextMoveToPoint(ctx, 50, 50);
+// 2.2 添加一根线
+CGContextAddLineToPoint(ctx, 50, 150);
+// 2.3 设置线段颜色
+[[UIColor redColor] set];
+// 2.4 设置线宽
+CGContextSetLineWidth(ctx, 10);
+// 渲染一次
+CGContextStrokePath(ctx);
+
+// 再移动到一个新的起点
+CGContextMoveToPoint(ctx, 100, 50);
+// 再添加一根线
+CGContextAddLineToPoint(ctx, 100, 150);
+// 设置线的颜色
+[[UIColor blueColor] set];
+// 3. 渲染&quot;上下文对象&quot;到 view 上
+CGContextStrokePath(ctx);
+</code></pre><h6 id="5、设置线段”头尾部”的样式"><a href="#5、设置线段”头尾部”的样式" class="headerlink" title="5、设置线段”头尾部”的样式"></a>5、设置线段”头尾部”的样式</h6><pre><code> // 1. 获取上下文对象
+ CGContextRef ctx = UIGraphicsGetCurrentContext();
+ // 2. 绘制路径
+ // 2.1 移动到起点
+ CGContextMoveToPoint(ctx, 20, 20);
+ // 2.2 添加一条线段
+ CGContextAddLineToPoint(ctx, 100, 100);
+ // 2.3 设置颜色
+ [[UIColor redColor] set];
+ // 2.4 设置线段宽度
+ CGContextSetLineWidth(ctx, 15);
+ // 2.5 设置线段头尾部样式
+ //enum CGLineCap {
+ //kCGLineCapButt, 默认值
+ //kCGLineCapRound, 圆角
+ //kCGLineCapSquare 方角
+ //};
+CGContextSetLineCap(ctx, kCGLineCapSquare);
+// 3. 渲染
+CGContextStrokePath(ctx);
+</code></pre><h6 id="6、设置转折点样式"><a href="#6、设置转折点样式" class="headerlink" title="6、设置转折点样式"></a>6、设置转折点样式</h6><pre><code>// 2.4 设置线段宽度
+CGContextSetLineWidth(ctx, 15);
+// 2.5 设置线段头尾部样式
+CGContextSetLineCap(ctx, kCGLineCapRound);
+// 2.6 设置转折点样式
+CGContextSetLineJoin(ctx, kCGLineJoinBevel);
+</code></pre><h6 id="7、文字绘制-通过OC-来绘制图形"><a href="#7、文字绘制-通过OC-来绘制图形" class="headerlink" title="7、文字绘制(通过OC 来绘制图形)"></a>7、文字绘制(通过OC 来绘制图形)</h6><p><strong>1、绘制一段文字(思路: 直接使用 OC 的方法, 无需手动获取上下文对象)</strong></p>
+<pre><code>NSString *str = @&quot;哈哈, 黑马程序员 iOS学院。&quot;;
+NSDictionary *attrs = @{
+    NSForegroundColorAttributeName : [UIColor redColor],
+    NSFontAttributeName : [UIFont systemFontOfSize:20]
+};
+[str drawAtPoint:CGPointMake(30, 50) withAttributes:attrs];
+</code></pre><p><strong>2、绘制一段文字到一个指定的区域</strong></p>
+<p>思路: 调用字符串的 drawInRect: 方法.</p>
+<pre><code>// 1. 绘制文字
+NSString *str = @&quot;哈哈, 黑马程序员 iOS。&quot;;
+NSDictionary *attrs = @{
+NSForegroundColorAttributeName : [UIColor redColor],
+NSFontAttributeName : [UIFont systemFontOfSize:20]
+};
+
+[str drawInRect:CGRectMake(20, 20, 50, 250) withAttributes:attrs];
+// 1. 获取上下文
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 2. 把矩形画出来
+CGContextAddRect(ctx,CGRectMake(20, 20, 50, 250));
+// 3. 渲染
+CGContextStrokePath(ctx);
+</code></pre><h6 id="8、图片绘制-通过OC-来绘制图形"><a href="#8、图片绘制-通过OC-来绘制图形" class="headerlink" title="8、图片绘制(通过OC 来绘制图形)"></a>8、图片绘制(通过OC 来绘制图形)</h6><p><strong>1、绘制一张图片到 UIView 上</strong></p>
+<pre><code>// 1. 获取图片
+UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
+// 2. 把图片画到当前的 view中
+[img drawAtPoint:CGPointMake(0, 0)];
+</code></pre><p><strong>2、在指定的矩形中绘制图片（会自动拉伸）</strong></p>
+<pre><code>// 1. 获取图片
+UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
+// 2. 把图片画到当前的 view中
+[img drawInRect:CGRectMake(0, 0, 150, 150)];
+</code></pre><p><strong>3、画格子花纹效果(（pattern）), 思路: 调用drawAsPatternInRect:方法</strong></p>
+<pre><code>// 1. 获取图片
+UIImage *img = [UIImage imageNamed:@&quot;abc&quot;];
+// 2. 把图片画到当前的 view中
+[img drawAsPatternInRect:self.bounds];
+// 3. 在右下角显示文字
+NSString *str = @&quot;@Lonely ios&quot;;
+NSDictionary *attrs = @{
+NSForegroundColorAttributeName : [UIColor redColor],
+NSFontAttributeName : [UIFont systemFontOfSize:20]
+};
+[ str drawInRect:CGRectMake(0, 100, 200, 30) withAttributes:attrs];
+</code></pre><h2 id="二、图形上下文栈"><a href="#二、图形上下文栈" class="headerlink" title="二、图形上下文栈"></a>二、图形上下文栈</h2><ul>
+<li><strong>CGContextSaveGState(ctx);// 保存ctx这个绘图上下文对象</strong></li>
+<li><strong>CGContextRestoreGState(ctx); // 恢复 ctx这个图形上下文</strong></li>
+</ul>
+<h4 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h4><h6 id="1、矩阵操作"><a href="#1、矩阵操作" class="headerlink" title="1、矩阵操作"></a>1、矩阵操作</h6><pre><code>// 1. 获取上下文
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 保存上下文
+CGContextSaveGState(ctx);
+//======================= 矩阵操作 ============================
+// 1.1 旋转
+CGContextRotateCTM(ctx, M_PI_4 * 0.5);
+// 1.2 缩放
+CGContextScaleCTM(ctx, 0.5, 0.5);
+//======================= 矩阵操作 ============================
+// 2. 绘制一些图形
+CGContextMoveToPoint(ctx, 10, 10);
+CGContextAddLineToPoint(ctx, 100, 100);
+CGContextAddEllipseInRect(ctx, CGRectMake(130, 150, 100, 100));
+// 恢复上下文
+CGContextRestoreGState(ctx);
+CGContextAddRect(ctx, CGRectMake(70, 90, 100, 80));
+// 3. 渲染
+CGContextStrokePath(ctx);
+</code></pre><p><strong>注：在绘制任何图形前保存上下文, 在绘制最后一个图形前恢复上下文</strong></p>
+<h6 id="2、图片裁剪"><a href="#2、图片裁剪" class="headerlink" title="2、图片裁剪"></a>2、图片裁剪</h6><pre><code>CGContextRef ctx = UIGraphicsGetCurrentContext();
+// 1. 画圆，这里最好使用 Ellipse 来绘制圆（画圆和画图片都从0,0点开始）。
+CGContextAddArc(ctx, 100, 100, 90, 0, M_PI * 2, 1);
+// 2. 裁剪上下文, 注意裁剪完毕就只能在裁剪好的区域内画东西了, 超出的地方无法绘制图形。
+CGContextClip(ctx);
+// 3. 把图片绘制上去
+UIImage *img = [UIImage imageNamed:@&quot;dst2&quot;];
+[img drawAtPoint:CGPointMake(0, 0)];
+</code></pre><h6 id="3、图片裁剪（返回圆形边框View）"><a href="#3、图片裁剪（返回圆形边框View）" class="headerlink" title="3、图片裁剪（返回圆形边框View）"></a>3、图片裁剪（返回圆形边框View）</h6><pre><code>- (UIImage *)zc_circleImage
+{
+    //NO -&gt; 透明
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
+    //获取上下文
+    CGContextRef contex = UIGraphicsGetCurrentContext();
+    //添加圆
+    CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
+    CGContextAddEllipseInRect(contex, rect);
+    //裁剪
+    CGContextClip(contex);
+    //将图片画上去
+    [self drawInRect:rect];
+    //获取图片
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    //关闭
+    UIGraphicsEndImageContext();
+    return image;
+}
+</code></pre><p><strong> 因为绘图操作是 CPU密集型操作（会大量使用到 CPU），所以如果可以使用普通 UIView 来代替的就不要自己进行绘图</strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/07/HTTP请求和数据安全/" itemprop="url">
                   HTTP请求和数据安全
                 </a>
@@ -2701,191 +3057,11 @@ HMAC 主要使用在身份认证中;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/CALayer/" itemprop="url">
-                  CALayer
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/CALayer/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/CALayer/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><ul>
-<li><p>在iOS中，你能看得见摸得着的东西基本上都是UIView，比如一个按钮、一个文本标签、一个文本输入框、一个图标等等，这些都是UIView，<strong>其实UIView之所以能显示在屏幕上，完全是因为它内部的一个图层</strong></p>
-</li>
-<li><p>在创建UIView对象时，UIView内部会自动创建一个图层(即CALayer对象)，通过UIView的layer属性可以访问这个层</p>
-<pre><code>@property(nonatomic,readonly,retain) CALayer *layer; 
-</code></pre></li>
-<li><p>当UIView需要显示到屏幕上时，会调用drawRect:方法进行绘图，并且会将所有内容绘制在自己的图层上(layer)，绘图完毕后，系统会将图层拷贝到屏幕上，于是就完成了UIView的显示</p>
-</li>
-</ul>
-<p>*换句话说，UIView本身不具备显示的功能，是它内部的层才有显示功能</p>
-<h2 id="二、CALayer应用"><a href="#二、CALayer应用" class="headerlink" title="二、CALayer应用"></a>二、CALayer应用</h2><h4 id="1、CALayer的属性"><a href="#1、CALayer的属性" class="headerlink" title="1、CALayer的属性"></a>1、CALayer的属性</h4><pre><code>@property CGFloat borderWidth;                //边框宽度
-@property CGColorRef borderColor;            //边框颜色(CGColorRef类型)
-@property CGColorRef backgroundColor;         //背景颜色
-@property float opacity;                    //透明度
-@property CGColorRef shadowColor;             //阴影颜色
-@property float shadowOpacity;
-@property CGSize shadowOffset;
-@property CGFloat shadowRadius;
-@property(strong) id contents;                内容(比如设置为图片CGImageRef)
-@property CGFloat cornerRadius;                //圆角半径
-@property CGRect bounds;                    //宽度和高度
-@property CGPoint position;                    //位置(默认指中点，具体由anchorPoint决定)
-@property CGPoint anchorPoint;                //锚点(x,y的范围都是0-1)，决定了position的含义
-@property CATransform3D transform;            //形变属性
-@property(getter=isHidden) BOOL hidden;
-@property(readonly) CALayer *superlayer;
-@property(copy) NSArray *sublayers;
-@property BOOL masksToBounds;
-</code></pre><h4 id="2、UIView和CALayer的选择"><a href="#2、UIView和CALayer的选择" class="headerlink" title="2、UIView和CALayer的选择"></a>2、UIView和CALayer的选择</h4><ul>
-<li><p>通过CALayer，就能做出跟UIImageView一样的界面效果</p>
-</li>
-<li><p>既然CALayer和UIView都能实现相同的显示效果，那究竟该选择谁好呢？</p>
-<ul>
-<li>其实，对比CALayer，UIView多了一个事件处理的功能。也就是说，CALayer不能处理用户的触摸事件，而UIView可以</li>
-<li><p>所以，如果显示出来的东西需要跟用户进行交互的话，用UIView；如果不需要跟用户进行交互，用UIView或者CALayer都可以<br>当然，CALayer的性能会高一些，因为它少了事件处理的功能，更加轻量级</p>
-<p><strong>UIView ： 接受和处理系统事件、触摸事件。</strong></p>
-<p><strong>CALayer ： 显示内容</strong></p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="3、position和anchorPoint"><a href="#3、position和anchorPoint" class="headerlink" title="3、position和anchorPoint"></a>3、position和anchorPoint</h4><h6 id="1、-property-CGPoint-position"><a href="#1、-property-CGPoint-position" class="headerlink" title="1、@property CGPoint position;"></a>1、@property CGPoint position;</h6><ul>
-<li>用来设置CALayer在父层中的位置</li>
-<li>以父层的左上角为原点(0, 0)</li>
-</ul>
-<h6 id="2、-property-CGPoint-anchorPoint"><a href="#2、-property-CGPoint-anchorPoint" class="headerlink" title="2、@property CGPoint anchorPoint;"></a>2、@property CGPoint anchorPoint;</h6><ul>
-<li>称为“定位点”、“锚点”</li>
-<li>决定着CALayer的position属性所指的是哪个点</li>
-<li>以自己的左上角为原点(0, 0)</li>
-<li>它的x、y取值范围都是0~1，默认值为（0.5, 0.5）</li>
-</ul>
-<h4 id="4、隐式动画"><a href="#4、隐式动画" class="headerlink" title="4、隐式动画"></a>4、隐式动画</h4><ul>
-<li>每一个UIView内部都默认关联着一个CALayer, 我们可称这个Layer为Root Layer（根层）</li>
-<li>所有的非Root Layer, 也就是手动创建的CALayer对象, 都存在着隐式动画。 root layer 是没有隐式动画的</li>
-<li><p><strong>可以通过动画事务(CATransaction)关闭默认的隐式动画效果</strong></p>
-<pre><code>[CATransaction begin];
-[CATransaction setDisableActions:YES];
-self.myview.layer.position = CGPointMake(10, 10);
-[CATransaction commit];
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2926,7 +3102,7 @@ self.myview.layer.position = CGPointMake(10, 10);
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">100</span>
+              <span class="site-state-item-count">101</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2934,7 +3110,7 @@ self.myview.layer.position = CGPointMake(10, 10);
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2943,7 +3119,7 @@ self.myview.layer.position = CGPointMake(10, 10);
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
