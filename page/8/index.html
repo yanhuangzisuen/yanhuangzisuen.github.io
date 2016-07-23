@@ -296,6 +296,274 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/07/UINavigationcontroller/" itemprop="url">
+                  UINavigationController
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/UINavigationcontroller/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/UINavigationcontroller/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1、UINavigationController的基本使用"><a href="#1、UINavigationController的基本使用" class="headerlink" title="1、UINavigationController的基本使用"></a>1、UINavigationController的基本使用</h2><ul>
+<li>初始化UINavigationController</li>
+<li>设置UIWindow的rootViewController为UINavigationController</li>
+<li>将第一个视图控制器设置为UINavigationController的根视图控制器</li>
+<li>通过push方法新建子控制器</li>
+<li>通过pop方法可以返回到上一个控制器<h4 id="1、UINavigationController子控制器"><a href="#1、UINavigationController子控制器" class="headerlink" title="1、UINavigationController子控制器"></a>1、UINavigationController子控制器</h4></li>
+<li><p>栈内所有子控制器的集合</p>
+<pre><code>@property(nonatomic,copy) NSArray&lt;__kindof UIViewController *&gt; *viewControllers;
+</code></pre></li>
+<li><p>栈顶控制器</p>
+<pre><code>@property(nullable, nonatomic,readonly,strong) UIViewController *topViewController;
+</code></pre></li>
+<li><p>通过push方法将控制器压栈</p>
+<pre><code>- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
+</code></pre></li>
+<li><p>通过pop方法将栈顶控制器移出栈</p>
+<pre><code>- (nullable UIViewController *)popViewControllerAnimated:(BOOL)animated
+</code></pre></li>
+<li><p>回到指定控制器</p>
+<pre><code>- (NSArray *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated;
+</code></pre></li>
+<li><p>回到根控制器</p>
+<pre><code>- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated;
+</code></pre></li>
+</ul>
+<h4 id="2、修改导航栏的内容"><a href="#2、修改导航栏的内容" class="headerlink" title="2、修改导航栏的内容"></a>2、修改导航栏的内容</h4><h6 id="导航栏的内容由栈顶控制器的navigationItem属性决定"><a href="#导航栏的内容由栈顶控制器的navigationItem属性决定" class="headerlink" title="导航栏的内容由栈顶控制器的navigationItem属性决定"></a>导航栏的内容由栈顶控制器的navigationItem属性决定</h6><h6 id="UINavigationItem有以下属性影响着导航栏的内容"><a href="#UINavigationItem有以下属性影响着导航栏的内容" class="headerlink" title="UINavigationItem有以下属性影响着导航栏的内容"></a>UINavigationItem有以下属性影响着导航栏的内容</h6><ul>
+<li><p>左上角的返回按钮</p>
+<pre><code>@property(nonatomic,retain) UIBarButtonItem *backBarButtonItem;
+</code></pre></li>
+<li><p>中间的标题视图</p>
+<pre><code>@property(nonatomic,retain) UIView          *titleView;
+</code></pre></li>
+<li><p>中间的标题文字</p>
+<pre><code>@property(nonatomic,copy)   NSString        *title;
+</code></pre></li>
+<li><p>左上角的按钮</p>
+<pre><code>@property(nonatomic,retain) UIBarButtonItem *leftBarButtonItem;
+</code></pre></li>
+<li><p>右上角的按钮</p>
+<pre><code>@property(nonatomic,retain) UIBarButtonItem *rightBarButtonItem;
+</code></pre></li>
+</ul>
+<h2 id="2、Segue"><a href="#2、Segue" class="headerlink" title="2、Segue"></a>2、Segue</h2><h4 id="1、什么是Segue"><a href="#1、什么是Segue" class="headerlink" title="1、什么是Segue"></a>1、什么是Segue</h4><ul>
+<li>Storyboard上每一根用来界面跳转的线，都是一个UIStoryboardSegue对象（简称Segue）</li>
+</ul>
+<h4 id="2、Segue的属性"><a href="#2、Segue的属性" class="headerlink" title="2、Segue的属性"></a>2、Segue的属性</h4><h6 id="每一个Segue对象，都有3个属性"><a href="#每一个Segue对象，都有3个属性" class="headerlink" title="每一个Segue对象，都有3个属性"></a>每一个Segue对象，都有3个属性</h6><ul>
+<li><p>唯一标识    </p>
+<pre><code>@property (nonatomic, readonly) NSString *identifier;
+</code></pre></li>
+<li><p>来源控制器</p>
+<pre><code>@property (nonatomic, readonly) id sourceViewController;
+</code></pre></li>
+<li><p>目标控制器</p>
+<pre><code>@property (nonatomic, readonly) id destinationViewController;
+</code></pre></li>
+</ul>
+<h4 id="3、Segue的类型"><a href="#3、Segue的类型" class="headerlink" title="3、Segue的类型"></a>3、Segue的类型</h4><h6 id="根据Segue的执行（跳转）时刻，Segue可以分为2大类型"><a href="#根据Segue的执行（跳转）时刻，Segue可以分为2大类型" class="headerlink" title="根据Segue的执行（跳转）时刻，Segue可以分为2大类型"></a>根据Segue的执行（跳转）时刻，Segue可以分为2大类型</h6><ul>
+<li><p>自动型：点击某个控件后（比如按钮），自动执行Segue，自动完成界面跳转</p>
+<ul>
+<li><p>按住Control键，直接从控件拖线到目标控制器</p>
+<p>  <strong>注：如果点击某个控件，不需要做任何判断，直接跳转到下一个界面，建议使用“自动型Segue”</strong> </p>
+</li>
+</ul>
+</li>
+<li>手动型：需要通过写代码手动执行Segue，才能完成界面跳转<ul>
+<li>按住Control键，从来源控制器拖线到目标控制器</li>
+<li>手动型的Segue需要设置一个标识（如右图）</li>
+<li>在需要的时刻，由来源控制器执行perform方法调用对应的Segue</li>
+<li>[self performSegueWithIdentifier:@”login2contacts” sender:nil];<ul>
+<li>如果点击某个控件，需要做一些处理之后才跳转到下一个界面，建议使用“手动型Segue”</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="4、performSegueWithIdentifier-sender"><a href="#4、performSegueWithIdentifier-sender" class="headerlink" title="4、performSegueWithIdentifier:sender:"></a>4、performSegueWithIdentifier:sender:</h4><ul>
+<li><p>1、利用performSegueWithIdentifier:方法可以执行某个Segue，跳转界面</p>
+<ul>
+<li><p>完整执行过程如下：</p>
+<pre><code>[self performSegueWithIdentifier:@&quot;login2contacts&quot; sender:nil];
+self是来源控制器
+根据identifier去storyboard中找到对应的线，新建UIStoryboardSegue对象
+设置Segue对象的sourceViewController（来源控制器）
+新建并且设置Segue对象的destinationViewController（目标控制器）
+</code></pre></li>
+</ul>
+</li>
+<li><p>2、调用sourceViewController的下面方法，做跳转前的准备工作并传入创建好的Segue对象</p>
+<pre><code>- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
+</code></pre><p><strong>提示：sender是调用performSegueWithIdentifier:sender:方法时传入的对象</strong></p>
+</li>
+<li>3、调用Segue对象的- (void)perform;方法开始执行界面跳转操作<ul>
+<li>如果segue的style是push<ul>
+<li>取得sourceViewController所在的UINavigationController</li>
+<li>调用UINavigationController的push方法将destinationViewController压入栈中，完成跳转</li>
+</ul>
+</li>
+<li>如果segue的style是modal<ul>
+<li>调用sourceViewController的presentViewController方法将destinationViewController展示出来</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3、Modal"><a href="#3、Modal" class="headerlink" title="3、Modal"></a>3、Modal</h2><ul>
+<li>除了push之外，还有另外一种控制器的切换方式，那就是Modal</li>
+<li>任何控制器都能通过Modal的形式展示出来</li>
+<li>Modal的默认效果：新控制器从屏幕的最底部往上钻，直到盖住之前的控制器为止</li>
+<li><p>以Modal的形式展示控制器</p>
+<pre><code>- (void)presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^)(void))completion
+</code></pre></li>
+<li><p>关闭当初Modal出来的控制器</p>
+<pre><code>- (void)dismissViewControllerAnimated: (BOOL)flag completion: (void (^)(void))completion;
+</code></pre><p><strong>原则：谁Modal，谁dismiss</strong></p>
+</li>
+</ul>
+<h2 id="4、案例"><a href="#4、案例" class="headerlink" title="4、案例"></a>4、案例</h2><h4 id="1、同一设置导航栏样式"><a href="#1、同一设置导航栏样式" class="headerlink" title="1、同一设置导航栏样式"></a>1、同一设置导航栏样式</h4><pre><code>+ (void)initialize
+{
+    // 当导航栏用在BSNavViewController中, appearance设置才会生效
+    //    UINavigationBar *bar = [UINavigationBar appearanceWhenContainedIn:[self class], nil];
+    // 设置导航栏背景色和标题
+    UINavigationBar *bar = [UINavigationBar appearance];
+    [bar setBackgroundImage:[UIImage imageNamed:@&quot;navigationbarBackgroundWhite&quot;] forBarMetrics:UIBarMetricsDefault];
+    [bar setTitleTextAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:20]}];
+
+    // 设置导航栏按钮内容格式
+    UIBarButtonItem *item = [UIBarButtonItem appearance];
+    // UIControlStateNormal
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+    attrs[NSFontAttributeName] = [UIFont systemFontOfSize:17];
+    attrs[NSForegroundColorAttributeName] = [UIColor blackColor];
+    [item setTitleTextAttributes:attrs forState:UIControlStateNormal];
+
+    //UIControlStateDisabled
+    NSMutableDictionary *disabledAttrs = [NSMutableDictionary dictionary];
+    disabledAttrs[NSFontAttributeName] = attrs[NSFontAttributeName];
+    disabledAttrs[NSForegroundColorAttributeName] = [UIColor lightGrayColor];
+    [item setTitleTextAttributes:disabledAttrs forState:UIControlStateDisabled];
+}
+</code></pre><h4 id="2、拦截导航栏push方法统一设置子控制器导航栏样式"><a href="#2、拦截导航栏push方法统一设置子控制器导航栏样式" class="headerlink" title="2、拦截导航栏push方法统一设置子控制器导航栏样式"></a>2、拦截导航栏push方法统一设置子控制器导航栏样式</h4><pre><code>- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    //判断当前是否push到子控制器(当super写在前面时，count &gt; 1,但此时外界无法修改，因为每当外界修改完时，下面的代码又重新设置了)
+    if (self.childViewControllers.count &gt; 0) {
+        //设置子控制器的返回键
+        viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTitle:@&quot;返回&quot; image:@&quot;navigationButtonReturn&quot; highImage:@&quot;navigationButtonReturnClick&quot; target:self action:@selector(pop)];
+        //将按钮往左边偏移(设置button的button.imageEdgeInsets和titleEdgeInsets)
+        viewController.hidesBottomBarWhenPushed = YES;
+    }
+    [super pushViewController:viewController animated:YES];
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/07/UITableView补充/" itemprop="url">
                   UITableView方法
                 </a>
@@ -1661,6 +1929,137 @@ sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol); // 长整型数据
             
               
                 
+                <a class="post-title-link" href="/2016/07/07/storyboardandxib/" itemprop="url">
+                  StoryboardAndXib
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/storyboardandxib/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/storyboardandxib/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="xib-和-storyboard-的异同点"><a href="#xib-和-storyboard-的异同点" class="headerlink" title="xib 和 storyboard 的异同点"></a>xib 和 storyboard 的异同点</h3><pre><code>共同点: 可以设置 UI 界面
+
+不同的: storyboard(描述整个界面) 可以进行界面跳转, 是重量级的
+        xib(描述局部界面) 轻量级
+</code></pre><ul>
+<li>xib</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回一个数组 按 xib 拖放顺序</span></div><div class="line">[[<span class="built_in">NSBundle</span> mainBundle] loadNidNamed:<span class="string">@"xib的文件名"</span> ower:<span class="literal">nil</span> options: <span class="literal">nil</span>];</div><div class="line"></div><div class="line">loadNibNamed:  xib 的名字 返回数组</div><div class="line">使用 loadNibNamed: 的原因</div><div class="line">在项目文件中, xib 文件是以 .xib 结尾</div><div class="line">安装之后, 就自动的以 .nib 结尾</div><div class="line">执行command+R 相当于在模拟器上安装了应用程序</div></pre></td></tr></table></figure>
+<ul>
+<li>storyboard</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIStoryboard</span> *sb = [<span class="built_in">UIStoryboard</span> storyboardWithName:<span class="string">@"ZXXLoteryHallViewController"</span> bundle:<span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//当前 storyboard 箭头所指的控制器</span></div><div class="line"><span class="built_in">UIViewController</span> = sb.instantiateInitialViewController;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/07/NSOperation/" itemprop="url">
                   NSOperation
                 </a>
@@ -1872,315 +2271,6 @@ iii.NSOperation里提供的方便的操作
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/storyboardandxib/" itemprop="url">
-                  StoryboardAndXib
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/storyboardandxib/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/storyboardandxib/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="xib-和-storyboard-的异同点"><a href="#xib-和-storyboard-的异同点" class="headerlink" title="xib 和 storyboard 的异同点"></a>xib 和 storyboard 的异同点</h3><pre><code>共同点: 可以设置 UI 界面
-
-不同的: storyboard(描述整个界面) 可以进行界面跳转, 是重量级的
-        xib(描述局部界面) 轻量级
-</code></pre><ul>
-<li>xib</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回一个数组 按 xib 拖放顺序</span></div><div class="line">[[<span class="built_in">NSBundle</span> mainBundle] loadNidNamed:<span class="string">@"xib的文件名"</span> ower:<span class="literal">nil</span> options: <span class="literal">nil</span>];</div><div class="line"></div><div class="line">loadNibNamed:  xib 的名字 返回数组</div><div class="line">使用 loadNibNamed: 的原因</div><div class="line">在项目文件中, xib 文件是以 .xib 结尾</div><div class="line">安装之后, 就自动的以 .nib 结尾</div><div class="line">执行command+R 相当于在模拟器上安装了应用程序</div></pre></td></tr></table></figure>
-<ul>
-<li>storyboard</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIStoryboard</span> *sb = [<span class="built_in">UIStoryboard</span> storyboardWithName:<span class="string">@"ZXXLoteryHallViewController"</span> bundle:<span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//当前 storyboard 箭头所指的控制器</span></div><div class="line"><span class="built_in">UIViewController</span> = sb.instantiateInitialViewController;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/README/" itemprop="url">
-                  UI简介
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/README/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/README/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>导航控制器的push的控制器的右滑弹出功能, 清空代理, 让导航控制器将功能找回</code><br><code>self.interactivePopGestureRecognizer.delegate = nil;</code></p>
-<h2 id="stroryboard-的认识"><a href="#stroryboard-的认识" class="headerlink" title="stroryboard 的认识"></a>stroryboard 的认识</h2><ul>
-<li>用于描述软件界面</li>
-<li>默认情况下, 程序一启动就会加载 Main.storyboard</li>
-<li>加载 storyboard 时, 会首先创建和显示箭头所指的控制器界面</li>
-</ul>
-<h2 id="IBAction-和-IBOutlet"><a href="#IBAction-和-IBOutlet" class="headerlink" title="IBAction 和 IBOutlet"></a>IBAction 和 IBOutlet</h2><ul>
-<li>IBAction<ul>
-<li>本质就是 void</li>
-<li>能让方法具备连线的功能</li>
-</ul>
-</li>
-<li>IBOutlet<ul>
-<li>能让属性具备连线的功能</li>
-</ul>
-</li>
-</ul>
-<h2 id="storyboard-连线容易出现的问题"><a href="#storyboard-连线容易出现的问题" class="headerlink" title="storyboard 连线容易出现的问题"></a>storyboard 连线容易出现的问题</h2><ul>
-<li>被连接的方法被删除, 但是连线没有去掉<ul>
-<li>可能出现方法找不到的错误</li>
-<li>unrecongnized selecotor sent to instance</li>
-</ul>
-</li>
-<li>连接的属性被删掉, 但是连线没有去掉<ul>
-<li>setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key</li>
-</ul>
-</li>
-</ul>
-<h2 id="UIViewController-控制器-的认识"><a href="#UIViewController-控制器-的认识" class="headerlink" title="UIViewController (控制器) 的认识"></a>UIViewController (控制器) 的认识</h2><ul>
-<li>一个控制器负责管理一个界面</li>
-<li>控制器负责界面的创建, 事件的处理等</li>
-</ul>
-<h2 id="类扩展"><a href="#类扩展" class="headerlink" title="类扩展"></a>类扩展</h2><ul>
-<li><p>格式<br>-</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">className</span>()</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> *   属性, 方法的声明</div><div class="line"> */</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>作用</p>
-<ul>
-<li>为某个类添加额外的属性和方法的声明</li>
-<li>可以写在 .h 和 .m 文件中</li>
-</ul>
-</li>
-</ul>
-<h2 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h2><ul>
-<li>Product Name<ul>
-<li>软件名称、产品名称、项目名称</li>
-</ul>
-</li>
-<li>Drganization Identifier<ul>
-<li>公司的唯一标识</li>
-<li>一般是公司域名的反写, 比如 com.baidu</li>
-</ul>
-</li>
-<li>Bundle Identifier<ul>
-<li>软件的唯一标识</li>
-<li>一般是 Drganization Identifier + Product Name</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/07/07/transform/" itemprop="url">
                   Transform
                 </a>
@@ -2308,8 +2398,8 @@ iii.NSOperation里提供的方便的操作
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/layoutsubviews/" itemprop="url">
-                  LayoutSubViews
+                <a class="post-title-link" href="/2016/07/07/uiapplication/" itemprop="url">
+                  UIApplication
                 </a>
               
             
@@ -2352,8 +2442,8 @@ iii.NSOperation里提供的方便的操作
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/layoutsubviews/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/layoutsubviews/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/uiapplication/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/uiapplication/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -2378,32 +2468,44 @@ iii.NSOperation里提供的方便的操作
       
         
           
-            <h2 id="layoutSubviews总结"><a href="#layoutSubviews总结" class="headerlink" title="layoutSubviews总结"></a>layoutSubviews总结</h2><ul>
-<li><p>1.iOS layout机制相关方法</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">CGSize</span>)sizeThatFits:(<span class="built_in">CGSize</span>)size</div><div class="line">- (<span class="keyword">void</span>)sizeToFit</div></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)layoutSubviews</div><div class="line">- (<span class="keyword">void</span>)layoutIfNeeded</div><div class="line">- (<span class="keyword">void</span>)setNeedsLayout</div></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setNeedsDisplay</div><div class="line">- (<span class="keyword">void</span>)drawRect</div></pre></td></tr></table></figure>
+            <h2 id="UIApplication对象介绍"><a href="#UIApplication对象介绍" class="headerlink" title="UIApplication对象介绍"></a>UIApplication对象介绍</h2><pre><code>* 对象主要用来保存一些数据和封装一些方法
+* 对象中的属性主要用来保存数据
+* 对象中的方法主要用来执行一些代码，即对象的一些行为
+
+* 如果接收到推送消息时，应用头像上的数字就是在应用级别上的操作。
+
+* 一个UIApplication代理一个应用程序，而且是单例的。
+    * 用来封装整个应用程序的一个对象，比如当应用程序执行到某个时期要做什么，生命周期等。
+* 获取UIApplication对象,&quot;[UIApplication sharedApplication];&quot;(单例)
+
+sharedApplication : 返回应用程序的单例对象
+    openURL : 可以打电话, 发邮件, 应用程序之间的跳转
+    keyWindow : 应用程序的主窗口
+    networkActivityIndicatorVisible : 在状态栏显示网络旋转的齿轮
+    applicationIconBadgeNumber : 应用头像上的数字
+    applicationSupportsShakeToEdit : 默认 yes, 摇晃手机时, Undo Redo 按钮
+
+* 当一个iOS程序启动后，首先创建的第一个对象就是UIApplication对象;
+* 利用UIApplication可以做一些应用级别的操作。
+    * 当qq有消息的时候右上角显示的消息条数。
+        * iOS8以后要经过用户的允许才能设置通知。
+        * 如果用户点击了不允许，就要手动到设置里面去进行配置。
+    * 联网操作时，状态栏上的等待图表指示器。waiting图表
+    * 利用UIApplication打开某个资源：
+        * 系统会自动根据协议识别使用某个app打开
+* 通过UIApplication管理状态栏
+    * 自从iOS7开始可以通过两种方式控制器状态栏的
+        * 控制器：通过UIViewController管理
+</code></pre><h2 id="UIApplicationDelegate介绍"><a href="#UIApplicationDelegate介绍" class="headerlink" title="UIApplicationDelegate介绍"></a>UIApplicationDelegate介绍</h2><pre><code>* 新建完项目后的那个AppDelegate文件，就是UIApplication的代理对象
+    * 并且该代理对象已经被设置好了，无需我们手动设置了。
+    * 在main函数中进行的设置
+</code></pre><h1 id="AppDelegate-应用程序代理对象"><a href="#AppDelegate-应用程序代理对象" class="headerlink" title="AppDelegate 应用程序代理对象"></a>AppDelegate 应用程序代理对象</h1><ul>
+<li><p>应用程序代理对象，用来监听应用程序的执行过程</p>
 </li>
-<li><p>2.layoutSubviews 被调用的情况</p>
+<li><p>常用监听方法</p>
 </li>
 </ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span>init 初始化时不会触发 layoutSubview, 但是使用 initWithFrame: 进行初始化时, 当 rect 的值不为 <span class="built_in">CGRectZero</span> 时, 会触发</div><div class="line"><span class="number">2.</span>addSubview 会触发 layoutSubviews</div><div class="line"><span class="number">3.</span>设置 view 的Frame 会触发 layoutSubviews, 前提是 Fraame的值前后发生变化</div><div class="line"><span class="number">4.</span>滚动一个 <span class="built_in">UIScrollView</span> 会触发 layoutSubviews</div><div class="line"><span class="number">5.</span>旋转 Screen 会触发 父View 上的 layoutSubviews 事件</div><div class="line"><span class="number">6.</span>改变一个 <span class="built_in">UIView</span> 大小的时候, 也会触发 父View 上的 layoutSubviews 事件</div><div class="line">在苹果的官方文档中强调:</div><div class="line">   You should override <span class="keyword">this</span> method only <span class="keyword">if</span> the autoresizing and constraint-based behaviors of the subviews <span class="keyword">do</span> not offer the behavior you want.</div><div class="line">   只要调整尺寸和基于约束的行为的子视图不提供你想要的行为时, 你应重写此方法</div></pre></td></tr></table></figure>
-<ul>
-<li>3.刷新子对象布局</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- layoutSubviews: 这个方法默认没有做任何事情, 需要子类进行重写</div><div class="line">- setNeedsLayout: 标记为需要重新布局, 异步调用 layoutIfNeeded 刷新布局, 不立即刷新, 但 layoutSubviews 一定会调用</div><div class="line">- layoutIfNeeded: 如果有需要刷新的标记, 立即调用 layoutSubviews 进行布局, 如果没有标记, 不会调用 layoutSubviews</div><div class="line">对于 layoutSubviews 文档中还指出:</div><div class="line">    You should not call <span class="keyword">this</span> method directly. If you want to force a layout update, call the setNeedsLayout method instead to <span class="keyword">do</span> so prior to the next drawing update. If you want to update the layout of your views immediately, call the layoutIfNeeded method</div><div class="line">    你不应该直接调用该方法, 如果你想更新布局, 在更新布局之前调用 [view setNeedsLayout] 方法. 如果你想立即更新你的视图, 则调用 [view layoutIfNeeded] 方法.</div><div class="line">在视图第一次显示之前, 标记总是 <span class="string">"需要刷新"</span> 的, 可以直接调用 [view layoutIfNeeded]</div></pre></td></tr></table></figure>
-<ul>
-<li>4.重绘</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- drawRect:(<span class="built_in">CGRect</span>)rect: 重写此方法, 执行重绘任务</div><div class="line">- setNeedsDisplay: 标记为需要重绘, 异步调用 drawRect: 方法</div><div class="line">- setNeedsDisolayInRect:(<span class="built_in">CGRect</span>)invalidRect: 标记需要局部重绘</div></pre></td></tr></table></figure>
-<ul>
-<li>5.sizeToFit 与 sizeThatFits:</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)sizeToFit</div><div class="line">sizeToFit 可以被手动直接调用</div><div class="line">调用 sizeToFit 会自动调用 sizeThatFits: 方法</div><div class="line">sizeToFit 不应该在子类中被重写, 应该重写 - (<span class="built_in">CGSize</span>)sizeThatFits:(<span class="built_in">CGSize</span>)size</div><div class="line"><span class="comment">/**</span></div><div class="line"> *  调整尺寸</div><div class="line"> *</div><div class="line"> *  @param size receiver当前的尺寸</div><div class="line"> *</div><div class="line"> *  @return 返回一个合适的尺寸</div><div class="line"> */</div><div class="line">- (<span class="built_in">CGSize</span>)sizeThatFits:(<span class="built_in">CGSize</span>)size</div></pre></td></tr></table></figure>
-<ul>
-<li>6.layoutSubviews 与 drawRect</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">layoutSubviews 对 subviews 重新布局</div><div class="line"></div><div class="line">layoutSubviews 方法调用先于 drawRect</div><div class="line"></div><div class="line">setNeedsLayout 在receiver标上一个需要被重新布局的标记，在系统 runloop 的下一个周期自动调用 layoutSubviews</div><div class="line"></div><div class="line">layoutIfNeeded 方法如其名，<span class="built_in">UIKit</span> 会判断该receiver是否需要 layout.根据Apple官方文档, layoutIfNeeded 方法应该是这样的</div><div class="line"></div><div class="line">layoutIfNeeded 遍历的不是 superview 链，应该是 subviews 链</div><div class="line"></div><div class="line">drawRect 是对receiver的重绘，能获得 context</div><div class="line"></div><div class="line">setNeedDisplay 在receiver标上一个需要被重新绘图的标记，在下一个draw周期自动重绘，iphone device的刷新频率是<span class="number">60</span>hz，也就是<span class="number">1</span>/<span class="number">60</span>秒后重绘</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//应用程序加载完毕</span></div><div class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</div><div class="line">    <span class="comment">// Override point for customization after application launch.</span></div><div class="line">    <span class="comment">//可执行自定义操作</span></div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序失去焦点</span></div><div class="line">- (<span class="keyword">void</span>)applicationWillResignActive:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//不接受用户交互</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序进入后台</span></div><div class="line">- (<span class="keyword">void</span>)applicationDidEnterBackground:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//双击home键课查看</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序进入前台</span></div><div class="line">- (<span class="keyword">void</span>)applicationWillEnterForeground:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//双击home键，选中程序的时候进入前台</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序获取焦点</span></div><div class="line">- (<span class="keyword">void</span>)applicationDidBecomeActive:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//接受用户交互</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序销毁</span></div><div class="line">- (<span class="keyword">void</span>)applicationWillTerminate:(<span class="built_in">UIApplication</span> *)application &#123;</div><div class="line">    <span class="comment">//只有在直接双击home，销毁程序时在会调用</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//应用程序接收到内存警告</span></div><div class="line">- (<span class="keyword">void</span>)didReceiveMemoryWarning &#123;</div><div class="line">    [<span class="keyword">super</span> didReceiveMemoryWarning];</div><div class="line">    <span class="comment">//当内存不足时，会收到系统的内存警告</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
           
         
@@ -2477,7 +2579,7 @@ iii.NSOperation里提供的方便的操作
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">101</span>
+              <span class="site-state-item-count">102</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2494,7 +2596,7 @@ iii.NSOperation里提供的方便的操作
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-count">62</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
