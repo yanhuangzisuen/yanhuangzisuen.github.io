@@ -1299,8 +1299,8 @@ NSLog(@&quot;%lu&quot;,s.length);
             
               
                 
-                <a class="post-title-link" href="/2016/07/07/nsstringcompare/" itemprop="url">
-                  字符串的比较
+                <a class="post-title-link" href="/2016/07/07/nsstringinterceptionandreplacement/" itemprop="url">
+                  字符串的截取和替换
                 </a>
               
             
@@ -1343,8 +1343,8 @@ NSLog(@&quot;%lu&quot;,s.length);
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/07/nsstringcompare/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsstringcompare/" itemprop="commentsCount"></span>
+                <a href="/2016/07/07/nsstringinterceptionandreplacement/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/nsstringinterceptionandreplacement/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1369,23 +1369,10 @@ NSLog(@&quot;%lu&quot;,s.length);
       
         
           
-            <h2 id="NSString的大小写处理"><a href="#NSString的大小写处理" class="headerlink" title="NSString的大小写处理"></a>NSString的大小写处理</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//全部转大写</span></div><div class="line">- (<span class="built_in">NSString</span> *)uppercaseString;</div><div class="line"><span class="comment">//全部转小写</span></div><div class="line">- (<span class="built_in">NSString</span> *)lowercaseString;</div><div class="line"><span class="comment">//首字母大写, 其它变小写</span></div><div class="line">- (<span class="built_in">NSString</span> *)capitalizedString;</div></pre></td></tr></table></figure>
-<h2 id="字符串的比较"><a href="#字符串的比较" class="headerlink" title="字符串的比较"></a>字符串的比较</h2><ul>
-<li>1.两个字符串的内容相同就返回YES, 否则返回NO</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)isEqualToString:(<span class="built_in">NSString</span> *)aString;</div></pre></td></tr></table></figure>
-<ul>
-<li>2.比较两个字符串内容的大小</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//比较方法:逐个字符进行比较ASCII值, 只要有有一个值能够比较出大小, 就返回NSComparisonResult作为比较结果</span></div><div class="line"><span class="comment">/**</span></div><div class="line">NSComparisonResult是一个枚举，有3个值:</div><div class="line">如果左侧  &lt;  右侧,返回NSOrderedAscending,-1L</div><div class="line">如果左侧  &gt;  右侧,返回NSOrderedDescending,</div><div class="line">如果左侧  == 右侧,返回NSOrderedSame</div><div class="line">*/</div><div class="line"></div><div class="line"><span class="comment">//区分大小写比较</span></div><div class="line">- (<span class="built_in">NSComparisonResult</span>)compare:(<span class="built_in">NSString</span> *)string;</div><div class="line"><span class="comment">//忽略大小写比较</span></div><div class="line">- (<span class="built_in">NSComparisonResult</span>) caseInsensitiveCompare:(<span class="built_in">NSString</span> *)string;</div></pre></td></tr></table></figure>
-<ul>
-<li>eg:</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str = <span class="string">@"adc"</span>;</div><div class="line"><span class="built_in">NSString</span> *str2 = <span class="string">@"ADc"</span>;</div><div class="line"><span class="built_in">NSComparisonResult</span> result = [str compare:str2];</div><div class="line"><span class="keyword">switch</span> (result) &#123;</div><div class="line">  <span class="keyword">case</span> <span class="built_in">NSOrderedDescending</span>:</div><div class="line">       <span class="built_in">NSLog</span>(<span class="string">@"str &gt; str2"</span>);</div><div class="line">       <span class="keyword">break</span>;</div><div class="line">  <span class="keyword">case</span> <span class="built_in">NSOrderedAscending</span>:</div><div class="line">       <span class="built_in">NSLog</span>(<span class="string">@"str &lt; str2"</span>);</div><div class="line">       <span class="keyword">break</span>;</div><div class="line">  <span class="keyword">case</span> <span class="built_in">NSOrderedSame</span>:</div><div class="line">       <span class="built_in">NSLog</span>(<span class="string">@"str == str2"</span>);</div><div class="line">       <span class="keyword">break</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>eg:</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> <span class="built_in">NSString</span> *str = <span class="string">@"aBc"</span>;</div><div class="line"> <span class="built_in">NSString</span> *str1 = <span class="string">@"abc"</span>;</div><div class="line"></div><div class="line"> <span class="comment">// 忽略大小写字符串比较</span></div><div class="line"> <span class="built_in">NSComparisonResult</span> result = [str caseInsensitiveCompare:str1];</div><div class="line"></div><div class="line"><span class="comment">// 因为忽略B和b,所以str = str1</span></div><div class="line">  <span class="built_in">NSLog</span>(<span class="string">@"%ld"</span>,result);</div></pre></td></tr></table></figure>
+            <h2 id="字符串的截取"><a href="#字符串的截取" class="headerlink" title="字符串的截取"></a>字符串的截取</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1.从指定位置from(包含指定位置的字符)开始到结尾</span></div><div class="line">- (<span class="built_in">NSString</span> *)substringFromIndex:(<span class="built_in">NSUInteger</span>)from;</div><div class="line"></div><div class="line"><span class="comment">//2.从字符串的开头一直截取到指定的位置to(不包含该位置的字符)</span></div><div class="line">- (<span class="built_in">NSString</span> *)substringToIndex:(<span class="built_in">NSUInteger</span>)to;</div><div class="line"></div><div class="line"><span class="comment">//3.按照所给的NSRange从字符串中截取子串</span></div><div class="line">- (<span class="built_in">NSString</span> *)substringWithRange:(<span class="built_in">NSRange</span>)range;</div></pre></td></tr></table></figure>
+<h2 id="字符串的替换"><a href="#字符串的替换" class="headerlink" title="字符串的替换"></a>字符串的替换</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用 replacement 替换 target</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByReplacingOccurrencesOfString:(<span class="built_in">NSString</span> *)target withString:(<span class="built_in">NSString</span> *)replacement;</div></pre></td></tr></table></figure>
+<h2 id="字符串与路径"><a href="#字符串与路径" class="headerlink" title="字符串与路径"></a>字符串与路径</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//是否是绝对路径</span></div><div class="line">- (<span class="built_in">BOOL</span>)isAbsolutePath;</div><div class="line"></div><div class="line"><span class="comment">//获得最后一个目录</span></div><div class="line">- (<span class="built_in">NSString</span> *)lastPathComponent;</div><div class="line"></div><div class="line"><span class="comment">//删除最后一个目录</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByDeletingLastPathComponent;</div><div class="line"></div><div class="line"><span class="comment">//在路径的后面拼接一个目录</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByAppendingPathComponent:(<span class="built_in">NSString</span> *)str;</div><div class="line"><span class="comment">//or 使用stringByAppendingString:或者stringByAppendingFormat:拼接字符串内容</span></div></pre></td></tr></table></figure>
+<h2 id="字符串与文件扩展名"><a href="#字符串与文件扩展名" class="headerlink" title="字符串与文件扩展名"></a>字符串与文件扩展名</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取扩展名</span></div><div class="line">- (<span class="built_in">NSString</span> *)pathExtension;</div><div class="line"></div><div class="line"><span class="comment">//删除尾部扩展名</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByDeletingPathExtension;</div><div class="line"></div><div class="line"><span class="comment">//在尾部添加扩展名</span></div><div class="line">- (<span class="built_in">NSString</span> *)stringByAppendingPathExtension:(<span class="built_in">NSString</span> *)str;</div></pre></td></tr></table></figure>
 
           
         
@@ -2058,7 +2045,7 @@ NSLog(@&quot;%lu&quot;,s.length);
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">102</span>
+              <span class="site-state-item-count">103</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2066,7 +2053,7 @@ NSLog(@&quot;%lu&quot;,s.length);
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2075,7 +2062,7 @@ NSLog(@&quot;%lu&quot;,s.length);
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

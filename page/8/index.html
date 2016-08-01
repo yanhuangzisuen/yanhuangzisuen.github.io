@@ -296,6 +296,443 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/07/UICollectionview补充/" itemprop="url">
+                  UICollectionView方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/UICollectionview补充/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/UICollectionview补充/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>基础要点<ol>
+<li>UICollectionView的dataSource、delegate</li>
+<li>UICollectionView多组数据和单组数据的展示</li>
+<li>UICollectionView、UICollectionViewFlowLayout的常见属性</li>
+<li>UICollectionViewCell三种注册方式（Class、Nib、storyboard）</li>
+<li>自定义UICollectionViewFlowLayout布局<h2 id="1、数据源和代理方法"><a href="#1、数据源和代理方法" class="headerlink" title="1、数据源和代理方法"></a>1、数据源和代理方法</h2><h4 id="1、UICollectionViewDataSource（数据源）"><a href="#1、UICollectionViewDataSource（数据源）" class="headerlink" title="1、UICollectionViewDataSource（数据源）"></a>1、UICollectionViewDataSource（数据源）</h4></li>
+</ol>
+</li>
+<li><p>有多少组</p>
+<pre><code>- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+</code></pre></li>
+<li><p>有多少行（@required）</p>
+<pre><code>- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
+</code></pre></li>
+<li><p>cell（@required）</p>
+<pre><code>- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+</code></pre></li>
+<li><p>返回collecctionView的头尾部视图</p>
+<pre><code>- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
+
+- (nullable UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
+</code></pre><p><code>当自定义loyout布局对象时，需重写方法2设置布局属性，否则无法显示</code></p>
+</li>
+<li><p>Move</p>
+<pre><code>- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(9_0);
+
+- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath NS_AVAILABLE_IOS(9_0);
+</code></pre></li>
+</ul>
+<h4 id="2、UICollectionViewDelegate（代理）"><a href="#2、UICollectionViewDelegate（代理）" class="headerlink" title="2、UICollectionViewDelegate（代理）"></a>2、UICollectionViewDelegate（代理）</h4><ul>
+<li><p>Selected</p>
+<pre><code>- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+</code></pre><h4 id="3、UICollectionViewFlowLayout"><a href="#3、UICollectionViewFlowLayout" class="headerlink" title="3、UICollectionViewFlowLayout"></a>3、UICollectionViewFlowLayout</h4></li>
+</ul>
+<h2 id="2、UICollectionViewController"><a href="#2、UICollectionViewController" class="headerlink" title="2、UICollectionViewController"></a>2、UICollectionViewController</h2><h4 id="要点把握"><a href="#要点把握" class="headerlink" title="要点把握"></a>要点把握</h4><pre><code>self.view 和 self.collectionView 代表的是不同类型的, self.collectionView 才是  collectionView
+
+self.collectionViewLayout  只读的
+self.collectionView.collectionViewLayout 如果使用需要进行一次强转
+</code></pre><ul>
+<li>组头组尾的时候, 必须通过数据源方法</li>
+<li><p>如果在storyboard 中拖拽 组头的话,  必须设置重用标识符, 不然数据源方法不会执行</p>
+</li>
+<li><p>必须通过这个方法返回 </p>
+<pre><code>- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+</code></pre></li>
+<li><p>kind类型</p>
+<pre><code>UICollectionElementKindSectionHeader  页眉
+UICollectionElementKindSectionFooter  页脚
+</code></pre></li>
+<li><p>悬浮效果</p>
+<pre><code>flowLayout.sectionHeadersPinToVisibleBounds = YES;
+flowLayout.sectionFootersPinToVisibleBounds = YES;
+</code></pre></li>
+<li><p>设置组头/尾 的size</p>
+<pre><code>flowLayout.headerReferenceSize = CGSizeMake(10, 10);
+flowLayout.footerReferenceSize = CGSizeMake(10, 20);
+</code></pre><h2 id="3、案例：自定义collectionViewFlowLayout多组数据，自定义头尾部视图"><a href="#3、案例：自定义collectionViewFlowLayout多组数据，自定义头尾部视图" class="headerlink" title="3、案例：自定义collectionViewFlowLayout多组数据，自定义头尾部视图"></a>3、案例：自定义collectionViewFlowLayout多组数据，自定义头尾部视图</h2><h4 id="FlowLayout"><a href="#FlowLayout" class="headerlink" title="FlowLayout"></a>FlowLayout</h4><pre><code>#import &quot;ZCFlowLayout.h&quot;
+/** 列数 */
+#define KColumnCount 5
+/** 当item为图片是，一张图片行列方法正好盖住几个文字item */
+#define KChangeCount 2
+
+@interface ZCFlowLayout ()
+/** 保存所有item属性的数组 */
+@property (nonatomic, strong) NSMutableArray *itemsArray;
+//保存每次计算的最大Y值
+@property (nonatomic, assign) CGFloat maxY;
+@end
+
+@implementation ZCFlowLayout
+
+- (void)prepareLayout {
+    [super prepareLayout];
+    UIEdgeInsets insets = UIEdgeInsetsMake(0, ZCFoodSectionInset, ZCFoodSectionInset, ZCFoodSectionInset);
+    self.sectionInset = insets;
+    //起始头部View有个间距
+    CGFloat viewH = ZCFoodHeaderViewH;
+    CGFloat viewW = ZC_SCREEN_WIDTH;
+    CGFloat bottomViewH = ZCFoodBottomViewH;
+    CGFloat viewX = 0;
+    CGFloat viewY = 0;
+    CGFloat startY = viewH;
+    //行列间距
+    CGFloat rowMargin = self.minimumLineSpacing;
+    CGFloat colMargin = self.minimumInteritemSpacing;
+    //计算item的宽高
+    CGFloat itemW = (ZC_SCREEN_WIDTH - insets.left - insets.right - colMargin * (KColumnCount - 1)) / KColumnCount;
+    CGFloat itemH = ZCFoodHeaderViewH;
+    //计算图片宽高
+    CGFloat imageW = KChangeCount * itemW + rowMargin * (KChangeCount - 1);
+    CGFloat imageH = KChangeCount * itemH + colMargin * (KChangeCount - 1);
+    NSInteger sectionCount = [self.collectionView numberOfSections];
+    for (int i = 0; i &lt; sectionCount; i++) {
+        //组头部View属性
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:i];
+        UICollectionViewLayoutAttributes *viewAttrs = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:indexPath];
+        viewAttrs.frame = CGRectMake(viewX, viewY, viewW, viewH);
+        [self.itemsArray addObject:viewAttrs];
+
+        NSInteger itemCount = [self.collectionView numberOfItemsInSection:i];
+        for (int j = 0; j &lt; itemCount; j++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:j inSection:i];
+            UICollectionViewLayoutAttributes *itemAttribute =[UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+            //计算行列索引
+            NSInteger num = (KColumnCount - KChangeCount) * KChangeCount;
+            NSInteger row = (j - num - 1) / KColumnCount + KChangeCount;
+            NSInteger col = (j - num - 1) % KColumnCount;
+            //计算item的X/Y值
+            CGFloat itemX = insets.left + (itemW + rowMargin) * col;
+            CGFloat itemY = startY + insets.top + (itemH + colMargin) * row;
+            //图片
+            if (j == 0) {
+                itemX = insets.left;
+                itemY = startY + insets.top;
+                itemAttribute.frame = CGRectMake(itemX, itemY, imageW, imageH);
+                [self.itemsArray addObject:itemAttribute];
+                continue;
+            }
+            if (j &lt;= num) {
+                //重新计算行列索引
+                row = (j - 1) / (KColumnCount - KChangeCount);
+                col = (j - 1) % (KColumnCount - KChangeCount);
+                //计算item的X/Y值
+                itemX = insets.left + imageW + rowMargin + (itemW + rowMargin) * col;
+                itemY = startY + insets.top + (itemH + colMargin) * row;
+            }
+            itemAttribute.frame = CGRectMake(itemX, itemY, itemW , itemH);
+            [self.itemsArray addObject:itemAttribute];
+            _maxY = CGRectGetMaxY(itemAttribute.frame);
+        }
+        indexPath = [NSIndexPath indexPathForItem:itemCount inSection:i];
+        viewAttrs = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:indexPath];
+        viewAttrs.frame = CGRectMake(0, _maxY + insets.bottom, viewW, bottomViewH);
+        [self.itemsArray addObject:viewAttrs];
+        _maxY = _maxY + insets.bottom + bottomViewH;
+        viewY = _maxY;
+        startY = _maxY + viewH + insets.top;
+    }
+    self.collectionView.contentSize = CGSizeMake(0, _maxY);
+}
+
+- (CGSize)collectionViewContentSize {
+    return self.collectionView.contentSize;
+}
+
+- (NSArray&lt;UICollectionViewLayoutAttributes *&gt; *)layoutAttributesForElementsInRect:(CGRect)rect {
+    return self.itemsArray;
+}
+
+- (NSMutableArray *)itemsArray {
+    if (!_itemsArray) {
+        _itemsArray = [NSMutableArray array];
+    }
+    return _itemsArray;
+}
+@end
+</code></pre><h4 id="ViewController"><a href="#ViewController" class="headerlink" title="ViewController"></a>ViewController</h4><pre><code>#import &quot;ZCFoodViewController.h&quot;
+#import &quot;ZCFlowLayout.h&quot;
+#import &quot;ZCCategoryModel.h&quot;
+#import &quot;ZCCollectionHeaderView.h&quot;
+#import &quot;ZCImageCell.h&quot;
+#import &quot;ZCWordCell.h&quot;
+#import &quot;ZCMaterialDescriptionViewController.h&quot;
+#import &quot;ZCFavoriteViewController.h&quot;
+#import &quot;ZCFoodTherapyViewController.h&quot;
+
+#import &quot;ZCCategoryModel.h&quot;
+#import &quot;ZCFoodModel.h&quot;
+
+@interface ZCFoodViewController ()&lt;UICollectionViewDelegateFlowLayout&gt;
+@property (nonatomic, weak) ZCFlowLayout *flowLayout;
+@property (nonatomic, strong) NSArray *dataArray;
+@end
+static NSString *const headerIdentifier = @&quot;header&quot;;
+static NSString *const footerIdentifier = @&quot;footer&quot;;
+static NSString *imageId = @&quot;imageCell&quot;;
+static NSString *wordId = @&quot;wordCell&quot;;
+@implementation ZCFoodViewController
+// 初始化自动设置流水布局
+- (instancetype)init
+{
+    ZCFlowLayout *flowLayout = [[ZCFlowLayout alloc] init];
+    self.flowLayout = flowLayout;
+    self = [super initWithCollectionViewLayout:flowLayout];
+    if (self) {}
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // 设置CollectionView
+    [self setupCollectionView];
+    //添加刷新控件
+    [self addRefresh];
+}
+// 设置CollectionView
+- (void)setupCollectionView {
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+    // 注册cell
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ZCImageCell class]) bundle:nil] forCellWithReuseIdentifier:imageId];
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ZCWordCell class]) bundle:nil] forCellWithReuseIdentifier:wordId];
+    // 注册section头／尾
+    [self.collectionView registerClass:[ZCCollectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerIdentifier];
+    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footerIdentifier];
+    self.collectionView.contentInset = UIEdgeInsetsMake(64, 0, 49, 0);
+    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 49, 0);
+    self.flowLayout.minimumInteritemSpacing = 10;
+    self.flowLayout.minimumLineSpacing = 10;
+}
+//添加刷新控件
+- (void)addRefresh {
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    //加载数据
+    [self.collectionView.mj_header beginRefreshing];
+}
+// 获取数据
+- (void)loadNewData {
+    // 设置请求参数
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@&quot;methodName&quot;] = self.methodName;
+    parameters[@&quot;version&quot;] = @4.4;
+    [[ZCNetWorking sharedInstance] postWithUrlString:@&quot;http://api.izhangchu.com/?appVersion=4.4&amp;sysVersion=9.3.2&amp;devModel=iPhone&quot; withParameter:parameters withComplection:^(NSDictionary *responseObject) {
+        self.dataArray = [ZCCategoryModel mj_objectArrayWithKeyValuesArray:responseObject[@&quot;data&quot;][@&quot;data&quot;]];
+        [self.collectionView reloadData];
+        [self.collectionView.mj_header endRefreshing];
+    } withFailure:^(NSError *error) {
+        [self.collectionView.mj_header endRefreshing];
+        [SVProgressHUD showErrorWithStatus:@&quot;加载失败&quot;];
+    }];
+}
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return self.dataArray.count;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    NSInteger count = [[self.dataArray[section] foodArray] count];
+    return  count ? count + 1 : 0 ;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.item) {
+        ZCWordCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:wordId forIndexPath:indexPath];
+        ZCFoodModel *model = [self.dataArray[indexPath.section] foodArray][indexPath.item - 1];
+        cell.textLabel.text = model.text;
+        return cell;
+    }
+    ZCImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:imageId forIndexPath:indexPath];
+    ZCCategoryModel *model = self.dataArray[indexPath.section];
+    [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.image]];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.item) {
+        ZCFoodModel *model = [self.dataArray[indexPath.section] foodArray][indexPath.item - 1];
+        if ([self.methodName  isEqual: @&quot;MaterialSubtype&quot;]) {
+            //食疗
+            ZCMaterialDescriptionViewController *descVc = [[ZCMaterialDescriptionViewController alloc] init];
+            descVc.title = model.text;
+            descVc.ID = model.ID;
+            [self.navigationController pushViewController:descVc animated:YES];
+            return;
+        }
+        if ([self.methodName  isEqual: @&quot;CategoryIndex&quot;]) {
+            //分类
+            if (model.type == 1) {
+                ZCFavoriteViewController *favoriteVc = [[ZCFavoriteViewController alloc] init];
+                favoriteVc.title = model.text;
+                NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+                parameters[@&quot;size&quot;] = @20;
+                parameters[@&quot;page&quot;] = @1;
+                parameters[@&quot;methodName&quot;] = @&quot;CategorySearch&quot;;
+                parameters[@&quot;cat_id&quot;] = model.ID;
+                parameters[@&quot;type&quot;] = @1;
+                parameters[@&quot;version&quot;] = @4.4;
+                favoriteVc.parameters = parameters;
+                [self.navigationController pushViewController:favoriteVc animated:YES];
+                return;
+            }
+            if (model.type == 2) {
+                //食疗
+                ZCFoodTherapyViewController *thrapyVc = [[ZCFoodTherapyViewController alloc] init];
+                thrapyVc.department_id = model.ID;
+                [self.navigationController pushViewController:thrapyVc animated:YES];
+            }
+        }
+    }
+}
+
+//设置头部/尾部视图
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        ZCCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerIdentifier forIndexPath:indexPath];
+        ZCCategoryModel *model = self.dataArray[indexPath.section];
+        headerView.titleLabel.text = model.text;
+        return headerView;
+    } else {
+        UICollectionReusableView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:footerIdentifier forIndexPath:indexPath];
+        footerView.backgroundColor = ZC_GLOBAL_COLOR;
+        return footerView;
+    }
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+//sectionHeaderSize
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(0, ZCFoodHeaderViewH);
+}
+//sectionFooterSize
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    return CGSizeMake(0, ZCFoodBottomViewH);
+}
+
+@end
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/07/UINavigationcontroller/" itemprop="url">
                   UINavigationController
                 </a>
@@ -1651,6 +2088,137 @@ sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol); // 长整型数据
             
               
                 
+                <a class="post-title-link" href="/2016/07/07/storyboardandxib/" itemprop="url">
+                  StoryboardAndXib
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/UI/" itemprop="url" rel="index">
+                    <span itemprop="name">UI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/storyboardandxib/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/storyboardandxib/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="xib-和-storyboard-的异同点"><a href="#xib-和-storyboard-的异同点" class="headerlink" title="xib 和 storyboard 的异同点"></a>xib 和 storyboard 的异同点</h3><pre><code>共同点: 可以设置 UI 界面
+
+不同的: storyboard(描述整个界面) 可以进行界面跳转, 是重量级的
+        xib(描述局部界面) 轻量级
+</code></pre><ul>
+<li>xib</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回一个数组 按 xib 拖放顺序</span></div><div class="line">[[<span class="built_in">NSBundle</span> mainBundle] loadNidNamed:<span class="string">@"xib的文件名"</span> ower:<span class="literal">nil</span> options: <span class="literal">nil</span>];</div><div class="line"></div><div class="line">loadNibNamed:  xib 的名字 返回数组</div><div class="line">使用 loadNibNamed: 的原因</div><div class="line">在项目文件中, xib 文件是以 .xib 结尾</div><div class="line">安装之后, 就自动的以 .nib 结尾</div><div class="line">执行command+R 相当于在模拟器上安装了应用程序</div></pre></td></tr></table></figure>
+<ul>
+<li>storyboard</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIStoryboard</span> *sb = [<span class="built_in">UIStoryboard</span> storyboardWithName:<span class="string">@"ZXXLoteryHallViewController"</span> bundle:<span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//当前 storyboard 箭头所指的控制器</span></div><div class="line"><span class="built_in">UIViewController</span> = sb.instantiateInitialViewController;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/07/UIApplication补充/" itemprop="url">
                   UIApplication对象介绍
                 </a>
@@ -1881,348 +2449,6 @@ sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol); // 长整型数据
 </li>
 </ul>
 
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/storyboardandxib/" itemprop="url">
-                  StoryboardAndXib
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/UI/" itemprop="url" rel="index">
-                    <span itemprop="name">UI</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/storyboardandxib/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/storyboardandxib/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="xib-和-storyboard-的异同点"><a href="#xib-和-storyboard-的异同点" class="headerlink" title="xib 和 storyboard 的异同点"></a>xib 和 storyboard 的异同点</h3><pre><code>共同点: 可以设置 UI 界面
-
-不同的: storyboard(描述整个界面) 可以进行界面跳转, 是重量级的
-        xib(描述局部界面) 轻量级
-</code></pre><ul>
-<li>xib</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回一个数组 按 xib 拖放顺序</span></div><div class="line">[[<span class="built_in">NSBundle</span> mainBundle] loadNidNamed:<span class="string">@"xib的文件名"</span> ower:<span class="literal">nil</span> options: <span class="literal">nil</span>];</div><div class="line"></div><div class="line">loadNibNamed:  xib 的名字 返回数组</div><div class="line">使用 loadNibNamed: 的原因</div><div class="line">在项目文件中, xib 文件是以 .xib 结尾</div><div class="line">安装之后, 就自动的以 .nib 结尾</div><div class="line">执行command+R 相当于在模拟器上安装了应用程序</div></pre></td></tr></table></figure>
-<ul>
-<li>storyboard</li>
-</ul>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIStoryboard</span> *sb = [<span class="built_in">UIStoryboard</span> storyboardWithName:<span class="string">@"ZXXLoteryHallViewController"</span> bundle:<span class="literal">nil</span>];</div><div class="line"></div><div class="line"><span class="comment">//当前 storyboard 箭头所指的控制器</span></div><div class="line"><span class="built_in">UIViewController</span> = sb.instantiateInitialViewController;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/NSOperation/" itemprop="url">
-                  NSOperation
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:38:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Net/" itemprop="url" rel="index">
-                    <span itemprop="name">Net</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/NSOperation/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/NSOperation/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、NSOperation简介"><a href="#一、NSOperation简介" class="headerlink" title="一、NSOperation简介"></a>一、NSOperation简介</h2><h4 id="1、NSOperation的作用"><a href="#1、NSOperation的作用" class="headerlink" title="1、NSOperation的作用"></a>1、NSOperation的作用</h4><ul>
-<li>是OC语言中基于GCD的面向对象的封装</li>
-<li>使用起来比GCD更加简单（面向对象）</li>
-<li>提供了一些用GCD不好实现的功能</li>
-<li>苹果推荐使用，使用NSOperation不用关心线程以及线程的生命周期</li>
-</ul>
-<h4 id="2、查看NSOperation的头文件"><a href="#2、查看NSOperation的头文件" class="headerlink" title="2、查看NSOperation的头文件"></a>2、查看NSOperation的头文件</h4><ul>
-<li>NSOperation是一个抽象类<ol>
-<li>不能直接使用（方法没有实现）</li>
-<li>约束子类都具有共同的属性和方法</li>
-</ol>
-</li>
-<li>NSOperation的子类<ol>
-<li>NSInvocationOperation</li>
-<li>NSBlockOperation</li>
-<li>自定义operation</li>
-</ol>
-</li>
-</ul>
-<h4 id="3、使用步骤"><a href="#3、使用步骤" class="headerlink" title="3、使用步骤"></a>3、使用步骤</h4><h6 id="NSOperation和NSOperationQueue实现多线程的具体步骤"><a href="#NSOperation和NSOperationQueue实现多线程的具体步骤" class="headerlink" title="NSOperation和NSOperationQueue实现多线程的具体步骤"></a>NSOperation和NSOperationQueue实现多线程的具体步骤</h6><ul>
-<li>先将需要执行的操作封装到一个NSOperation对象中</li>
-<li>然后将NSOperation对象添加到NSOperationQueue中</li>
-<li>系统会自动将NSOperationQueue中的NSOperation取出来</li>
-<li>将取出的NSOperation封装的操作放到一条新线程中执行</li>
-</ul>
-<h2 id="二、NSOperation"><a href="#二、NSOperation" class="headerlink" title="二、NSOperation"></a>二、NSOperation</h2><h4 id="1、NSInvocationOperation"><a href="#1、NSInvocationOperation" class="headerlink" title="1、NSInvocationOperation"></a>1、NSInvocationOperation</h4><h6 id="建NSInvocationOperation对象"><a href="#建NSInvocationOperation对象" class="headerlink" title="建NSInvocationOperation对象"></a>建NSInvocationOperation对象</h6><pre><code>- (id)initWithTarget:(id)target selector:(SEL)sel object:(id)arg;
-</code></pre><h6 id="调用start方法开始执行操作"><a href="#调用start方法开始执行操作" class="headerlink" title="调用start方法开始执行操作"></a>调用start方法开始执行操作</h6><pre><code>- (void)start;
-</code></pre><p><strong>一旦执行操作，就会调用target的sel方法</strong></p>
-<h6 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h6><ul>
-<li>默认情况下，调用了start方法后并不会开一条新线程去执行操作，而是在当前线程同步执行操作</li>
-<li>只有将NSOperation放到一个NSOperationQueue中，才会异步执行操作,年代久远，不常用。</li>
-</ul>
-<h4 id="2、NSBlockOperation"><a href="#2、NSBlockOperation" class="headerlink" title="2、NSBlockOperation"></a>2、NSBlockOperation</h4><h6 id="创建NSBlockOperation对象"><a href="#创建NSBlockOperation对象" class="headerlink" title="创建NSBlockOperation对象"></a>创建NSBlockOperation对象</h6><pre><code>+ (id)blockOperationWithBlock:(void (^)(void))block;
-</code></pre><h6 id="通过addExecutionBlock-方法添加更多的操作"><a href="#通过addExecutionBlock-方法添加更多的操作" class="headerlink" title="通过addExecutionBlock:方法添加更多的操作"></a>通过addExecutionBlock:方法添加更多的操作</h6><pre><code>- (void)addExecutionBlock:(void (^)(void))block;
-</code></pre><p><strong>注意：只要NSBlockOperation封装的操作数 &gt; 1，就会异步执行操作</strong></p>
-<h4 id="3、NSOperationQueue"><a href="#3、NSOperationQueue" class="headerlink" title="3、NSOperationQueue"></a>3、NSOperationQueue</h4><h6 id="NSOperationQueue的作用"><a href="#NSOperationQueue的作用" class="headerlink" title="NSOperationQueue的作用"></a>NSOperationQueue的作用</h6><pre><code>NSOperation可以调用start方法来执行任务，但默认是同步执行的
-如果将NSOperation添加到NSOperationQueue（操作队列）中，系统会自动异步执行NSOperation中的操作
-</code></pre><h6 id="添加操作到NSOperationQueue中"><a href="#添加操作到NSOperationQueue中" class="headerlink" title="添加操作到NSOperationQueue中"></a>添加操作到NSOperationQueue中</h6><pre><code>- (void)addOperation:(NSOperation *)op;
-- (void)addOperationWithBlock:(void (^)(void))block;
-</code></pre><h6 id="监听操作完成"><a href="#监听操作完成" class="headerlink" title="监听操作完成"></a>监听操作完成</h6><pre><code>可以监听一个操作的执行完毕
-- (void (^)(void))completionBlock;
-- (void)setCompletionBlock:(void (^)(void))block;
-</code></pre><h4 id="4、最大并发数"><a href="#4、最大并发数" class="headerlink" title="4、最大并发数"></a>4、最大并发数</h4><h6 id="什么是并发数"><a href="#什么是并发数" class="headerlink" title="什么是并发数"></a>什么是并发数</h6><ul>
-<li>同时执行的任务数</li>
-<li>比如，同时开3个线程执行3个任务，并发数就是3</li>
-</ul>
-<h6 id="最大并发数的相关方法"><a href="#最大并发数的相关方法" class="headerlink" title="最大并发数的相关方法"></a>最大并发数的相关方法</h6><pre><code>- (NSInteger)maxConcurrentOperationCount;
-- (void)setMaxConcurrentOperationCount:(NSInteger)cnt;
-</code></pre><h4 id="5、队列的暂停、取消、恢复"><a href="#5、队列的暂停、取消、恢复" class="headerlink" title="5、队列的暂停、取消、恢复"></a>5、队列的暂停、取消、恢复</h4><h6 id="取消队列的所有操作"><a href="#取消队列的所有操作" class="headerlink" title="取消队列的所有操作"></a>取消队列的所有操作</h6><pre><code>- (void)cancelAllOperations;
-提示：也可以调用NSOperation的- (void)cancel方法取消单个操作
-</code></pre><h6 id="暂停和恢复队列"><a href="#暂停和恢复队列" class="headerlink" title="暂停和恢复队列"></a>暂停和恢复队列</h6><pre><code>- (void)setSuspended:(BOOL)b; // YES代表暂停队列，NO代表恢复队列
-- (BOOL)isSuspended;
-</code></pre><h4 id="6、操作的优先级"><a href="#6、操作的优先级" class="headerlink" title="6、操作的优先级"></a>6、操作的优先级</h4><h6 id="设置NSOperation在queue中的优先级，可以改变操作的执行优先级"><a href="#设置NSOperation在queue中的优先级，可以改变操作的执行优先级" class="headerlink" title="设置NSOperation在queue中的优先级，可以改变操作的执行优先级"></a>设置NSOperation在queue中的优先级，可以改变操作的执行优先级</h6><pre><code>- (NSOperationQueuePriority)queuePriority;
-- (void)setQueuePriority:(NSOperationQueuePriority)p;
-</code></pre><h6 id="优先级的取值"><a href="#优先级的取值" class="headerlink" title="优先级的取值"></a>优先级的取值</h6><pre><code>NSOperationQueuePriorityVeryLow = -8L,
-NSOperationQueuePriorityLow = -4L,
-NSOperationQueuePriorityNormal = 0,
-NSOperationQueuePriorityHigh = 4,
-NSOperationQueuePriorityVeryHigh = 8
-
-iOS8 @property NSQualityOfService qualityOfService
-
-NSQualityOfServiceUserInteractive = 0x21,
-NSQualityOfServiceUserInitiated = 0x19,
-NSQualityOfServiceUtility = 0x11,
-NSQualityOfServiceBackground = 0x09,
-NSQualityOfServiceDefault = -1
-</code></pre><h4 id="7、操作依赖"><a href="#7、操作依赖" class="headerlink" title="7、操作依赖"></a>7、操作依赖</h4><h6 id="NSOperation之间可以设置依赖来保证执行顺序"><a href="#NSOperation之间可以设置依赖来保证执行顺序" class="headerlink" title="NSOperation之间可以设置依赖来保证执行顺序"></a>NSOperation之间可以设置依赖来保证执行顺序</h6><pre><code>比如一定要让操作A执行完后，才能执行操作B，可以这么写
-[operationB addDependency:operationA]; // 操作B依赖于操作A
-可以在不同queue的NSOperation之间创建依赖关系
-</code></pre><p><strong>注意不能相符依赖</strong></p>
-<h4 id="8、线程间通信"><a href="#8、线程间通信" class="headerlink" title="8、线程间通信"></a>8、线程间通信</h4><h6 id="子线程-gt-主线程"><a href="#子线程-gt-主线程" class="headerlink" title="子线程-&gt;主线程"></a>子线程-&gt;主线程</h6><pre><code>[self.queue addOperationWithBlock:^{
-        //子线程
-        //do something
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            //主线程的任务,操作UI等
-        }];
-    }];
-</code></pre><h4 id="9、自定义NSOperation"><a href="#9、自定义NSOperation" class="headerlink" title="9、自定义NSOperation"></a>9、自定义NSOperation</h4><h6 id="重写main方法，把我们想要执行的代码放到该方法中去运行。"><a href="#重写main方法，把我们想要执行的代码放到该方法中去运行。" class="headerlink" title="重写main方法，把我们想要执行的代码放到该方法中去运行。"></a>重写main方法，把我们想要执行的代码放到该方法中去运行。</h6><pre><code>- (void)main;
-</code></pre><h2 id="3、NSOperation-VS-GCD"><a href="#3、NSOperation-VS-GCD" class="headerlink" title="3、NSOperation VS GCD"></a>3、NSOperation VS GCD</h2><h4 id="1、GCD"><a href="#1、GCD" class="headerlink" title="1、GCD"></a>1、GCD</h4><pre><code>i.  GCD是iOS4.0 推出的，主要针对多核cpu做了优化，是C语言的技术
-ii. GCD是将任务(block)添加到队列(串行/并行/全局/主队列)，并且以同步/异步的方式执行任务的函数
-iii.GCD提供了一些NSOperation不具备的功能
-1.    一次性执行
-2.    延迟执行
-3.    调度组
-</code></pre><h4 id="2、NSOperation"><a href="#2、NSOperation" class="headerlink" title="2、NSOperation"></a>2、NSOperation</h4><pre><code>i.  NSOperation是iOS2.0推出的，iOS4之后重写了NSOperation
-ii.    NSOperation将操作(异步的任务)添加到队列(并发队列)，就会执行指定操作的函数
-iii.NSOperation里提供的方便的操作
-1.    最大并发数
-2.    队列的暂定/继续
-3.    取消所有的操作
-4.    指定操作之间的依赖关系(GCD可以用同步实现)
-</code></pre>
           
         
       
@@ -2579,7 +2805,7 @@ sharedApplication : 返回应用程序的单例对象
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">102</span>
+              <span class="site-state-item-count">103</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2587,7 +2813,7 @@ sharedApplication : 返回应用程序的单例对象
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2596,7 +2822,7 @@ sharedApplication : 返回应用程序的单例对象
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

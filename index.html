@@ -296,6 +296,131 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/01/C语言/" itemprop="url">
+                  C语言
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-01T10:39:40+08:00" content="2016-08-01">
+              2016-08-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C语言/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/01/C语言/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/01/C语言/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//数组的打印</span></div><div class="line"><span class="keyword">void</span> printArr(<span class="keyword">int</span> a[],<span class="keyword">int</span> num)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; i++)</div><div class="line">    printf(<span class="string">"a[%d] = %d\n"</span>, i, a[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###1.冒泡排序</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> test1()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> a[<span class="number">10</span>] = &#123;<span class="number">78</span>, <span class="number">27</span>, <span class="number">48</span>, <span class="number">69</span>, <span class="number">83</span>, <span class="number">59</span>, <span class="number">99</span>, <span class="number">68</span>, <span class="number">53</span>&#125;;</div><div class="line">    <span class="keyword">int</span> n = <span class="number">9</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n - <span class="number">1</span> - i; j++) &#123;</div><div class="line">            <span class="keyword">if</span> (a[j] &gt; a[j + <span class="number">1</span>]) &#123;</div><div class="line">                <span class="keyword">int</span> temp = a[j + <span class="number">1</span>];</div><div class="line">                a[j + <span class="number">1</span>] = a[j];</div><div class="line">                a[j] = temp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    printArr(a, n);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-选择排序"><a href="#2-选择排序" class="headerlink" title="2.选择排序"></a>2.选择排序</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> test2()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> a[<span class="number">10</span>] = &#123;<span class="number">78</span>, <span class="number">27</span>, <span class="number">48</span>, <span class="number">69</span>, <span class="number">83</span>, <span class="number">59</span>, <span class="number">99</span>, <span class="number">68</span>, <span class="number">53</span>&#125;;</div><div class="line">    <span class="keyword">int</span> n = <span class="number">9</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; n; j++) &#123;</div><div class="line">            <span class="keyword">if</span> (a[j] &lt; a[i]) &#123;</div><div class="line">                <span class="keyword">int</span> temp = a[j];</div><div class="line">                a[j] = a[i];</div><div class="line">                a[i] = temp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    printArr(a, n);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###3.插入排序</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> test3()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> a[<span class="number">10</span>] = &#123;<span class="number">78</span>, <span class="number">27</span>, <span class="number">48</span>, <span class="number">69</span>, <span class="number">83</span>, <span class="number">59</span>, <span class="number">99</span>, <span class="number">68</span>, <span class="number">53</span>&#125;;</div><div class="line">    <span class="keyword">int</span> n = <span class="number">9</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</div><div class="line">        <span class="keyword">int</span> temp = a[i];</div><div class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (; j &lt; i; j++) &#123;</div><div class="line">            <span class="keyword">if</span> (a[j] &gt; a[i]) <span class="keyword">break</span>;<span class="comment">//需要在J这个位置进行插入</span></div><div class="line">        &#125;</div><div class="line">        <span class="comment">//if(j &lt; i)&#123;// 此if判断多余，与k = i - 1,k &gt;= j;重复</span></div><div class="line">            <span class="comment">//把该向后移动的元素向后移动</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = i - <span class="number">1</span>; k &gt;= j; k--) &#123;</div><div class="line">            a[k + <span class="number">1</span>] = a[k];</div><div class="line">        &#125;</div><div class="line">        a[j] = temp;</div><div class="line">       <span class="comment">// &#125;</span></div><div class="line">    &#125;</div><div class="line">    printArr(a, n);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/19/ios面试题集/" itemprop="url">
                   ios面试题集
                 </a>
@@ -1841,156 +1966,6 @@ UITextFieldViewModeAlways            //任何时候都显示
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/07/protocol/" itemprop="url">
-                  Protocol
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-07T11:39:06+08:00" content="2016-07-07">
-              2016-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective-C</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/07/protocol/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/protocol/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="1、什么是Protocol"><a href="#1、什么是Protocol" class="headerlink" title="1、什么是Protocol?"></a>1、什么是Protocol?</h2><ul>
-<li>1）Protocol中文意思：协议。</li>
-<li>2）协议中只能声明一些方法。</li>
-<li>3）遵守了协议，就等于拥有了协议中的所有方法。</li>
-</ul>
-<h2 id="2、协议的基本用法："><a href="#2、协议的基本用法：" class="headerlink" title="2、协议的基本用法："></a>2、协议的基本用法：</h2><ul>
-<li><p>1、协议的定义格式：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@protocol</span> 协议名称</span></div><div class="line"><span class="comment">// 各种方法；</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>2、协议的使用格式：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> 类名 : <span class="title">NSObject</span> &lt;协议名1，协议名2，...&gt;</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="protocol的使用注意"><a href="#protocol的使用注意" class="headerlink" title="protocol的使用注意"></a>protocol的使用注意</h2><ul>
-<li>1）把同一类方法，放到1个协议当中</li>
-<li>2）1个类可以同时遵守多个协议。</li>
-<li>3）父类遵守了某个协议，子类也遵守了该协议。</li>
-<li>4）协议遵守协议：1个协议可以遵守多个协议。</li>
-</ul>
-<h2 id="protocol基协议介绍"><a href="#protocol基协议介绍" class="headerlink" title="protocol基协议介绍"></a>protocol基协议介绍</h2> <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">SportProtocol</span> &lt;<span class="title">NSObject</span>&gt;</span></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"> * 此处的<span class="built_in">NSObject</span>就是基协议，意义等同于继承<span class="built_in">NSObject</span>。</div><div class="line"> * 继承基协议的好处：能够拥有基协议当中所声明的所有方法。</div></pre></td></tr></table></figure>
-<ul>
-<li>总结：</li>
-<li>1、需要添加成员变量和方法时，建议使用继承</li>
-<li>2、只需要添加方法时，建议使用分类</li>
-<li>3、当很多不同类中，有共同的方法可以抽取时，类之间不存在继承关系，建议使用协议。</li>
-</ul>
-<h2 id="protocol中-required和-optional"><a href="#protocol中-required和-optional" class="headerlink" title="protocol中@required和@optional"></a>protocol中@required和@optional</h2><ul>
-<li>@required：用@required修饰的方法，必须实现。</li>
-<li>@optional：用@optional修饰的方法，可实现，可不实现。</li>
-<li>@required 和 @optional的主要意义:一般用于序员交流用。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2036,7 +2011,7 @@ UITextFieldViewModeAlways            //任何时候都显示
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">102</span>
+              <span class="site-state-item-count">103</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2044,7 +2019,7 @@ UITextFieldViewModeAlways            //任何时候都显示
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2053,7 +2028,7 @@ UITextFieldViewModeAlways            //任何时候都显示
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
